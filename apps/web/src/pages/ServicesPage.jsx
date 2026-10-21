@@ -88,6 +88,18 @@ const ServicesPage = () => {
           title: 'Web Development',
           description: 'Fast, responsive and secure websites that represent your brand professionally and turn visitors into customers.',
           benefits: ['Business & Ecommerce Websites', 'Responsive Design', 'Speed & Security']
+        },
+        {
+          icon: Settings,
+          title: 'Automation Solutions',
+          description: 'Reduce repetitive work with practical workflows and integrations tailored to your business.',
+          benefits: ['Workflow Discovery', 'Process Automation', 'Integration & Support']
+        },
+        {
+          icon: Lightbulb,
+          title: 'Graphic Design',
+          description: 'Create a consistent visual identity with polished brand assets and creative designed for your audience.',
+          benefits: ['Brand & Campaign Assets', 'Social & Digital Graphics', 'Reusable Design Templates']
         }
       ]
     },

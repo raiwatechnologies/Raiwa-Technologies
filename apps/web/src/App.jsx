@@ -7,6 +7,7 @@ import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import HomePage from '@/pages/HomePage.jsx';
 import ServicesPage from '@/pages/ServicesPage.jsx';
+import ServiceDetailPage from '@/pages/ServiceDetailPage.jsx';
 import PortfolioPage from '@/pages/PortfolioPage.jsx';
 import AboutPage from '@/pages/AboutPage.jsx';
 import ContactPage from '@/pages/ContactPage.jsx';
@@ -25,6 +26,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/services" element={<ServicesPage />} />
+              <Route path="/services/:slug" element={<ServiceDetailPage />} />
               <Route path="/portfolio" element={<PortfolioPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />

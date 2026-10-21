@@ -5,7 +5,7 @@ import Logo from '@/components/Logo.jsx';
 import { BRAND, getWhatsAppUrl } from '@/lib/brand.js';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+  const currentYear = 2020;
 
   const quickLinks = [
     { name: 'Home', path: '/' },
@@ -16,12 +16,12 @@ const Footer = () => {
   ];
 
   const serviceLinks = [
-    { name: 'Ecommerce', path: '/services#ecommerce' },
-    { name: 'Development', path: '/services#development' },
-    { name: 'Marketing', path: '/services#marketing' },
-    { name: 'Ads', path: '/services#ads' },
-    { name: 'SEO Optimization', path: '/services#seo' },
-    { name: 'Management', path: '/services#management' },
+    { name: 'TikTok Shop', path: '/services/tiktok-shop' },
+    { name: 'Amazon', path: '/services/amazon' },
+    { name: 'Web Development', path: '/services/web-development' },
+    { name: 'Digital Marketing', path: '/services/digital-marketing' },
+    { name: 'SEO Optimization', path: '/services/seo-optimization' },
+    { name: 'App Development', path: '/services/app-development' },
   ];
 
   return (

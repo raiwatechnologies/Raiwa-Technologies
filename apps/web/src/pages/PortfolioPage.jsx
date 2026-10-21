@@ -16,6 +16,7 @@ const PortfolioPage = () => {
   const projects = [
     {
       title: 'Amazon Store Launch & Growth',
+      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1400&q=85',
       client: 'Ecommerce · Amazon',
       category: 'Ecommerce',
       icon: ShoppingCart,
@@ -28,6 +29,7 @@ const PortfolioPage = () => {
     },
     {
       title: 'Multi-Marketplace Expansion',
+      image: 'https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=1400&q=85',
       client: 'Ecommerce · eBay, Walmart, Temu, Daraz',
       category: 'Ecommerce',
       icon: Globe,
@@ -40,6 +42,7 @@ const PortfolioPage = () => {
     },
     {
       title: 'Shopify & TikTok Shop Setup',
+      image: 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=1400&q=85',
       client: 'Ecommerce · Shopify, TikTok Shop',
       category: 'Ecommerce',
       icon: ShoppingBag,
@@ -52,6 +55,7 @@ const PortfolioPage = () => {
     },
     {
       title: 'Game & App Development',
+      image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=85',
       client: 'Development · Games, Apps, Web',
       category: 'Development',
       icon: Gamepad2,
@@ -64,6 +68,7 @@ const PortfolioPage = () => {
     },
     {
       title: 'Social Media & Ads Campaigns',
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=85',
       client: 'Marketing · Meta Ads, Google Ads',
       category: 'Marketing',
       icon: Megaphone,
@@ -76,6 +81,7 @@ const PortfolioPage = () => {
     },
     {
       title: 'SEO & Search Visibility',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=85',
       client: 'SEO · Websites & Marketplaces',
       category: 'SEO',
       icon: Search,
@@ -176,10 +182,10 @@ const PortfolioPage = () => {
         <section className="py-24 bg-background relative z-20 -mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <StatCard number="100%" label="Account Handling Perfection" icon={Award} index={0} />
-              <StatCard number="20+" label="Satisfied Clients" icon={Users} index={1} />
-              <StatCard number="$10K+" label="Revenue Generated" icon={DollarSign} index={2} />
-              <StatCard number="99%" label="Client Retention" icon={ThumbsUp} index={3} />
+              <StatCard number="End-to-end" label="Service Delivery" icon={Award} index={0} />
+              <StatCard number="Multi-channel" label="Marketplace Support" icon={Users} index={1} />
+              <StatCard number="Custom" label="Growth Strategies" icon={DollarSign} index={2} />
+              <StatCard number="Ongoing" label="Optimization & Support" icon={ThumbsUp} index={3} />
             </div>
           </div>
         </section>
