@@ -11,12 +11,12 @@ import { Link } from 'react-router-dom';
 const PortfolioPage = () => {
   const [filter, setFilter] = useState('All');
 
-  const categories = ['All', 'Ecommerce', 'Development', 'Marketing', 'Ads', 'SEO Optimization', 'Management'];
+  const categories = ['All', 'Ecommerce', 'Development', 'Marketing', 'SEO'];
 
   const projects = [
     {
       title: 'Amazon Store Launch & Growth',
-      image: '/service-assets/amazon-theme-image.jpg',
+      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1400&q=85',
       client: 'Ecommerce · Amazon',
       category: 'Ecommerce',
       icon: ShoppingCart,
@@ -29,7 +29,7 @@ const PortfolioPage = () => {
     },
     {
       title: 'Multi-Marketplace Expansion',
-      image: '/service-assets/wall-mart-theme.jpg',
+      image: 'https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=1400&q=85',
       client: 'Ecommerce · eBay, Walmart, Temu, Daraz',
       category: 'Ecommerce',
       icon: Globe,
@@ -42,7 +42,7 @@ const PortfolioPage = () => {
     },
     {
       title: 'Shopify & TikTok Shop Setup',
-      image: '/service-assets/shopify-theme.jpg',
+      image: 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=1400&q=85',
       client: 'Ecommerce · Shopify, TikTok Shop',
       category: 'Ecommerce',
       icon: ShoppingBag,
@@ -55,7 +55,7 @@ const PortfolioPage = () => {
     },
     {
       title: 'Game & App Development',
-      image: '/service-assets/app-development-theme.jpg',
+      image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=85',
       client: 'Development · Games, Apps, Web',
       category: 'Development',
       icon: Gamepad2,
@@ -68,9 +68,9 @@ const PortfolioPage = () => {
     },
     {
       title: 'Social Media & Ads Campaigns',
-      image: '/service-assets/meta-ads-theme.jpg',
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=85',
       client: 'Marketing · Meta Ads, Google Ads',
-      category: 'Ads',
+      category: 'Marketing',
       icon: Megaphone,
       description: 'Targeted Meta and Google ad campaigns paired with Instagram, Facebook and TikTok content that builds awareness and drives customers to buy.',
       tags: ['Meta Ads', 'Google Ads', 'Social Media'],
@@ -81,9 +81,9 @@ const PortfolioPage = () => {
     },
     {
       title: 'SEO & Search Visibility',
-      image: '/service-assets/seo-optimization-theme.jpg',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=85',
       client: 'SEO · Websites & Marketplaces',
-      category: 'SEO Optimization',
+      category: 'SEO',
       icon: Search,
       description: 'Technical audits, keyword research and on-page optimization that help websites and marketplace listings get found by high-intent buyers.',
       tags: ['Technical SEO', 'Keywords', 'Content'],

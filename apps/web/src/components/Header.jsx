@@ -1,17 +1,106 @@
-import React,{useEffect,useRef,useState} from 'react';
-import {Link,useLocation} from 'react-router-dom';
-import {Menu,X,ChevronDown,ChevronRight} from 'lucide-react';
-import {Button} from '@/components/ui/button.jsx';
-import {cn} from '@/lib/utils.js';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, ChevronDown, Code2, Megaphone, Palette, BriefcaseBusiness, Search, Smartphone, Settings, ShoppingBag, Video, Globe, Gamepad2, Share2, Target, Workflow } from 'lucide-react';
+import { Button } from '@/components/ui/button.jsx';
+import { cn } from '@/lib/utils.js';
 import Logo from '@/components/Logo.jsx';
-import {services,servicePath,mainServices,mainServicePath} from '@/lib/services.js';
-const Header=()=>{const [mobile,setMobile]=useState(false);const [open,setOpen]=useState(false);const [active,setActive]=useState('ecommerce');const location=useLocation();const ref=useRef(null);
- useEffect(()=>{setMobile(false);setOpen(false)},[location.pathname]);
- useEffect(()=>{const outside=e=>{if(ref.current&&!ref.current.contains(e.target))setOpen(false)};const key=e=>{if(e.key==='Escape')setOpen(false)};document.addEventListener('mousedown',outside);document.addEventListener('keydown',key);return()=>{document.removeEventListener('mousedown',outside);document.removeEventListener('keydown',key)}},[]);
- const nav=[{name:'Portfolio',path:'/portfolio'},{name:'About',path:'/about'},{name:'Contact',path:'/contact'}];
- const children=(group)=>group.children.map(s=>services.find(item=>item.slug===s)).filter(Boolean);
- return <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-border"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div className="flex items-center justify-between h-20"><Link to="/" className="flex-shrink-0 flex items-center gap-2 group" aria-label="Raiwa Technologies home"><Logo className="w-12 h-12 transition-transform duration-300 group-hover:scale-105"/><span className="text-xl sm:text-2xl font-bold font-heading tracking-tight text-foreground">Raiwa<span className="text-primary"> Technologies</span></span></Link>
- <nav className="hidden md:flex items-center gap-5 lg:gap-8" aria-label="Main navigation"><Link to="/" className={cn('text-sm font-semibold py-2 hover:text-primary',location.pathname==='/'?'text-primary':'text-foreground/80')}>Home</Link><div className="relative" ref={ref} onMouseEnter={()=>setOpen(true)} onMouseLeave={()=>setOpen(false)}><button type="button" aria-expanded={open} onClick={()=>setOpen(v=>!v)} className={cn('inline-flex items-center gap-1 text-sm font-semibold py-2 hover:text-primary',location.pathname.startsWith('/services')?'text-primary':'text-foreground/80')}>Services <ChevronDown className={cn('w-4 h-4 transition-transform',open&&'rotate-180')}/></button>{open&&<div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[720px] z-50"><div className="bg-white border border-slate-100 rounded-2xl shadow-2xl p-3 grid grid-cols-[230px_1fr] max-h-[75vh] overflow-hidden"><div className="border-r border-slate-100 pr-2 overflow-y-auto">{mainServices.map(group=><button key={group.slug} onMouseEnter={()=>setActive(group.slug)} onClick={()=>setActive(group.slug)} className={cn('w-full flex items-center justify-between text-left rounded-xl px-3 py-3 text-sm font-semibold transition-colors',active===group.slug?'bg-purple-50 text-primary':'text-slate-600 hover:bg-slate-50')}><span>{group.title}</span><ChevronRight className="w-4 h-4"/></button>)}<Link to="/services" className="block border-t border-slate-100 mt-2 pt-3 px-3 pb-1 text-sm font-bold text-primary">All services →</Link></div><div className="pl-3 py-1 overflow-y-auto"><div className="flex items-center justify-between gap-3 px-3 pb-3 border-b border-slate-100"><div><p className="text-xs uppercase tracking-[.18em] text-slate-400 font-bold">Main service</p><Link to={mainServicePath(mainServices.find(g=>g.slug===active)||mainServices[0])} className="text-lg font-bold text-primary-dark hover:text-primary">{(mainServices.find(g=>g.slug===active)||mainServices[0]).title}</Link></div><span className="text-xs text-slate-400">Explore sub-services</span></div><div className="grid grid-cols-2 gap-1 pt-2">{children(mainServices.find(g=>g.slug===active)||mainServices[0]).map(item=><Link key={item.slug} to={servicePath(item)} className="flex items-center gap-3 rounded-xl px-3 py-3 hover:bg-slate-50 text-sm text-slate-600 hover:text-primary"><span className="w-10 h-10 rounded-lg border border-slate-100 bg-white flex items-center justify-center shrink-0 overflow-hidden">{item.logoUrl?<img src={item.logoUrl} alt="" className="w-7 h-7 object-contain"/>:<item.icon className="w-5 h-5" style={{color:item.accent}}/>}</span><span className="font-semibold leading-tight">{item.title}</span></Link>)}</div></div></div></div>}</div>{nav.map(link=><Link key={link.name} to={link.path} className={cn('text-sm font-semibold transition-colors py-2 hover:text-primary',location.pathname===link.path?'text-primary':'text-foreground/80')}>{link.name}</Link>)}</nav>
- <div className="hidden md:flex items-center gap-4"><Link to="/contact"><Button className="bg-primary hover:bg-primary-light text-white font-bold px-6 shadow-luxury">Get Started</Button></Link></div><div className="md:hidden flex items-center gap-3"><button onClick={()=>setMobile(!mobile)} aria-label={mobile?'Close menu':'Open menu'} aria-expanded={mobile} className="p-2 rounded-lg text-foreground hover:bg-muted">{mobile?<X className="w-6 h-6"/>:<Menu className="w-6 h-6"/>}</button></div></div></div>
- {mobile&&<div className="md:hidden absolute top-20 left-0 right-0 bg-white border-b border-border shadow-lg max-h-[80vh] overflow-y-auto"><div className="px-4 pt-2 pb-6 space-y-1"><Link to="/" className="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-muted">Home</Link><Link to="/services" className="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-muted">All Services</Link>{mainServices.map(group=><div key={group.slug} className="rounded-xl border border-slate-100 overflow-hidden"><button onClick={()=>setActive(active===group.slug?'':group.slug)} className="w-full flex justify-between items-center px-4 py-3 font-semibold hover:bg-muted">{group.title}<ChevronDown className={cn('w-4 h-4 transition-transform',active===group.slug&&'rotate-180')}/></button>{active===group.slug&&<div className="px-3 pb-2"><Link to={mainServicePath(group)} className="block px-3 py-2 text-sm font-bold text-primary">Overview: {group.title}</Link>{children(group).map(item=><Link key={item.slug} to={servicePath(item)} className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-foreground/80 hover:bg-purple-50"><span className="w-7 h-7 flex items-center justify-center">{item.logoUrl?<img src={item.logoUrl} alt="" className="w-6 h-6 object-contain"/>:<item.icon className="w-4 h-4"/>}</span>{item.title}</Link>)}</div>}</div>)}{nav.map(link=><Link key={link.name} to={link.path} className="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-muted">{link.name}</Link>)}<div className="pt-4"><Link to="/contact" className="block"><Button className="w-full bg-primary hover:bg-primary-light text-white font-bold h-12">Get Started</Button></Link></div></div></div>}</header>;
-};export default Header;
+import { services, servicePath } from '@/lib/services.js';
+
+const iconFor = (title) => {
+  const name = title.toLowerCase();
+  if (name.includes('tiktok')) return Video;
+  if (name.includes('amazon') || name.includes('shopify') || name.includes('marketplace') || name.includes('ebay') || name.includes('daraz') || name.includes('temu') || name.includes('walmart') || name.includes('mercari')) return ShoppingBag;
+  if (name.includes('web')) return Code2;
+  if (name.includes('marketing')) return Megaphone;
+  if (name.includes('graphic')) return Palette;
+  if (name.includes('seo')) return Search;
+  if (name.includes('app')) return Smartphone;
+  if (name.includes('game')) return Gamepad2;
+  if (name.includes('automation')) return Workflow;
+  if (name.includes('ads')) return Target;
+  if (name.includes('social')) return Share2;
+  if (name.includes('management')) return Settings;
+  return Globe;
+};
+
+const Header = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const location = useLocation();
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+    setIsServicesOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const handleOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) setIsServicesOpen(false);
+    };
+    const handleKey = (event) => { if (event.key === 'Escape') setIsServicesOpen(false); };
+    document.addEventListener('mousedown', handleOutside);
+    document.addEventListener('keydown', handleKey);
+    return () => {
+      document.removeEventListener('mousedown', handleOutside);
+      document.removeEventListener('keydown', handleKey);
+    };
+  }, []);
+
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Portfolio', path: '/portfolio' },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' },
+  ];
+
+  return (
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          <Link to="/" className="flex-shrink-0 flex items-center gap-2 group" aria-label="Raiwa Technologies home">
+            <Logo className="w-12 h-12 transition-transform duration-300 group-hover:scale-105" />
+            <span className="text-xl sm:text-2xl font-bold font-heading tracking-tight text-foreground">Raiwa<span className="text-primary"> Technologies</span></span>
+          </Link>
+
+          <nav className="hidden md:flex items-center gap-5 lg:gap-8" aria-label="Main navigation">
+            <Link to="/" className={cn("text-sm font-semibold py-2 hover:text-primary", location.pathname === '/' ? 'text-primary' : 'text-foreground/80')}>Home</Link>
+            <div className="relative" ref={dropdownRef} onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
+              <button type="button" aria-expanded={isServicesOpen} aria-haspopup="true" onClick={() => setIsServicesOpen((open) => !open)} className={cn("inline-flex items-center gap-1 text-sm font-semibold py-2 hover:text-primary", location.pathname.startsWith('/services') ? 'text-primary' : 'text-foreground/80')}>
+                Services <ChevronDown className={cn("w-4 h-4 transition-transform", isServicesOpen && "rotate-180")} />
+              </button>
+              {isServicesOpen && <div className="absolute left-0 top-full pt-3 w-[285px] z-50">
+                <div className="bg-white border border-slate-100 rounded-2xl shadow-2xl p-2 max-h-[75vh] overflow-y-auto">
+                  {services.map((service) => {
+                    const Icon = iconFor(service.title);
+                    const active = location.pathname === servicePath(service);
+                    return <Link key={service.slug} to={servicePath(service)} className={cn("flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors", active ? "bg-purple-50 text-primary font-bold" : "text-slate-600 hover:bg-slate-50 hover:text-primary")}>
+                      <span className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: service.soft, color: service.accent }}><Icon className="w-4 h-4" /></span>
+                      <span>{service.title}</span>
+                    </Link>;
+                  })}
+                  <Link to="/services" className="block border-t border-slate-100 mt-2 pt-3 px-3 pb-1 text-sm font-bold text-primary">View all services →</Link>
+                </div>
+              </div>}
+            </div>
+            {navLinks.slice(1).map((link) => <Link key={link.name} to={link.path} className={cn("text-sm font-semibold transition-colors py-2 hover:text-primary", location.pathname === link.path ? "text-primary" : "text-foreground/80")}>{link.name}</Link>)}
+          </nav>
+
+          <div className="hidden md:flex items-center gap-4"><Link to="/contact"><Button className="bg-primary hover:bg-primary-light text-white font-bold px-6 shadow-luxury">Get Started</Button></Link></div>
+          <div className="md:hidden flex items-center gap-3"><button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={isMobileMenuOpen} className="p-2 rounded-lg text-foreground hover:bg-muted">{isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}</button></div>
+        </div>
+      </div>
+      {isMobileMenuOpen && <div className="md:hidden absolute top-20 left-0 right-0 bg-white border-b border-border shadow-lg max-h-[80vh] overflow-y-auto">
+        <div className="px-4 pt-2 pb-6 space-y-1">
+          <Link to="/" className="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-muted">Home</Link>
+          <button type="button" onClick={() => setIsServicesOpen((open) => !open)} className="w-full flex justify-between items-center px-4 py-3 rounded-lg text-base font-semibold hover:bg-muted" aria-expanded={isServicesOpen}>Services <ChevronDown className={cn("w-4 h-4 transition-transform", isServicesOpen && "rotate-180")} /></button>
+          {isServicesOpen && <div className="ml-3 pl-3 border-l border-border space-y-1">{services.map((service) => <Link key={service.slug} to={servicePath(service)} className="block px-4 py-2.5 rounded-lg text-sm text-foreground/80 hover:bg-purple-50 hover:text-primary">{service.title}</Link>)}<Link to="/services" className="block px-4 py-2.5 text-sm font-bold text-primary">View all services</Link></div>}
+          {navLinks.slice(1).map((link) => <Link key={link.name} to={link.path} className="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-muted">{link.name}</Link>)}
+          <div className="pt-4"><Link to="/contact" className="block"><Button className="w-full bg-primary hover:bg-primary-light text-white font-bold h-12">Get Started</Button></Link></div>
+        </div>
+      </div>}
+    </header>
+  );
+};
+
+export default Header;
