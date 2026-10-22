@@ -3,11 +3,12 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button.jsx';
-import { services, servicePath } from '@/lib/services.js';
+import { services, servicePath, mainServices, mainServicePath } from '@/lib/services.js';
 
 const ServiceCard = ({ icon: Icon, title, description, benefits, ctaText = "Learn More", index = 0 }) => {
   const matchingService = services.find((service) => service.title.toLowerCase() === title.toLowerCase() || service.title.toLowerCase().startsWith(`${title.toLowerCase()} `));
-  const destination = matchingService ? servicePath(matchingService) : '/contact';
+  const matchingMain = mainServices.find((service) => service.title.toLowerCase() === title.toLowerCase());
+  const destination = matchingService ? servicePath(matchingService) : matchingMain ? mainServicePath(matchingMain) : '/contact';
 
   return (
     <motion.div
@@ -21,7 +22,8 @@ const ServiceCard = ({ icon: Icon, title, description, benefits, ctaText = "Lear
       <div className="absolute top-0 right-0 w-32 h-32 rounded-bl-[100px] -mr-8 -mt-8 transition-transform duration-500 group-hover:scale-150 z-0" style={{ backgroundColor: matchingService?.soft || "hsl(var(--primary-lighter-bg))" }} />
       
       <div className="relative z-10 flex-grow flex flex-col">
-        <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-white border transition-all duration-300 shadow-sm" style={{ color: matchingService?.accent || "hsl(var(--primary))", borderColor: matchingService?.accent ? `${matchingService.accent}30` : undefined }}>
+        {matchingService?.themeImage && <div className="-mx-8 -mt-8 mb-6 h-36 overflow-hidden bg-slate-100"><img src={matchingService.themeImage} alt={`${matchingService.title} service visual`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" /></div>}
+        <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-white border transition-all duration-300 shadow-sm" style={{ color: matchingService?.accent || "hsl(var(--primary))", borderColor: matchingService?.accent ? `${matchingService.accent}30` : undefined }}>
           {matchingService?.logoUrl ? <img src={matchingService.logoUrl} alt={`${matchingService.title} logo`} className="h-8 w-8 object-contain" loading="lazy" /> : <Icon className="h-8 w-8" />}
         </div>
         

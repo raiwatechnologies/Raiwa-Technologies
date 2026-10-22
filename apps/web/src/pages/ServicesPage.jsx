@@ -8,6 +8,7 @@ import ProcessStep from '@/components/ProcessStep.jsx';
 import FAQSection from '@/components/FAQSection.jsx';
 import { Button } from '@/components/ui/button.jsx';
 import { Link } from 'react-router-dom';
+import { mainServices, mainServicePath } from '@/lib/services.js';
 
 const ServicesPage = () => {
   const serviceCategories = [
@@ -90,12 +91,6 @@ const ServicesPage = () => {
           benefits: ['Business & Ecommerce Websites', 'Responsive Design', 'Speed & Security']
         },
         {
-          icon: Settings,
-          title: 'Automation Solutions',
-          description: 'Reduce repetitive work with practical workflows and integrations tailored to your business.',
-          benefits: ['Workflow Discovery', 'Process Automation', 'Integration & Support']
-        },
-        {
           icon: Lightbulb,
           title: 'Graphic Design',
           description: 'Create a consistent visual identity with polished brand assets and creative designed for your audience.',
@@ -142,7 +137,7 @@ const ServicesPage = () => {
       ]
     },
     {
-      id: 'seo',
+      id: 'seo-optimization',
       title: 'SEO Optimization',
       description: 'Get found on Google and marketplace search with a long-term strategy that brings steady, high-intent traffic.',
       services: [
@@ -151,7 +146,8 @@ const ServicesPage = () => {
           title: 'SEO Optimization',
           description: 'Improve your visibility with technical fixes, smart keyword targeting and quality content that helps your store and website rank higher.',
           benefits: ['Technical SEO Audits', 'Keyword Research & On-Page SEO', 'Content & Link Building']
-        }
+        },
+        { icon: Settings, title: 'Automation Solutions', description: 'Connect repetitive SEO and website tasks into dependable workflows, from reporting to routine optimization checks.', benefits: ['SEO Workflow Automation', 'Reporting & Integrations', 'Monitoring & Support'] }
       ]
     },
     {
@@ -256,13 +252,13 @@ const ServicesPage = () => {
               </p>
               <div className="flex flex-wrap justify-center gap-3 mb-10">
                 {serviceCategories.map((category) => (
-                  <a
+                  <Link
                     key={category.id}
-                    href={`#${category.id}`}
+                    to={mainServicePath(mainServices.find((item) => item.title === category.title) || mainServices[0])}
                     className="px-5 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold hover:bg-white hover:text-primary-dark transition-all duration-300"
                   >
                     {category.title}
-                  </a>
+                  </Link>
                 ))}
               </div>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -286,7 +282,7 @@ const ServicesPage = () => {
                 className={`scroll-mt-28 mb-24 last:mb-0 ${catIndex !== 0 ? 'pt-24 border-t border-border' : ''}`}
               >
                 <div className="mb-12 md:mb-16 max-w-3xl">
-                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading">{category.title}</h2>
+                  <Link to={mainServicePath(mainServices.find((item) => item.title === category.title) || mainServices[0])} className="inline-flex items-center gap-2 group"><h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading group-hover:text-primary transition-colors">{category.title}</h2><span className="text-primary mb-4" aria-hidden="true">↗</span></Link>
                   <p className="text-lg text-muted-foreground">{category.description}</p>
                 </div>
                 <div className={category.services.length === 1 ? 'grid grid-cols-1 gap-8 max-w-3xl' : 'grid grid-cols-1 md:grid-cols-2 gap-8'}>

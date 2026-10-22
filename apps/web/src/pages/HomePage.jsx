@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Search, ShoppingCart, Gamepad2, Megaphone, ShieldCheck, Activity, Award, Users, DollarSign, ThumbsUp, LineChart, Target, TrendingUp, Lightbulb, Settings, Rocket } from 'lucide-react';
 import { Button } from '@/components/ui/button.jsx';
+import { services, servicePath } from '@/lib/services.js';
 import WhatsAppButton from '@/components/WhatsAppButton.jsx';
 import ServiceCard from '@/components/ServiceCard.jsx';
 import StatCard from '@/components/StatCard.jsx';
@@ -38,7 +39,8 @@ const HomePage = () => {
     }
   ];
 
-  const marketplaces = ['Amazon', 'eBay', 'Walmart', 'Shopify', 'TikTok Shop', 'Temu', 'Daraz', 'Mercari'];
+  const marketplaces = ['Amazon', 'eBay', 'Walmart Marketplace', 'Shopify', 'TikTok Shop', 'Temu', 'Daraz', 'Mercari'];
+  const marketplaceItems = marketplaces.map((name) => services.find((service) => service.title.toLowerCase() === name.toLowerCase() || (name === 'Walmart Marketplace' && service.slug === 'walmart-marketplace'))).filter(Boolean);
 
   const processSteps = [
     {
@@ -238,17 +240,17 @@ const HomePage = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-extrabold text-primary-dark mb-4 font-heading">Marketplaces We Work With</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
-              Wherever your customers shop, we help you set up, manage and grow your store.
+              Marketplace specialists to help you launch, manage and grow wherever your customers shop.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              {marketplaces.map((name) => (
-                <span
-                  key={name}
-                  className="px-8 py-4 rounded-full bg-white border border-primary/10 text-primary-dark font-bold text-lg shadow-luxury hover:shadow-luxury-hover hover:border-primary/30 hover:text-primary transition-all duration-300"
-                >
-                  {name}
-                </span>
-              ))}
+            <div className="marketplace-marquee" aria-label="Marketplaces we support">
+              <div className="marketplace-track">
+                {[...marketplaceItems, ...marketplaceItems].map((service, index) => (
+                  <Link key={`${service.slug}-${index}`} to={servicePath(service)} className="marketplace-logo-card" aria-label={`${service.title} services`}>
+                    {service.logoUrl ? <img src={service.logoUrl} alt={`${service.title} logo`} loading="lazy" /> : <span className="marketplace-fallback">{service.title.slice(0,1)}</span>}
+                    <span>{service.title}</span>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </section>

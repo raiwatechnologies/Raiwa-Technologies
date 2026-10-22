@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import ScrollToTop from '@/components/ScrollToTop.jsx';
 import ErrorBoundary from '@/components/ErrorBoundary.jsx';
@@ -15,14 +15,14 @@ import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage.jsx';
 import TermsPage from '@/pages/TermsPage.jsx';
 import WhatsAppButton from '@/components/WhatsAppButton.jsx';
 
-function App() {
+function AppContent() {
+  const location = useLocation();
   return (
     <ErrorBoundary>
-      <Router>
         <ScrollToTop />
         <div className="flex flex-col min-h-screen">
           <Header />
-          <main className="flex-grow">
+          <main key={location.pathname} className="flex-grow page-typing">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/services" element={<ServicesPage />} />
@@ -47,9 +47,9 @@ function App() {
         </div>
         <WhatsAppButton variant="floating" />
         <Toaster position="bottom-right" richColors closeButton />
-      </Router>
     </ErrorBoundary>
   );
 }
 
+function App() { return <Router><AppContent /></Router>; }
 export default App;

@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
 import Logo from '@/components/Logo.jsx';
 import { BRAND, getWhatsAppUrl } from '@/lib/brand.js';
+import { mainServices, mainServicePath } from '@/lib/services.js';
 
 const Footer = () => {
-  const currentYear = 2020;
+  const currentYear = new Date().getFullYear();
 
   const quickLinks = [
     { name: 'Home', path: '/' },
@@ -15,14 +16,7 @@ const Footer = () => {
     { name: 'Contact Us', path: '/contact' },
   ];
 
-  const serviceLinks = [
-    { name: 'TikTok Shop', path: '/services/tiktok-shop' },
-    { name: 'Amazon', path: '/services/amazon' },
-    { name: 'Web Development', path: '/services/web-development' },
-    { name: 'Digital Marketing', path: '/services/digital-marketing' },
-    { name: 'SEO Optimization', path: '/services/seo-optimization' },
-    { name: 'App Development', path: '/services/app-development' },
-  ];
+  const serviceLinks = mainServices.map((service) => ({ name: service.title, path: mainServicePath(service) }));
 
   return (
     <footer className="bg-primary-dark text-primary-lighter-bg relative border-t-[6px] border-primary">
