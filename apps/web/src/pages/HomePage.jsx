@@ -136,12 +136,13 @@ const HomePage = () => {
           </div>
         </section>
 
+       
         {/* All Services Logo Marquee - directly below Hero */}
-       <section
-  className="relative z-10 overflow-hidden bg-background py-9"
-  aria-label="Our services"
->
-          <div className="overflow-hidden">
+        <section
+          className="relative z-10 w-full overflow-hidden border-0 bg-primary-lighter-bg/30 py-9"
+          aria-label="Our services"
+        >
+          <div className="w-full overflow-hidden">
             <div className="services-logo-track">
               {[0, 1].map((copy) => (
                 <div
@@ -197,8 +198,12 @@ const HomePage = () => {
             }
 
             @keyframes services-logo-scroll {
-              from { transform: translateX(0); }
-              to { transform: translateX(-50%); }
+              from {
+                transform: translateX(0);
+              }
+              to {
+                transform: translateX(-50%);
+              }
             }
 
             @media (prefers-reduced-motion: reduce) {
