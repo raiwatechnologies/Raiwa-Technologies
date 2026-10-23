@@ -25,12 +25,18 @@ const HomePage = () => {
       description: 'Rank higher on Google and marketplace search so high-intent buyers find your brand before they find your competitors.',
       benefits: ['Technical SEO Audits', 'Keyword Strategy', 'Listing & Content Optimization']
     },
-    {
-      icon: ShoppingCart,
-      title: 'Ecommerce',
-      description: 'Complete store setup and growth across the world\'s biggest marketplaces, so your products reach more customers and sell more.',
-      benefits: ['Amazon, eBay, Walmart & More', 'Shopify & TikTok Shop', 'Daily Account Management']
-    },
+    
+
+{
+  icon: ShoppingCart,
+  title: 'Ecommerce',
+  image: '/service-assets/ecommerce-theme.png',
+  logoUrl: '/service-assets/ecommerce-logo.png',
+  description: 'Complete store setup and growth across the world\'s biggest marketplaces, so your products reach more customers and sell more.',
+  benefits: ['Amazon, eBay, Walmart & More', 'Shopify & TikTok Shop', 'Daily Account Management']
+},
+
+
     {
       icon: Megaphone,
       title: 'Digital Marketing',

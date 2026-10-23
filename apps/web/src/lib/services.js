@@ -25,7 +25,8 @@ export const services = [
 ];
 
 export const mainServices = [
- { title:'Ecommerce', slug:'ecommerce', category:'Ecommerce', accent:'#7c3aed', description:'Launch, optimize and manage your stores across leading online marketplaces and ecommerce platforms.', image:A+'ecommerce-theme.jpg', themeImage:A+'ecommerce-theme.jpg', children:['tiktok-shop','ebay','amazon','walmart-marketplace','temu','mercari','shopify','daraz'] },
+ 
+ { title:'Ecommerce', slug:'ecommerce', category:'Ecommerce', accent:'#7c3aed', description:'Launch, optimize and manage your stores across leading online marketplaces and ecommerce platforms.', image:A+'ecommerce-theme.png', themeImage:A+'ecommerce-theme.png', logoUrl:A+'ecommerce-logo.png', children:['tiktok-shop','ebay','amazon','walmart-marketplace','temu','mercari','shopify','daraz'] },
  { title:'Development', slug:'development', category:'Development', accent:'#2563eb', description:'Build the digital products your business needs, from high-performing websites and apps to games and creative assets.', children:['app-development','game-development','web-development','graphic-design'] },
  { title:'Marketing', slug:'marketing', category:'Marketing', accent:'#db2777', description:'Create a consistent marketing engine that builds awareness, attracts the right audience and supports sustainable growth.', children:['digital-marketing','social-media-marketing'] },
  { title:'Ads', slug:'ads', category:'Ads', accent:'#1877f2', description:'Run focused, measurable paid campaigns across search and social platforms with ongoing optimization.', children:['meta-ads','google-ads'] },
