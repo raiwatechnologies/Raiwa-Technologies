@@ -138,7 +138,7 @@ const HomePage = () => {
 
         {/* All Services Logo Marquee - directly below Hero */}
        <section
-  className="overflow-hidden border-y border-primary/10 bg-white py-0"
+  className="overflow-hidden bg-transparent py-12"
   aria-label="Our services"
 >
           <div className="overflow-hidden">
