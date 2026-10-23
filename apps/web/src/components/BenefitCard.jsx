@@ -19,7 +19,7 @@ const BenefitCard = ({ icon: Icon, title, description, index = 0 }) => {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ y: -5 }}
-      className="relative flex flex-col h-full min-h-[250px] rounded-2xl bg-white p-8 pr-28 sm:pr-36 border border-primary/10 shadow-luxury hover:shadow-luxury-hover hover:border-primary/30 transition-all duration-300 group"
+      className="relative flex flex-col h-full min-h-[250px] rounded-2xl bg-white p-6 sm:p-8 pr-24 sm:pr-32 border border-primary/10 shadow-luxury hover:shadow-luxury-hover hover:border-primary/30 transition-all duration-300 group"
     >
       <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-lighter-bg text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-md">
         {Icon && <Icon className="h-8 w-8" />}
@@ -34,7 +34,7 @@ const BenefitCard = ({ icon: Icon, title, description, index = 0 }) => {
       </p>
 
       {image && (
-        <div className="pointer-events-none absolute -right-3 -top-5 w-32 h-36 sm:w-40 sm:h-44 flex items-center justify-center z-10">
+        <div className="pointer-events-none absolute right-3 top-3 sm:right-4 sm:top-4 w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center z-10">
           <img
             src={image}
             alt={`${title} illustration`}

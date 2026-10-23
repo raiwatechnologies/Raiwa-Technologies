@@ -84,13 +84,14 @@ const ServiceCard = ({
       />
 
       <div className="relative z-10 flex-grow flex flex-col">
-        {/* Service theme image */}
+        
+        {/* Service theme image - show the complete image without cropping */}
         {themeImage && (
-          <div className="-mx-px -mt-px mb-6 h-36 overflow-hidden bg-slate-100 rounded-t-2xl">
+          <div className="mx-3 mt-3 mb-4 h-44 sm:h-48 rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center">
             <img
               src={themeImage}
               alt={`${title} service`}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              className="w-full h-full object-contain transition-transform duration-300"
               loading="lazy"
               onError={(event) => {
                 console.error('Service theme image failed to load:', themeImage);

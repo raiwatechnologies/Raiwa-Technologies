@@ -37,7 +37,7 @@ const ServicesPage = () => {
         },
         {
           icon: Store,
-          title: 'Walmart',
+          title: 'Walmart Marketplace',
           description: 'Get your products in front of Walmart shoppers with professional onboarding, listings and marketplace management.',
           benefits: ['Seller Onboarding', 'Catalog & Listing Management', 'Performance Tracking']
         },
@@ -285,7 +285,14 @@ const ServicesPage = () => {
                   <Link to={mainServicePath(mainServices.find((item) => item.title === category.title) || mainServices[0])} className="inline-flex items-center gap-2 group"><h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading group-hover:text-primary transition-colors">{category.title}</h2><span className="text-primary mb-4" aria-hidden="true">↗</span></Link>
                   <p className="text-lg text-muted-foreground">{category.description}</p>
                 </div>
-                <div className={category.services.length === 1 ? 'grid grid-cols-1 gap-8 max-w-3xl' : 'grid grid-cols-1 md:grid-cols-2 gap-8'}>
+                
+                <div
+                  className={
+                  category.services.length === 1
+                  ? 'grid grid-cols-1 gap-6 max-w-3xl'
+                  : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'
+                  }>
+
                   {category.services.map((service, srvIndex) => (
                     <ServiceCard key={srvIndex} {...service} index={srvIndex} />
                   ))}

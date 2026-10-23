@@ -174,7 +174,7 @@ const HomePage = () => {
             </div>
 
             {/* Statistics Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-8 mb-16 sm:mb-24">
               <StatCard number="100%" label="Account Handling Perfection" icon={Award} index={0} />
               <StatCard number="20+" label="Satisfied Clients" icon={Users} index={1} />
               <StatCard number="$10K+" label="Revenue Generated" icon={DollarSign} index={2} />
