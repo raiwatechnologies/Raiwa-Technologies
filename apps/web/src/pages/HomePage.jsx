@@ -139,7 +139,7 @@ const HomePage = () => {
        
         {/* All Services Logo Marquee - directly below Hero */}
         <section
-          className="relative z-10 w-full overflow-hidden border-0 bg-primary-lighter-bg/30 py-9"
+          className="relative z-10 w-full overflow-hidden border-0 bg-primary-lighter-bg py-9"
           aria-label="Our services"
         >
           <div className="w-full overflow-hidden">
