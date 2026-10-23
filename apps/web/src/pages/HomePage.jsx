@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Search, ShoppingCart, Gamepad2, Megaphone, ShieldCheck, Activity, Award, Users, DollarSign, ThumbsUp, LineChart, Target, TrendingUp, Lightbulb, Settings, Rocket } from 'lucide-react';
+import { ArrowRight, Search, ShoppingCart, Megaphone, Globe, ShieldCheck, Activity, Award, Users, DollarSign, ThumbsUp, LineChart, Target, TrendingUp, Lightbulb, Settings, Rocket } from 'lucide-react';
 import { Button } from '@/components/ui/button.jsx';
 import { services, servicePath } from '@/lib/services.js';
 import WhatsAppButton from '@/components/WhatsAppButton.jsx';
@@ -14,10 +14,18 @@ import ProcessStep from '@/components/ProcessStep.jsx';
 const HomePage = () => {
   const featuredServices = [
     {
-      icon: Gamepad2,
-      title: 'Game Development',
-      description: 'From concept to launch, we design and build engaging mobile and web games that capture players and keep them coming back.',
-      benefits: ['Game Design & Prototyping', 'Mobile & Web Games', 'Launch & Maintenance']
+      icon: ShoppingCart,
+      title: 'Ecommerce',
+      image: '/service-assets/ecommerce-theme.png',
+      logoUrl: '/service-assets/ecommerce-logo.png',
+      description: "Complete store setup and growth across the world's biggest marketplaces, so your products reach more customers and sell more.",
+      benefits: ['Amazon, eBay, Walmart & More', 'Shopify & TikTok Shop', 'Daily Account Management']
+    },
+    {
+      icon: Megaphone,
+      title: 'Digital Marketing',
+      description: 'Data-driven campaigns across search and social that build brand awareness and turn attention into measurable revenue.',
+      benefits: ['Social Media Marketing', 'Meta & Google Ads', 'Performance Reporting']
     },
     {
       icon: Search,
@@ -25,23 +33,11 @@ const HomePage = () => {
       description: 'Rank higher on Google and marketplace search so high-intent buyers find your brand before they find your competitors.',
       benefits: ['Technical SEO Audits', 'Keyword Strategy', 'Listing & Content Optimization']
     },
-    
-
-{
-  icon: ShoppingCart,
-  title: 'Ecommerce',
-  image: '/service-assets/ecommerce-theme.png',
-  logoUrl: '/service-assets/ecommerce-logo.png',
-  description: 'Complete store setup and growth across the world\'s biggest marketplaces, so your products reach more customers and sell more.',
-  benefits: ['Amazon, eBay, Walmart & More', 'Shopify & TikTok Shop', 'Daily Account Management']
-},
-
-
     {
-      icon: Megaphone,
-      title: 'Digital Marketing',
-      description: 'Data-driven campaigns across search and social that build brand awareness and turn attention into measurable revenue.',
-      benefits: ['Social Media Marketing', 'Meta & Google Ads', 'Performance Reporting']
+      icon: Globe,
+      title: 'Web Development',
+      description: 'Professional, responsive websites built to showcase your brand, deliver a smooth user experience and support business growth.',
+      benefits: ['Business Website Development', 'Responsive Web Design', 'Website Maintenance & Support']
     }
   ];
 
@@ -140,7 +136,7 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* Our Philosophy */}
+        {/* Our Approach */}
         <section className="py-32 bg-primary-lighter-bg/30 border-y border-primary/10 relative overflow-hidden">
           {/* Subtle Decorative Elements */}
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
@@ -154,7 +150,7 @@ const HomePage = () => {
                 viewport={{ once: true }}
                 className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-primary/10 text-primary font-bold text-sm mb-6 uppercase tracking-widest"
               >
-                Our Philosophy
+                Our Approach
               </motion.div>
               <motion.h2 
                 initial={{ opacity: 0, y: 20 }}
@@ -186,6 +182,15 @@ const HomePage = () => {
             </div>
 
             {/* Benefits Grid */}
+            <div className="text-center mb-12">
+  <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-5 font-heading tracking-tight">
+    What We Provide
+  </h2>
+  <div className="w-20 h-1 bg-primary rounded-full mx-auto mb-5" />
+  <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+    Practical solutions designed to help your business grow, perform and succeed.
+  </p>
+</div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               <BenefitCard 
                 icon={LineChart}

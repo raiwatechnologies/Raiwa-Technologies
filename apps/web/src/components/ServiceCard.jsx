@@ -17,7 +17,7 @@ const ServiceCard = ({
   benefits,
   image: propsImage,
   logoUrl: propsLogoUrl,
-  ctaText = 'Learn More',
+  ctaText = 'For More Information',
   index = 0
 }) => {
 
