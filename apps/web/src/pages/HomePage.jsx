@@ -136,6 +136,88 @@ const HomePage = () => {
           </div>
         </section>
 
+        {/* All Services Logo Marquee - directly below Hero */}
+        <section
+          className="overflow-hidden border-y border-primary/10 bg-white py-8 sm:py-10"
+          aria-label="Our services"
+        >
+          <div className="mx-auto mb-6 max-w-7xl px-4 text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-primary/70">
+              Our Expertise
+            </p>
+            <h2 className="mt-2 text-2xl font-extrabold text-primary-dark sm:text-3xl">
+              Services We Provide
+            </h2>
+          </div>
+
+          <div className="overflow-hidden">
+            <div className="services-logo-track">
+              {[0, 1].map((copy) => (
+                <div
+                  key={copy}
+                  className="flex shrink-0 items-start gap-8 pr-8 sm:gap-12 sm:pr-12"
+                  aria-hidden={copy === 1 ? true : undefined}
+                >
+                  {services.map((service, index) => (
+                    <div
+                      key={`${copy}-${service.slug || service.title}-${index}`}
+                      className="flex w-24 shrink-0 flex-col items-center gap-3 sm:w-32"
+                    >
+                      <div className="flex h-14 w-14 items-center justify-center sm:h-16 sm:w-16">
+                        {service.logoUrl ? (
+                          <img
+                            src={service.logoUrl}
+                            alt={copy === 0 ? `${service.title} logo` : ''}
+                            loading="lazy"
+                            className="h-full w-full object-contain"
+                          />
+                        ) : (
+                          <div
+                            className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary"
+                            aria-hidden="true"
+                          >
+                            {service.icon ? (
+                              <service.icon className="h-7 w-7" />
+                            ) : (
+                              <span className="text-xl font-bold">
+                                {service.title.charAt(0)}
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      <p className="text-center text-xs font-semibold leading-snug text-slate-700 sm:text-sm">
+                        {service.title}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <style>{`
+            .services-logo-track {
+              display: flex;
+              width: max-content;
+              animation: services-logo-scroll 45s linear infinite;
+              will-change: transform;
+            }
+
+            @keyframes services-logo-scroll {
+              from { transform: translateX(0); }
+              to { transform: translateX(-50%); }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+              .services-logo-track {
+                animation: none;
+              }
+            }
+          `}</style>
+        </section>
+
         {/* Our Approach */}
         <section className="py-32 bg-primary-lighter-bg/30 border-y border-primary/10 relative overflow-hidden">
           {/* Subtle Decorative Elements */}
@@ -230,12 +312,18 @@ const HomePage = () => {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              {featuredServices.map((service, index) => (
-                <ServiceCard key={index} {...service} index={index} />
-              ))}
-            </div>
             
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-8">
+          {featuredServices.map((service, index) => (
+            <ServiceCard
+            key={index}
+            {...service}
+            index={index}
+            compact
+            />
+          ))}
+        </div>
+  
             <div className="text-center mt-16">
               <Link to="/services">
                 <Button size="lg" className="bg-white text-primary border-2 border-primary/20 hover:border-primary hover:bg-primary-lighter-bg font-bold h-14 px-10 shadow-sm transition-all duration-300 text-lg">

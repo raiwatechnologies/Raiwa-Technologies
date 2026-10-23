@@ -18,7 +18,8 @@ const ServiceCard = ({
   image: propsImage,
   logoUrl: propsLogoUrl,
   ctaText = 'For More Information',
-  index = 0
+  index = 0,
+  compact = false
 }) => {
 
   const normalizedTitle = title.toLowerCase();
@@ -87,7 +88,13 @@ const ServiceCard = ({
         
         {/* Service theme image - show the complete image without cropping */}
         {themeImage && (
-          <div className="mx-3 mt-3 mb-4 h-44 sm:h-48 rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center">
+          <div
+            className={`mx-3 mt-3 mb-4 rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center ${
+            compact
+            ? 'h-40 sm:h-44'
+            : 'h-44 sm:h-48'
+            }`}
+          >
             <img
               src={themeImage}
               alt={`${title} service`}
@@ -103,7 +110,9 @@ const ServiceCard = ({
 
         {/* Service logo */}
         <div
-          className="mb-4 ml-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-white border transition-all duration-300 shadow-sm"
+          className={`mb-4 ml-8 inline-flex items-center justify-center rounded-2xl bg-white border transition-all duration-300 shadow-sm ${
+          compact ? 'h-14 w-14' : 'h-16 w-16'
+        }`}
           style={{
             color: accent || 'hsl(var(--primary))',
             borderColor: accent ? `${accent}30` : undefined
