@@ -261,7 +261,7 @@ const PortfolioPage = () => {
             <div className="flex flex-col sm:flex-row justify-center gap-6">
               <Link to="/contact">
                 <Button size="lg" className="w-full sm:w-auto h-16 px-10 font-bold text-lg bg-white text-primary-dark hover:bg-primary-lighter-bg hover:text-primary transition-all shadow-luxury">
-                  Start Your Journey
+                  Get Free Consultation
                   <ArrowRight className="ml-2 w-6 h-6" />
                 </Button>
               </Link>

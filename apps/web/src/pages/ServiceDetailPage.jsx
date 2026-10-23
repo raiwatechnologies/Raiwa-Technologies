@@ -11,7 +11,11 @@ export default function ServiceDetailPage() {
  const service = services.find((item) => item.slug === slug);
  if (main) {
    const children = main.children.map((childSlug) => services.find((item) => item.slug === childSlug)).filter(Boolean);
-   const heroImage = children.find((item) => item.themeImage)?.themeImage || children[0]?.image;
+   const heroImage =
+  main.themeImage ||
+  main.image ||
+  children.find((item) => item.themeImage)?.themeImage ||
+  children[0]?.image;
    return <><Helmet><title>{`${main.title} Services | Raiwa Technologies`}</title><meta name="description" content={main.description} /></Helmet><main className="bg-background">
     <section className="relative overflow-hidden text-white" style={{background:`linear-gradient(125deg, ${main.accent} 0%, #21133c 78%)`}}>
       {heroImage && <div className="absolute inset-0 opacity-20" style={{backgroundImage:`url(${heroImage})`,backgroundSize:'cover',backgroundPosition:'center'}}/>}
