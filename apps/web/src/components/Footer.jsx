@@ -30,7 +30,7 @@ const Footer = () => {
                 Raiwa<span className="text-primary-light"> Technologies</span>
               </span>
             </Link>
-            <p className="text-primary-lighter/70 leading-relaxed text-sm mb-8">
+            <p className="text-[#F5F5F0] leading-relaxed text-sm mb-8">
               Raiwa Technologies helps ambitious brands build, launch and scale across ecommerce marketplaces, with development, marketing, ads and SEO that deliver measurable growth.
             </p>
             <div className="flex gap-4">
@@ -51,7 +51,7 @@ const Footer = () => {
             <ul className="space-y-4 text-sm font-medium">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.path} className="text-primary-lighter/70 hover:text-white transition-colors">{link.name}</Link>
+                  <Link to={link.path} className="text-[#F5F5F0] hover:text-white transition-colors">{link.name}</Link>
                 </li>
               ))}
             </ul>
@@ -62,7 +62,7 @@ const Footer = () => {
             <ul className="space-y-4 text-sm font-medium">
               {serviceLinks.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.path} className="text-primary-lighter/70 hover:text-white transition-colors">{link.name}</Link>
+                  <Link to={link.path} className="text-[#F5F5F0] hover:text-white transition-colors">{link.name}</Link>
                 </li>
               ))}
             </ul>
@@ -75,25 +75,25 @@ const Footer = () => {
                 <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 group-hover:bg-primary transition-colors">
                   <Mail className="w-4 h-4 text-primary-light group-hover:text-white transition-colors" />
                 </div>
-                <a href={`mailto:${BRAND.email}`} className="mt-2 text-primary-lighter/70 hover:text-white transition-colors break-all">{BRAND.email}</a>
+                <a href={`mailto:${BRAND.email}`} className="mt-2 text-[#F5F5F0] hover:text-white transition-colors break-all">{BRAND.email}</a>
               </li>
               <li className="flex items-start gap-4 group">
                 <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 group-hover:bg-primary transition-colors">
                   <Phone className="w-4 h-4 text-primary-light group-hover:text-white transition-colors" />
                 </div>
-                <a href={`tel:${BRAND.phoneTel}`} className="mt-2 text-primary-lighter/70 hover:text-white transition-colors">{BRAND.phoneDisplay}</a>
+                <a href={`tel:${BRAND.phoneTel}`} className="mt-2 text-[#F5F5F0] hover:text-white transition-colors">{BRAND.phoneDisplay}</a>
               </li>
               <li className="flex items-start gap-4 group">
                 <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 group-hover:bg-primary transition-colors">
                   <MapPin className="w-4 h-4 text-primary-light group-hover:text-white transition-colors" />
                 </div>
-                <span className="mt-1 text-primary-lighter/70">Serving Clients Worldwide</span>
+                <span className="mt-1 text-[#F5F5F0]">Serving Clients Worldwide</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-lighter/50">
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-[#F5F5F0]">
           <p>© {currentYear} {BRAND.name}. All rights reserved.</p>
           <div className="flex gap-6">
             <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>

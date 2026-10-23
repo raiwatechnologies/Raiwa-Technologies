@@ -98,7 +98,7 @@ const ServiceCard = ({
             <img
               src={themeImage}
               alt={`${title} service`}
-              className="w-full h-full object-contain transition-transform duration-300"
+              className="w-full h-full object-cover transition-transform duration-300"
               loading="lazy"
               onError={(event) => {
                 console.error('Service theme image failed to load:', themeImage);

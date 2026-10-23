@@ -137,19 +137,10 @@ const HomePage = () => {
         </section>
 
         {/* All Services Logo Marquee - directly below Hero */}
-        <section
-          className="overflow-hidden border-y border-primary/10 bg-white py-8 sm:py-10"
-          aria-label="Our services"
-        >
-          <div className="mx-auto mb-6 max-w-7xl px-4 text-center">
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-primary/70">
-              Our Expertise
-            </p>
-            <h2 className="mt-2 text-2xl font-extrabold text-primary-dark sm:text-3xl">
-              Services We Provide
-            </h2>
-          </div>
-
+       <section
+  className="overflow-hidden border-y border-primary/10 bg-white py-0"
+  aria-label="Our services"
+>
           <div className="overflow-hidden">
             <div className="services-logo-track">
               {[0, 1].map((copy) => (
@@ -219,7 +210,7 @@ const HomePage = () => {
         </section>
 
         {/* Our Approach */}
-        <section className="py-32 bg-primary-lighter-bg/30 border-y border-primary/10 relative overflow-hidden">
+        <section className="pt-0 pb-32 bg-primary-lighter-bg/30 border-y border-primary/10 relative overflow-hidden">
           {/* Subtle Decorative Elements */}
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/3 pointer-events-none" />
