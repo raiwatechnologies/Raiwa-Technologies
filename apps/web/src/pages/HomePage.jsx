@@ -138,7 +138,7 @@ const HomePage = () => {
 
         {/* All Services Logo Marquee - directly below Hero */}
        <section
-  className="overflow-hidden bg-transparent py-12"
+  className="overflow-hidden bg-primary-lighter-bg/30 py-9"
   aria-label="Our services"
 >
           <div className="overflow-hidden">
@@ -210,7 +210,7 @@ const HomePage = () => {
         </section>
 
         {/* Our Approach */}
-        <section className="pt-0 pb-32 bg-primary-lighter-bg/30 border-y border-primary/10 relative overflow-hidden">
+        <section className="pt-0 pb-32 bg-primary-lighter-bg/30 relative overflow-hidden">
           {/* Subtle Decorative Elements */}
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/3 pointer-events-none" />
