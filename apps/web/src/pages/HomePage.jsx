@@ -137,82 +137,85 @@ const HomePage = () => {
         </section>
 
        
-        {/* All Services Logo Marquee - directly below Hero */}
-        <section
-          className="relative z-10 w-full overflow-hidden border-0 bg-primary-lighter-bg/30 py-7"
-          aria-label="Our services"
+{/* Selected Platform Logos Marquee - directly below Hero */}
+<section
+  className="relative z-10 w-full overflow-hidden border-0 bg-primary-lighter-bg/30 py-8 sm:py-9"
+  aria-label="Platform logos"
+>
+  <div className="w-full overflow-hidden">
+    <div className="services-logo-track">
+      {[0, 1].map((copy) => (
+        <div
+          key={copy}
+          className="flex shrink-0 items-center gap-8 pr-8 sm:gap-12 sm:pr-12"
+          aria-hidden={copy === 1 ? true : undefined}
         >
-          <div className="w-full overflow-hidden">
-            <div className="services-logo-track">
-              {[0, 1].map((copy) => (
-                <div
-                  key={copy}
-                  className="flex shrink-0 items-start gap-8 pr-8 sm:gap-12 sm:pr-12"
-                  aria-hidden={copy === 1 ? true : undefined}
-                >
-                  {services.map((service, index) => (
-                    <div
-                      key={`${copy}-${service.slug || service.title}-${index}`}
-                      className="flex w-24 shrink-0 flex-col items-center gap-3 sm:w-32"
-                    >
-                      <div className="flex h-10 w-10 items-center justify-center sm:h-12 sm:w-12">
-                        {service.logoUrl ? (
-                          <img
-                            src={service.logoUrl}
-                            alt={copy === 0 ? `${service.title} logo` : ''}
-                            loading="lazy"
-                            className="h-full w-full object-contain"
-                          />
-                        ) : (
-                          <div
-                            className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary"
-                            aria-hidden="true"
-                          >
-                            {service.icon ? (
-                              <service.icon className="h-7 w-7" />
-                            ) : (
-                              <span className="text-xl font-bold">
-                                {service.title.charAt(0)}
-                              </span>
-                            )}
-                          </div>
-                        )}
-                      </div>
+          {[
+            'tiktok-shop',
+            'shopify',
+            'walmart-marketplace',
+            'mercari',
+            'temu',
+            'ebay',
+            'amazon',
+            'daraz',
+            'google-ads',
+            'meta-ads',
+            'seo-optimization',
+          ].map((slug) => {
+            const service = services.find(
+              (item) => item.slug === slug
+            );
 
-                      <p className="text-center text-xs font-semibold leading-snug text-slate-700 sm:text-sm">
-                        {service.title}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <style>{`
-            .services-logo-track {
-              display: flex;
-              width: max-content;
-              animation: services-logo-scroll 45s linear infinite;
-              will-change: transform;
+            if (!service || !service.logoUrl) {
+              return null;
             }
 
-            @keyframes services-logo-scroll {
-              from {
-                transform: translateX(0);
-              }
-              to {
-                transform: translateX(-50%);
-              }
-            }
+            return (
+              <div
+                key={`${copy}-${slug}`}
+                className="flex w-24 shrink-0 items-center justify-center sm:w-28"
+              >
+                <img
+                  src={service.logoUrl}
+                  alt={copy === 0 ? `${service.title} logo` : ''}
+                  loading="lazy"
+                  draggable="false"
+                  className="h-16 w-16 object-contain sm:h-[72px] sm:w-[72px]"
+                />
+              </div>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  </div>
 
-            @media (prefers-reduced-motion: reduce) {
-              .services-logo-track {
-                animation: none;
-              }
-            }
-          `}</style>
-        </section>
+  <style>{`
+    .services-logo-track {
+      display: flex;
+      width: max-content;
+      animation: services-logo-scroll 45s linear infinite;
+      will-change: transform;
+    }
+
+    @keyframes services-logo-scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .services-logo-track {
+        animation: none;
+      }
+    }
+  `}</style>
+</section>
 
         {/* Our Approach */}
         <section className="relative overflow-hidden border-0 bg-primary-lighter-bg/30 pt-0 pb-32">
