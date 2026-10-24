@@ -18,27 +18,40 @@ const HomePage = () => {
       title: 'Ecommerce',
       image: '/service-assets/ecommerce-theme.png',
       logoUrl: '/service-assets/ecommerce-logo.png',
-      description: "Complete store setup and growth across the world's biggest marketplaces, so your products reach more customers and sell more.",
-      benefits: ['Amazon, eBay, Walmart & More', 'Shopify & TikTok Shop', 'Daily Account Management']
+      description:
+        "Complete store setup and growth across leading marketplaces, helping your products reach more customers and generate sales.",
+      benefits: [
+        'Amazon, eBay, Walmart & More',
+        'Shopify & TikTok Shop',
+        'Marketplace Account Management',
+      ],
     },
     {
       icon: Megaphone,
-      title: 'Digital Marketing',
-      description: 'Data-driven campaigns across search and social that build brand awareness and turn attention into measurable revenue.',
-      benefits: ['Social Media Marketing', 'Meta & Google Ads', 'Performance Reporting']
+      title: 'Marketing',
+      image: '/service-assets/marketing-theme-image.png',
+      logoUrl: '/service-assets/marketing-logo.png',
+      description:
+        'Build brand awareness, attract the right audience and grow your business through digital marketing, SEO and intelligent automation.',
+      benefits: [
+        'Digital & Social Media Marketing',
+        'SEO Optimization',
+        'Marketing Automation',
+      ],
     },
     {
-      icon: Search,
-      title: 'SEO Optimization',
-      description: 'Rank higher on Google and marketplace search so high-intent buyers find your brand before they find your competitors.',
-      benefits: ['Technical SEO Audits', 'Keyword Strategy', 'Listing & Content Optimization']
+      icon: Rocket,
+      title: 'Development',
+      image: '/service-assets/development-theme-image.png',
+      logoUrl: '/service-assets/development-logo.png',
+      description:
+        'Build powerful digital experiences for your business, from professional websites and mobile applications to engaging games.',
+      benefits: [
+        'Web & App Development',
+        'Game Development',
+        'Graphic Design',
+      ],
     },
-    {
-      icon: Globe,
-      title: 'Web Development',
-      description: 'Professional, responsive websites built to showcase your brand, deliver a smooth user experience and support business growth.',
-      benefits: ['Business Website Development', 'Responsive Web Design', 'Website Maintenance & Support']
-    }
   ];
 
   const marketplaces = ['Amazon', 'eBay', 'Walmart Marketplace', 'Shopify', 'TikTok Shop', 'Temu', 'Daraz', 'Mercari'];
@@ -312,16 +325,16 @@ const HomePage = () => {
             </div>
             
             
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-8">
-          {featuredServices.map((service, index) => (
-            <ServiceCard
-            key={index}
-            {...service}
-            index={index}
-            compact
-            />
-          ))}
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {featuredServices.map((service, index) => (
+    <ServiceCard
+      key={service.title}
+      {...service}
+      index={index}
+      compact
+    />
+  ))}
+</div>
   
             <div className="text-center mt-16">
               <Link to="/services">
