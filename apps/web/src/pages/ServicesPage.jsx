@@ -103,19 +103,47 @@ const ServicesPage = () => {
       title: 'Marketing',
       description: 'Smart, consistent marketing that builds brand awareness, grows your audience and drives real sales.',
       services: [
-        {
-          icon: Megaphone,
-          title: 'Digital Marketing',
-          description: 'Complete digital marketing strategies that bring the right customers to your brand and keep them coming back.',
-          benefits: ['Strategy & Planning', 'Content & Email Marketing', 'Performance Reporting']
-        },
-        {
-          icon: Share2,
-          title: 'Social Media Marketing',
-          description: 'Grow an engaged community and strong brand presence on the platforms where your customers spend their time.',
-          benefits: ['Instagram', 'Facebook', 'TikTok']
-        }
-      ]
+  {
+    icon: Megaphone,
+    title: 'Digital Marketing',
+    description: 'Complete digital marketing strategies that bring the right customers to your brand and keep them coming back.',
+    benefits: [
+      'Strategy & Planning',
+      'Content & Email Marketing',
+      'Performance Reporting',
+    ],
+  },
+  {
+    icon: Share2,
+    title: 'Social Media Marketing',
+    description: 'Grow an engaged community and strong brand presence on the platforms where your customers spend their time.',
+    benefits: [
+      'Instagram',
+      'Facebook',
+      'TikTok',
+    ],
+  },
+  {
+    icon: Search,
+    title: 'SEO Optimization',
+    description: 'Improve your visibility with technical fixes, smart keyword targeting and quality content that helps your store and website rank higher.',
+    benefits: [
+      'Technical SEO Audits',
+      'Keyword Research & On-Page SEO',
+      'Content & Link Building',
+    ],
+  },
+  {
+    icon: Settings,
+    title: 'Automation Solutions',
+    description: 'Connect repetitive marketing and website tasks into dependable workflows, from reporting to routine optimization checks.',
+    benefits: [
+      'Marketing Workflow Automation',
+      'Reporting & Integrations',
+      'Monitoring & Support',
+    ],
+  },
+],
     },
     {
       id: 'ads',
@@ -136,20 +164,7 @@ const ServicesPage = () => {
         }
       ]
     },
-    {
-      id: 'seo-optimization',
-      title: 'SEO Optimization',
-      description: 'Get found on Google and marketplace search with a long-term strategy that brings steady, high-intent traffic.',
-      services: [
-        {
-          icon: Search,
-          title: 'SEO Optimization',
-          description: 'Improve your visibility with technical fixes, smart keyword targeting and quality content that helps your store and website rank higher.',
-          benefits: ['Technical SEO Audits', 'Keyword Research & On-Page SEO', 'Content & Link Building']
-        },
-        { icon: Settings, title: 'Automation Solutions', description: 'Connect repetitive SEO and website tasks into dependable workflows, from reporting to routine optimization checks.', benefits: ['SEO Workflow Automation', 'Reporting & Integrations', 'Monitoring & Support'] }
-      ]
-    },
+
     {
       id: 'management',
       title: 'Management',
