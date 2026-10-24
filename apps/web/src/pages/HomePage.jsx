@@ -139,7 +139,7 @@ const HomePage = () => {
        
         {/* All Services Logo Marquee - directly below Hero */}
         <section
-          className="relative z-10 w-full overflow-hidden border-0 bg-primary-lighter-bg/30 py-9"
+          className="relative z-10 w-full overflow-hidden border-0 bg-primary-lighter-bg/30 py-7"
           aria-label="Our services"
         >
           <div className="w-full overflow-hidden">
@@ -155,7 +155,7 @@ const HomePage = () => {
                       key={`${copy}-${service.slug || service.title}-${index}`}
                       className="flex w-24 shrink-0 flex-col items-center gap-3 sm:w-32"
                     >
-                      <div className="flex h-12 w-12 items-center justify-center sm:h-14 sm:w-14">
+                      <div className="flex h-10 w-10 items-center justify-center sm:h-12 sm:w-12">
                         {service.logoUrl ? (
                           <img
                             src={service.logoUrl}
@@ -215,7 +215,7 @@ const HomePage = () => {
         </section>
 
         {/* Our Approach */}
-        <section className="relative mt-[1.5cm] overflow-hidden border-0 bg-primary-lighter-bg/30 pt-0 pb-32">
+        <section className="relative overflow-hidden border-0 bg-primary-lighter-bg/30 pt-0 pb-32">
           {/* Subtle Decorative Elements */}
           <div className="absolute -top-[150px] md:top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] translate-y-0 md:-translate-y-1/2 translate-x-1/3 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/3 pointer-events-none" />
