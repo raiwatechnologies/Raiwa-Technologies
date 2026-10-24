@@ -10,7 +10,74 @@ import ServiceCard from '@/components/ServiceCard.jsx';
 import StatCard from '@/components/StatCard.jsx';
 import BenefitCard from '@/components/BenefitCard.jsx';
 import ProcessStep from '@/components/ProcessStep.jsx';
+const AnimatedCounter = ({
+  target,
+  prefix = '',
+  suffix = '',
+  duration = 1800,
+}) => {
+  const [value, setValue] = React.useState(0);
+  const counterRef = React.useRef(null);
 
+  React.useEffect(() => {
+    const element = counterRef.current;
+    if (!element) return;
+
+    let animationFrame;
+    let started = false;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting || started) return;
+
+      started = true;
+      observer.disconnect();
+
+      const reduceMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (reduceMotion) {
+        setValue(target);
+        return;
+      }
+
+      const startTime = performance.now();
+
+      const animate = (now) => {
+        const progress = Math.min(
+          (now - startTime) / duration,
+          1
+        );
+
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+        setValue(Math.round(target * easedProgress));
+
+        if (progress < 1) {
+          animationFrame = requestAnimationFrame(animate);
+        }
+      };
+
+      animationFrame = requestAnimationFrame(animate);
+    }, { threshold: 0.3 });
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [target, duration]);
+
+  return (
+    <span ref={counterRef}>
+      {prefix}{value}{suffix}
+    </span>
+  );
+};
 const HomePage = () => {
   const featuredServices = [
     {
@@ -230,14 +297,14 @@ const HomePage = () => {
   `}</style>
 </section>
 
-        {/* Our Approach */}
-        <section className="relative overflow-hidden border-0 bg-primary-lighter-bg/30 pt-0 pb-32">
-          {/* Subtle Decorative Elements */}
+                {/* Our Approach */}
+        <section className="relative overflow-hidden border-0 bg-primary-lighter-bg/30 pt-0 pb-16">
+          {/* Preserve existing blur effects */}
           <div className="absolute -top-[150px] md:top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] translate-y-0 md:-translate-y-1/2 translate-x-1/3 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/3 pointer-events-none" />
-          
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="text-center max-w-3xl mx-auto mb-20">
+            <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -246,102 +313,155 @@ const HomePage = () => {
               >
                 Our Approach
               </motion.div>
-              <motion.h2 
+
+              <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
                 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading mb-8 text-primary-dark tracking-tight"
               >
-                We Don't Just Manage Stores, <br className="hidden md:block"/>
-                <span className="text-primary">We Grow Businesses.</span>
+                We Don't Just Manage Stores,{' '}
+                <br className="hidden md:block" />
+                <span className="text-primary">
+                  We Grow Businesses.
+                </span>
               </motion.h2>
-              <motion.p 
+
+              <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
                 className="text-xl text-muted-foreground leading-relaxed"
               >
-                At Raiwa Technologies, every decision is tied to your results. We combine careful account handling, smart technology and honest reporting to build ecommerce brands that last.
+                At Raiwa Technologies, every decision is tied to your
+                results. We combine careful account handling, smart
+                technology and honest reporting to build ecommerce
+                brands that last.
               </motion.p>
             </div>
+          </div>
+        </section>
 
-            {/* Statistics Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-8 mb-16 sm:mb-24">
-              <StatCard number="100%" label="Account Handling Perfection" icon={Award} index={0} />
-              <StatCard number="20+" label="Satisfied Clients" icon={Users} index={1} />
-              <StatCard number="$10K+" label="Revenue Generated" icon={DollarSign} index={2} />
-              <StatCard number="99%" label="Client Retention" icon={ThumbsUp} index={3} />
+        {/* High-Impact Services */}
+        <section className="py-20 md:py-28 bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-6 font-heading">
+                High-Impact Services
+              </h2>
+
+              <p className="text-lg md:text-xl text-muted-foreground">
+                Focused, practical solutions that help your business
+                get found, get sales and keep growing.
+              </p>
             </div>
 
-            {/* Benefits Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredServices.map((service, index) => (
+                <ServiceCard
+                  key={service.title}
+                  {...service}
+                  index={index}
+                  compact
+                />
+              ))}
+            </div>
+
+            <div className="text-center mt-12 md:mt-16">
+              <Link to="/services">
+                <Button
+                  size="lg"
+                  className="bg-white text-primary border-2 border-primary/20 hover:border-primary hover:bg-primary-lighter-bg font-bold h-14 px-10 shadow-sm transition-all duration-300 text-lg"
+                >
+                  Explore All Services
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* What We Provide + Animated Statistics */}
+        <section className="relative overflow-hidden py-20 md:py-28 bg-primary-lighter-bg/30">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Benefits heading */}
             <div className="text-center mb-12">
-  <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-5 font-heading tracking-tight">
-    What We Provide
-  </h2>
-  <div className="w-20 h-1 bg-primary rounded-full mx-auto mb-5" />
-  <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-    Practical solutions designed to help your business grow, perform and succeed.
-  </p>
-</div>
+              <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-5 font-heading tracking-tight">
+                What We Provide
+              </h2>
+
+              <div className="w-20 h-1 bg-primary rounded-full mx-auto mb-5" />
+
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+                Practical solutions designed to help your business
+                grow, perform and succeed.
+              </p>
+            </div>
+
+            {/* Four benefit cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              <BenefitCard 
+              <BenefitCard
                 icon={LineChart}
                 title="Sustainable Growth"
                 description="We skip risky shortcuts and build steady growth through optimized listings, strong SEO and loyal customers, so your brand keeps growing long after the first sale."
                 index={0}
               />
-              <BenefitCard 
+
+              <BenefitCard
                 icon={Target}
                 title="Measurable Results"
                 description="You will always know where your money goes and what it earns. Clear reports on sales, ad spend and performance keep every decision backed by real numbers."
                 index={1}
               />
-              <BenefitCard 
+
+              <BenefitCard
                 icon={Activity}
                 title="Cost-Effective Allocation"
                 description="Every dollar of your budget is planned with care. We focus spend on the channels and products that perform, and cut what doesn't, for a stronger return."
                 index={2}
               />
-              <BenefitCard 
+
+              <BenefitCard
                 icon={Award}
                 title="Long-term Success"
                 description="We work as your long-term partner, adapting to marketplace and algorithm changes so your brand stays competitive and keeps moving forward."
                 index={3}
               />
             </div>
-          </div>
-        </section>
 
-        {/* Services Section */}
-        <section className="py-32 bg-background">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-20">
-              <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-6 font-heading">High-Impact Services</h2>
-              <p className="text-xl text-muted-foreground">
-                Focused, practical solutions that help your business get found, get sales and keep growing.
-              </p>
-            </div>
-            
-            
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  {featuredServices.map((service, index) => (
-    <ServiceCard
-      key={service.title}
-      {...service}
-      index={index}
-      compact
-    />
-  ))}
-</div>
-  
-            <div className="text-center mt-16">
-              <Link to="/services">
-                <Button size="lg" className="bg-white text-primary border-2 border-primary/20 hover:border-primary hover:bg-primary-lighter-bg font-bold h-14 px-10 shadow-sm transition-all duration-300 text-lg">
-                  Explore All Services <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
+            {/* Animated statistics grid below the benefit cards */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mt-16 md:mt-24">
+              <StatCard
+                number={<AnimatedCounter target={100} suffix="%" />}
+                label="Account Handling Perfection"
+                icon={Award}
+                index={0}
+              />
+
+              <StatCard
+                number={<AnimatedCounter target={20} suffix="+" />}
+                label="Satisfied Clients"
+                icon={Users}
+                index={1}
+              />
+
+              <StatCard
+                number={<AnimatedCounter target={10} prefix="$" suffix="K+" />}
+                label="Revenue Generated"
+                icon={DollarSign}
+                index={2}
+              />
+
+              <StatCard
+                number={<AnimatedCounter target={99} suffix="%" />}
+                label="Client Retention"
+                icon={ThumbsUp}
+                index={3}
+              />
             </div>
           </div>
         </section>
