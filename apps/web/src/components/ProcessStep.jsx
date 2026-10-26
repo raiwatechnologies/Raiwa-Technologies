@@ -12,7 +12,7 @@ const ProcessStep = ({ number, title, description, icon: Icon, isLast, index = 0
       className="relative isolate flex flex-col items-center text-center group"
     >
       <div className="relative z-10 mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-card shadow-xl border-2 border-primary/20 group-hover:border-primary transition-colors duration-300">
-        <div className="absolute -top-2 -right-2 flex h-8 w-8 items-center justify-center rounded-full bg-purple-gradient text-white font-bold text-sm shadow-md">
+        <div className="absolute -top-2 -right-2 flex h-8 w-8 items-center justify-center rounded-full bg-brand-gradient text-white font-bold text-sm shadow-md">
           {number}
         </div>
         <Icon className="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />

@@ -246,28 +246,51 @@ const PortfolioPage = () => {
           </div>
         </section>
 
-        {/* Bottom CTA */}
-        <section className="py-32 bg-primary-dark relative overflow-hidden">
-          <div className="absolute inset-0 bg-luxury-gradient opacity-90" />
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1500&q=80')] bg-cover bg-center mix-blend-overlay opacity-20" />
-          
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-8 font-heading tracking-tight">
-              Ready to be our next <span className="text-primary-light">success story?</span>
-            </h2>
-            <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto leading-relaxed">
-              Partner with a team that cares about your growth. Tell us about your goals and let's build something great together.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-6">
-              <Link to="/contact">
-                <Button size="lg" className="w-full sm:w-auto h-16 px-10 font-bold text-lg bg-white text-primary-dark hover:bg-primary-lighter-bg hover:text-primary transition-all shadow-luxury">
-                  Get Free Consultation
-                  <ArrowRight className="ml-2 w-6 h-6" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+{/* Bottom CTA */}
+<section className="py-32 bg-primary-dark relative overflow-hidden">
+  {/* Responsive background images */}
+  <picture className="absolute inset-0 z-0 block h-full w-full">
+    <source
+      media="(max-width: 767px)"
+      srcSet="/hero-above-footer-mobile.png"
+    />
+    <img
+      src="/hero-above-footer-laptop.png"
+      alt=""
+      aria-hidden="true"
+      className="h-full w-full object-cover object-center"
+    />
+  </picture>
+
+  {/* Dark overlay for readable text */}
+  <div
+    className="absolute inset-0 z-0 bg-black/50"
+    aria-hidden="true"
+  />
+
+  {/* CTA content */}
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-8 font-heading tracking-tight">
+      Ready to Grow Your Business?
+    </h2>
+
+    <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto leading-relaxed">
+      Talk to the Raiwa Technologies team about your goals. Get honest
+      advice and a clear plan for growing your brand.
+    </p>
+
+    <div className="flex flex-col sm:flex-row justify-center gap-6">
+      <Link to="/contact">
+        <Button
+          size="lg"
+          className="w-full sm:w-auto h-16 px-10 font-bold text-lg bg-white text-primary-dark hover:bg-primary-lighter-bg hover:text-primary transition-all shadow-luxury"
+        >
+          Book a Free Consultation
+        </Button>
+      </Link>
+    </div>
+  </div>
+</section>
       </div>
     </>
   );

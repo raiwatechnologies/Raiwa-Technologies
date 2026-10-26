@@ -31,17 +31,17 @@ onRecordAfterCreateSuccess((e) => {
       <style>
         body { font-family: Arial, sans-serif; color: #333; margin: 0; padding: 0; background: #f4f4f5; }
         .container { max-width: 600px; margin: 24px auto; background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #e4e4e7; }
-        .header { background: #6b21a8; color: #fff; padding: 24px; }
+        .header { background: #F20D20; color: #fff; padding: 24px; }
         .header h1 { margin: 0; font-size: 22px; }
         .header p { margin: 8px 0 0; font-size: 13px; opacity: 0.9; }
         .content { padding: 24px; }
         .section { margin-bottom: 20px; }
-        .section-title { font-weight: bold; color: #6b21a8; font-size: 13px; text-transform: uppercase; margin-bottom: 10px; border-bottom: 2px solid #c084fc; padding-bottom: 6px; }
+        .section-title { font-weight: bold; color: #F20D20; font-size: 13px; text-transform: uppercase; margin-bottom: 10px; border-bottom: 2px solid #292A2D; padding-bottom: 6px; }
         .field { margin-bottom: 12px; }
         .field-label { font-weight: bold; color: #3f3f46; font-size: 12px; }
         .field-value { color: #52525b; font-size: 14px; margin-top: 3px; line-height: 1.5; }
         .footer { background: #fafafa; padding: 14px; text-align: center; font-size: 12px; color: #71717a; border-top: 1px solid #e4e4e7; }
-        a { color: #6b21a8; }
+        a { color: #F20D20; }
       </style>
     </head>
     <body>

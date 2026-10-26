@@ -248,11 +248,35 @@ const ServicesPage = () => {
       </Helmet>
 
       <div className="flex flex-col bg-background">
+
         {/* Hero Section */}
         <section className="relative pt-20 pb-24 md:pt-40 overflow-hidden bg-slate-950">
-          <div className="absolute inset-0 bg-purple-gradient opacity-20 mix-blend-screen" />
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-10" />
-          
+          {/* Responsive laptop and mobile background images */}
+          <picture className="absolute inset-0 block h-full w-full">
+            <source
+              media="(max-width: 767px)"
+              srcSet="/hero-service-image-mobile.png"
+            />
+            <img
+              src="/hero-service-image-laptop.png"
+              alt=""
+              aria-hidden="true"
+              className="h-full w-full object-cover object-center"
+            />
+          </picture>
+
+          {/* Dark overlay for text readability */}
+          <div
+            className="absolute inset-0 bg-slate-950/75"
+            aria-hidden="true"
+          />
+
+          {/* Subtle brand accent */}
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-slate-950/50 via-transparent to-slate-950/30"
+            aria-hidden="true"
+          />
+
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -260,25 +284,37 @@ const ServicesPage = () => {
               transition={{ duration: 0.6 }}
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 font-heading leading-tight">
-                Complete Solutions for <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">Growing Brands</span>
+                Complete Solutions for{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-200 via-white to-slate-400">
+                  Growing Brands
+                </span>
               </h1>
-              <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10">
+
+              <p className="text-xl text-slate-200 leading-relaxed max-w-2xl mx-auto mb-10">
                 From launching your marketplace store to building apps and driving traffic, Raiwa Technologies gives you everything you need to sell more, all in one place.
               </p>
+
               <div className="flex flex-wrap justify-center gap-3 mb-10">
                 {serviceCategories.map((category) => (
                   <Link
                     key={category.id}
-                    to={mainServicePath(mainServices.find((item) => item.title === category.title) || mainServices[0])}
-                    className="px-5 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold hover:bg-white hover:text-primary-dark transition-all duration-300"
+                    to={mainServicePath(
+                      mainServices.find((item) => item.title === category.title) ||
+                        mainServices[0]
+                    )}
+                    className="px-5 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold hover:bg-white hover:text-primary-dark transition-all duration-300 backdrop-blur-sm"
                   >
                     {category.title}
                   </Link>
                 ))}
               </div>
+
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Link to="/contact">
-                  <Button size="lg" className="w-full sm:w-auto h-14 px-8 font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-primary/25 transition-all">
+                  <Button
+                    size="lg"
+                    className="w-full sm:w-auto h-14 px-8 font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg transition-all"
+                  >
                     Get a Free Consultation
                   </Button>
                 </Link>
@@ -382,23 +418,51 @@ const ServicesPage = () => {
           </div>
         </section>
 
-        {/* Bottom CTA */}
-        <section className="py-24 bg-purple-gradient text-center relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1500&q=80')] bg-cover bg-center mix-blend-overlay" />
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">Not sure what you need?</h2>
-            <p className="text-xl text-white/90 mb-10">
-              Let's have a quick conversation. We'll look at your current setup and tell you exactly where to focus for the biggest impact.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link to="/contact">
-                <Button size="lg" variant="secondary" className="w-full sm:w-auto h-14 px-8 font-bold text-lg text-primary hover:bg-white">
-                  Book Free Consultation
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+{/* Bottom CTA */}
+<section className="py-32 bg-primary-dark relative overflow-hidden">
+  {/* Responsive background images */}
+  <picture className="absolute inset-0 z-0 block h-full w-full">
+    <source
+      media="(max-width: 767px)"
+      srcSet="/hero-above-footer-mobile.png"
+    />
+    <img
+      src="/hero-above-footer-laptop.png"
+      alt=""
+      aria-hidden="true"
+      className="h-full w-full object-cover object-center"
+    />
+  </picture>
+
+  {/* Dark overlay for readable text */}
+  <div
+    className="absolute inset-0 z-0 bg-black/50"
+    aria-hidden="true"
+  />
+
+  {/* CTA content */}
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-8 font-heading tracking-tight">
+      Ready to Grow Your Business?
+    </h2>
+
+    <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto leading-relaxed">
+      Talk to the Raiwa Technologies team about your goals. Get honest
+      advice and a clear plan for growing your brand.
+    </p>
+
+    <div className="flex flex-col sm:flex-row justify-center gap-6">
+      <Link to="/contact">
+        <Button
+          size="lg"
+          className="w-full sm:w-auto h-16 px-10 font-bold text-lg bg-white text-primary-dark hover:bg-primary-lighter-bg hover:text-primary transition-all shadow-luxury"
+        >
+          Book a Free Consultation
+        </Button>
+      </Link>
+    </div>
+  </div>
+</section>
       </div>
     </>
   );

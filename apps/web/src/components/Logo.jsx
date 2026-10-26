@@ -3,7 +3,7 @@ import { BRAND } from '@/lib/brand.js';
 import { cn } from '@/lib/utils.js';
 
 // Shows the company logo image. If the image file is missing for any reason,
-// it falls back to a purple "R" badge so the layout never breaks.
+// it falls back to a red-and-black "R" badge so the layout never breaks.
 const Logo = ({ className, imgClassName }) => {
   const [failed, setFailed] = useState(false);
 

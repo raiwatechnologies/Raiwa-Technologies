@@ -202,8 +202,8 @@ export const services = [
     themeImage: A + 'game-development-theme.webp',
     category: 'Development',
     icon: Gamepad2,
-    accent: '#7c3aed',
-    soft: '#f5f0ff',
+    accent: '#F20D20',
+    soft: '#fff0f1',
     description:
       'Turn a game concept into a playable experience with engaging systems, polished presentation and performance-minded development.',
     benefits: [
@@ -240,8 +240,8 @@ export const services = [
     themeImage: A + 'graphics-design-theme.jpeg',
     category: 'Development',
     icon: Palette,
-    accent: '#9333ea',
-    soft: '#f6efff',
+    accent: '#F20D20',
+    soft: '#fff0f1',
     description:
       'Create a consistent visual identity with thoughtful brand assets and design that communicates clearly across channels.',
     benefits: [
@@ -259,8 +259,8 @@ export const services = [
     themeImage: A + 'digital-marketing-theme.webp',
     category: 'Marketing',
     icon: Megaphone,
-    accent: '#db2777',
-    soft: '#fff0f7',
+    accent: '#F20D20',
+    soft: '#fff0f1',
     description:
       'Bring strategy, content and channel planning together to reach the right audience and support measurable business goals.',
     benefits: [
@@ -278,8 +278,8 @@ export const services = [
     themeImage: A + 'social-media-marketing-theme.jpg',
     category: 'Marketing',
     icon: Share2,
-    accent: '#c026d3',
-    soft: '#fdf0ff',
+    accent: '#F20D20',
+    soft: '#fff0f1',
     description:
       'Build a recognizable social presence with consistent content, audience engagement and channel-specific planning.',
     benefits: [
@@ -410,7 +410,7 @@ export const mainServices = [
     title: 'Ecommerce',
     slug: 'ecommerce',
     category: 'Ecommerce',
-    accent: '#7c3aed',
+    accent: '#F20D20',
     description:
       'Launch, optimize and manage your stores across leading online marketplaces and ecommerce platforms.',
     image: A + 'ecommerce-theme.png',
@@ -431,7 +431,7 @@ export const mainServices = [
     title: 'Marketing',
     slug: 'marketing',
     category: 'Marketing',
-    accent: '#db2777',
+    accent: '#F20D20',
     description:
       'Create a consistent marketing engine that builds awareness, attracts the right audience and supports sustainable growth.',
     image: A + 'marketing-theme-image.png',

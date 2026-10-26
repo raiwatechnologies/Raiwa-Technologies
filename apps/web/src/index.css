@@ -9,33 +9,33 @@
     --background: 0 0% 100%;
     --foreground: 261 49% 10%;
     
-    /* Royal Luxury Purple Palette */
-    --primary: 273 67% 39%;
+    /* Raiwa Technologies: black, charcoal, red and silver brand palette */
+    --primary: 356 90% 50%;
     --primary-foreground: 0 0% 100%;
     
-    --primary-light: 271 91% 65%;
-    --primary-lighter: 269 97% 85%;
-    --primary-dark: 261 49% 21%;
-    --primary-lighter-bg: 269 100% 95%;
+    --primary-light: 356 90% 60%;
+    --primary-lighter: 0 0% 88%;
+    --primary-dark: 220 13% 4%;
+    --primary-lighter-bg: 0 0% 96%;
     
-    --secondary: 269 100% 95%;
-    --secondary-foreground: 273 67% 39%;
+    --secondary: 0 0% 94%;
+    --secondary-foreground: 356 90% 42%;
     
-    --accent: 271 91% 65%;
+    --accent: 356 90% 50%;
     --accent-foreground: 0 0% 100%;
     
-    --muted: 269 20% 96%;
-    --muted-foreground: 261 20% 45%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 38%;
     
     --card: 0 0% 100%;
-    --card-foreground: 261 49% 10%;
+    --card-foreground: 0 0% 5%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 261 49% 10%;
+    --popover-foreground: 0 0% 5%;
     
-    --border: 269 30% 90%;
-    --input: 269 30% 90%;
-    --ring: 273 67% 39%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 356 90% 50%;
     
     --success: 142 76% 36%;
     --success-foreground: 0 0% 100%;
@@ -46,35 +46,35 @@
   }
   
   .dark {
-    --background: 261 49% 5%;
-    --foreground: 269 40% 98%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 96%;
     
-    --primary: 271 91% 65%;
+    --primary: 356 90% 56%;
     --primary-foreground: 0 0% 100%;
     
-    --primary-light: 269 97% 85%;
-    --primary-lighter: 269 100% 95%;
-    --primary-dark: 273 67% 39%;
-    --primary-lighter-bg: 261 49% 12%;
+    --primary-light: 356 90% 65%;
+    --primary-lighter: 0 0% 88%;
+    --primary-dark: 0 0% 4%;
+    --primary-lighter-bg: 0 0% 10%;
     
-    --secondary: 261 49% 15%;
-    --secondary-foreground: 271 91% 65%;
+    --secondary: 0 0% 13%;
+    --secondary-foreground: 356 90% 65%;
     
-    --accent: 271 91% 65%;
+    --accent: 356 90% 56%;
     --accent-foreground: 0 0% 100%;
     
-    --muted: 261 30% 15%;
-    --muted-foreground: 269 20% 70%;
+    --muted: 0 0% 13%;
+    --muted-foreground: 0 0% 68%;
     
-    --card: 261 49% 8%;
-    --card-foreground: 269 40% 98%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 96%;
     
-    --popover: 261 49% 8%;
-    --popover-foreground: 269 40% 98%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 96%;
     
-    --border: 261 30% 20%;
-    --input: 261 30% 20%;
-    --ring: 271 91% 65%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 356 90% 56%;
   }
   
   * {
@@ -103,22 +103,23 @@
     text-wrap: balance;
   }
   .bg-luxury-gradient {
-    background: linear-gradient(135deg, hsl(var(--primary-dark)), hsl(var(--primary)));
+    background: linear-gradient(135deg, #08090B 0%, #292A2D 58%, #F20D20 100%);
   }
   .text-luxury-gradient {
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+    background: linear-gradient(135deg, #F20D20, #858589);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  .bg-purple-gradient {
-    background: linear-gradient(135deg, hsl(var(--primary-dark)), hsl(var(--primary)));
+  .bg-brand-gradient {
+    /* Kept as a compatibility class; now uses Raiwa's black-to-red palette. */
+    background: linear-gradient(135deg, #08090B 0%, #292A2D 58%, #F20D20 100%);
   }
   .shadow-luxury {
-    box-shadow: 0 10px 40px -10px hsl(var(--primary) / 0.15);
+    box-shadow: 0 10px 40px -10px rgba(242, 13, 32, 0.15);
   }
   .shadow-luxury-hover {
-    box-shadow: 0 20px 40px -10px hsl(var(--primary) / 0.25);
+    box-shadow: 0 20px 40px -10px rgba(242, 13, 32, 0.25);
   }
   
   /* Sticky Header Utilities */
