@@ -162,11 +162,11 @@ const HomePage = () => {
         {/* Hero Section */}
         <section className="relative overflow-hidden min-h-[90vh] flex items-center pt-20 pb-20 md:pt-32 md:pb-32">
           <div className="absolute inset-0 z-0 bg-primary-dark">
-            <img 
-              src="https://images.unsplash.com/photo-1600950722026-886f06209015?auto=format&fit=crop&w=2000&q=80" 
-              alt="Raiwa Technologies team at work" 
-              className="w-full h-full object-cover mix-blend-overlay opacity-60"
-            />
+            <img
+  src="/hero-image.png"
+  alt="Raiwa Technologies team working in a modern office"
+  className="w-full h-full object-cover"
+/>
             <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/80 via-primary-dark/40 to-transparent" />
           </div>
 
