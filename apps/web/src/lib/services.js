@@ -31,8 +31,8 @@ export const services = [
     themeImage: A + 'tiktok-shop-theme.jpg',
     category: 'Ecommerce',
     icon: Video,
-    accent: '#111827',
-    soft: '#f3f4f6',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Launch and grow your TikTok Shop with a store setup, optimized product listings and social-commerce support.',
     benefits: [
@@ -50,8 +50,8 @@ export const services = [
     themeImage: A + 'ebay-theme.jpg',
     category: 'Ecommerce',
     icon: Tag,
-    accent: '#3665f3',
-    soft: '#edf2ff',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Build a stronger eBay presence with clear listings, store organization and ongoing marketplace support.',
     benefits: [
@@ -69,8 +69,8 @@ export const services = [
     themeImage: A + 'amazon-theme-image.jpg',
     category: 'Ecommerce',
     icon: ShoppingCart,
-    accent: '#f59e0b',
-    soft: '#fff7e6',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Create a healthy, discoverable Amazon store with seller onboarding, keyword-focused listings and account care.',
     benefits: [
@@ -88,8 +88,8 @@ export const services = [
     themeImage: A + 'wall-mart-theme.jpg',
     category: 'Ecommerce',
     icon: Store,
-    accent: '#0071ce',
-    soft: '#eaf5ff',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Reach more shoppers with marketplace onboarding, catalog organization and ongoing Walmart account support.',
     benefits: [
@@ -107,8 +107,8 @@ export const services = [
     themeImage: A + 'temu-theme.jpg',
     category: 'Ecommerce',
     icon: Package,
-    accent: '#f97316',
-    soft: '#fff1e8',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Prepare your products for Temu with structured setup, accurate product information and reliable account support.',
     benefits: [
@@ -126,8 +126,8 @@ export const services = [
     themeImage: A + 'mercari-theme.jpg',
     category: 'Ecommerce',
     icon: Layers,
-    accent: '#4f46e5',
-    soft: '#eef2ff',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Keep your Mercari shop organized with compelling listings, thoughtful pricing and consistent operational support.',
     benefits: [
@@ -145,8 +145,8 @@ export const services = [
     themeImage: A + 'shopify-theme.jpg',
     category: 'Ecommerce',
     icon: ShoppingBag,
-    accent: '#78a641',
-    soft: '#f2f8e9',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Launch a beautiful, conversion-focused Shopify storefront that gives your brand control of its customer experience.',
     benefits: [
@@ -164,8 +164,8 @@ export const services = [
     themeImage: A + 'daraz-theme.png',
     category: 'Ecommerce',
     icon: Globe,
-    accent: '#f04438',
-    soft: '#fff0ef',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Grow your South Asian marketplace presence through seller setup, product listing improvements and campaign support.',
     benefits: [
@@ -183,8 +183,8 @@ export const services = [
     themeImage: A + 'app-development-theme.jpg',
     category: 'Development',
     icon: Smartphone,
-    accent: '#2563eb',
-    soft: '#eff6ff',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Create mobile apps designed around your customers, with thoughtful interfaces, dependable performance and room to scale.',
     benefits: [
@@ -202,8 +202,8 @@ export const services = [
     themeImage: A + 'game-development-theme.webp',
     category: 'Development',
     icon: Gamepad2,
-    accent: '#F20D20',
-    soft: '#fff0f1',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Turn a game concept into a playable experience with engaging systems, polished presentation and performance-minded development.',
     benefits: [
@@ -221,8 +221,8 @@ export const services = [
     themeImage: A + 'web-development-theme.jpg',
     category: 'Development',
     icon: Code,
-    accent: '#0891b2',
-    soft: '#e8fbff',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Build fast, responsive websites that present your brand professionally and guide visitors toward meaningful action.',
     benefits: [
@@ -240,8 +240,8 @@ export const services = [
     themeImage: A + 'graphics-design-theme.jpeg',
     category: 'Development',
     icon: Palette,
-    accent: '#F20D20',
-    soft: '#fff0f1',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Create a consistent visual identity with thoughtful brand assets and design that communicates clearly across channels.',
     benefits: [
@@ -259,8 +259,8 @@ export const services = [
     themeImage: A + 'digital-marketing-theme.webp',
     category: 'Marketing',
     icon: Megaphone,
-    accent: '#F20D20',
-    soft: '#fff0f1',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Bring strategy, content and channel planning together to reach the right audience and support measurable business goals.',
     benefits: [
@@ -278,8 +278,8 @@ export const services = [
     themeImage: A + 'social-media-marketing-theme.jpg',
     category: 'Marketing',
     icon: Share2,
-    accent: '#F20D20',
-    soft: '#fff0f1',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Build a recognizable social presence with consistent content, audience engagement and channel-specific planning.',
     benefits: [
@@ -297,8 +297,8 @@ export const services = [
     themeImage: A + 'meta-ads-theme.jpg',
     category: 'Ads',
     icon: Target,
-    accent: '#1877f2',
-    soft: '#edf5ff',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Plan and optimize Facebook and Instagram advertising with thoughtful targeting, creative testing and clear reporting.',
     benefits: [
@@ -316,8 +316,8 @@ export const services = [
     themeImage: A + 'google-ads-theme.png',
     category: 'Ads',
     icon: MousePointerClick,
-    accent: '#4285f4',
-    soft: '#eef5ff',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Reach customers when they search for your products with focused search and shopping campaigns and conversion tracking.',
     benefits: [
@@ -335,8 +335,8 @@ export const services = [
     themeImage: A + 'seo-optimization-theme.jpg',
     category: 'Marketing',
     icon: Search,
-    accent: '#16a34a',
-    soft: '#effbf1',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Improve search visibility through technical fixes, useful content and keyword strategy for long-term organic discovery.',
     benefits: [
@@ -354,8 +354,8 @@ export const services = [
     themeImage: A + 'web-management-theme.jpg',
     category: 'Management',
     icon: LayoutDashboard,
-    accent: '#64748b',
-    soft: '#f1f5f9',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Keep your website reliable, secure and current with ongoing maintenance and practical technical support.',
     benefits: [
@@ -372,8 +372,8 @@ export const services = [
     themeImage: A + 'account-management-theme.jpg',
     category: 'Management',
     icon: ClipboardList,
-    accent: '#0f766e',
-    soft: '#e9fbf7',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Keep marketplace and advertising accounts organized with attentive monitoring, operational support and regular reporting.',
     benefits: [
@@ -391,8 +391,8 @@ export const services = [
     themeImage: A + 'automation-solution-theme.jpg',
     category: 'Marketing',
     icon: Workflow,
-    accent: '#0d9488',
-    soft: '#e9fbf8',
+    accent: '#DA0807',
+    soft: '#E5E5E5',
     description:
       'Streamline marketing operations and repetitive workflows, reporting and data integrations with dependable automation solutions.',
     benefits: [
@@ -410,7 +410,7 @@ export const mainServices = [
     title: 'Ecommerce',
     slug: 'ecommerce',
     category: 'Ecommerce',
-    accent: '#F20D20',
+    accent: '#DA0807',
     description:
       'Launch, optimize and manage your stores across leading online marketplaces and ecommerce platforms.',
     image: A + 'ecommerce-theme.png',
@@ -431,7 +431,7 @@ export const mainServices = [
     title: 'Marketing',
     slug: 'marketing',
     category: 'Marketing',
-    accent: '#F20D20',
+    accent: '#DA0807',
     description:
       'Create a consistent marketing engine that builds awareness, attracts the right audience and supports sustainable growth.',
     image: A + 'marketing-theme-image.png',
@@ -448,7 +448,7 @@ export const mainServices = [
     title: 'Development',
     slug: 'development',
     category: 'Development',
-    accent: '#2563eb',
+    accent: '#DA0807',
     description:
       'Build the digital products your business needs, from high-performing websites and apps to games and creative assets.',
     image: A + 'development-theme-image.png',
@@ -465,7 +465,7 @@ export const mainServices = [
     title: 'Ads',
     slug: 'ads',
     category: 'Ads',
-    accent: '#1877f2',
+    accent: '#DA0807',
     description:
       'Run focused, measurable paid campaigns across search and social platforms with ongoing optimization.',
     children: ['meta-ads', 'google-ads'],
@@ -474,7 +474,7 @@ export const mainServices = [
     title: 'Management',
     slug: 'management',
     category: 'Management',
-    accent: '#0f766e',
+    accent: '#DA0807',
     description:
       'Keep websites, stores and business accounts organized, maintained and moving forward with reliable ongoing support.',
     children: ['web-management', 'account-management'],
