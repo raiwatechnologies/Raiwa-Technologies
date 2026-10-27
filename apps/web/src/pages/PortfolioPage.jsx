@@ -153,7 +153,7 @@ const PortfolioPage = () => {
             <img 
               src="https://images.unsplash.com/photo-1617957689230-231cdaa2fe5c?auto=format&fit=crop&w=2000&q=80" 
               alt="Modern workspace" 
-              className="w-full h-full object-cover"
+              className="block w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-primary-dark/90 mix-blend-multiply" />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-primary-dark/80 to-transparent" />
@@ -258,7 +258,7 @@ const PortfolioPage = () => {
       src="/hero-above-footer-laptop.png"
       alt=""
       aria-hidden="true"
-      className="h-full w-full object-cover object-center"
+      className="block h-full w-full object-cover object-center"
     />
   </picture>
 

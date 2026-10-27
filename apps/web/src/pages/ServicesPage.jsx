@@ -261,7 +261,7 @@ const ServicesPage = () => {
               src="/hero-service-image-laptop.png"
               alt=""
               aria-hidden="true"
-              className="h-full w-full object-cover object-center"
+              className="block h-full w-full object-cover object-center"
             />
           </picture>
 
@@ -430,7 +430,7 @@ const ServicesPage = () => {
       src="/hero-above-footer-laptop.png"
       alt=""
       aria-hidden="true"
-      className="h-full w-full object-cover object-center"
+      className="block h-full w-full object-cover object-center"
     />
   </picture>
 

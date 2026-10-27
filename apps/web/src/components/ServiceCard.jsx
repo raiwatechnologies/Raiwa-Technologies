@@ -86,19 +86,13 @@ const ServiceCard = ({
 
       <div className="relative z-10 flex-grow flex flex-col">
         
-        {/* Service theme image - show the complete image without cropping */}
+        {/* Service image: consistent 16:9 frame across card sizes */}
         {themeImage && (
-          <div
-            className={`mx-3 mt-3 mb-4 rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center ${
-            compact
-            ? 'h-40 sm:h-44'
-            : 'h-44 sm:h-48'
-            }`}
-          >
+          <div className={`mx-3 mt-3 mb-4 aspect-[16/9] rounded-xl overflow-hidden bg-[#E5E5E5] ${compact ? 'max-h-44' : 'max-h-52'}`}>
             <img
               src={themeImage}
               alt={`${title} service`}
-              className="w-full h-full object-cover transition-transform duration-300"
+              className="block w-full h-full object-cover object-center transition-transform duration-300"
               loading="lazy"
               onError={(event) => {
                 console.error('Service theme image failed to load:', themeImage);

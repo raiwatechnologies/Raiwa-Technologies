@@ -13,11 +13,13 @@ const PortfolioCard = ({ image, title, client, problem, results, category, index
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="group bg-card rounded-2xl overflow-hidden border border-border transition-all duration-500 hover:shadow-2xl flex flex-col h-full"
     >
-      <div className="relative overflow-hidden aspect-[4/3]">
+      <div className="relative w-full overflow-hidden aspect-[16/9] bg-[#E5E5E5]">
         <img
           src={image}
           alt={`Case study for ${client}`}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
+          decoding="async"
+          className="block w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
           <p className="text-primary-foreground font-medium mb-4 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">

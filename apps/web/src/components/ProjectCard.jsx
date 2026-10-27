@@ -12,13 +12,15 @@ const ProjectCard = ({ image, icon: Icon, title, client, description, tags, metr
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="group relative flex flex-col rounded-2xl bg-white border border-primary/10 overflow-hidden shadow-luxury hover:shadow-luxury-hover transition-all duration-500"
     >
-      <div className="relative h-64 overflow-hidden bg-primary-lighter-bg">
+      <div className="relative w-full aspect-[16/9] overflow-hidden bg-[#E5E5E5]">
         <div className="absolute inset-0 bg-primary-dark/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         {image ? (
           <img 
             src={image} 
-            alt={`${title} project for ${client}`} 
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+            alt={`${title} project for ${client}`}
+            loading="lazy"
+            decoding="async"
+            className="block h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
           />
         ) : (
           <div className="h-full w-full bg-luxury-gradient flex items-center justify-center transition-transform duration-700 group-hover:scale-110">

@@ -170,7 +170,7 @@ const HomePage = () => {
   <img
     src="/hero-image-laptop.png"
     alt="Raiwa Technologies business growth analytics"
-    className="h-full w-full object-cover object-center"
+    className="block h-full w-full object-cover object-center"
   />
 </picture>
             <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/80 via-primary-dark/40 to-transparent" />
@@ -526,7 +526,7 @@ const HomePage = () => {
             src="/hero-above-footer-laptop.png"
             alt=""
             aria-hidden="true"
-            className="h-full w-full object-cover object-center"
+            className="block h-full w-full object-cover object-center"
           />
         </picture>
 
