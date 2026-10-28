@@ -167,11 +167,13 @@ const HomePage = () => {
     media="(max-width: 767px)"
     srcSet="/hero-image-phone.png"
   />
-  <img
-    src="/hero-image-laptop.png"
-    alt="Raiwa Technologies business growth analytics"
-    className="block h-full w-full object-cover object-center"
-  />
+  
+<img
+  src="/hero-image-laptop.png"
+  alt="Raiwa Technologies business growth analytics"
+  className="block h-full w-full object-contain object-center"
+/>
+
 </picture>
             <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/80 via-primary-dark/40 to-transparent" />
           </div>
