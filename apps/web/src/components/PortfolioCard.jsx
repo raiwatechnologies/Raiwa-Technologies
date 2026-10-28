@@ -21,7 +21,7 @@ const PortfolioCard = ({ image, title, client, problem, results, category, index
           decoding="async"
           className="block w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#171313]/95 via-[#171313]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
           <p className="text-primary-foreground font-medium mb-4 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
             <span className="font-bold block mb-1">The Challenge:</span>
             {problem}
@@ -34,7 +34,7 @@ const PortfolioCard = ({ image, title, client, problem, results, category, index
       
       <div className="p-6 flex flex-col flex-grow">
         <div className="flex flex-wrap gap-2 mb-4">
-          <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20 border-none">
+          <Badge variant="secondary" className="bg-[#E5E5E5] text-[#171313] hover:bg-[#A09E9D]/40 border border-[#A09E9D]/30">
             {category}
           </Badge>
         </div>
@@ -47,9 +47,9 @@ const PortfolioCard = ({ image, title, client, problem, results, category, index
           Client: <span className="text-foreground">{client}</span>
         </p>
         
-        <div className="mt-auto bg-muted/50 rounded-xl p-4 border border-border/50 group-hover:border-primary/20 transition-colors">
+        <div className="mt-auto bg-muted/50 rounded-xl p-4 border border-border/50 group-hover:border-[#DA0807]/40 transition-colors">
           <div className="flex items-start gap-3">
-            <div className="bg-primary/10 p-2 rounded-lg text-primary flex-shrink-0">
+            <div className="bg-[#E5E5E5] p-2 rounded-lg text-[#171313] flex-shrink-0">
               <TrendingUp className="w-5 h-5" />
             </div>
             <div>

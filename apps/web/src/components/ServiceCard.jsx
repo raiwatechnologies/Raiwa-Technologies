@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, ShoppingCart } from 'lucide-react';
@@ -37,7 +38,6 @@ const ServiceCard = ({
     (service) => service.title.toLowerCase() === normalizedTitle
   );
 
-  // Use the matching service OR main service data.
   const serviceData = matchingService || matchingMain;
 
   const destination = matchingService
@@ -46,7 +46,6 @@ const ServiceCard = ({
       ? mainServicePath(matchingMain)
       : '/contact';
 
-  // Support images and logos from all service sources.
   const themeImage =
     propsImage ||
     serviceData?.themeImage ||
@@ -72,7 +71,7 @@ const ServiceCard = ({
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ y: -5 }}
-      className="flex flex-col h-full rounded-2xl bg-white border shadow-luxury hover:shadow-luxury-hover transition-all duration-300 group relative overflow-hidden"
+      className="flex flex-col h-full rounded-2xl bg-[#FDFDFD] border border-[#E5E5E5] shadow-md hover:shadow-xl hover:border-[#DA0807]/40 transition-all duration-300 group relative overflow-hidden"
       style={{
         borderColor: accent ? `${accent}35` : undefined
       }}
@@ -80,36 +79,40 @@ const ServiceCard = ({
       <div
         className="absolute top-0 right-0 w-32 h-32 rounded-bl-[100px] -mr-8 -mt-8 transition-transform duration-500 group-hover:scale-150 z-0"
         style={{
-          backgroundColor: soft || 'hsl(var(--primary-lighter-bg))'
+          backgroundColor: soft || '#E5E5E5'
         }}
       />
 
       <div className="relative z-10 flex-grow flex flex-col">
-        
-        {/* Service image: consistent 16:9 frame across card sizes */}
         {themeImage && (
-          <div className={`mx-3 mt-3 mb-4 aspect-[16/9] rounded-xl overflow-hidden bg-[#E5E5E5] ${compact ? 'max-h-44' : 'max-h-52'}`}>
+          <div
+            className={`mx-3 mt-3 mb-4 aspect-[16/9] rounded-xl overflow-hidden bg-[#E5E5E5] ${
+              compact ? 'max-h-44' : 'max-h-52'
+            }`}
+          >
             <img
               src={themeImage}
               alt={`${title} service`}
               className="block w-full h-full object-cover object-center transition-transform duration-300"
               loading="lazy"
               onError={(event) => {
-                console.error('Service theme image failed to load:', themeImage);
+                console.error(
+                  'Service theme image failed to load:',
+                  themeImage
+                );
                 event.currentTarget.style.display = 'none';
               }}
             />
           </div>
         )}
 
-        {/* Service logo */}
         <div
-          className={`mb-4 ml-8 inline-flex items-center justify-center rounded-2xl bg-white border transition-all duration-300 shadow-sm ${
-          compact ? 'h-14 w-14' : 'h-16 w-16'
-        }`}
+          className={`mb-4 ml-8 inline-flex items-center justify-center rounded-2xl bg-[#FDFDFD] border border-[#E5E5E5] transition-all duration-300 shadow-sm ${
+            compact ? 'h-14 w-14' : 'h-16 w-16'
+          }`}
           style={{
-            color: accent || 'hsl(var(--primary))',
-            borderColor: accent ? `${accent}30` : undefined
+            color: '#171313',
+            borderColor: '#E5E5E5'
           }}
         >
           {logoUrl ? (
@@ -131,20 +134,23 @@ const ServiceCard = ({
         {label && (
           <p
             className="text-xs font-extrabold uppercase tracking-[.18em] mb-3 px-8"
-            style={{ color: accent }}
+            style={{ color: '#DA0807' }}
           >
             {label}
           </p>
         )}
 
         <h3
-          className="mb-4 px-8 text-2xl font-bold text-primary-dark font-heading transition-colors duration-300"
-          style={{ color: accent || undefined }}
+          className="mb-4 px-8 text-2xl font-bold font-heading transition-colors duration-300"
+          style={{ color: '#171313' }}
         >
           {title}
         </h3>
 
-        <p className="text-muted-foreground leading-relaxed mb-6 px-8 flex-grow">
+        <p
+          className="leading-relaxed mb-6 px-8 flex-grow"
+          style={{ color: '#55514F' }}
+        >
           {description}
         </p>
 
@@ -153,10 +159,11 @@ const ServiceCard = ({
             {benefits.map((benefit, i) => (
               <li
                 key={i}
-                className="flex items-center text-sm font-medium text-foreground"
+                className="flex items-center text-sm font-medium"
+                style={{ color: '#171313' }}
               >
-                <div className="mr-3 flex items-center justify-center h-5 w-5 rounded-full bg-primary-lighter-bg text-primary shrink-0">
-                  <div className="h-2 w-2 rounded-full bg-primary" />
+                <div className="mr-3 flex items-center justify-center h-5 w-5 rounded-full bg-[#E5E5E5] shrink-0">
+                  <div className="h-2 w-2 rounded-full bg-[#DA0807]" />
                 </div>
                 {benefit}
               </li>
@@ -164,14 +171,14 @@ const ServiceCard = ({
           </ul>
         )}
 
-        <div className="mt-auto mx-8 pt-6 pb-2 border-t border-border/50">
+        <div className="mt-auto mx-8 pt-6 pb-2 border-t border-[#E5E5E5]">
           <Link to={destination} className="block">
             <Button
               variant="ghost"
-              className="w-full justify-between group/btn hover:bg-primary-lighter-bg hover:text-primary font-bold text-primary-dark h-12"
+              className="w-full justify-between group/btn hover:bg-[#171313] hover:text-[#FDFDFD] font-bold text-[#171313] h-12 transition-colors duration-200"
             >
               {ctaText}
-              <ArrowRight className="h-5 w-5 transition-transform group-hover/btn:translate-x-1 text-primary" />
+              <ArrowRight className="h-5 w-5 transition-transform group-hover/btn:translate-x-1 text-[#DA0807] group-hover/btn:text-[#FDFDFD]" />
             </Button>
           </Link>
         </div>

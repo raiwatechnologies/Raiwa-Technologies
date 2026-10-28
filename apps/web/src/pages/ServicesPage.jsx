@@ -250,7 +250,7 @@ const ServicesPage = () => {
       <div className="flex flex-col bg-background">
 
         {/* Hero Section */}
-        <section className="relative pt-20 pb-24 md:pt-40 overflow-hidden bg-slate-950">
+        <section className="relative pt-20 pb-24 md:pt-40 overflow-hidden bg-[#171313]">
           {/* Responsive laptop and mobile background images */}
           <picture className="absolute inset-0 block h-full w-full">
             <source
@@ -302,7 +302,7 @@ const ServicesPage = () => {
                       mainServices.find((item) => item.title === category.title) ||
                         mainServices[0]
                     )}
-                    className="px-5 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold hover:bg-white hover:text-primary-dark transition-all duration-300 backdrop-blur-sm"
+                    className="px-5 py-2 rounded-full bg-white/10 border border-white/30 text-white text-sm font-semibold hover:bg-white hover:text-[#171313] hover:border-white transition-all duration-300 backdrop-blur-sm"
                   >
                     {category.title}
                   </Link>
@@ -313,7 +313,7 @@ const ServicesPage = () => {
                 <Link to="/contact">
                   <Button
                     size="lg"
-                    className="w-full sm:w-auto h-14 px-8 font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg transition-all"
+                    className="w-full sm:w-auto h-14 px-8 font-bold bg-[#DA0807] text-white hover:bg-[#171313] border border-[#DA0807] hover:border-white/30 shadow-lg transition-all duration-300"
                   >
                     Get a Free Consultation
                   </Button>
@@ -330,10 +330,10 @@ const ServicesPage = () => {
               <div
                 key={category.id}
                 id={category.id}
-                className={`scroll-mt-28 mb-24 last:mb-0 ${catIndex !== 0 ? 'pt-24 border-t border-border' : ''}`}
+                className={`scroll-mt-28 mb-24 last:mb-0 ${catIndex !== 0 ? 'pt-24 border-t border-[#A09E9D]/30' : ''}`}
               >
                 <div className="mb-12 md:mb-16 max-w-3xl">
-                  <Link to={mainServicePath(mainServices.find((item) => item.title === category.title) || mainServices[0])} className="inline-flex items-center gap-2 group"><h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading group-hover:text-primary transition-colors">{category.title}</h2><span className="text-primary mb-4" aria-hidden="true">↗</span></Link>
+                  <Link to={mainServicePath(mainServices.find((item) => item.title === category.title) || mainServices[0])} className="inline-flex items-center gap-2 group"><h2 className="text-3xl md:text-4xl font-bold text-[#171313] mb-4 font-heading group-hover:text-[#DA0807] transition-colors">{category.title}</h2><span className="text-[#A09E9D] mb-4 group-hover:text-[#DA0807] transition-colors" aria-hidden="true">↗</span></Link>
                   <p className="text-lg text-muted-foreground">{category.description}</p>
                 </div>
                 
@@ -354,7 +354,7 @@ const ServicesPage = () => {
         </section>
 
         {/* Why Choose Our Services */}
-        <section className="py-24 bg-slate-50/50 border-y border-border">
+        <section className="py-24 bg-[#E5E5E5]/30 border-y border-[#A09E9D]/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4 text-foreground">Why Choose Raiwa Technologies?</h2>
@@ -405,7 +405,7 @@ const ServicesPage = () => {
         </section>
 
         {/* FAQs Section */}
-        <section className="py-24 bg-slate-50/50 border-t border-border">
+        <section className="py-24 bg-[#E5E5E5]/30 border-t border-[#A09E9D]/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading">Frequently Asked Questions</h2>
@@ -419,7 +419,7 @@ const ServicesPage = () => {
         </section>
 
 {/* Bottom CTA */}
-<section className="py-32 bg-primary-dark relative overflow-hidden">
+<section className="py-32 bg-[#171313] relative overflow-hidden">
   {/* Responsive background images */}
   <picture className="absolute inset-0 z-0 block h-full w-full">
     <source
@@ -455,7 +455,7 @@ const ServicesPage = () => {
       <Link to="/contact">
         <Button
           size="lg"
-          className="w-full sm:w-auto h-16 px-10 font-bold text-lg bg-white text-primary-dark hover:bg-primary-lighter-bg hover:text-primary transition-all shadow-luxury"
+          className="w-full sm:w-auto h-16 px-10 font-bold text-lg bg-white text-[#171313] border-2 border-white hover:bg-[#DA0807] hover:text-white hover:border-[#DA0807] transition-all duration-300 shadow-luxury"
         >
           Book a Free Consultation
         </Button>

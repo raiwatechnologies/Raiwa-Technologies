@@ -24,17 +24,17 @@ const BenefitCard = ({ icon: Icon, title, description, index = 0 }) => {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ y: -5 }}
-      className="relative flex flex-col h-full min-h-[280px] rounded-2xl bg-white p-6 sm:p-8 pr-28 sm:pr-40 border border-primary/10 shadow-luxury hover:shadow-luxury-hover hover:border-primary/30 transition-all duration-300 group"
+      className="relative flex flex-col h-full min-h-[280px] rounded-2xl bg-[#FDFDFD] p-6 sm:p-8 pr-28 sm:pr-40 border border-[#E5E5E5] shadow-luxury hover:shadow-luxury-hover hover:border-[#DA0807]/40 transition-all duration-300 group"
     >
-      <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-lighter-bg text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-md">
+      <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-[#E5E5E5] text-[#DA0807] group-hover:bg-[#DA0807] group-hover:text-[#FDFDFD] transition-all duration-300 shadow-sm group-hover:shadow-md">
         {Icon && <Icon className="h-8 w-8" />}
       </div>
 
-      <h3 className="mb-4 text-xl sm:text-2xl font-bold text-foreground font-heading group-hover:text-primary transition-colors duration-300">
+      <h3 className="mb-4 text-xl sm:text-2xl font-bold font-heading transition-colors duration-300 text-[#171313] group-hover:text-[#DA0807]">
         {title}
       </h3>
 
-      <p className="text-muted-foreground leading-relaxed flex-grow text-base">
+      <p className="leading-relaxed flex-grow text-base text-[#55514F]">
         {description}
       </p>
 

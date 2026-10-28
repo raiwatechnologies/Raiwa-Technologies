@@ -15,9 +15,9 @@ const ContactPage = () => {
 
       <div className="flex flex-col bg-background">
         {/* Hero */}
-        <section className="pt-20 pb-16 md:pt-32 bg-muted/30">
+        <section className="pt-20 pb-16 md:pt-32 bg-[#E5E5E5]/40">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground mb-6 font-heading">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#171313] mb-6 font-heading">
               Let's Grow Your Business
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
@@ -32,7 +32,7 @@ const ContactPage = () => {
             <div className="flex flex-col lg:flex-row gap-16">
               
               {/* Form Side */}
-              <div className="lg:w-3/5 bg-card p-8 md:p-10 rounded-3xl shadow-xl border border-border">
+              <div className="lg:w-3/5 bg-white p-8 md:p-10 rounded-3xl shadow-lg border border-[#A09E9D]/30">
                 <h2 className="text-2xl font-bold font-heading text-foreground mb-2">Request Free Consultation</h2>
                 <p className="text-muted-foreground mb-8">Please share as much detail as possible so we can prepare before we speak.</p>
                 <ContactForm />
@@ -44,29 +44,29 @@ const ContactPage = () => {
                   <h3 className="text-2xl font-bold font-heading text-foreground mb-6">Contact Information</h3>
                   <ul className="space-y-6">
                     <li className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 bg-[#E5E5E5] text-[#171313] border border-[#A09E9D]/30 rounded-xl flex items-center justify-center flex-shrink-0">
                         <Mail className="w-6 h-6" />
                       </div>
                       <div>
                         <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-1">Email Us</p>
-                        <a href={`mailto:${BRAND.email}`} className="text-lg font-semibold text-foreground hover:text-primary transition-colors">
+                        <a href={`mailto:${BRAND.email}`} className="text-lg font-semibold text-[#171313] hover:text-[#DA0807] transition-colors">
                           {BRAND.email}
                         </a>
                       </div>
                     </li>
                     <li className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 bg-[#E5E5E5] text-[#171313] border border-[#A09E9D]/30 rounded-xl flex items-center justify-center flex-shrink-0">
                         <Phone className="w-6 h-6" />
                       </div>
                       <div>
                         <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-1">Call / WhatsApp</p>
-                        <a href={`tel:${BRAND.phoneTel}`} className="text-lg font-semibold text-foreground hover:text-primary transition-colors block">
+                        <a href={`tel:${BRAND.phoneTel}`} className="text-lg font-semibold text-[#171313] hover:text-[#DA0807] transition-colors block">
                           {BRAND.phoneDisplay}
                         </a>
                       </div>
                     </li>
                     <li className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 bg-[#E5E5E5] text-[#171313] border border-[#A09E9D]/30 rounded-xl flex items-center justify-center flex-shrink-0">
                         <MapPin className="w-6 h-6" />
                       </div>
                       <div>
@@ -78,7 +78,7 @@ const ContactPage = () => {
                   </ul>
                 </div>
 
-                <div className="bg-primary/5 rounded-3xl p-8 border border-primary/20">
+                <div className="bg-[#E5E5E5]/40 rounded-3xl p-8 border border-[#A09E9D]/30">
                   <h4 className="font-bold text-foreground text-xl mb-4 font-heading">Need an immediate response?</h4>
                   <p className="text-muted-foreground mb-6">
                     Message us directly on WhatsApp for a quick reply. We're happy to answer your questions and discuss your project.
@@ -92,7 +92,7 @@ const ContactPage = () => {
         </section>
 
         {/* Map / Location Graphic */}
-        <section className="bg-muted/30 border-t border-border py-20">
+        <section className="bg-[#E5E5E5]/30 border-t border-[#A09E9D]/30 py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-bold font-heading mb-6">Global Reach, Personal Service</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

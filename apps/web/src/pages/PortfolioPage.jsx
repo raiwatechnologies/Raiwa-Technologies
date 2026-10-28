@@ -155,8 +155,8 @@ const PortfolioPage = () => {
               alt="Modern workspace" 
               className="block w-full h-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-primary-dark/90 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-primary-dark/80 to-transparent" />
+            <div className="absolute inset-0 bg-[#171313]/85 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#171313] via-[#171313]/75 to-transparent" />
           </div>
 
           <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -169,7 +169,7 @@ const PortfolioPage = () => {
                 Our Work
               </div>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-8 font-heading leading-tight tracking-tight">
-                Our Portfolio of <span className="text-primary-light">Success</span>
+                Our Portfolio of <span className="text-[#E5E5E5]">Success</span>
               </h1>
               <p className="text-xl md:text-2xl text-white/80 leading-relaxed max-w-3xl mx-auto">
                 We don't just deliver services; we build growth. Explore the kind of work we do for ambitious brands across ecommerce, development, marketing and SEO.
@@ -194,7 +194,7 @@ const PortfolioPage = () => {
         <section className="py-24 bg-primary-lighter-bg/30 border-y border-primary/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-5xl font-bold font-heading mb-6 text-primary-dark">Featured Work</h2>
+              <h2 className="text-3xl md:text-5xl font-bold font-heading mb-6 text-[#171313]">Featured Work</h2>
               <p className="text-lg text-muted-foreground">A look at the kind of projects we deliver, from marketplace stores to custom apps and growth campaigns.</p>
             </div>
             
@@ -205,10 +205,10 @@ const PortfolioPage = () => {
                   key={cat}
                   onClick={() => setFilter(cat)}
                   className={`px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-sm ${
-                    filter === cat 
-                      ? 'bg-primary text-white shadow-luxury' 
-                      : 'bg-white text-primary-dark border border-primary/10 hover:border-primary hover:text-primary hover:bg-primary-lighter-bg'
-                  }`}
+  filter === cat
+    ? 'bg-[#171313] text-white border border-[#171313] shadow-luxury'
+    : 'bg-white text-[#171313] border border-[#A09E9D]/40 hover:border-[#DA0807] hover:text-[#DA0807] hover:bg-[#E5E5E5]/40'
+}`}
                 >
                   {cat}
                 </button>
@@ -234,7 +234,7 @@ const PortfolioPage = () => {
         <section className="py-24 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-5xl font-bold font-heading mb-6 text-primary-dark">Client Reviews</h2>
+              <h2 className="text-3xl md:text-5xl font-bold font-heading mb-6 text-[#171313]">Client Reviews</h2>
               <p className="text-lg text-muted-foreground">Hear from the business owners who trust Raiwa Technologies to help them grow.</p>
             </div>
             
@@ -283,7 +283,7 @@ const PortfolioPage = () => {
       <Link to="/contact">
         <Button
           size="lg"
-          className="w-full sm:w-auto h-16 px-10 font-bold text-lg bg-white text-primary-dark hover:bg-primary-lighter-bg hover:text-primary transition-all shadow-luxury"
+          className="w-full sm:w-auto h-16 px-10 font-bold text-lg bg-white text-[#171313] border border-[#E5E5E5] hover:bg-[#E5E5E5] hover:text-[#171313] transition-all shadow-luxury"
         >
           Book a Free Consultation
         </Button>

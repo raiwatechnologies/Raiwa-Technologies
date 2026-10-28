@@ -10,10 +10,10 @@ const ProjectCard = ({ image, icon: Icon, title, client, description, tags, metr
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative flex flex-col rounded-2xl bg-white border border-primary/10 overflow-hidden shadow-luxury hover:shadow-luxury-hover transition-all duration-500"
+      className="group relative flex flex-col rounded-2xl bg-white border border-[#A09E9D]/30 overflow-hidden shadow-luxury hover:shadow-luxury-hover transition-all duration-500"
     >
       <div className="relative w-full aspect-[16/9] overflow-hidden bg-[#E5E5E5]">
-        <div className="absolute inset-0 bg-primary-dark/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-[#171313]/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         {image ? (
           <img 
             src={image} 
@@ -29,7 +29,7 @@ const ProjectCard = ({ image, icon: Icon, title, client, description, tags, metr
         )}
         <div className="absolute top-4 left-4 z-20 flex flex-wrap gap-2">
           {tags?.map(tag => (
-            <span key={tag} className="px-3 py-1 bg-white/95 backdrop-blur-sm text-primary-dark text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">
+            <span key={tag} className="px-3 py-1 bg-white/95 backdrop-blur-sm text-[#171313] border border-[#A09E9D]/30 text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">
               {tag}
             </span>
           ))}
@@ -37,12 +37,12 @@ const ProjectCard = ({ image, icon: Icon, title, client, description, tags, metr
       </div>
       
       <div className="flex flex-col flex-grow p-8">
-        <div className="mb-2 text-sm font-bold text-primary uppercase tracking-widest">{client}</div>
-        <h3 className="text-2xl font-bold font-heading text-primary-dark mb-4 group-hover:text-primary transition-colors">{title}</h3>
+        <div className="mb-2 text-sm font-bold text-[#171313] uppercase tracking-widest">{client}</div>
+        <h3 className="text-2xl font-bold font-heading text-[#171313] mb-4 group-hover:text-[#DA0807] transition-colors">{title}</h3>
         <p className="text-muted-foreground leading-relaxed mb-8 flex-grow">{description}</p>
         
         {metrics && (
-          <div className="grid grid-cols-2 gap-4 mb-8 p-4 bg-primary-lighter-bg/50 rounded-xl border border-primary/5">
+          <div className="grid grid-cols-2 gap-4 mb-8 p-4 bg-[#E5E5E5]/50 rounded-xl border border-[#A09E9D]/25">
             {metrics.map((metric, i) => (
               <div key={i}>
                 <div className="text-xl font-bold text-primary-dark mb-1">{metric.value}</div>
@@ -52,7 +52,7 @@ const ProjectCard = ({ image, icon: Icon, title, client, description, tags, metr
           </div>
         )}
 
-        <Link to="/contact" className="inline-flex items-center text-primary font-bold mt-auto group/link hover:text-primary-light transition-colors">
+        <Link to="/contact" className="inline-flex items-center text-[#171313] font-bold mt-auto group/link hover:text-[#DA0807] transition-colors">
           {ctaText}
           <ArrowUpRight className="ml-2 w-5 h-5 transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
         </Link>

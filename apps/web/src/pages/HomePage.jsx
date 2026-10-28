@@ -160,21 +160,21 @@ const HomePage = () => {
 
       <div className="flex flex-col bg-background">
         {/* Hero Section */}
-        <section className="relative overflow-hidden min-h-[90vh] flex items-center pt-20 pb-20 md:pt-32 md:pb-32">
+        <section className="relative overflow-hidden min-h-[700px] flex items-center py-16 md:min-h-[760px] md:py-24">
           <div className="absolute inset-0 z-0 bg-primary-dark">
-            <picture className="absolute inset-0 block h-full w-full">
+
+<picture className="absolute inset-0 block h-full w-full">
   <source
     media="(max-width: 767px)"
     srcSet="/hero-image-phone.png"
   />
-  
-<img
-  src="/hero-image-laptop.png"
-  alt="Raiwa Technologies business growth analytics"
-  className="block h-full w-full object-contain object-center"
-/>
-
+  <img
+    src="/hero-image-laptop.png"
+    alt="Raiwa Technologies business growth analytics"
+    className="block h-full w-full object-cover object-center"
+  />
 </picture>
+
             <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/80 via-primary-dark/40 to-transparent" />
           </div>
 
@@ -195,7 +195,7 @@ const HomePage = () => {
                 
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-6 font-heading tracking-tight drop-shadow-md">
                   Build. Launch. <br/>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-lighter to-primary-light">Scale Your Brand.</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-[#E5E5E5]">Scale Your Brand.</span>
                 </h1>
                 
                 <p className="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed max-w-2xl font-medium drop-shadow-sm">
@@ -308,8 +308,8 @@ const HomePage = () => {
                 {/* Our Approach */}
         <section className="relative overflow-hidden border-0 bg-primary-lighter-bg/30 pt-0 pb-16">
           {/* Preserve existing blur effects */}
-          <div className="absolute -top-[150px] md:top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] translate-y-0 md:-translate-y-1/2 translate-x-1/3 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/3 pointer-events-none" />
+          <div className="absolute -top-[150px] md:top-0 right-0 w-[600px] h-[600px] bg-[#A09E9D]/15 rounded-full blur-[120px] translate-y-0 md:-translate-y-1/2 translate-x-1/3 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#A09E9D]/15 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/3 pointer-events-none" />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
@@ -317,7 +317,7 @@ const HomePage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-primary/10 text-primary font-bold text-sm mb-6 uppercase tracking-widest"
+                className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-[#E5E5E5] text-[#171313] border border-[#A09E9D]/30 font-bold text-sm mb-6 uppercase tracking-widest"
               >
                 Our Approach
               </motion.div>
@@ -331,9 +331,9 @@ const HomePage = () => {
               >
                 We Don't Just Manage Stores,{' '}
                 <br className="hidden md:block" />
-                <span className="text-primary">
-                  We Grow Businesses.
-                </span>
+                <span className="text-[#171313]">
+  We Grow Businesses.
+</span>
               </motion.h2>
 
               <motion.p
@@ -381,7 +381,7 @@ const HomePage = () => {
               <Link to="/services">
                 <Button
                   size="lg"
-                  className="bg-white text-primary border-2 border-primary/20 hover:border-primary hover:bg-primary-lighter-bg font-bold h-14 px-10 shadow-sm transition-all duration-300 text-lg"
+                  className="bg-white text-[#171313] border-2 border-[#A09E9D]/40 hover:bg-[#171313] hover:text-white hover:border-[#171313] font-bold h-14 px-10 shadow-sm transition-all duration-300 text-lg"
                 >
                   Explore All Services
                   <ArrowRight className="w-5 h-5 ml-2" />
@@ -393,7 +393,7 @@ const HomePage = () => {
 
         {/* What We Provide + Animated Statistics */}
         <section className="relative overflow-hidden py-20 md:py-28 bg-primary-lighter-bg/30">
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#A09E9D]/15 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/3 pointer-events-none" />
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Benefits heading */}
@@ -402,7 +402,7 @@ const HomePage = () => {
                 What We Provide
               </h2>
 
-              <div className="w-20 h-1 bg-primary rounded-full mx-auto mb-5" />
+              <div className="w-20 h-1 bg-[#A09E9D] rounded-full mx-auto mb-5" />
 
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
                 Practical solutions designed to help your business
@@ -475,7 +475,7 @@ const HomePage = () => {
         </section>
 
         {/* Marketplaces */}
-        <section className="py-24 bg-primary-lighter-bg/30 border-y border-primary/10">
+        <section className="py-24 bg-primary-lighter-bg/30 border-y border-[#A09E9D]/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-extrabold text-primary-dark mb-4 font-heading">Marketplaces We Work With</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">

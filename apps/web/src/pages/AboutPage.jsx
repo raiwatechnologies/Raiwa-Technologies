@@ -59,18 +59,18 @@ const AboutPage = () => {
             <div className="flex flex-col lg:flex-row items-center gap-16">
               
               <div className="lg:w-1/2 relative w-full">
-                <div className="aspect-square max-w-md mx-auto relative z-10 rounded-3xl overflow-hidden shadow-2xl border-4 border-primary/20 bg-luxury-gradient flex flex-col items-center justify-center text-center p-10">
+                <div className="aspect-square max-w-md mx-auto relative z-10 rounded-3xl overflow-hidden shadow-2xl border-4 border-[#A09E9D]/40 bg-luxury-gradient flex flex-col items-center justify-center text-center p-10">
                   <Logo className="w-36 h-36 mb-6" />
                   <div className="text-3xl md:text-4xl font-extrabold text-white font-heading tracking-tight mb-3">Raiwa Technologies</div>
                   <div className="text-primary-lighter font-semibold mb-4">Ecommerce, Development &amp; Digital Growth</div>
                   <div className="inline-flex px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-sm font-bold uppercase tracking-widest">Established 2020</div>
                 </div>
                 {/* Decorative blob */}
-                <div className="absolute top-10 -left-10 w-[120%] h-[120%] bg-primary/15 rounded-full blur-3xl -z-10" />
+                <div className="absolute top-10 -left-10 w-[120%] h-[120%] bg-[#A09E9D]/20 rounded-full blur-3xl -z-10" />
               </div>
 
               <div className="lg:w-1/2">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-bold text-sm mb-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E5E5E5] text-[#171313] border border-[#A09E9D]/30 font-bold text-sm mb-6">
                   About Raiwa Technologies · Since 2020
                 </div>
                 <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6 font-heading leading-tight">
@@ -90,15 +90,15 @@ const AboutPage = () => {
                 
                 <div className="grid grid-cols-3 gap-6 pt-6 border-t border-border">
                   <div>
-                    <div className="text-3xl font-extrabold text-primary mb-1">20+</div>
+                    <div className="text-3xl font-extrabold text-[#171313] mb-1">20+</div>
                     <div className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Satisfied Clients</div>
                   </div>
                   <div>
-                    <div className="text-3xl font-extrabold text-primary mb-1">$10K+</div>
+                    <div className="text-3xl font-extrabold text-[#171313] mb-1">$10K+</div>
                     <div className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Revenue Generated</div>
                   </div>
                   <div>
-                    <div className="text-3xl font-extrabold text-primary mb-1">99%</div>
+                    <div className="text-3xl font-extrabold text-[#171313] mb-1">99%</div>
                     <div className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Client Retention</div>
                   </div>
                 </div>
@@ -109,7 +109,7 @@ const AboutPage = () => {
         </section>
 
         {/* Mission / Vision / Promise */}
-        <section className="py-24 bg-slate-50 border-y border-border">
+        <section className="py-24 bg-[#E5E5E5]/40 border-y border-[#A09E9D]/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4 text-foreground">What Drives Us</h2>
@@ -141,16 +141,16 @@ const AboutPage = () => {
         </section>
 
         {/* Platforms */}
-        <section className="py-20 bg-slate-50 border-y border-border text-center">
+        <section className="py-20 bg-[#E5E5E5]/40 border-y border-[#A09E9D]/30 text-center">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ShieldCheck className="w-16 h-16 text-primary mx-auto mb-6" />
+            <ShieldCheck className="w-16 h-16 text-[#171313] mx-auto mb-6" />
             <h2 className="text-2xl md:text-3xl font-bold mb-6 font-heading text-foreground">Platforms We Specialize In</h2>
             <p className="text-lg text-muted-foreground mb-8">
               Since 2020, our team has built hands-on experience with the marketplaces and advertising platforms that matter most to your growth.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               {platforms.map((name) => (
-                <span key={name} className="px-6 py-3 bg-primary/10 text-primary rounded-full font-bold">{name}</span>
+                <span key={name} className="px-6 py-3 bg-white text-[#171313] border border-[#A09E9D]/40 rounded-full font-bold">{name}</span>
               ))}
             </div>
           </div>
@@ -164,7 +164,7 @@ const AboutPage = () => {
               Tell us about your goals and we'll show you how Raiwa Technologies can help.
             </p>
             <Link to="/contact">
-              <Button size="lg" className="h-14 px-10 font-bold text-lg bg-primary text-primary-foreground hover:bg-primary/90 shadow-luxury hover:shadow-luxury-hover transition-all duration-300">
+              <Button size="lg" className="h-14 px-10 font-bold text-lg bg-[#171313] text-white border border-[#171313] hover:bg-[#DA0807] hover:border-[#DA0807] shadow-luxury hover:shadow-luxury-hover transition-all duration-300">
                 Contact Us Today
               </Button>
             </Link>
