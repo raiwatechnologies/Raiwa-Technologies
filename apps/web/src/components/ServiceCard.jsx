@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, ShoppingCart } from 'lucide-react';
@@ -22,7 +21,6 @@ const ServiceCard = ({
   index = 0,
   compact = false
 }) => {
-
   const normalizedTitle = title.toLowerCase();
 
   const matchingService = services.find((service) => {
@@ -84,34 +82,26 @@ const ServiceCard = ({
       />
 
       <div className="relative z-10 flex-grow flex flex-col">
-        
-{themeImage && (
-  <div
-    className={`mx-3 mt-3 mb-4 aspect-[3/2] rounded-xl overflow-hidden bg-[#FDFDFD] ${
-      compact ? 'max-h-44' : 'max-h-52'
-    }`}
-  >
-    <img
-      src={themeImage}
-      alt={`${title} service`}
-      className="block w-full h-full object-contain object-center transition-transform duration-300"
-      loading="lazy"
-      onError={(event) => {
-        console.error(
-          'Service theme image failed to load:',
-          themeImage
-        );
-        event.currentTarget.style.display = 'none';
-      }}
-    />
-  </div>
-)}
-
+        {themeImage && (
+          <div className="mx-3 mt-3 mb-4 h-48 rounded-xl overflow-hidden bg-[#FDFDFD]">
+            <img
+              src={themeImage}
+              alt={`${title} service`}
+              className="w-full h-full object-cover transition-transform duration-300"
+              loading="lazy"
+              onError={(event) => {
+                console.error(
+                  'Service theme image failed to load:',
+                  themeImage
+                );
+                event.currentTarget.style.display = 'none';
+              }}
+            />
+          </div>
+        )}
 
         <div
-          className={`mb-4 ml-8 inline-flex items-center justify-center rounded-2xl bg-[#FDFDFD] border border-[#E5E5E5] transition-all duration-300 shadow-sm ${
-            compact ? 'h-14 w-14' : 'h-16 w-16'
-          }`}
+          className="mb-4 ml-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-[#FDFDFD] border border-[#E5E5E5] transition-all duration-300 shadow-sm"
           style={{
             color: '#171313',
             borderColor: '#E5E5E5'
