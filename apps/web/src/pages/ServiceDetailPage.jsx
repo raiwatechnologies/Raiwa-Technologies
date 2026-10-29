@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -185,23 +186,29 @@ export default function ServiceDetailPage() {
           {/* Main service hero */}
           <section
             className="relative overflow-hidden text-white"
-            style={{
-              background: `linear-gradient(125deg, ${
-                main.accent || COLORS.black
-              } 0%, ${COLORS.black} 78%)`,
-            }}
+            style={{ background: COLORS.black }}
           >
             {heroImage && (
               <div
-                className="absolute inset-0 opacity-20"
+                className="absolute inset-0 pointer-events-none"
                 style={{
                   backgroundImage: `url("${heroImage}")`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
+                  opacity: 0.28,
                 }}
                 aria-hidden="true"
               />
             )}
+
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(23,19,19,0.94) 0%, rgba(23,19,19,0.70) 55%, rgba(23,19,19,0.48) 100%)',
+              }}
+              aria-hidden="true"
+            />
 
             <div className="relative max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-28 grid md:grid-cols-[1.1fr_.9fr] gap-10 items-center">
               <div>
@@ -350,23 +357,29 @@ export default function ServiceDetailPage() {
         {/* Individual service hero */}
         <section
           className="relative overflow-hidden"
-          style={{
-            background: `linear-gradient(125deg, ${
-              service.accent || COLORS.black
-            } 0%, ${COLORS.black} 78%)`,
-          }}
+          style={{ background: COLORS.black }}
         >
           {serviceImage && (
             <div
-              className="absolute inset-0 opacity-20"
+              className="absolute inset-0 pointer-events-none"
               style={{
                 backgroundImage: `url("${serviceImage}")`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
+                opacity: 0.28,
               }}
               aria-hidden="true"
             />
           )}
+
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'linear-gradient(90deg, rgba(23,19,19,0.94) 0%, rgba(23,19,19,0.70) 55%, rgba(23,19,19,0.48) 100%)',
+            }}
+            aria-hidden="true"
+          />
 
           <div className="relative max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-28 grid md:grid-cols-[1.05fr_.95fr] gap-12 items-center">
             <div className="text-white">

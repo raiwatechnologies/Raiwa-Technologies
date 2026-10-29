@@ -368,6 +368,7 @@ export const services = [
   },
   {
     title: 'Account Management',
+    logoUrl: '/service-assets/account-management-logo.png',
     slug: 'account-management',
     themeImage: A + 'account-management-theme.jpg',
     category: 'Management',
