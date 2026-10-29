@@ -79,47 +79,47 @@ const AnimatedCounter = ({
   );
 };
 const HomePage = () => {
-  const featuredServices = [
-    {
-      icon: ShoppingCart,
-      title: 'Ecommerce',
-      image: '/service-assets/ecommerce-theme.png',
-      logoUrl: '/service-assets/ecommerce-logo.png',
-      description:
-        "Complete store setup and growth across leading marketplaces, helping your products reach more customers and generate sales.",
-      benefits: [
-        'Amazon, eBay, Walmart & More',
-        'Shopify & TikTok Shop',
-        'Marketplace Account Management',
-      ],
-    },
-    {
-      icon: Megaphone,
-      title: 'Marketing',
-      image: '/service-assets/marketing-theme-image.png',
-      logoUrl: '/service-assets/marketing-logo.png',
-      description:
-        'Build brand awareness, attract the right audience and grow your business through digital marketing, SEO and intelligent automation.',
-      benefits: [
-        'Digital & Social Media Marketing',
-        'SEO Optimization',
-        'Marketing Automation',
-      ],
-    },
-    {
-      icon: Rocket,
-      title: 'Development',
-      image: '/service-assets/development-theme-image.png',
-      logoUrl: '/service-assets/development-logo.png',
-      description:
-        'Build powerful digital experiences for your business, from professional websites and mobile applications to engaging games.',
-      benefits: [
-        'Web & App Development',
-        'Game Development',
-        'Graphic Design',
-      ],
-    },
-  ];
+const featuredServices = [
+  {
+    icon: ShoppingCart,
+    title: 'Ecommerce',
+    image: '/service-assets/ecommerce-theme.png',
+    logoUrl: '/service-assets/ecommerce-logo.png',
+    description:
+      'Complete store setup and growth across leading marketplaces, helping your products reach more customers and generate sales.',
+    benefits: [
+      'Amazon, eBay, Walmart & More',
+      'Shopify & TikTok Shop',
+      'Marketplace Account Management',
+    ],
+  },
+  {
+    icon: Megaphone,
+    title: 'Marketing',
+    image: '/service-assets/marketing-theme-image.jpg',
+    logoUrl: '/service-assets/marketing-logo.png',
+    description:
+      'Build brand awareness, attract the right audience and grow your business through digital marketing, SEO and intelligent automation.',
+    benefits: [
+      'Digital & Social Media Marketing',
+      'SEO Optimization',
+      'Marketing Automation',
+    ],
+  },
+  {
+    icon: Rocket,
+    title: 'Development',
+    image: '/service-assets/development-theme-image.jpg',
+    logoUrl: '/service-assets/development-logo.png',
+    description:
+      'Build powerful digital experiences for your business, from professional websites and mobile applications to engaging games.',
+    benefits: [
+      'Web & App Development',
+      'Game Development',
+      'Graphic Design',
+    ],
+  },
+];
 
   const marketplaces = ['Amazon', 'eBay', 'Walmart Marketplace', 'Shopify', 'TikTok Shop', 'Temu', 'Daraz', 'Mercari'];
   const marketplaceItems = marketplaces.map((name) => services.find((service) => service.title.toLowerCase() === name.toLowerCase() || (name === 'Walmart Marketplace' && service.slug === 'walmart-marketplace'))).filter(Boolean);
