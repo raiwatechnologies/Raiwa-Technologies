@@ -317,25 +317,24 @@ const featuredServices = [
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-[#E5E5E5] text-[#171313] border border-[#A09E9D]/30 font-bold text-sm mb-6 uppercase tracking-widest"
+                className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-[#E5E5E5] text-[#171313] border border-[#DA0807]/50 font-bold text-sm mb-6 uppercase tracking-widest"
               >
                 Our Approach
               </motion.div>
 
               <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading mb-8 text-primary-dark tracking-tight"
-              >
-                We Don't Just Manage Stores,{' '}
-                <br className="hidden md:block" />
-                <span className="text-[#171313]">
-  We Grow Businesses.
-</span>
-              </motion.h2>
-
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ delay: 0.1 }}
+  className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading mb-8 text-primary-dark tracking-tight"
+>
+  We Don't Just Manage Stores,{' '}
+  <br className="hidden md:block" />
+  <span className="text-[#DA0807]">
+    We Grow Businesses.
+  </span>
+</motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -357,8 +356,8 @@ const featuredServices = [
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
               <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-6 font-heading">
-                High-Impact Services
-              </h2>
+  High-Impact <span className="text-[#DA0807]">Services</span>
+</h2>
 
               <p className="text-lg md:text-xl text-muted-foreground">
                 Focused, practical solutions that help your business

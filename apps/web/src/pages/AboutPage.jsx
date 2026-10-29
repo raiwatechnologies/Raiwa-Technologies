@@ -87,15 +87,15 @@ const AboutPage = () => {
             <div className="flex flex-col lg:flex-row items-center gap-16">
               {/* Brand Card */}
               <div className="lg:w-1/2 relative w-full">
-                <div className="aspect-square max-w-md mx-auto relative z-10 rounded-3xl overflow-hidden shadow-2xl border-4 border-[#DA0807]/30 bg-gradient-to-br from-[#DA0807] via-[#B80707] to-[#780404] flex flex-col items-center justify-center text-center p-10">
+                <div className="aspect-square max-w-md mx-auto relative z-10 rounded-3xl overflow-hidden shadow-2xl border-2 border-[#DA0807]/60 bg-gradient-to-br from-[#171313] via-[#6D0505] to-[#DA0807] flex flex-col items-center justify-center text-center p-10">
                   <Logo className="w-36 h-36 mb-6" />
 
                   <div
   className="text-2xl md:text-3xl font-extrabold tracking-[0.04em] mb-3"
   style={{ fontFamily: "'Orbitron', sans-serif" }}
 >
-  <span className="text-white">Raiwa </span>
-  <span className="text-[#FFD6D6]">Technologies</span>
+  <span className="text-white">RAIWA </span>
+  <span className="text-[#FFD6D6]">TECHNOLOGIES</span>
 </div>
 
                   <div className="text-white/90 font-semibold mb-4">
