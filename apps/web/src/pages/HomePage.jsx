@@ -288,41 +288,36 @@ const HomePage = () => {
           min-width: 0;
           cursor: pointer;
           border-radius: 1rem;
-          transition:
-            transform 280ms ease,
-            filter 280ms ease;
+          transition: transform 280ms ease;
           perspective: 1000px;
         }
 
         .home-service-card-shell > * {
           height: 100%;
-          border: 1px solid rgba(23, 19, 19, 0.30) !important;
+          border: 1px solid rgba(23, 19, 19, 0.20) !important;
           border-radius: 1rem;
           box-shadow:
-            0 5px 12px rgba(23, 19, 19, 0.09),
-            0 13px 28px rgba(23, 19, 19, 0.13) !important;
+            0 4px 12px rgba(0, 0, 0, 0.04) !important;
           transition:
             border-color 280ms ease,
             box-shadow 280ms ease,
-            transform 280ms ease;
+            background-color 280ms ease;
         }
 
         .home-service-card-shell:hover {
-          transform: translateY(-8px) scale(1.012);
+          transform: translateY(-3px);
           z-index: 2;
         }
 
         .home-service-card-shell:hover > * {
-          border-color: rgba(23, 19, 19, 0.80) !important;
+          border-color: rgba(23, 19, 19, 0.20) !important;
           box-shadow:
-            0 0 0 2px rgba(23, 19, 19, 0.12),
-            0 12px 22px rgba(23, 19, 19, 0.13),
-            0 23px 42px rgba(23, 19, 19, 0.20) !important;
+            0 8px 22px rgba(0, 0, 0, 0.07) !important;
         }
 
         .home-service-card-shell:focus-visible {
-          outline: 3px solid #DA0807;
-          outline-offset: 5px;
+          outline: 2px solid #DA0807;
+          outline-offset: 4px;
         }
 
         /* Simple red benefit dots */
@@ -342,33 +337,33 @@ const HomePage = () => {
           display: none !important;
         }
 
-        /* WHAT WE PROVIDE CARDS */
+        /* WHAT WE PROVIDE:
+           Transparent cards, without prominent backgrounds */
 
         .home-benefit-card-shell {
           height: 100%;
-          transition: transform 280ms ease;
+          transition: none;
         }
 
         .home-benefit-card-shell > * {
           height: 100%;
-          border: 1px solid rgba(23, 19, 19, 0.24) !important;
-          box-shadow:
-            0 5px 12px rgba(23, 19, 19, 0.07),
-            0 12px 28px rgba(23, 19, 19, 0.13) !important;
+          background: transparent !important;
+          border: none !important;
+          box-shadow: none !important;
           transition:
-            border-color 280ms ease,
+            background-color 280ms ease,
             box-shadow 280ms ease;
         }
 
         .home-benefit-card-shell:hover {
-          transform: translateY(-6px);
+          transform: none;
         }
 
         .home-benefit-card-shell:hover > * {
-          border-color: rgba(23, 19, 19, 0.65) !important;
+          background: rgba(23, 19, 19, 0.02) !important;
+          border: none !important;
           box-shadow:
-            0 0 0 1px rgba(23, 19, 19, 0.10),
-            0 17px 35px rgba(23, 19, 19, 0.19) !important;
+            0 8px 22px rgba(0, 0, 0, 0.07) !important;
         }
 
         .home-benefit-card-shell h3,
@@ -385,24 +380,22 @@ const HomePage = () => {
 
         .home-stat-card-shell > * {
           height: 100%;
-          border: 1px solid rgba(23, 19, 19, 0.24) !important;
+          border: 1px solid rgba(23, 19, 19, 0.20) !important;
           box-shadow:
-            0 5px 12px rgba(23, 19, 19, 0.07),
-            0 12px 25px rgba(23, 19, 19, 0.13) !important;
+            0 4px 12px rgba(0, 0, 0, 0.04) !important;
           transition:
             border-color 280ms ease,
             box-shadow 280ms ease;
         }
 
         .home-stat-card-shell:hover {
-          transform: translateY(-5px);
+          transform: translateY(-3px);
         }
 
         .home-stat-card-shell:hover > * {
-          border-color: rgba(23, 19, 19, 0.65) !important;
+          border-color: rgba(23, 19, 19, 0.20) !important;
           box-shadow:
-            0 0 0 1px rgba(23, 19, 19, 0.10),
-            0 17px 32px rgba(23, 19, 19, 0.18) !important;
+            0 8px 22px rgba(0, 0, 0, 0.07) !important;
         }
 
         /* HOW WE WORK CARDS */
@@ -414,24 +407,22 @@ const HomePage = () => {
 
         .home-process-step-shell > * {
           height: 100%;
-          border: 1px solid rgba(23, 19, 19, 0.24) !important;
+          border: 1px solid rgba(23, 19, 19, 0.20) !important;
           box-shadow:
-            0 5px 12px rgba(23, 19, 19, 0.07),
-            0 12px 25px rgba(23, 19, 19, 0.13) !important;
+            0 4px 12px rgba(0, 0, 0, 0.04) !important;
           transition:
             border-color 280ms ease,
             box-shadow 280ms ease;
         }
 
         .home-process-step-shell:hover {
-          transform: translateY(-5px);
+          transform: translateY(-3px);
         }
 
         .home-process-step-shell:hover > * {
-          border-color: rgba(23, 19, 19, 0.65) !important;
+          border-color: rgba(23, 19, 19, 0.20) !important;
           box-shadow:
-            0 0 0 1px rgba(23, 19, 19, 0.10),
-            0 17px 32px rgba(23, 19, 19, 0.18) !important;
+            0 8px 22px rgba(0, 0, 0, 0.07) !important;
         }
 
         /* HERO BUTTONS */
@@ -462,24 +453,6 @@ const HomePage = () => {
           outline-offset: 4px;
         }
 
-        /* HERO CONTENT POSITIONING */
-
-        .home-hero-heading {
-          line-height: 1.22 !important;
-          padding-bottom: 0.12em;
-          overflow: visible;
-        }
-
-        .home-hero-onboarding {
-          top: -12rem;
-        }
-
-        @media (max-width: 767px) {
-          .home-hero-onboarding {
-            top: -6rem;
-          }
-        }
-
         @media (prefers-reduced-motion: reduce) {
           .home-service-card-shell,
           .home-service-card-shell > *,
@@ -508,7 +481,6 @@ const HomePage = () => {
         {/* HERO SECTION */}
         <section className="relative flex min-h-[700px] items-center overflow-hidden py-16 md:min-h-[760px] md:py-24">
 
-          {/* Clear hero image without dark overlay or shadow */}
           <div className="absolute inset-0 z-0 bg-white">
             <picture className="absolute inset-0 block h-full w-full">
               <source
@@ -534,17 +506,7 @@ const HomePage = () => {
                 transition={{ duration: 0.6 }}
               >
 
-                {/* ONBOARDING BADGE: MOVED HIGHER */}
-                <div className="home-hero-onboarding absolute left-0 z-20 inline-flex items-center gap-3 rounded-full border border-[#171313]/20 bg-white/95 px-5 py-2.5 text-sm font-bold text-[#171313] shadow-[0_5px_16px_rgba(23,19,19,0.16)]">
-                  <span className="relative flex h-3 w-3">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#DA0807] opacity-30" />
-                    <span className="relative inline-flex h-3 w-3 rounded-full bg-[#DA0807]" />
-                  </span>
-
-                  Now Onboarding New Ecommerce Brands
-                </div>
-
-                {/* HEADING: BELOW THE ONBOARDING BADGE */}
+                {/* HERO HEADING */}
                 <h1 className="home-hero-heading mb-4 -translate-y-3 text-5xl font-extrabold tracking-tight text-[#171313] sm:text-5xl md:text-6xl lg:text-6xl">
                   We Built{' '}
                   <span className="whitespace-nowrap text-[#DA0807]">
@@ -552,7 +514,7 @@ const HomePage = () => {
                   </span>
                 </h1>
 
-                {/* DESCRIPTION: SLIGHTLY HIGHER */}
+                {/* HERO DESCRIPTION */}
                 <p className="-translate-y-1 text-[clamp(13px,1.9vw,20px)] font-medium leading-relaxed text-[#171313]/85">
                   <span className="block whitespace-nowrap">
                     Raiwa Technologies — Empowering Growth
@@ -563,7 +525,7 @@ const HomePage = () => {
                   </span>
                 </p>
 
-                {/* BUTTONS: LOWER, NEAR THE HERO BOTTOM DIVIDER */}
+                {/* HERO BUTTONS */}
                 <div className="mt-16 flex flex-col items-start gap-5 sm:flex-row sm:items-center md:mt-20 lg:mt-24">
 
                   <Link to="/contact" className="w-full sm:w-auto">
@@ -686,14 +648,7 @@ const HomePage = () => {
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="-translate-y-1 mb-6 inline-flex items-center justify-center rounded-full border border-[#171313]/20 bg-[#171313]/15 px-5 py-2 text-sm font-bold uppercase tracking-widest text-[#171313] shadow-[0_9px_24px_rgba(23,19,19,0.20)]"
-              >
-                Our Approach
-              </motion.div>
+              {/* OUR APPROACH LABEL REMOVED */}
 
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
@@ -777,7 +732,7 @@ const HomePage = () => {
               <Link to="/services">
                 <Button
                   size="lg"
-                  className="h-14 -translate-y-0 border-2 border-[#171313]/30 bg-white px-10 text-lg font-bold text-[#171313] shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-[#171313] hover:bg-[#171313] hover:text-white hover:shadow-xl"
+                  className="h-14 border-2 border-[#171313]/30 bg-white px-10 text-lg font-bold text-[#171313] shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-[#171313] hover:bg-[#171313] hover:text-white hover:shadow-xl"
                 >
                   Explore All Services
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -789,9 +744,9 @@ const HomePage = () => {
         </section>
 
         {/* WHAT WE PROVIDE + STATISTICS */}
-        <section className="relative overflow-hidden bg-primary-lighter-bg/30 py-20 md:py-28">
+        <section className="relative overflow-hidden bg-background py-20 md:py-28">
 
-          <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] -translate-y-1/3 translate-x-1/3 rounded-full bg-[#A09E9D]/15 blur-[120px]" />
+          {/* Decorative background shade removed */}
 
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 

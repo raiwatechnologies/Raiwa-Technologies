@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
@@ -12,6 +13,7 @@ import {
 } from '@/lib/services.js';
 
 const ServiceCard = ({
+  icon: Icon,
   title,
   description,
   benefits,
@@ -48,7 +50,6 @@ const ServiceCard = ({
     serviceData?.themeImage ||
     serviceData?.image;
 
-  const accent = serviceData?.accent || '#DA0807';
   const soft = serviceData?.soft || '#E5E5E5';
 
   return (
@@ -60,40 +61,46 @@ const ServiceCard = ({
         duration: 0.5,
         delay: index * 0.1,
       }}
-      // Homepage already has its own card hover animation.
-      // Avoid applying a second lift effect there.
+      // Homepage wrapper already handles its card movement.
       whileHover={
         iconOnly
           ? undefined
-          : { y: -5 }
+          : { y: -3 }
       }
-      className="service-card flex flex-col h-full rounded-2xl bg-[#FDFDFD] border border-[#171313]/25 shadow-[0_5px_12px_rgba(23,19,19,0.08),0_12px_26px_rgba(23,19,19,0.12)] transition-all duration-300 group relative overflow-hidden"
+      className="service-card group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-[#FDFDFD] shadow-[0_3px_10px_rgba(0,0,0,0.025)] transition-shadow duration-300 hover:shadow-[0_8px_22px_rgba(0,0,0,0.07)]"
       style={{
-        borderColor: `${accent}45`,
+        borderColor: 'rgba(23, 19, 19, 0.18)',
       }}
     >
 
       {/* Decorative corner */}
       <div
-        className="absolute top-0 right-0 w-32 h-32 rounded-bl-[100px] -mr-8 -mt-8 transition-transform duration-500 group-hover:scale-150 z-0"
+        className="absolute -right-8 -top-8 z-0 h-32 w-32 rounded-bl-[100px] transition-transform duration-500 group-hover:scale-150"
         style={{
           backgroundColor: soft,
         }}
       />
 
-      <div className="relative z-10 flex-grow flex flex-col">
+      <div className="relative z-10 flex flex-grow flex-col">
+
+        {/* HOMEPAGE GRAPH ICON */}
+        {iconOnly && Icon && (
+          <div className="mb-4 px-8 pt-6">
+            <Icon className="h-8 w-8 text-[#DA0807]" />
+          </div>
+        )}
 
         {/* SERVICE IMAGE */}
         {themeImage && (
           <div
-            className={`mx-3 mt-3 mb-5 rounded-xl overflow-hidden bg-[#FDFDFD] ${
+            className={`mx-3 mt-3 mb-5 overflow-hidden rounded-xl bg-[#FDFDFD] ${
               compact ? 'h-48' : 'h-48'
             }`}
           >
             <img
               src={themeImage}
               alt={`${title} service`}
-              className="block w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+              className="block h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
               loading="lazy"
               onError={(event) => {
                 console.error(
@@ -108,39 +115,25 @@ const ServiceCard = ({
         )}
 
         {/* SERVICE TITLE */}
-        <h3
-          className="mb-4 px-8 text-2xl font-bold font-heading transition-colors duration-300"
-          style={{
-            color: '#171313',
-          }}
-        >
+        <h3 className="mb-4 px-8 font-heading text-2xl font-bold text-[#171313] transition-colors duration-300">
           {title}
         </h3>
 
         {/* SERVICE DESCRIPTION */}
-        <p
-          className="leading-relaxed mb-6 px-8 flex-grow"
-          style={{
-            color: '#55514F',
-          }}
-        >
+        <p className="mb-6 flex-grow px-8 leading-relaxed text-[#55514F]">
           {description}
         </p>
 
-        {/* SERVICE BENEFITS: RED DOTS ONLY */}
+        {/* SERVICE BENEFITS: SIMPLE RED DOTS */}
         {benefits && benefits.length > 0 && (
-          <ul className="mb-8 px-8 space-y-3">
+          <ul className="mb-8 space-y-3 px-8">
             {benefits.map((benefit, i) => (
               <li
                 key={`${title}-benefit-${i}`}
-                className="flex items-center text-sm font-medium"
-                style={{
-                  color: '#171313',
-                }}
+                className="flex items-center text-sm font-medium text-[#171313]"
               >
-                {/* Plain red dot without any background container */}
                 <span
-                  className="mr-3 h-2 w-2 rounded-full bg-[#DA0807] shrink-0"
+                  className="mr-3 h-2 w-2 shrink-0 rounded-full bg-[#DA0807]"
                   aria-hidden="true"
                 />
 
@@ -151,7 +144,7 @@ const ServiceCard = ({
         )}
 
         {/* CARD CTA */}
-        <div className="mt-auto mx-8 pt-6 pb-2 border-t border-[#171313]/15">
+        <div className="mx-8 mt-auto border-t border-[#171313]/15 pb-2 pt-6">
           <Link
             to={destination}
             className="block"
@@ -159,11 +152,11 @@ const ServiceCard = ({
           >
             <Button
               variant="ghost"
-              className="w-full justify-between group/btn hover:bg-[#171313] hover:text-[#FDFDFD] font-bold text-[#171313] h-12 transition-colors duration-200"
+              className="group/btn h-12 w-full justify-between font-bold text-[#171313] transition-colors duration-200 hover:bg-[#171313] hover:text-[#FDFDFD]"
             >
               {ctaText}
 
-              <ArrowRight className="h-5 w-5 transition-transform group-hover/btn:translate-x-1 text-[#DA0807] group-hover/btn:text-[#FDFDFD]" />
+              <ArrowRight className="h-5 w-5 text-[#DA0807] transition-transform group-hover/btn:translate-x-1 group-hover/btn:text-[#FDFDFD]" />
             </Button>
           </Link>
         </div>

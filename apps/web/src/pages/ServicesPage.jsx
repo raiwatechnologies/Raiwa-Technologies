@@ -26,7 +26,6 @@ import {
   LayoutDashboard,
   ClipboardList,
   ArrowRight,
-  CheckCircle2,
 } from 'lucide-react';
 
 import ServiceCard from '@/components/ServiceCard.jsx';
@@ -385,6 +384,78 @@ const ServicesPage = () => {
         />
       </Helmet>
 
+      {/* SERVICES PAGE CARD HOVER STANDARD */}
+      <style>{`
+        /*
+          Unified subtle card hover:
+          - No dark border on hover.
+          - Border keeps its original shade.
+          - 7% black shadow.
+          - Maximum 3px upward movement.
+        */
+
+        .services-hover-card {
+          height: 100%;
+          min-width: 0;
+          transition: transform 280ms ease;
+        }
+
+        .services-hover-card > *,
+        .services-hover-card .service-card {
+          border-color: rgba(23, 19, 19, 0.18) !important;
+          box-shadow:
+            0 3px 10px rgba(0, 0, 0, 0.025) !important;
+          transition:
+            transform 280ms ease,
+            box-shadow 280ms ease,
+            border-color 280ms ease !important;
+        }
+
+        .services-hover-card:hover {
+          transform: translateY(-3px);
+        }
+
+        .services-hover-card:hover > *,
+        .services-hover-card:hover .service-card {
+          border-color: rgba(23, 19, 19, 0.18) !important;
+          box-shadow:
+            0 8px 22px rgba(0, 0, 0, 0.07) !important;
+        }
+
+        /* Prevent nested card hover from creating a dark outline. */
+        .services-hover-card > *:hover,
+        .services-hover-card .service-card:hover {
+          border-color: rgba(23, 19, 19, 0.18) !important;
+          box-shadow:
+            0 8px 22px rgba(0, 0, 0, 0.07) !important;
+        }
+
+        /* FAQ rows and bordered accordion elements */
+        .services-faq-hover-area [class*="border"] {
+          transition:
+            box-shadow 280ms ease,
+            border-color 280ms ease;
+        }
+
+        .services-faq-hover-area [class*="border"]:hover {
+          border-color: rgba(23, 19, 19, 0.18) !important;
+          box-shadow:
+            0 8px 22px rgba(0, 0, 0, 0.07) !important;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .services-hover-card,
+          .services-hover-card > *,
+          .services-faq-hover-area [class*="border"] {
+            transition: none !important;
+          }
+
+          .services-hover-card:hover {
+            transform: none;
+          }
+        }
+      `}</style>
+
       <main className="flex flex-col overflow-hidden bg-[#FDFDFD]">
 
         {/* HERO SECTION */}
@@ -536,11 +607,15 @@ const ServicesPage = () => {
 
                 <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
                   {category.services.map((service, srvIndex) => (
-                    <ServiceCard
+                    <div
                       key={service.title}
-                      {...service}
-                      index={srvIndex}
-                    />
+                      className="services-hover-card"
+                    >
+                      <ServiceCard
+                        {...service}
+                        index={srvIndex}
+                      />
+                    </div>
                   ))}
                 </div>
               </section>
@@ -551,6 +626,7 @@ const ServicesPage = () => {
         {/* WHY CHOOSE US */}
         <section className="border-y border-[#171313]/10 bg-[#E5E5E5]/35 py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
             <div className="mx-auto mb-16 max-w-3xl text-center">
               <span className="mb-4 inline-block text-sm font-bold uppercase tracking-[0.2em] text-[#DA0807]">
                 The Raiwa Difference
@@ -567,26 +643,32 @@ const ServicesPage = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
-              <BenefitCard
-                icon={Search}
-                title="Careful Research"
-                description="Every project starts with a close look at your products, competitors and market so we focus on the opportunities that matter most."
-                index={0}
-              />
+              <div className="services-hover-card">
+                <BenefitCard
+                  icon={Search}
+                  title="Careful Research"
+                  description="Every project starts with a close look at your products, competitors and market so we focus on the opportunities that matter most."
+                  index={0}
+                />
+              </div>
 
-              <BenefitCard
-                icon={Target}
-                title="Tailored Execution"
-                description="No cookie-cutter packages. Your plan is built around your goals, your budget and the platforms where your customers are."
-                index={1}
-              />
+              <div className="services-hover-card">
+                <BenefitCard
+                  icon={Target}
+                  title="Tailored Execution"
+                  description="No cookie-cutter packages. Your plan is built around your goals, your budget and the platforms where your customers are."
+                  index={1}
+                />
+              </div>
 
-              <BenefitCard
-                icon={TrendingUp}
-                title="Focus on Results"
-                description="We care about sales, growth and return on investment, and we keep you informed with clear and honest reporting."
-                index={2}
-              />
+              <div className="services-hover-card">
+                <BenefitCard
+                  icon={TrendingUp}
+                  title="Focus on Results"
+                  description="We care about sales, growth and return on investment, and we keep you informed with clear and honest reporting."
+                  index={2}
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -594,6 +676,7 @@ const ServicesPage = () => {
         {/* OUR PROCESS */}
         <section className="bg-[#FDFDFD] py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
             <div className="mx-auto mb-16 max-w-3xl text-center md:mb-20">
               <span className="mb-4 inline-block text-sm font-bold uppercase tracking-[0.2em] text-[#DA0807]">
                 How We Work
@@ -611,12 +694,16 @@ const ServicesPage = () => {
 
             <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
               {processSteps.map((step, index) => (
-                <ProcessStep
+                <div
                   key={step.number}
-                  {...step}
-                  isLast={index === processSteps.length - 1}
-                  index={index}
-                />
+                  className="services-hover-card"
+                >
+                  <ProcessStep
+                    {...step}
+                    isLast={index === processSteps.length - 1}
+                    index={index}
+                  />
+                </div>
               ))}
             </div>
           </div>
@@ -625,6 +712,7 @@ const ServicesPage = () => {
         {/* FAQ SECTION */}
         <section className="border-t border-[#171313]/10 bg-[#E5E5E5]/35 py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
             <div className="mx-auto mb-16 max-w-3xl text-center">
               <span className="mb-4 inline-block text-sm font-bold uppercase tracking-[0.2em] text-[#DA0807]">
                 Got Questions?
@@ -640,7 +728,9 @@ const ServicesPage = () => {
               </p>
             </div>
 
-            <FAQSection faqs={faqs} />
+            <div className="services-faq-hover-area">
+              <FAQSection faqs={faqs} />
+            </div>
           </div>
         </section>
 
@@ -694,7 +784,7 @@ const ServicesPage = () => {
               <Link to="/contact">
                 <Button
                   size="lg"
-                  className="group h-14 w-full border-2 border-white bg-white px-9 text-base font-bold text-[#171313] shadow-[0_10px_30px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:border-[#DA0807] hover:bg-[#DA0807] hover:text-white sm:w-auto"
+                  className="group h-14 w-full border-2 border-white bg-white px-9 text-base font-bold text-[#171313] shadow-[0_5px_12px_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-[#DA0807] hover:bg-[#DA0807] hover:text-white hover:shadow-[0_8px_22px_rgba(0,0,0,0.07)] sm:w-auto"
                 >
                   Book a Free Consultation
                   <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -703,6 +793,7 @@ const ServicesPage = () => {
             </motion.div>
           </div>
         </section>
+
       </main>
     </>
   );

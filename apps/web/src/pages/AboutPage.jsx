@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
@@ -10,6 +11,7 @@ import {
   Handshake,
   Rocket,
 } from 'lucide-react';
+
 import ValuePropositionCard from '@/components/ValuePropositionCard.jsx';
 import Logo from '@/components/Logo.jsx';
 import { Button } from '@/components/ui/button.jsx';
@@ -80,50 +82,117 @@ const AboutPage = () => {
         />
       </Helmet>
 
-      <div className="flex flex-col bg-background">
-        {/* Hero / Intro */}
-        <section className="pt-20 pb-20 md:pt-32 bg-background overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row items-center gap-16">
-              {/* Brand Card */}
-              <div className="lg:w-1/2 relative w-full">
-                <div className="aspect-square max-w-md mx-auto relative z-10 rounded-3xl overflow-hidden shadow-2xl border-2 border-[#DA0807]/60 bg-gradient-to-br from-[#171313] via-[#6D0505] to-[#DA0807] flex flex-col items-center justify-center text-center p-10">
-                  <Logo className="w-36 h-36 mb-6" />
+      {/* ABOUT PAGE CARD HOVER STYLING */}
+      <style>{`
+        /*
+          Consistent card hover effect:
+          - Keep the existing border shade.
+          - Never darken the border on hover.
+          - Use a subtle 7% black shadow.
+          - Apply only slight upward movement.
+        */
+
+        .about-hover-card {
+          height: 100%;
+          min-width: 0;
+          transition: transform 280ms ease;
+        }
+
+        .about-hover-card > * {
+          height: 100%;
+          border-color: rgba(23, 19, 19, 0.18) !important;
+          box-shadow:
+            0 3px 10px rgba(0, 0, 0, 0.025) !important;
+          transition:
+            box-shadow 280ms ease,
+            border-color 280ms ease,
+            background-color 280ms ease;
+        }
+
+        .about-hover-card:hover {
+          transform: translateY(-3px);
+        }
+
+        .about-hover-card:hover > * {
+          border-color: rgba(23, 19, 19, 0.18) !important;
+          box-shadow:
+            0 8px 22px rgba(0, 0, 0, 0.07) !important;
+        }
+
+        .about-hover-card > *:hover {
+          border-color: rgba(23, 19, 19, 0.18) !important;
+          box-shadow:
+            0 8px 22px rgba(0, 0, 0, 0.07) !important;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .about-hover-card,
+          .about-hover-card > * {
+            transition: none !important;
+          }
+
+          .about-hover-card:hover {
+            transform: none;
+          }
+        }
+      `}</style>
+
+      <main className="flex flex-col bg-background">
+
+        {/* HERO / INTRO */}
+        <section className="overflow-hidden bg-background pb-20 pt-20 md:pt-32">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col items-center gap-16 lg:flex-row">
+
+              {/* BRAND CARD */}
+              <div className="relative w-full lg:w-1/2">
+                <div className="relative z-10 mx-auto flex aspect-square max-w-md flex-col items-center justify-center overflow-hidden rounded-3xl border-2 border-[#DA0807]/60 bg-gradient-to-br from-[#171313] via-[#6D0505] to-[#DA0807] p-10 text-center shadow-2xl">
+
+                  <Logo className="mb-6 h-36 w-36" />
 
                   <div
-  className="text-2xl md:text-3xl font-extrabold tracking-[0.04em] mb-3"
-  style={{ fontFamily: "'Orbitron', sans-serif" }}
->
-  <span className="text-white">RAIWA </span>
-  <span className="text-[#FFD6D6]">TECHNOLOGIES</span>
-</div>
+                    className="mb-3 text-2xl font-extrabold tracking-[0.04em] md:text-3xl"
+                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  >
+                    <span className="text-white">
+                      RAIWA{' '}
+                    </span>
 
-                  <div className="text-white/90 font-semibold mb-4">
+                    <span className="text-[#FFD6D6]">
+                      TECHNOLOGIES
+                    </span>
+                  </div>
+
+                  <div className="mb-4 font-semibold text-white/90">
                     Ecommerce, Development &amp; Digital Growth
                   </div>
 
-                  <div className="inline-flex px-4 py-1.5 rounded-full bg-white/10 border border-white/30 text-white text-sm font-bold uppercase tracking-widest">
+                  <div className="inline-flex rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-sm font-bold uppercase tracking-widest text-white">
                     Established 2020
                   </div>
                 </div>
 
-                {/* Decorative blob */}
-                <div className="absolute top-10 -left-10 w-[120%] h-[120%] bg-[#DA0807]/15 rounded-full blur-3xl -z-10" />
+                {/* DECORATIVE BLOB */}
+                <div className="pointer-events-none absolute -left-10 top-10 -z-10 h-[120%] w-[120%] rounded-full bg-[#DA0807]/15 blur-3xl" />
               </div>
 
-              {/* About Text */}
+              {/* ABOUT TEXT */}
               <div className="lg:w-1/2">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E5E5E5] text-[#171313] border border-[#DA0807]/20 font-bold text-sm mb-6">
+
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#DA0807]/20 bg-[#E5E5E5] px-4 py-2 text-sm font-bold text-[#171313]">
                   About Raiwa Technologies · Since 2020
                 </div>
 
-                <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6 font-heading leading-tight">
+                <h1 className="mb-6 font-heading text-4xl font-extrabold leading-tight text-foreground md:text-5xl">
                   We help brands{' '}
-                  <span className="text-[#DA0807]">grow online</span>, the
-                  right way.
+                  <span className="text-[#DA0807]">
+                    grow online
+                  </span>
+                  , the right way.
                 </h1>
 
-                <div className="space-y-4 text-lg text-muted-foreground leading-relaxed mb-8">
+                <div className="mb-8 space-y-4 text-lg leading-relaxed text-muted-foreground">
+
                   <p>
                     Founded in 2020, Raiwa Technologies is an ecommerce-focused
                     growth company. We help sellers and brands launch, manage
@@ -147,102 +216,127 @@ const AboutPage = () => {
                     communication and results you can measure, which is why
                     our clients stay with us.
                   </p>
+
                 </div>
 
-                {/* Statistics */}
-                <div className="grid grid-cols-3 gap-6 pt-6 border-t border-border">
+                {/* STATISTICS */}
+                <div className="grid grid-cols-3 gap-6 border-t border-border pt-6">
+
                   <div>
-                    <div className="text-3xl font-extrabold text-[#DA0807] mb-1">
+                    <div className="mb-1 text-3xl font-extrabold text-[#DA0807]">
                       20+
                     </div>
-                    <div className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
+
+                    <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                       Satisfied Clients
                     </div>
                   </div>
 
                   <div>
-                    <div className="text-3xl font-extrabold text-[#DA0807] mb-1">
+                    <div className="mb-1 text-3xl font-extrabold text-[#DA0807]">
                       $10K+
                     </div>
-                    <div className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
+
+                    <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                       Revenue Generated
                     </div>
                   </div>
 
                   <div>
-                    <div className="text-3xl font-extrabold text-[#DA0807] mb-1">
+                    <div className="mb-1 text-3xl font-extrabold text-[#DA0807]">
                       99%
                     </div>
-                    <div className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
+
+                    <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                       Client Retention
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Mission / Vision / Promise */}
-        <section className="py-24 bg-[#E5E5E5]/40 border-y border-[#A09E9D]/30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4 text-foreground">
+        {/* MISSION / VISION / PROMISE */}
+        <section className="border-y border-[#A09E9D]/30 bg-[#E5E5E5]/40 py-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+            <div className="mx-auto mb-16 max-w-3xl text-center">
+              <h2 className="mb-4 font-heading text-3xl font-bold text-foreground md:text-4xl">
                 What <span className="text-[#DA0807]">Drives Us</span>
               </h2>
 
-              <p className="text-muted-foreground text-lg">
+              <p className="text-lg text-muted-foreground">
                 The purpose behind everything we build and every account we
                 manage.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {pillars.map((item, idx) => (
-                <ValuePropositionCard key={idx} {...item} index={idx} />
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+              {pillars.map((item, index) => (
+                <div
+                  key={item.title}
+                  className="about-hover-card"
+                >
+                  <ValuePropositionCard
+                    {...item}
+                    index={index}
+                  />
+                </div>
               ))}
             </div>
+
           </div>
         </section>
 
-        {/* Core Values */}
-        <section className="py-24 bg-background">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4 text-foreground">
+        {/* CORE VALUES */}
+        <section className="bg-background py-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+            <div className="mx-auto mb-16 max-w-3xl text-center">
+              <h2 className="mb-4 font-heading text-3xl font-bold text-foreground md:text-4xl">
                 Our Approach{' '}
                 <span className="text-[#DA0807]">&amp; Values</span>
               </h2>
 
-              <p className="text-muted-foreground text-lg">
+              <p className="text-lg text-muted-foreground">
                 The principles that guide how we work with you and manage your
                 business.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {values.map((value, idx) => (
-                <ValuePropositionCard
-                  key={idx}
-                  {...value}
-                  index={idx}
-                />
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+              {values.map((value, index) => (
+                <div
+                  key={value.title}
+                  className="about-hover-card"
+                >
+                  <ValuePropositionCard
+                    {...value}
+                    index={index}
+                  />
+                </div>
               ))}
             </div>
+
           </div>
         </section>
 
-        {/* Platforms */}
-        <section className="py-20 bg-[#E5E5E5]/40 border-y border-[#A09E9D]/30 text-center">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ShieldCheck className="w-16 h-16 text-[#DA0807] mx-auto mb-6" />
+        {/* PLATFORMS */}
+        <section className="border-y border-[#A09E9D]/30 bg-[#E5E5E5]/40 py-20 text-center">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
 
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 font-heading text-foreground">
+            <ShieldCheck className="mx-auto mb-6 h-16 w-16 text-[#DA0807]" />
+
+            <h2 className="mb-6 font-heading text-2xl font-bold text-foreground md:text-3xl">
               Platforms We{' '}
-              <span className="text-[#DA0807]">Specialize In</span>
+              <span className="text-[#DA0807]">
+                Specialize In
+              </span>
             </h2>
 
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="mb-8 text-lg text-muted-foreground">
               Since 2020, our team has built hands-on experience with the
               marketplaces and advertising platforms that matter most to your
               growth.
@@ -252,24 +346,26 @@ const AboutPage = () => {
               {platforms.map((name) => (
                 <span
                   key={name}
-                  className="px-6 py-3 bg-white text-[#171313] border border-[#A09E9D]/40 hover:border-[#DA0807]/50 hover:text-[#DA0807] rounded-full font-bold transition-colors duration-200"
+                  className="rounded-full border border-[#A09E9D]/40 bg-white px-6 py-3 font-bold text-[#171313] transition-colors duration-200 hover:border-[#DA0807]/50 hover:text-[#DA0807]"
                 >
                   {name}
                 </span>
               ))}
             </div>
+
           </div>
         </section>
 
         {/* CTA */}
-        <section className="py-24 bg-background text-center">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-heading text-foreground">
+        <section className="bg-background py-24 text-center">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+
+            <h2 className="mb-6 font-heading text-3xl font-bold text-foreground md:text-4xl">
               Let's grow your business{' '}
               <span className="text-[#DA0807]">together</span>
             </h2>
 
-            <p className="text-lg text-muted-foreground mb-10">
+            <p className="mb-10 text-lg text-muted-foreground">
               Tell us about your goals and we'll show you how Raiwa Technologies
               can help.
             </p>
@@ -277,14 +373,16 @@ const AboutPage = () => {
             <Link to="/contact">
               <Button
                 size="lg"
-                className="h-14 px-10 font-bold text-lg bg-[#DA0807] text-white border border-[#DA0807] hover:bg-[#B80707] hover:border-[#B80707] shadow-luxury hover:shadow-luxury-hover transition-all duration-300"
+                className="h-14 border border-[#DA0807] bg-[#DA0807] px-10 text-lg font-bold text-white shadow-[0_5px_12px_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-[#B80707] hover:bg-[#B80707] hover:shadow-[0_8px_22px_rgba(0,0,0,0.07)]"
               >
                 Contact Us Today
               </Button>
             </Link>
+
           </div>
         </section>
-      </div>
+
+      </main>
     </>
   );
 };

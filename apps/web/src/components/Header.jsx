@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
@@ -22,12 +23,34 @@ import {
 const Header = () => {
   const [mobile, setMobile] = useState(false);
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState(
     mainServices[0]?.slug || ''
   );
 
   const location = useLocation();
   const ref = useRef(null);
+
+  // Transparent header only on homepage at the top.
+  const isHome = location.pathname === '/';
+  const isTransparent = isHome && !scrolled && !open && !mobile;
+
+  // Detect page scrolling.
+  useEffect(() => {
+    const updateScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+
+    updateScroll();
+
+    window.addEventListener('scroll', updateScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener('scroll', updateScroll);
+    };
+  }, [location.pathname]);
 
   // Reset menus after navigation.
   useEffect(() => {
@@ -58,6 +81,7 @@ const Header = () => {
         'mousedown',
         handleOutsideClick
       );
+
       document.removeEventListener(
         'keydown',
         handleEscape
@@ -98,22 +122,39 @@ const Header = () => {
     );
   };
 
+  // Header colors:
+  // Home page at top = transparent.
+  // Scrolled homepage and every other page = white.
+  const headerBackground = isTransparent
+    ? 'bg-transparent border-transparent shadow-none backdrop-blur-0'
+    : 'bg-white/95 border-[#171313]/10 shadow-sm backdrop-blur-xl';
+
+  const navTextColor = isTransparent
+    ? 'text-[#171313]/90 hover:text-[#DA0807]'
+    : 'text-[#171313]/80 hover:text-[#DA0807]';
+
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl shadow-sm border-b border-[#171313]/10">
+    <header
+      className={cn(
+        isHome ? 'fixed top-0 left-0 right-0' : 'sticky top-0',
+        'z-50 w-full border-b transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-in-out',
+        headerBackground
+      )}
+    >
 
       {/* HEADER BAR */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between">
 
           {/* COMPANY BRAND */}
           <Link
             to="/"
-            className="flex-shrink-0 flex items-center gap-2 group"
+            className="group flex flex-shrink-0 items-center gap-2"
             aria-label="Raiwa Technologies home"
           >
-            <Logo className="w-12 h-12 transition-transform duration-300 group-hover:scale-105" />
+            <Logo className="h-12 w-12 transition-transform duration-300 group-hover:scale-105" />
 
-            <span className="text-xl sm:text-2xl font-bold font-heading tracking-tight text-[#171313]">
+            <span className="font-heading text-xl font-bold tracking-tight text-[#171313] sm:text-2xl">
               Raiwa
               <span className="text-[#DA0807]">
                 {' '}Technologies
@@ -123,17 +164,17 @@ const Header = () => {
 
           {/* DESKTOP NAVIGATION */}
           <nav
-            className="hidden md:flex items-center gap-5 lg:gap-8"
+            className="hidden items-center gap-5 md:flex lg:gap-8"
             aria-label="Main navigation"
           >
 
             <Link
               to="/"
               className={cn(
-                'text-sm font-semibold py-2 transition-colors hover:text-[#DA0807]',
+                'py-2 text-sm font-semibold transition-colors',
                 location.pathname === '/'
                   ? 'text-[#DA0807]'
-                  : 'text-[#171313]/80'
+                  : navTextColor
               )}
             >
               Home
@@ -153,17 +194,17 @@ const Header = () => {
                 aria-haspopup="true"
                 onClick={toggleDesktopMenu}
                 className={cn(
-                  'inline-flex items-center gap-1.5 text-sm font-semibold py-2 transition-colors hover:text-[#DA0807]',
+                  'inline-flex items-center gap-1.5 py-2 text-sm font-semibold transition-colors',
                   location.pathname.startsWith('/services')
                     ? 'text-[#DA0807]'
-                    : 'text-[#171313]/80'
+                    : navTextColor
                 )}
               >
                 Services
 
                 <ChevronDown
                   className={cn(
-                    'w-4 h-4 transition-transform duration-200',
+                    'h-4 w-4 transition-transform duration-200',
                     open && 'rotate-180'
                   )}
                 />
@@ -171,26 +212,26 @@ const Header = () => {
 
               {/* MEGA MENU */}
               {open && (
-                <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-[850px] max-w-[95vw] z-50">
+                <div className="absolute left-1/2 top-full z-50 w-[850px] max-w-[95vw] -translate-x-1/2 pt-4">
 
-                  <div className="grid grid-cols-[225px_minmax(0,1fr)] bg-white border border-[#171313]/15 rounded-2xl shadow-[0_18px_55px_rgba(23,19,19,0.20)] overflow-hidden">
+                  <div className="grid grid-cols-[225px_minmax(0,1fr)] overflow-hidden rounded-2xl border border-[#171313]/15 bg-white shadow-[0_18px_55px_rgba(23,19,19,0.20)]">
 
                     {/* LEFT PANEL: ALL SERVICES */}
-                    <div className="bg-[#171313] text-white p-6 flex flex-col justify-between min-h-[390px]">
+                    <div className="flex min-h-[390px] flex-col justify-between bg-[#171313] p-6 text-white">
 
                       <div>
-                        <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-white/50 mb-5">
+                        <p className="mb-5 text-[11px] font-extrabold uppercase tracking-[0.2em] text-white/50">
                           Explore
                         </p>
 
-                        <h3 className="text-2xl font-extrabold leading-tight mb-4">
+                        <h3 className="mb-4 text-2xl font-extrabold leading-tight">
                           Our Digital
                           <span className="block text-[#DA0807]">
                             Solutions.
                           </span>
                         </h3>
 
-                        <p className="text-sm text-white/65 leading-relaxed mb-7">
+                        <p className="mb-7 text-sm leading-relaxed text-white/65">
                           Everything your business needs to build,
                           launch and grow in one place.
                         </p>
@@ -199,23 +240,22 @@ const Header = () => {
                       <Link
                         to="/services"
                         onClick={() => setOpen(false)}
-                        className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-[#DA0807] hover:bg-[#B80707] text-white font-bold text-sm transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+                        className="flex items-center justify-between gap-3 rounded-xl bg-[#DA0807] px-4 py-3 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#B80707] hover:shadow-lg"
                       >
                         All Services
-
-                        <ArrowRight className="w-4 h-4 shrink-0" />
+                        <ArrowRight className="h-4 w-4 shrink-0" />
                       </Link>
 
                     </div>
 
                     {/* RIGHT PANEL */}
-                    <div className="p-5 min-w-0">
+                    <div className="min-w-0 p-5">
 
                       {/* MAIN CATEGORY HEADING */}
-                      <div className="flex items-center justify-between gap-3 mb-4">
+                      <div className="mb-4 flex items-center justify-between gap-3">
 
                         <div>
-                          <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#A09E9D] mb-1">
+                          <p className="mb-1 text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#A09E9D]">
                             Browse Categories
                           </p>
 
@@ -230,8 +270,8 @@ const Header = () => {
 
                       </div>
 
-                      {/* MAIN SERVICES: EACH TITLE IS CLICKABLE */}
-                      <div className="grid grid-cols-2 gap-2 mb-5">
+                      {/* MAIN SERVICES */}
+                      <div className="mb-5 grid grid-cols-2 gap-2">
 
                         {mainServices.map((group) => (
                           <div
@@ -240,21 +280,20 @@ const Header = () => {
                               setActive(group.slug)
                             }
                             className={cn(
-                              'flex items-center justify-between gap-1 min-w-0 rounded-xl border transition-all duration-200',
+                              'flex min-w-0 items-center justify-between gap-1 rounded-xl border transition-all duration-200',
                               active === group.slug
-                                ? 'bg-[#FCEEEE] border-[#DA0807]/45 shadow-sm'
-                                : 'bg-white border-[#171313]/10 hover:bg-[#F7F7F7] hover:border-[#171313]/25'
+                                ? 'border-[#DA0807]/45 bg-[#FCEEEE] shadow-sm'
+                                : 'border-[#171313]/10 bg-white hover:border-[#171313]/25 hover:bg-[#F7F7F7]'
                             )}
                           >
 
-                            {/* CLICKABLE MAIN SERVICE */}
                             <Link
                               to={mainServicePath(group)}
                               onFocus={() =>
                                 setActive(group.slug)
                               }
                               className={cn(
-                                'flex-1 min-w-0 px-3 py-3 text-sm font-bold truncate transition-colors',
+                                'min-w-0 flex-1 truncate px-3 py-3 text-sm font-bold transition-colors',
                                 active === group.slug
                                   ? 'text-[#DA0807]'
                                   : 'text-[#171313] hover:text-[#DA0807]'
@@ -263,7 +302,6 @@ const Header = () => {
                               {group.title}
                             </Link>
 
-                            {/* SEPARATE SUB-SERVICE TOGGLE */}
                             <button
                               type="button"
                               aria-label={`Show ${group.title} sub-services`}
@@ -272,13 +310,13 @@ const Header = () => {
                                 setActive(group.slug)
                               }
                               className={cn(
-                                'shrink-0 p-3 rounded-r-xl transition-colors',
+                                'shrink-0 rounded-r-xl p-3 transition-colors',
                                 active === group.slug
                                   ? 'text-[#DA0807]'
                                   : 'text-[#777] hover:text-[#DA0807]'
                               )}
                             >
-                              <ChevronRight className="w-4 h-4" />
+                              <ChevronRight className="h-4 w-4" />
                             </button>
 
                           </div>
@@ -290,16 +328,16 @@ const Header = () => {
                       {activeGroup && (
                         <div className="border-t border-[#171313]/10 pt-4">
 
-                          <div className="flex items-center justify-between gap-3 mb-3">
+                          <div className="mb-3 flex items-center justify-between gap-3">
 
                             <div>
-                              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#999] mb-1">
+                              <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#999]">
                                 Explore Sub-services
                               </p>
 
                               <Link
                                 to={mainServicePath(activeGroup)}
-                                className="text-base font-extrabold text-[#171313] hover:text-[#DA0807] transition-colors"
+                                className="text-base font-extrabold text-[#171313] transition-colors hover:text-[#DA0807]"
                               >
                                 {activeGroup.title}
                               </Link>
@@ -307,10 +345,10 @@ const Header = () => {
 
                             <Link
                               to={mainServicePath(activeGroup)}
-                              className="text-xs font-bold text-[#DA0807] hover:underline whitespace-nowrap"
+                              className="whitespace-nowrap text-xs font-bold text-[#DA0807] hover:underline"
                             >
                               View category
-                              <ArrowRight className="inline w-3 h-3 ml-1" />
+                              <ArrowRight className="ml-1 inline h-3 w-3" />
                             </Link>
 
                           </div>
@@ -322,19 +360,19 @@ const Header = () => {
                                 <Link
                                   key={item.slug}
                                   to={servicePath(item)}
-                                  className="flex items-center justify-between gap-2 px-3 py-2.5 rounded-lg text-sm text-[#55514F] font-medium hover:bg-[#FCEEEE] hover:text-[#DA0807] transition-colors group"
+                                  className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-[#55514F] transition-colors hover:bg-[#FCEEEE] hover:text-[#DA0807]"
                                 >
                                   <span className="min-w-0 truncate">
                                     {item.title}
                                   </span>
 
-                                  <ChevronRight className="w-3.5 h-3.5 shrink-0 opacity-40 group-hover:opacity-100" />
+                                  <ChevronRight className="h-3.5 w-3.5 shrink-0 opacity-40 group-hover:opacity-100" />
                                 </Link>
                               ))}
 
                             </div>
                           ) : (
-                            <p className="text-sm text-[#777] py-3">
+                            <p className="py-3 text-sm text-[#777]">
                               No sub-services available.
                             </p>
                           )}
@@ -355,10 +393,10 @@ const Header = () => {
                 key={link.name}
                 to={link.path}
                 className={cn(
-                  'text-sm font-semibold transition-colors py-2 hover:text-[#DA0807]',
+                  'py-2 text-sm font-semibold transition-colors',
                   location.pathname === link.path
                     ? 'text-[#DA0807]'
-                    : 'text-[#171313]/80'
+                    : navTextColor
                 )}
               >
                 {link.name}
@@ -368,28 +406,28 @@ const Header = () => {
           </nav>
 
           {/* DESKTOP CONTACT BUTTON */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden items-center gap-4 md:flex">
             <Link to="/contact">
-              <Button className="bg-[#DA0807] hover:bg-[#B80707] text-white font-bold px-6 shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
+              <Button className="bg-[#DA0807] px-6 font-bold text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#B80707] hover:shadow-xl">
                 Free Consultation
-                <ArrowRight className="w-4 h-4 ml-2" />
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
           </div>
 
           {/* MOBILE MENU BUTTON */}
-          <div className="md:hidden flex items-center gap-3">
+          <div className="flex items-center gap-3 md:hidden">
             <button
               type="button"
               onClick={() => setMobile((previous) => !previous)}
               aria-label={mobile ? 'Close menu' : 'Open menu'}
               aria-expanded={mobile}
-              className="p-2 rounded-lg text-[#171313] hover:bg-[#171313]/5 transition-colors"
+              className="rounded-lg p-2 text-[#171313] transition-colors hover:bg-[#171313]/5"
             >
               {mobile ? (
-                <X className="w-6 h-6" />
+                <X className="h-6 w-6" />
               ) : (
-                <Menu className="w-6 h-6" />
+                <Menu className="h-6 w-6" />
               )}
             </button>
           </div>
@@ -399,13 +437,13 @@ const Header = () => {
 
       {/* MOBILE NAVIGATION */}
       {mobile && (
-        <div className="md:hidden absolute top-20 left-0 right-0 bg-white border-b border-[#171313]/15 shadow-[0_15px_35px_rgba(23,19,19,0.15)] max-h-[85vh] overflow-y-auto">
+        <div className="absolute left-0 right-0 top-20 max-h-[85vh] overflow-y-auto border-b border-[#171313]/15 bg-white shadow-[0_15px_35px_rgba(23,19,19,0.15)] md:hidden">
 
-          <div className="px-4 pt-3 pb-6 space-y-2">
+          <div className="space-y-2 px-4 pb-6 pt-3">
 
             <Link
               to="/"
-              className="block px-4 py-3 rounded-xl text-base font-semibold text-[#171313] hover:bg-[#F7F7F7] transition-colors"
+              className="block rounded-xl px-4 py-3 text-base font-semibold text-[#171313] transition-colors hover:bg-[#F7F7F7]"
             >
               Home
             </Link>
@@ -413,10 +451,10 @@ const Header = () => {
             {/* ALL SERVICES */}
             <Link
               to="/services"
-              className="flex items-center justify-between px-4 py-3 rounded-xl bg-[#171313] text-white font-bold hover:bg-[#DA0807] transition-colors"
+              className="flex items-center justify-between rounded-xl bg-[#171313] px-4 py-3 font-bold text-white transition-colors hover:bg-[#DA0807]"
             >
               All Services
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="h-4 w-4" />
             </Link>
 
             {/* MAIN SERVICE ACCORDIONS */}
@@ -436,7 +474,7 @@ const Header = () => {
                     <div
                       key={group.slug}
                       className={cn(
-                        'rounded-xl border overflow-hidden transition-colors',
+                        'overflow-hidden rounded-xl border transition-colors',
                         expanded
                           ? 'border-[#DA0807]/40 bg-[#FDFDFD]'
                           : 'border-[#171313]/10 bg-white'
@@ -449,7 +487,7 @@ const Header = () => {
                         <Link
                           to={mainServicePath(group)}
                           className={cn(
-                            'flex-1 min-w-0 px-4 py-3.5 text-sm font-bold transition-colors',
+                            'min-w-0 flex-1 px-4 py-3.5 text-sm font-bold transition-colors',
                             expanded
                               ? 'text-[#DA0807]'
                               : 'text-[#171313] hover:text-[#DA0807]'
@@ -474,7 +512,7 @@ const Header = () => {
                         >
                           <ChevronDown
                             className={cn(
-                              'w-4 h-4 transition-transform duration-200',
+                              'h-4 w-4 transition-transform duration-200',
                               expanded && 'rotate-180'
                             )}
                           />
@@ -484,14 +522,14 @@ const Header = () => {
 
                       {/* SUB-SERVICES */}
                       {expanded && (
-                        <div className="px-4 pb-3 border-t border-[#171313]/10">
+                        <div className="border-t border-[#171313]/10 px-4 pb-3">
 
                           <Link
                             to={mainServicePath(group)}
                             className="flex items-center justify-between py-3 text-xs font-bold uppercase tracking-wide text-[#DA0807]"
                           >
                             View {group.title} Overview
-                            <ArrowRight className="w-3.5 h-3.5" />
+                            <ArrowRight className="h-3.5 w-3.5" />
                           </Link>
 
                           <div className="space-y-1">
@@ -500,11 +538,11 @@ const Header = () => {
                               <Link
                                 key={item.slug}
                                 to={servicePath(item)}
-                                className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-[#55514F] hover:bg-[#FCEEEE] hover:text-[#DA0807] transition-colors"
+                                className="flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-[#55514F] transition-colors hover:bg-[#FCEEEE] hover:text-[#DA0807]"
                               >
                                 <span>{item.title}</span>
 
-                                <ChevronRight className="w-4 h-4 shrink-0 opacity-50" />
+                                <ChevronRight className="h-4 w-4 shrink-0 opacity-50" />
                               </Link>
                             ))}
 
@@ -520,13 +558,13 @@ const Header = () => {
             </div>
 
             {/* OTHER LINKS */}
-            <div className="border-t border-[#171313]/10 pt-3 mt-3">
+            <div className="mt-3 border-t border-[#171313]/10 pt-3">
 
               {nav.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className="block px-4 py-3 rounded-xl text-base font-semibold text-[#171313] hover:bg-[#F7F7F7] transition-colors"
+                  className="block rounded-xl px-4 py-3 text-base font-semibold text-[#171313] transition-colors hover:bg-[#F7F7F7]"
                 >
                   {link.name}
                 </Link>
@@ -537,9 +575,9 @@ const Header = () => {
             {/* MOBILE CONTACT BUTTON */}
             <div className="pt-3">
               <Link to="/contact" className="block">
-                <Button className="w-full bg-[#DA0807] hover:bg-[#B80707] text-white font-bold h-12 shadow-md transition-all">
+                <Button className="h-12 w-full bg-[#DA0807] font-bold text-white shadow-md transition-all hover:bg-[#B80707]">
                   Free Consultation
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
             </div>

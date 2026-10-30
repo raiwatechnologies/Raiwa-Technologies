@@ -26,6 +26,60 @@ const COLORS = {
 };
 
 /* -------------------------------------------------------
+   SHARED CARD HOVER STANDARD
+------------------------------------------------------- */
+
+const CARD_HOVER_STYLES = `
+  /*
+    Consistent Raiwa Technologies card hover:
+
+    Normal border remains unchanged.
+    No dark or black border on hover.
+    Only 7% black shadow.
+    Maximum 3px upward movement.
+  */
+
+  .detail-hover-card {
+    height: 100%;
+    min-width: 0;
+    border-color: rgba(23, 19, 19, 0.18) !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.025) !important;
+    transition:
+      transform 280ms ease,
+      box-shadow 280ms ease,
+      border-color 280ms ease !important;
+  }
+
+  .detail-hover-card:hover {
+    border-color: rgba(23, 19, 19, 0.18) !important;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07) !important;
+    transform: translateY(-3px);
+  }
+
+  .detail-hover-card:focus-visible {
+    outline: 2px solid #DA0807;
+    outline-offset: 4px;
+  }
+
+  .detail-hover-card * {
+    transition:
+      color 250ms ease,
+      background-color 250ms ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .detail-hover-card,
+    .detail-hover-card * {
+      transition: none !important;
+    }
+
+    .detail-hover-card:hover {
+      transform: none;
+    }
+  }
+`;
+
+/* -------------------------------------------------------
    REUSABLE COMPONENTS
 ------------------------------------------------------- */
 
@@ -33,7 +87,7 @@ function ProjectButton({ children, className = '' }) {
   return (
     <Button
       size="lg"
-      className={`group h-14 border border-[#DA0807] bg-[#DA0807] px-7 font-bold text-white shadow-[0_8px_24px_rgba(218,8,7,0.20)] transition-all duration-300 hover:-translate-y-1 hover:border-[#171313] hover:bg-[#171313] hover:shadow-[0_12px_28px_rgba(23,19,19,0.18)] ${className}`}
+      className={`group h-14 border border-[#DA0807] bg-[#DA0807] px-7 font-bold text-white shadow-[0_8px_24px_rgba(218,8,7,0.20)] transition-all duration-300 hover:-translate-y-1 hover:border-[#B80707] hover:bg-[#B80707] hover:shadow-[0_8px_22px_rgba(0,0,0,0.07)] ${className}`}
     >
       {children}
     </Button>
@@ -123,7 +177,10 @@ function ServiceCard({ item }) {
     <Link
       to={servicePath(item)}
       aria-label={`Explore ${item.title}`}
-      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#171313]/25 bg-[#FDFDFD] shadow-[0_5px_14px_rgba(23,19,19,0.07),0_12px_26px_rgba(23,19,19,0.07)] transition-all duration-300 hover:-translate-y-2 hover:border-[#DA0807]/50 hover:shadow-[0_12px_28px_rgba(23,19,19,0.13),0_20px_38px_rgba(23,19,19,0.09)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DA0807] focus-visible:ring-offset-4"
+      className="detail-hover-card group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-[#FDFDFD] shadow-[0_3px_10px_rgba(0,0,0,0.025)] transition-all duration-300 focus-visible:outline-none"
+      style={{
+        borderColor: 'rgba(23, 19, 19, 0.18)',
+      }}
     >
       <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#E5E5E5]">
         <ServiceImage
@@ -166,6 +223,7 @@ function CallToAction({ title, description }) {
   return (
     <section className="px-5 pb-20 pt-4 sm:px-8 md:pb-28">
       <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl border border-[#171313]/20 bg-[#171313] px-6 py-14 text-center text-white shadow-[0_14px_35px_rgba(23,19,19,0.15)] sm:px-10 md:px-16 md:py-20">
+
         <div
           className="pointer-events-none absolute inset-0 opacity-30"
           style={{
@@ -181,7 +239,9 @@ function CallToAction({ title, description }) {
         />
 
         <div className="relative mx-auto max-w-3xl">
-          <Eyebrow color="#FF7777">Let's Grow Together</Eyebrow>
+          <Eyebrow color="#FF7777">
+            Let's Grow Together
+          </Eyebrow>
 
           <h2 className="mb-5 font-heading text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
             {title}
@@ -192,7 +252,7 @@ function CallToAction({ title, description }) {
           </p>
 
           <Link to="/contact">
-            <ProjectButton className="border-white bg-white text-[#171313] shadow-none hover:border-[#DA0807] hover:bg-[#DA0807] hover:text-white">
+            <ProjectButton className="border-white bg-white text-[#171313] shadow-none hover:border-white hover:bg-white hover:text-[#171313]">
               Talk to our team
               <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
             </ProjectButton>
@@ -226,9 +286,14 @@ function MainServicePage({ main }) {
         <title>{`${main.title} Services | Raiwa Technologies`}</title>
         <meta
           name="description"
-          content={main.description || `${main.title} solutions from Raiwa Technologies.`}
+          content={
+            main.description ||
+            `${main.title} solutions from Raiwa Technologies.`
+          }
         />
       </Helmet>
+
+      <style>{CARD_HOVER_STYLES}</style>
 
       <main className="bg-[#FDFDFD]">
 
@@ -287,6 +352,7 @@ function MainServicePage({ main }) {
 
             <div className="relative">
               <div className="rounded-3xl border border-white/20 bg-white/[0.08] p-3 shadow-[0_25px_60px_rgba(0,0,0,0.3)] backdrop-blur-sm">
+
                 <div className="overflow-hidden rounded-2xl bg-[#E5E5E5]">
                   <ServiceImage
                     src={heroImage}
@@ -320,6 +386,7 @@ function MainServicePage({ main }) {
         {/* MAIN SERVICE CHILDREN */}
         <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 md:py-28">
           <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+
             <SectionHeading
               eyebrow="Explore the category"
               title={main.title}
@@ -341,7 +408,12 @@ function MainServicePage({ main }) {
               ))}
             </div>
           ) : (
-            <div className="rounded-2xl border border-[#171313]/20 bg-[#E5E5E5]/35 p-8 md:p-10">
+            <div
+              className="detail-hover-card rounded-2xl border bg-[#E5E5E5]/35 p-8 md:p-10"
+              style={{
+                borderColor: 'rgba(23, 19, 19, 0.18)',
+              }}
+            >
               <h3 className="text-xl font-bold text-[#171313]">
                 Services in this category are being prepared.
               </h3>
@@ -398,9 +470,14 @@ function IndividualServicePage({ service }) {
         <title>{`${service.title} | Raiwa Technologies`}</title>
         <meta
           name="description"
-          content={service.description || `${service.title} solutions from Raiwa Technologies.`}
+          content={
+            service.description ||
+            `${service.title} solutions from Raiwa Technologies.`
+          }
         />
       </Helmet>
+
+      <style>{CARD_HOVER_STYLES}</style>
 
       <main className="bg-[#FDFDFD]">
 
@@ -469,6 +546,7 @@ function IndividualServicePage({ service }) {
 
             <div className="relative">
               <div className="rounded-3xl border border-white/20 bg-white/[0.08] p-3 shadow-[0_25px_60px_rgba(0,0,0,0.3)] backdrop-blur-sm">
+
                 <div className="overflow-hidden rounded-2xl bg-[#E5E5E5]">
                   <ServiceImage
                     src={serviceImage}
@@ -502,6 +580,7 @@ function IndividualServicePage({ service }) {
         {/* SERVICE BENEFITS */}
         <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 md:py-28">
           <div className="grid gap-12 md:grid-cols-[.8fr_1.2fr] md:gap-20">
+
             <div>
               <SectionHeading
                 eyebrow="What we can help with"
@@ -527,7 +606,10 @@ function IndividualServicePage({ service }) {
                   {benefits.map((benefit) => (
                     <div
                       key={benefit}
-                      className="group rounded-2xl border border-[#171313]/25 bg-[#FDFDFD] p-6 shadow-[0_5px_14px_rgba(23,19,19,0.06),0_12px_25px_rgba(23,19,19,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-[#DA0807]/40 hover:shadow-[0_12px_25px_rgba(23,19,19,0.10)]"
+                      className="detail-hover-card group rounded-2xl border bg-[#FDFDFD] p-6"
+                      style={{
+                        borderColor: 'rgba(23, 19, 19, 0.18)',
+                      }}
                     >
                       <span className="mb-5 block h-2.5 w-2.5 rounded-full bg-[#DA0807]" />
 
@@ -543,10 +625,16 @@ function IndividualServicePage({ service }) {
                   ))}
                 </div>
               ) : (
-                <div className="rounded-2xl border border-[#171313]/20 bg-[#E5E5E5]/35 p-8">
+                <div
+                  className="detail-hover-card rounded-2xl border bg-[#E5E5E5]/35 p-8"
+                  style={{
+                    borderColor: 'rgba(23, 19, 19, 0.18)',
+                  }}
+                >
                   <p className="font-semibold text-[#171313]">
                     We tailor this service to your requirements.
                   </p>
+
                   <p className="mt-2 leading-relaxed text-[#66615F]">
                     Contact our team to discuss the scope and priorities of
                     your project.
@@ -560,6 +648,7 @@ function IndividualServicePage({ service }) {
         {/* SERVICE PROCESS */}
         <section className="border-y border-[#171313]/10 bg-[#E5E5E5]/40 py-20 md:py-24">
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
+
             <div className="mb-12 max-w-3xl">
               <SectionHeading
                 eyebrow="How it works"
@@ -592,7 +681,10 @@ function IndividualServicePage({ service }) {
               ].map((step) => (
                 <div
                   key={step.number}
-                  className="group rounded-2xl border border-[#171313]/25 bg-[#FDFDFD] p-7 shadow-[0_5px_14px_rgba(23,19,19,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-[#DA0807]/40 hover:shadow-[0_12px_25px_rgba(23,19,19,0.10)] md:p-8"
+                  className="detail-hover-card group rounded-2xl border bg-[#FDFDFD] p-7 md:p-8"
+                  style={{
+                    borderColor: 'rgba(23, 19, 19, 0.18)',
+                  }}
                 >
                   <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#171313] text-sm font-extrabold text-white transition-colors duration-300 group-hover:bg-[#DA0807]">
                     {step.number}
@@ -621,6 +713,7 @@ function IndividualServicePage({ service }) {
         {related.length > 0 && (
           <section className="border-t border-[#171313]/10 bg-[#FDFDFD] px-5 py-20 sm:px-8 md:py-24">
             <div className="mx-auto max-w-7xl">
+
               <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
                 <SectionHeading
                   eyebrow="Explore more"
@@ -683,6 +776,8 @@ export default function ServiceDetailPage() {
           content="Explore the complete range of services offered by Raiwa Technologies."
         />
       </Helmet>
+
+      <style>{CARD_HOVER_STYLES}</style>
 
       <main className="flex min-h-[65vh] flex-col items-center justify-center bg-[#FDFDFD] px-5 py-20 text-center">
         <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#E5E5E5]">
