@@ -6,7 +6,6 @@ import {
   ArrowRight,
   ShoppingCart,
   Megaphone,
-  ShieldCheck,
   Activity,
   Award,
   Users,
@@ -117,7 +116,6 @@ const GrowthChartIcon = ({ className }) => (
     className={className}
     aria-hidden="true"
   >
-    {/* X and Y axes */}
     <path
       d="M7 5V41H43"
       stroke="#171313"
@@ -126,7 +124,6 @@ const GrowthChartIcon = ({ className }) => (
       strokeLinejoin="round"
     />
 
-    {/* Growth graph */}
     <path
       d="M12 32L20 25L26 29L38 13"
       stroke="#DA0807"
@@ -135,7 +132,6 @@ const GrowthChartIcon = ({ className }) => (
       strokeLinejoin="round"
     />
 
-    {/* Arrow head */}
     <path
       d="M29 13H38V22"
       stroke="#DA0807"
@@ -144,7 +140,6 @@ const GrowthChartIcon = ({ className }) => (
       strokeLinejoin="round"
     />
 
-    {/* Graph points */}
     <circle cx="12" cy="32" r="2" fill="#DA0807" />
     <circle cx="20" cy="25" r="2" fill="#DA0807" />
     <circle cx="26" cy="29" r="2" fill="#DA0807" />
@@ -154,7 +149,6 @@ const GrowthChartIcon = ({ className }) => (
 const HomePage = () => {
   const navigate = useNavigate();
 
-  /* Featured main services */
   const featuredServices = [
     {
       icon: GrowthChartIcon,
@@ -206,7 +200,6 @@ const HomePage = () => {
   };
 
   const handleFeaturedCardClick = (event, title) => {
-    // Keep the card's existing CTA link working normally.
     if (event.target.closest('a, button')) return;
 
     navigate(getFeaturedServicePath(title));
@@ -215,7 +208,7 @@ const HomePage = () => {
   const handleFeaturedCardKeyDown = (event, title) => {
     if (event.target !== event.currentTarget) return;
 
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       navigate(getFeaturedServicePath(title));
     }
@@ -287,6 +280,211 @@ const HomePage = () => {
         />
       </Helmet>
 
+      {/* Shared homepage interaction and shadow styling */}
+      <style>{`
+        /* HIGH-IMPACT SERVICE CARDS */
+
+        .home-service-card-shell {
+          height: 100%;
+          min-width: 0;
+          cursor: pointer;
+          border-radius: 1rem;
+          transition:
+            transform 280ms ease,
+            filter 280ms ease;
+          perspective: 1000px;
+        }
+
+        .home-service-card-shell > * {
+          height: 100%;
+          border: 1px solid rgba(23, 19, 19, 0.30) !important;
+          border-radius: 1rem;
+          box-shadow:
+            0 5px 12px rgba(23, 19, 19, 0.09),
+            0 13px 28px rgba(23, 19, 19, 0.13) !important;
+          transition:
+            border-color 280ms ease,
+            box-shadow 280ms ease,
+            transform 280ms ease;
+        }
+
+        .home-service-card-shell:hover {
+          transform: translateY(-8px) scale(1.012);
+          z-index: 2;
+        }
+
+        .home-service-card-shell:hover > * {
+          border-color: rgba(23, 19, 19, 0.80) !important;
+          box-shadow:
+            0 0 0 2px rgba(23, 19, 19, 0.12),
+            0 12px 22px rgba(23, 19, 19, 0.13),
+            0 23px 42px rgba(23, 19, 19, 0.20) !important;
+        }
+
+        .home-service-card-shell:focus-visible {
+          outline: 3px solid #DA0807;
+          outline-offset: 5px;
+        }
+
+        /* Simple red benefit dots */
+        .home-service-card-shell ul li > div:first-child {
+          width: 8px !important;
+          height: 8px !important;
+          min-width: 8px !important;
+          min-height: 8px !important;
+          margin-right: 12px !important;
+          background: #DA0807 !important;
+          border-radius: 50% !important;
+          overflow: hidden;
+        }
+
+        .home-service-card-shell ul li > div:first-child > div {
+          display: none !important;
+        }
+
+        /* WHAT WE PROVIDE CARDS */
+
+        .home-benefit-card-shell {
+          height: 100%;
+          transition: transform 280ms ease;
+        }
+
+        .home-benefit-card-shell > * {
+          height: 100%;
+          border: 1px solid rgba(23, 19, 19, 0.24) !important;
+          box-shadow:
+            0 5px 12px rgba(23, 19, 19, 0.07),
+            0 12px 28px rgba(23, 19, 19, 0.13) !important;
+          transition:
+            border-color 280ms ease,
+            box-shadow 280ms ease;
+        }
+
+        .home-benefit-card-shell:hover {
+          transform: translateY(-6px);
+        }
+
+        .home-benefit-card-shell:hover > * {
+          border-color: rgba(23, 19, 19, 0.65) !important;
+          box-shadow:
+            0 0 0 1px rgba(23, 19, 19, 0.10),
+            0 17px 35px rgba(23, 19, 19, 0.19) !important;
+        }
+
+        .home-benefit-card-shell h3,
+        .home-benefit-card-shell h4 {
+          color: #171313 !important;
+        }
+
+        /* STATISTIC CARDS */
+
+        .home-stat-card-shell {
+          height: 100%;
+          transition: transform 280ms ease;
+        }
+
+        .home-stat-card-shell > * {
+          height: 100%;
+          border: 1px solid rgba(23, 19, 19, 0.24) !important;
+          box-shadow:
+            0 5px 12px rgba(23, 19, 19, 0.07),
+            0 12px 25px rgba(23, 19, 19, 0.13) !important;
+          transition:
+            border-color 280ms ease,
+            box-shadow 280ms ease;
+        }
+
+        .home-stat-card-shell:hover {
+          transform: translateY(-5px);
+        }
+
+        .home-stat-card-shell:hover > * {
+          border-color: rgba(23, 19, 19, 0.65) !important;
+          box-shadow:
+            0 0 0 1px rgba(23, 19, 19, 0.10),
+            0 17px 32px rgba(23, 19, 19, 0.18) !important;
+        }
+
+        /* HOW WE WORK CARDS */
+
+        .home-process-step-shell {
+          height: 100%;
+          transition: transform 280ms ease;
+        }
+
+        .home-process-step-shell > * {
+          height: 100%;
+          border: 1px solid rgba(23, 19, 19, 0.24) !important;
+          box-shadow:
+            0 5px 12px rgba(23, 19, 19, 0.07),
+            0 12px 25px rgba(23, 19, 19, 0.13) !important;
+          transition:
+            border-color 280ms ease,
+            box-shadow 280ms ease;
+        }
+
+        .home-process-step-shell:hover {
+          transform: translateY(-5px);
+        }
+
+        .home-process-step-shell:hover > * {
+          border-color: rgba(23, 19, 19, 0.65) !important;
+          box-shadow:
+            0 0 0 1px rgba(23, 19, 19, 0.10),
+            0 17px 32px rgba(23, 19, 19, 0.18) !important;
+        }
+
+        /* HERO BUTTONS */
+
+        .home-hero-button {
+          transition:
+            transform 220ms ease,
+            box-shadow 220ms ease,
+            background-color 220ms ease !important;
+          box-shadow:
+            0 5px 12px rgba(23, 19, 19, 0.16),
+            0 9px 22px rgba(23, 19, 19, 0.12);
+        }
+
+        .home-hero-button:hover {
+          transform: translateY(-4px);
+          box-shadow:
+            0 9px 16px rgba(23, 19, 19, 0.19),
+            0 17px 32px rgba(23, 19, 19, 0.20) !important;
+        }
+
+        .home-hero-button:active {
+          transform: translateY(-1px);
+        }
+
+        .home-hero-button:focus-visible {
+          outline: 3px solid #171313;
+          outline-offset: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .home-service-card-shell,
+          .home-service-card-shell > *,
+          .home-benefit-card-shell,
+          .home-benefit-card-shell > *,
+          .home-stat-card-shell,
+          .home-stat-card-shell > *,
+          .home-process-step-shell,
+          .home-process-step-shell > *,
+          .home-hero-button {
+            transition: none !important;
+          }
+
+          .home-service-card-shell:hover,
+          .home-benefit-card-shell:hover,
+          .home-stat-card-shell:hover,
+          .home-process-step-shell:hover,
+          .home-hero-button:hover {
+            transform: none;
+          }
+        }
+      `}</style>
+
       <div className="flex flex-col bg-background">
 
         {/* HERO SECTION */}
@@ -316,19 +514,15 @@ const HomePage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-
-                {/* Onboarding badge */}
                 <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/90 text-[#171313] font-bold text-sm mb-8 border border-[#171313]/15 shadow-sm">
                   <span className="relative flex h-3 w-3">
                     <span className="absolute inline-flex h-full w-full rounded-full bg-[#DA0807] opacity-30 animate-ping" />
-
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-[#DA0807]" />
                   </span>
 
                   Now Onboarding New Ecommerce Brands
                 </div>
 
-                {/* New hero heading */}
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#171313] leading-[1.1] mb-6 font-heading tracking-tight">
                   We Built{' '}
                   <span className="text-[#DA0807]">
@@ -337,34 +531,31 @@ const HomePage = () => {
                 </h1>
 
                 <p className="text-xl md:text-2xl text-[#171313]/85 mb-10 leading-relaxed max-w-2xl font-medium">
-                  Raiwa Technologies is your growth partner for ecommerce,
-                  development, SEO and digital marketing, turning your
-                  products into predictable, profitable sales.
+                 Raiwa Technologies — Empowering Growth Through Digital Solutions.
                 </p>
 
-                {/* Hero buttons */}
                 <div className="flex flex-col sm:flex-row gap-5 items-center">
 
                   <Link to="/contact" className="w-full sm:w-auto">
                     <Button
                       size="lg"
-                      className="w-full text-lg h-14 px-8 font-bold bg-[#DA0807] text-white hover:bg-[#B80707] shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="home-hero-button w-full text-lg h-14 px-8 font-bold bg-[#DA0807] text-white hover:bg-[#B80707]"
                     >
                       Get a Free Consultation
                       <ArrowRight className="ml-2 w-5 h-5" />
                     </Button>
                   </Link>
 
-                  <WhatsAppButton
-                    variant="default"
-                    className="w-full sm:w-auto h-14 px-8 text-lg"
-                  />
+                  <div className="w-full sm:w-auto">
+                    <WhatsAppButton
+                      variant="default"
+                      className="home-hero-button w-full sm:w-auto h-14 px-8 text-lg"
+                    />
+                  </div>
 
                 </div>
-
-                {/* No Obligation and Transparent Reporting removed */}
-
               </motion.div>
+
             </div>
           </div>
         </section>
@@ -458,7 +649,6 @@ const HomePage = () => {
         {/* OUR APPROACH */}
         <section className="relative overflow-hidden border-0 bg-primary-lighter-bg/30 pt-0 pb-16">
 
-          {/* Background effects */}
           <div className="absolute -top-[150px] md:top-0 right-0 w-[600px] h-[600px] bg-[#A09E9D]/15 rounded-full blur-[120px] translate-y-0 md:-translate-y-1/2 translate-x-1/3 pointer-events-none" />
 
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#A09E9D]/15 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/3 pointer-events-none" />
@@ -466,12 +656,11 @@ const HomePage = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
 
-              {/* Dark, slightly raised approach label */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="inline-flex items-center justify-center px-5 py-2 rounded-full bg-[#171313]/10 text-[#171313] border border-[#171313]/10 shadow-[0_7px_20px_rgba(23,19,19,0.12)] -translate-y-1 font-bold text-sm mb-6 uppercase tracking-widest"
+                className="inline-flex items-center justify-center px-5 py-2 rounded-full bg-[#171313]/15 text-[#171313] border border-[#171313]/20 shadow-[0_9px_24px_rgba(23,19,19,0.20)] -translate-y-1 font-bold text-sm mb-6 uppercase tracking-widest"
               >
                 Our Approach
               </motion.div>
@@ -514,7 +703,6 @@ const HomePage = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-
               <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-6 font-heading">
                 High-Impact{' '}
                 <span className="text-[#DA0807]">
@@ -526,103 +714,8 @@ const HomePage = () => {
                 Focused, practical solutions that help your business
                 get found, get sales and keep growing.
               </p>
-
             </div>
 
-            {/* Service card visual styling */}
-            <style>{`
-              .home-service-card-shell {
-                height: 100%;
-                cursor: pointer;
-                transition: transform 0.25s ease;
-              }
-
-              .home-service-card-shell > * {
-                height: 100%;
-                border-color: rgba(23, 19, 19, 0.13) !important;
-                box-shadow: 0 10px 28px rgba(23, 19, 19, 0.09) !important;
-              }
-
-              .home-service-card-shell:hover {
-                transform: translateY(-5px);
-              }
-
-              .home-service-card-shell:hover > * {
-                border-color: rgba(23, 19, 19, 0.18) !important;
-                box-shadow: 0 17px 34px rgba(23, 19, 19, 0.13) !important;
-              }
-
-              /* Replace gray benefit circles with red dots only */
-              .home-service-card-shell ul li > div:first-child {
-                width: 8px !important;
-                height: 8px !important;
-                min-width: 8px !important;
-                min-height: 8px !important;
-                margin-right: 12px !important;
-                background: #DA0807 !important;
-                border-radius: 50% !important;
-                overflow: hidden;
-              }
-
-              .home-service-card-shell ul li > div:first-child > div {
-                display: none !important;
-              }
-
-              .home-benefit-card-shell {
-                height: 100%;
-                transition: transform 0.25s ease;
-              }
-
-              .home-benefit-card-shell > * {
-                height: 100%;
-                border: 1px solid rgba(23, 19, 19, 0.12) !important;
-                border-color: rgba(23, 19, 19, 0.12) !important;
-                box-shadow: 0 10px 26px rgba(23, 19, 19, 0.08) !important;
-              }
-
-              .home-benefit-card-shell:hover {
-                transform: translateY(-4px);
-              }
-
-              /* Keep benefit headings dark; preserve red icons */
-              .home-benefit-card-shell h3,
-              .home-benefit-card-shell h4 {
-                color: #171313 !important;
-              }
-
-              .home-stat-card-shell {
-                height: 100%;
-                transition: transform 0.25s ease;
-              }
-
-              .home-stat-card-shell > * {
-                height: 100%;
-                border: 1px solid rgba(23, 19, 19, 0.12) !important;
-                border-color: rgba(23, 19, 19, 0.12) !important;
-                box-shadow: 0 9px 24px rgba(23, 19, 19, 0.08) !important;
-              }
-
-              .home-stat-card-shell:hover {
-                transform: translateY(-4px);
-              }
-
-              .home-process-step-shell {
-                height: 100%;
-                transition: transform 0.25s ease;
-              }
-
-              .home-process-step-shell > * {
-                height: 100%;
-                border-color: rgba(23, 19, 19, 0.12) !important;
-                box-shadow: 0 9px 24px rgba(23, 19, 19, 0.08) !important;
-              }
-
-              .home-process-step-shell:hover {
-                transform: translateY(-4px);
-              }
-            `}</style>
-
-            {/* Three clickable service cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
               {featuredServices.map((service, index) => (
@@ -654,7 +747,7 @@ const HomePage = () => {
               <Link to="/services">
                 <Button
                   size="lg"
-                  className="bg-white text-[#171313] border-2 border-[#171313]/20 hover:bg-[#171313] hover:text-white hover:border-[#171313] font-bold h-14 px-10 shadow-sm transition-all duration-300 text-lg"
+                  className="bg-white text-[#171313] border-2 border-[#171313]/30 hover:bg-[#171313] hover:text-white hover:border-[#171313] font-bold h-14 px-10 shadow-md hover:shadow-xl transition-all duration-300 text-lg hover:-translate-y-1"
                 >
                   Explore All Services
                   <ArrowRight className="w-5 h-5 ml-2" />
@@ -672,23 +765,19 @@ const HomePage = () => {
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            {/* Benefits heading */}
             <div className="text-center mb-12">
-
               <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-5 font-heading tracking-tight">
-                What We Provide
+                What We <span className="text-[#DA0807]">Provide</span>
               </h2>
 
-              <div className="w-20 h-1 bg-[#171313]/20 rounded-full mx-auto mb-5" />
+              <div className="w-20 h-1 bg-[#171313]/30 rounded-full mx-auto mb-5" />
 
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
                 Practical solutions designed to help your business
                 grow, perform and succeed.
               </p>
-
             </div>
 
-            {/* Four benefit cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
 
               <div className="home-benefit-card-shell">
@@ -729,7 +818,7 @@ const HomePage = () => {
 
             </div>
 
-            {/* Animated statistics grid */}
+            {/* Statistics */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mt-16 md:mt-24">
 
               <div className="home-stat-card-shell">
@@ -793,7 +882,7 @@ const HomePage = () => {
         </section>
 
         {/* MARKETPLACES */}
-        <section className="py-24 bg-primary-lighter-bg/30 border-y border-[#171313]/10">
+        <section className="py-24 bg-primary-lighter-bg/30 border-y border-[#171313]/15">
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
@@ -805,8 +894,7 @@ const HomePage = () => {
             </h2>
 
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
-              Marketplace specialists to help you launch, manage and grow
-              wherever your customers shop.
+              Marketplace specialists to help you launch, manage and grow wherever your customers shop.
             </p>
 
             <div
@@ -814,7 +902,6 @@ const HomePage = () => {
               aria-label="Marketplaces we support"
             >
               <div className="marketplace-track">
-
                 {[...marketplaceItems, ...marketplaceItems].map(
                   (service, index) => (
                     <Link
@@ -839,7 +926,6 @@ const HomePage = () => {
                     </Link>
                   )
                 )}
-
               </div>
             </div>
 
@@ -852,15 +938,13 @@ const HomePage = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div className="text-center max-w-3xl mx-auto mb-20">
-
               <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-6 font-heading">
-                How We Work
+                How We <span className="text-[#DA0807]">Work</span>
               </h2>
 
               <p className="text-xl text-muted-foreground">
                 A simple, transparent process that takes you from idea to results.
               </p>
-
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
@@ -885,9 +969,7 @@ const HomePage = () => {
         {/* BOTTOM CTA */}
         <section className="py-32 bg-primary-dark relative overflow-hidden">
 
-          {/* Responsive background images */}
           <picture className="absolute inset-0 z-0 block h-full w-full">
-
             <source
               media="(max-width: 767px)"
               srcSet="/hero-above-footer-mobile.png"
@@ -899,16 +981,13 @@ const HomePage = () => {
               aria-hidden="true"
               className="block h-full w-full object-cover object-center"
             />
-
           </picture>
 
-          {/* Dark overlay for readable text */}
           <div
             className="absolute inset-0 z-0 bg-black/50"
             aria-hidden="true"
           />
 
-          {/* CTA content */}
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
 
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-8 font-heading tracking-tight">
@@ -925,7 +1004,7 @@ const HomePage = () => {
               <Link to="/contact">
                 <Button
                   size="lg"
-                  className="w-full sm:w-auto h-16 px-10 font-bold text-lg bg-white text-primary-dark hover:bg-primary-lighter-bg hover:text-primary transition-all shadow-luxury"
+                  className="home-hero-button w-full sm:w-auto h-16 px-10 font-bold text-lg bg-white text-primary-dark hover:bg-primary-lighter-bg hover:text-primary"
                 >
                   Book a Free Consultation
                 </Button>
