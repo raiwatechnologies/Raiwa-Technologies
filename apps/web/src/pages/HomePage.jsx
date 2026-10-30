@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link, useNavigate } from 'react-router-dom';
@@ -325,6 +326,7 @@ const HomePage = () => {
         }
 
         /* Simple red benefit dots */
+
         .home-service-card-shell ul li > div:first-child {
           width: 8px !important;
           height: 8px !important;
@@ -460,6 +462,24 @@ const HomePage = () => {
           outline-offset: 4px;
         }
 
+        /* HERO CONTENT POSITIONING */
+
+        .home-hero-heading {
+          line-height: 1.22 !important;
+          padding-bottom: 0.12em;
+          overflow: visible;
+        }
+
+        .home-hero-onboarding {
+          top: -12rem;
+        }
+
+        @media (max-width: 767px) {
+          .home-hero-onboarding {
+            top: -6rem;
+          }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .home-service-card-shell,
           .home-service-card-shell > *,
@@ -486,7 +506,7 @@ const HomePage = () => {
       <div className="flex flex-col bg-background">
 
         {/* HERO SECTION */}
-        <section className="relative overflow-hidden min-h-[700px] flex items-center py-16 md:min-h-[760px] md:py-24">
+        <section className="relative flex min-h-[700px] items-center overflow-hidden py-16 md:min-h-[760px] md:py-24">
 
           {/* Clear hero image without dark overlay or shadow */}
           <div className="absolute inset-0 z-0 bg-white">
@@ -504,7 +524,7 @@ const HomePage = () => {
             </picture>
           </div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-[650px]">
 
               <motion.div
@@ -514,26 +534,26 @@ const HomePage = () => {
                 transition={{ duration: 0.6 }}
               >
 
-                {/* ONBOARDING BADGE: UPPER-LEFT */}
-                <div className="absolute left-0 -top-20 md:-top-28 z-20 inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/95 text-[#171313] font-bold text-sm border border-[#171313]/20 shadow-[0_5px_16px_rgba(23,19,19,0.16)]">
+                {/* ONBOARDING BADGE: MOVED HIGHER */}
+                <div className="home-hero-onboarding absolute left-0 z-20 inline-flex items-center gap-3 rounded-full border border-[#171313]/20 bg-white/95 px-5 py-2.5 text-sm font-bold text-[#171313] shadow-[0_5px_16px_rgba(23,19,19,0.16)]">
                   <span className="relative flex h-3 w-3">
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-[#DA0807] opacity-30 animate-ping" />
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-[#DA0807]" />
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#DA0807] opacity-30" />
+                    <span className="relative inline-flex h-3 w-3 rounded-full bg-[#DA0807]" />
                   </span>
 
                   Now Onboarding New Ecommerce Brands
                 </div>
 
-                {/* HERO HEADING: MOVED SLIGHTLY UP */}
-                <h1 className="text-5xl md:text-6xl lg:text-6xl font-extrabold text-[#171313] leading-[1.1] mb-6 font-heading tracking-tight -translate-y-3">
+                {/* HEADING: BELOW THE ONBOARDING BADGE */}
+                <h1 className="home-hero-heading mb-4 -translate-y-3 text-5xl font-extrabold tracking-tight text-[#171313] sm:text-5xl md:text-6xl lg:text-6xl">
                   We Built{' '}
-                  <span className="text-[#DA0807]">
+                  <span className="whitespace-nowrap text-[#DA0807]">
                     Together.
                   </span>
                 </h1>
 
-                {/* DESCRIPTION: TWO LINES */}
-                <p className="text-[clamp(13px,1.9vw,20px)] text-[#171313]/85 mb-0 leading-relaxed max-w-[620px] font-medium">
+                {/* DESCRIPTION: SLIGHTLY HIGHER */}
+                <p className="-translate-y-1 text-[clamp(13px,1.9vw,20px)] font-medium leading-relaxed text-[#171313]/85">
                   <span className="block whitespace-nowrap">
                     Raiwa Technologies — Empowering Growth
                   </span>
@@ -543,23 +563,23 @@ const HomePage = () => {
                   </span>
                 </p>
 
-                {/* BUTTONS: MOVED FURTHER DOWN */}
-                <div className="mt-14 md:mt-16 flex flex-col sm:flex-row gap-5 items-center">
+                {/* BUTTONS: LOWER, NEAR THE HERO BOTTOM DIVIDER */}
+                <div className="mt-16 flex flex-col items-start gap-5 sm:flex-row sm:items-center md:mt-20 lg:mt-24">
 
                   <Link to="/contact" className="w-full sm:w-auto">
                     <Button
                       size="lg"
-                      className="home-hero-button w-full text-lg h-14 px-8 font-bold bg-[#DA0807] text-white hover:bg-[#B80707]"
+                      className="home-hero-button h-14 w-full bg-[#DA0807] px-8 text-lg font-bold text-white hover:bg-[#B80707] sm:w-auto"
                     >
                       Get a Free Consultation
-                      <ArrowRight className="ml-2 w-5 h-5" />
+                      <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                   </Link>
 
                   <div className="w-full sm:w-auto">
                     <WhatsAppButton
                       variant="default"
-                      className="home-hero-button w-full sm:w-auto h-14 px-8 text-lg"
+                      className="home-hero-button h-14 w-full px-8 text-lg sm:w-auto"
                     />
                   </div>
 
@@ -657,20 +677,20 @@ const HomePage = () => {
         </section>
 
         {/* OUR APPROACH */}
-        <section className="relative overflow-hidden border-0 bg-primary-lighter-bg/30 pt-0 pb-16">
+        <section className="relative overflow-hidden border-0 bg-primary-lighter-bg/30 pb-16 pt-0">
 
-          <div className="absolute -top-[150px] md:top-0 right-0 w-[600px] h-[600px] bg-[#A09E9D]/15 rounded-full blur-[120px] translate-y-0 md:-translate-y-1/2 translate-x-1/3 pointer-events-none" />
+          <div className="pointer-events-none absolute -right-1/3 -top-[150px] h-[600px] w-[600px] translate-y-0 rounded-full bg-[#A09E9D]/15 blur-[120px] md:top-0 md:-translate-y-1/2" />
 
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#A09E9D]/15 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/3 pointer-events-none" />
+          <div className="pointer-events-none absolute -bottom-0 -left-1/3 h-[600px] w-[600px] translate-y-1/2 rounded-full bg-[#A09E9D]/15 blur-[120px]" />
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="inline-flex items-center justify-center px-5 py-2 rounded-full bg-[#171313]/15 text-[#171313] border border-[#171313]/20 shadow-[0_9px_24px_rgba(23,19,19,0.20)] -translate-y-1 font-bold text-sm mb-6 uppercase tracking-widest"
+                className="-translate-y-1 mb-6 inline-flex items-center justify-center rounded-full border border-[#171313]/20 bg-[#171313]/15 px-5 py-2 text-sm font-bold uppercase tracking-widest text-[#171313] shadow-[0_9px_24px_rgba(23,19,19,0.20)]"
               >
                 Our Approach
               </motion.div>
@@ -680,7 +700,7 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading mb-8 text-primary-dark tracking-tight"
+                className="mb-8 font-heading text-4xl font-extrabold tracking-tight text-primary-dark md:text-5xl lg:text-6xl"
               >
                 We Don't Just Manage Stores,{' '}
                 <br className="hidden md:block" />
@@ -695,7 +715,7 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="text-xl text-muted-foreground leading-relaxed"
+                className="text-xl leading-relaxed text-muted-foreground"
               >
                 At Raiwa Technologies, every decision is tied to your
                 results. We combine careful account handling, smart
@@ -708,25 +728,25 @@ const HomePage = () => {
         </section>
 
         {/* HIGH-IMPACT SERVICES */}
-        <section className="py-20 md:py-28 bg-background">
+        <section className="bg-background py-20 md:py-28">
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-            <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-              <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-6 font-heading">
+            <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
+              <h2 className="mb-6 font-heading text-4xl font-extrabold text-primary-dark md:text-5xl">
                 High-Impact{' '}
                 <span className="text-[#DA0807]">
                   Services
                 </span>
               </h2>
 
-              <p className="text-lg md:text-xl text-muted-foreground">
+              <p className="text-lg text-muted-foreground md:text-xl">
                 Focused, practical solutions that help your business
                 get found, get sales and keep growing.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 
               {featuredServices.map((service, index) => (
                 <div
@@ -753,14 +773,14 @@ const HomePage = () => {
 
             </div>
 
-            <div className="text-center mt-12 md:mt-16">
+            <div className="mt-12 text-center md:mt-16">
               <Link to="/services">
                 <Button
                   size="lg"
-                  className="bg-white text-[#171313] border-2 border-[#171313]/30 hover:bg-[#171313] hover:text-white hover:border-[#171313] font-bold h-14 px-10 shadow-md hover:shadow-xl transition-all duration-300 text-lg hover:-translate-y-1"
+                  className="h-14 -translate-y-0 border-2 border-[#171313]/30 bg-white px-10 text-lg font-bold text-[#171313] shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-[#171313] hover:bg-[#171313] hover:text-white hover:shadow-xl"
                 >
                   Explore All Services
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
             </div>
@@ -769,26 +789,26 @@ const HomePage = () => {
         </section>
 
         {/* WHAT WE PROVIDE + STATISTICS */}
-        <section className="relative overflow-hidden py-20 md:py-28 bg-primary-lighter-bg/30">
+        <section className="relative overflow-hidden bg-primary-lighter-bg/30 py-20 md:py-28">
 
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#A09E9D]/15 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+          <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] -translate-y-1/3 translate-x-1/3 rounded-full bg-[#A09E9D]/15 blur-[120px]" />
 
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-5 font-heading tracking-tight">
+            <div className="mb-12 text-center">
+              <h2 className="mb-5 font-heading text-4xl font-extrabold tracking-tight text-primary-dark md:text-5xl">
                 What We <span className="text-[#DA0807]">Provide</span>
               </h2>
 
-              <div className="w-20 h-1 bg-[#171313]/30 rounded-full mx-auto mb-5" />
+              <div className="mx-auto mb-5 h-1 w-20 rounded-full bg-[#171313]/30" />
 
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="mx-auto max-w-2xl text-lg text-muted-foreground md:text-xl">
                 Practical solutions designed to help your business
                 grow, perform and succeed.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2">
 
               <div className="home-benefit-card-shell">
                 <BenefitCard
@@ -829,7 +849,7 @@ const HomePage = () => {
             </div>
 
             {/* STATISTICS */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mt-16 md:mt-24">
+            <div className="mt-16 grid grid-cols-2 gap-4 sm:gap-6 lg:mt-24 lg:grid-cols-4 lg:gap-8">
 
               <div className="home-stat-card-shell">
                 <StatCard
@@ -892,18 +912,18 @@ const HomePage = () => {
         </section>
 
         {/* MARKETPLACES */}
-        <section className="py-24 bg-primary-lighter-bg/30 border-y border-[#171313]/15">
+        <section className="border-y border-[#171313]/15 bg-primary-lighter-bg/30 py-24">
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
 
-            <h2 className="text-3xl md:text-4xl font-extrabold text-primary-dark mb-4 font-heading">
+            <h2 className="mb-4 font-heading text-3xl font-extrabold text-primary-dark md:text-4xl">
               <span className="text-[#DA0807]">
                 Marketplaces
               </span>{' '}
               We Work With
             </h2>
 
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
+            <p className="mx-auto mb-12 max-w-2xl text-lg text-muted-foreground">
               Marketplace specialists to help you launch, manage and grow wherever your customers shop.
             </p>
 
@@ -943,12 +963,12 @@ const HomePage = () => {
         </section>
 
         {/* HOW WE WORK */}
-        <section className="py-32 bg-background">
+        <section className="bg-background py-32">
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-            <div className="text-center max-w-3xl mx-auto mb-20">
-              <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-6 font-heading">
+            <div className="mx-auto mb-20 max-w-3xl text-center">
+              <h2 className="mb-6 font-heading text-4xl font-extrabold text-primary-dark md:text-5xl">
                 How We <span className="text-[#DA0807]">Work</span>
               </h2>
 
@@ -957,7 +977,7 @@ const HomePage = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
 
               {processSteps.map((step, index) => (
                 <div
@@ -977,7 +997,7 @@ const HomePage = () => {
         </section>
 
         {/* BOTTOM CTA */}
-        <section className="py-32 bg-primary-dark relative overflow-hidden">
+        <section className="relative overflow-hidden bg-primary-dark py-32">
 
           <picture className="absolute inset-0 z-0 block h-full w-full">
             <source
@@ -998,23 +1018,23 @@ const HomePage = () => {
             aria-hidden="true"
           />
 
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <div className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
 
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-8 font-heading tracking-tight">
+            <h2 className="mb-8 font-heading text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">
               Ready to Grow Your Business?
             </h2>
 
-            <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="mx-auto mb-12 max-w-2xl text-xl leading-relaxed text-white/90">
               Talk to the Raiwa Technologies team about your goals. Get honest
               advice and a clear plan for growing your brand.
             </p>
 
-            <div className="flex flex-col sm:flex-row justify-center gap-6">
+            <div className="flex flex-col justify-center gap-6 sm:flex-row">
 
               <Link to="/contact">
                 <Button
                   size="lg"
-                  className="home-hero-button w-full sm:w-auto h-16 px-10 font-bold text-lg bg-white text-primary-dark hover:bg-primary-lighter-bg hover:text-primary"
+                  className="home-hero-button h-16 w-full bg-white px-10 text-lg font-bold text-primary-dark hover:bg-primary-lighter-bg hover:text-primary sm:w-auto"
                 >
                   Book a Free Consultation
                 </Button>
