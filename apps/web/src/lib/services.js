@@ -23,12 +23,19 @@ import {
 
 const A = '/service-assets/';
 
+/* =====================================================
+   INDIVIDUAL SERVICES
+   Each service has one unique slug and one category.
+===================================================== */
+
 export const services = [
+  // ECOMMERCE
   {
     title: 'TikTok Shop',
     slug: 'tiktok-shop',
     logoUrl: A + 'tiktok-shop-logo.png',
     themeImage: A + 'tiktok-shop-theme.jpg',
+    image: A + 'tiktok-shop-theme.jpg',
     category: 'Ecommerce',
     icon: Video,
     accent: '#DA0807',
@@ -40,14 +47,15 @@ export const services = [
       'Content and promotion support',
       'Order and account handling',
     ],
-    image: A + 'tiktok-shop-theme.jpg',
     label: 'TikTok Shop',
   },
+
   {
     title: 'eBay',
     slug: 'ebay',
     logoUrl: A + 'ebay-logo.png',
     themeImage: A + 'ebay-theme.jpg',
+    image: A + 'ebay-theme.jpg',
     category: 'Ecommerce',
     icon: Tag,
     accent: '#DA0807',
@@ -59,14 +67,15 @@ export const services = [
       'Pricing and promotions',
       'Ongoing account management',
     ],
-    image: A + 'ebay-theme.jpg',
     label: 'eBay',
   },
+
   {
     title: 'Amazon',
     slug: 'amazon',
     logoUrl: A + 'amazon-logo.png',
     themeImage: A + 'amazon-theme-image.jpg',
+    image: A + 'amazon-theme-image.jpg',
     category: 'Ecommerce',
     icon: ShoppingCart,
     accent: '#DA0807',
@@ -78,14 +87,15 @@ export const services = [
       'Listing and keyword optimization',
       'Account health monitoring',
     ],
-    image: A + 'amazon-theme-image.jpg',
     label: 'Amazon',
   },
+
   {
     title: 'Walmart Marketplace',
     slug: 'walmart-marketplace',
     logoUrl: A + 'wall-mart-logo.png',
     themeImage: A + 'wall-mart-theme.jpg',
+    image: A + 'wall-mart-theme.jpg',
     category: 'Ecommerce',
     icon: Store,
     accent: '#DA0807',
@@ -97,14 +107,15 @@ export const services = [
       'Catalog and listing management',
       'Performance tracking',
     ],
-    image: A + 'wall-mart-theme.jpg',
     label: 'Walmart Marketplace',
   },
+
   {
     title: 'Temu',
     slug: 'temu',
     logoUrl: A + 'temu-logo.png',
     themeImage: A + 'temu-theme.jpg',
+    image: A + 'temu-theme.jpg',
     category: 'Ecommerce',
     icon: Package,
     accent: '#DA0807',
@@ -116,14 +127,15 @@ export const services = [
       'Product upload and optimization',
       'Order and account support',
     ],
-    image: A + 'temu-theme.jpg',
     label: 'Temu',
   },
+
   {
     title: 'Mercari',
     slug: 'mercari',
     logoUrl: A + 'mercari-logo.png',
     themeImage: A + 'mercari-theme.jpg',
+    image: A + 'mercari-theme.jpg',
     category: 'Ecommerce',
     icon: Layers,
     accent: '#DA0807',
@@ -135,14 +147,15 @@ export const services = [
       'Listing and pricing management',
       'Ongoing account support',
     ],
-    image: A + 'mercari-theme.jpg',
     label: 'Mercari',
   },
+
   {
     title: 'Shopify',
     slug: 'shopify',
     logoUrl: A + 'shopify-logo.png',
     themeImage: A + 'shopify-theme.jpg',
+    image: A + 'shopify-theme.jpg',
     category: 'Ecommerce',
     icon: ShoppingBag,
     accent: '#DA0807',
@@ -154,14 +167,15 @@ export const services = [
       'Product and collection management',
       'Conversion optimization',
     ],
-    image: A + 'shopify-theme.jpg',
     label: 'Shopify',
   },
+
   {
     title: 'Daraz',
     slug: 'daraz',
     logoUrl: A + 'daraz-logo.png',
     themeImage: A + 'daraz-theme.png',
+    image: A + 'daraz-theme.png',
     category: 'Ecommerce',
     icon: Globe,
     accent: '#DA0807',
@@ -173,14 +187,16 @@ export const services = [
       'Listing and campaign management',
       'Order and account support',
     ],
-    image: A + 'daraz-theme.png',
     label: 'Daraz',
   },
+
+  // DEVELOPMENT
   {
     title: 'App Development',
     slug: 'app-development',
     logoUrl: A + 'app-development-logo.png',
     themeImage: A + 'app-development-theme.jpg',
+    image: A + 'app-development-theme.jpg',
     category: 'Development',
     icon: Smartphone,
     accent: '#DA0807',
@@ -192,14 +208,15 @@ export const services = [
       'UI/UX design',
       'Testing and launch support',
     ],
-    image: A + 'app-development-theme.jpg',
     label: 'App Development',
   },
+
   {
     title: 'Game Development',
     slug: 'game-development',
     logoUrl: A + 'game-development-logo.png',
     themeImage: A + 'game-development-theme.webp',
+    image: A + 'game-development-theme.webp',
     category: 'Development',
     icon: Gamepad2,
     accent: '#DA0807',
@@ -211,14 +228,15 @@ export const services = [
       'Mobile and web games',
       'Updates and maintenance',
     ],
-    image: A + 'game-development-theme.webp',
     label: 'Game Development',
   },
+
   {
     title: 'Web Development',
     slug: 'web-development',
     logoUrl: A + 'web-development-logo.png',
     themeImage: A + 'web-development-theme.jpg',
+    image: A + 'web-development-theme.jpg',
     category: 'Development',
     icon: Code,
     accent: '#DA0807',
@@ -230,14 +248,15 @@ export const services = [
       'Responsive design',
       'Speed and security',
     ],
-    image: A + 'web-development-theme.jpg',
     label: 'Web Development',
   },
+
   {
     title: 'Graphic Design',
     slug: 'graphic-design',
     logoUrl: A + 'graphics-design-logo.jpg',
     themeImage: A + 'graphics-design-theme.jpeg',
+    image: A + 'graphics-design-theme.jpeg',
     category: 'Development',
     icon: Palette,
     accent: '#DA0807',
@@ -249,14 +268,16 @@ export const services = [
       'Social and digital graphics',
       'Design systems and templates',
     ],
-    image: A + 'graphics-design-theme.jpeg',
     label: 'Graphic Design',
   },
+
+  // MARKETING
   {
     title: 'Digital Marketing',
     slug: 'digital-marketing',
     logoUrl: A + 'digital-marketing-logo.png',
     themeImage: A + 'digital-marketing-theme.webp',
+    image: A + 'digital-marketing-theme.webp',
     category: 'Marketing',
     icon: Megaphone,
     accent: '#DA0807',
@@ -268,14 +289,15 @@ export const services = [
       'Content and email marketing',
       'Performance reporting',
     ],
-    image: A + 'digital-marketing-theme.webp',
     label: 'Digital Marketing',
   },
+
   {
     title: 'Social Media Marketing',
     slug: 'social-media-marketing',
     logoUrl: A + 'social-media-marketing-logo.jpg',
     themeImage: A + 'social-media-marketing-theme.jpg',
+    image: A + 'social-media-marketing-theme.jpg',
     category: 'Marketing',
     icon: Share2,
     accent: '#DA0807',
@@ -287,52 +309,15 @@ export const services = [
       'Community engagement',
       'Platform-specific strategy',
     ],
-    image: A + 'social-media-marketing-theme.jpg',
     label: 'Social Media Marketing',
   },
-  {
-    title: 'Meta Ads',
-    slug: 'meta-ads',
-    logoUrl: A + 'meta-ads-logo.png',
-    themeImage: A + 'meta-ads-theme.jpg',
-    category: 'Ads',
-    icon: Target,
-    accent: '#DA0807',
-    soft: '#E5E5E5',
-    description:
-      'Plan and optimize Facebook and Instagram advertising with thoughtful targeting, creative testing and clear reporting.',
-    benefits: [
-      'Audience targeting',
-      'Creative and copy direction',
-      'Retargeting campaigns',
-    ],
-    image: A + 'meta-ads-theme.jpg',
-    label: 'Meta Ads',
-  },
-  {
-    title: 'Google Ads',
-    slug: 'google-ads',
-    logoUrl: A + 'google-ads-logo.png',
-    themeImage: A + 'google-ads-theme.png',
-    category: 'Ads',
-    icon: MousePointerClick,
-    accent: '#DA0807',
-    soft: '#E5E5E5',
-    description:
-      'Reach customers when they search for your products with focused search and shopping campaigns and conversion tracking.',
-    benefits: [
-      'Search and shopping ads',
-      'Keyword research',
-      'Conversion tracking',
-    ],
-    image: A + 'google-ads-theme.png',
-    label: 'Google Ads',
-  },
+
   {
     title: 'SEO Optimization',
     slug: 'seo-optimization',
     logoUrl: A + 'seo-optimization-logo.png',
     themeImage: A + 'seo-optimization-theme.jpg',
+    image: A + 'seo-optimization-theme.jpg',
     category: 'Marketing',
     icon: Search,
     accent: '#DA0807',
@@ -344,52 +329,15 @@ export const services = [
       'Keyword research and on-page SEO',
       'Content recommendations',
     ],
-    image: A + 'seo-optimization-theme.jpg',
     label: 'SEO Optimization',
   },
-  {
-    title: 'Web Management',
-    slug: 'web-management',
-    logoUrl: A + 'web-management-logo.png',
-    themeImage: A + 'web-management-theme.jpg',
-    category: 'Management',
-    icon: LayoutDashboard,
-    accent: '#DA0807',
-    soft: '#E5E5E5',
-    description:
-      'Keep your website reliable, secure and current with ongoing maintenance and practical technical support.',
-    benefits: [
-      'Updates and content changes',
-      'Performance and security checks',
-      'Issue fixing and support',
-    ],
-    image: A + 'web-management-theme.jpg',
-    label: 'Web Management',
-  },
-  {
-    title: 'Account Management',
-    logoUrl: '/service-assets/account-management-logo.png',
-    slug: 'account-management',
-    themeImage: A + 'account-management-theme.jpg',
-    category: 'Management',
-    icon: ClipboardList,
-    accent: '#DA0807',
-    soft: '#E5E5E5',
-    description:
-      'Keep marketplace and advertising accounts organized with attentive monitoring, operational support and regular reporting.',
-    benefits: [
-      'Account monitoring',
-      'Order and customer handling',
-      'Regular performance reports',
-    ],
-    image: A + 'account-management-theme.jpg',
-    label: 'Account Management',
-  },
+
   {
     title: 'Automation Solutions',
     slug: 'automation-solutions',
     logoUrl: A + 'automation-logo.avif',
     themeImage: A + 'automation-solution-theme.jpg',
+    image: A + 'automation-solution-theme.jpg',
     category: 'Marketing',
     icon: Workflow,
     accent: '#DA0807',
@@ -401,10 +349,97 @@ export const services = [
       'Reporting and data integrations',
       'Process monitoring and support',
     ],
-    image: A + 'automation-solution-theme.jpg',
     label: 'Automation Solutions',
   },
+
+  // ADS
+  {
+    title: 'Meta Ads',
+    slug: 'meta-ads',
+    logoUrl: A + 'meta-ads-logo.png',
+    themeImage: A + 'meta-ads-theme.jpg',
+    image: A + 'meta-ads-theme.jpg',
+    category: 'Ads',
+    icon: Target,
+    accent: '#DA0807',
+    soft: '#E5E5E5',
+    description:
+      'Plan and optimize Facebook and Instagram advertising with thoughtful targeting, creative testing and clear reporting.',
+    benefits: [
+      'Audience targeting',
+      'Creative and copy direction',
+      'Retargeting campaigns',
+    ],
+    label: 'Meta Ads',
+  },
+
+  {
+    title: 'Google Ads',
+    slug: 'google-ads',
+    logoUrl: A + 'google-ads-logo.png',
+    themeImage: A + 'google-ads-theme.png',
+    image: A + 'google-ads-theme.png',
+    category: 'Ads',
+    icon: MousePointerClick,
+    accent: '#DA0807',
+    soft: '#E5E5E5',
+    description:
+      'Reach customers when they search for your products with focused search and shopping campaigns and conversion tracking.',
+    benefits: [
+      'Search and shopping ads',
+      'Keyword research',
+      'Conversion tracking',
+    ],
+    label: 'Google Ads',
+  },
+
+  // MANAGEMENT
+  {
+    title: 'Web Management',
+    slug: 'web-management',
+    logoUrl: A + 'web-management-logo.png',
+    themeImage: A + 'web-management-theme.jpg',
+    image: A + 'web-management-theme.jpg',
+    category: 'Management',
+    icon: LayoutDashboard,
+    accent: '#DA0807',
+    soft: '#E5E5E5',
+    description:
+      'Keep your website reliable, secure and current with ongoing maintenance and practical technical support.',
+    benefits: [
+      'Updates and content changes',
+      'Performance and security checks',
+      'Issue fixing and support',
+    ],
+    label: 'Web Management',
+  },
+
+  {
+    title: 'Account Management',
+    slug: 'account-management',
+    logoUrl: A + 'account-management-logo.png',
+    themeImage: A + 'account-management-theme.jpg',
+    image: A + 'account-management-theme.jpg',
+    category: 'Management',
+    icon: ClipboardList,
+    accent: '#DA0807',
+    soft: '#E5E5E5',
+    description:
+      'Keep marketplace and advertising accounts organized with attentive monitoring, operational support and regular reporting.',
+    benefits: [
+      'Account monitoring',
+      'Order and customer handling',
+      'Regular performance reports',
+    ],
+    label: 'Account Management',
+  },
 ];
+
+
+/* =====================================================
+   MAIN SERVICE CATEGORIES
+   Each sub-service appears once in its parent category.
+===================================================== */
 
 export const mainServices = [
   {
@@ -428,40 +463,43 @@ export const mainServices = [
       'daraz',
     ],
   },
+
   {
-  title: 'Marketing',
-  slug: 'marketing',
-  category: 'Marketing',
-  accent: '#DA0807',
-  description:
-    'Create a consistent marketing engine that builds awareness, attracts the right audience and supports sustainable growth.',
-  image: A + 'marketing-theme-image.jpg',
-  themeImage: A + 'marketing-theme-image.jpg',
-  logoUrl: A + 'marketing-logo.png',
-  children: [
-    'digital-marketing',
-    'social-media-marketing',
-    'seo-optimization',
-    'automation-solutions',
-  ],
-},
+    title: 'Marketing',
+    slug: 'marketing',
+    category: 'Marketing',
+    accent: '#DA0807',
+    description:
+      'Create a consistent marketing engine that builds awareness, attracts the right audience and supports sustainable growth.',
+    image: A + 'marketing-theme-image.jpg',
+    themeImage: A + 'marketing-theme-image.jpg',
+    logoUrl: A + 'marketing-logo.png',
+    children: [
+      'digital-marketing',
+      'social-media-marketing',
+      'seo-optimization',
+      'automation-solutions',
+    ],
+  },
+
   {
-  title: 'Development',
-  slug: 'development',
-  category: 'Development',
-  accent: '#DA0807',
-  description:
-    'Build the digital products your business needs, from high-performing websites and apps to games and creative assets.',
-  image: A + 'development-theme-image.jpg',
-  themeImage: A + 'development-theme-image.jpg',
-  logoUrl: A + 'development-logo.png',
-  children: [
-    'app-development',
-    'game-development',
-    'web-development',
-    'graphic-design',
-  ],
-},
+    title: 'Development',
+    slug: 'development',
+    category: 'Development',
+    accent: '#DA0807',
+    description:
+      'Build the digital products your business needs, from high-performing websites and apps to games and creative assets.',
+    image: A + 'development-theme-image.jpg',
+    themeImage: A + 'development-theme-image.jpg',
+    logoUrl: A + 'development-logo.png',
+    children: [
+      'app-development',
+      'game-development',
+      'web-development',
+      'graphic-design',
+    ],
+  },
+
   {
     title: 'Ads',
     slug: 'ads',
@@ -469,8 +507,12 @@ export const mainServices = [
     accent: '#DA0807',
     description:
       'Run focused, measurable paid campaigns across search and social platforms with ongoing optimization.',
-    children: ['meta-ads', 'google-ads'],
+    children: [
+      'meta-ads',
+      'google-ads',
+    ],
   },
+
   {
     title: 'Management',
     slug: 'management',
@@ -478,13 +520,36 @@ export const mainServices = [
     accent: '#DA0807',
     description:
       'Keep websites, stores and business accounts organized, maintained and moving forward with reliable ongoing support.',
-    children: ['web-management', 'account-management'],
+    children: [
+      'web-management',
+      'account-management',
+    ],
   },
 ];
 
-export const servicePath = (service) => `/services/${service.slug}`;
 
-export const mainServicePath = (service) => `/services/${service.slug}`;
+/* =====================================================
+   ROUTE HELPERS
+===================================================== */
 
+// Individual service URL.
+export const servicePath = (service) =>
+  `/services/${service.slug}`;
+
+// Main service category URL.
+export const mainServicePath = (service) =>
+  `/services/${service.slug}`;
+
+// Find a main service using its slug.
 export const getMainService = (slug) =>
   mainServices.find((item) => item.slug === slug);
+
+// Find an individual service using its slug.
+export const getService = (slug) =>
+  services.find((item) => item.slug === slug);
+
+// Get the direct sub-services of a main category.
+export const getMainServiceChildren = (group) =>
+  group?.children
+    ?.map((slug) => getService(slug))
+    .filter(Boolean) || [];

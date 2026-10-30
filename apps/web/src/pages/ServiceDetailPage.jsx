@@ -4,11 +4,17 @@ import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import {
   ArrowRight,
-  CheckCircle2,
   ChevronRight,
   Sparkles,
 } from 'lucide-react';
-import { mainServices, services, servicePath } from '@/lib/services.js';
+
+import {
+  mainServices,
+  services,
+  servicePath,
+  mainServicePath,
+} from '@/lib/services.js';
+
 import { Button } from '@/components/ui/button.jsx';
 
 const COLORS = {
@@ -19,26 +25,35 @@ const COLORS = {
   red: '#DA0807',
 };
 
-function ProjectButton({ children }) {
+/* -------------------------------------------------------
+   REUSABLE COMPONENTS
+------------------------------------------------------- */
+
+function ProjectButton({ children, className = '' }) {
   return (
     <Button
       size="lg"
-      className="bg-white text-[#171313] hover:bg-[#DA0807] hover:text-white font-bold transition-colors duration-300"
+      className={`group h-14 border border-[#DA0807] bg-[#DA0807] px-7 font-bold text-white shadow-[0_8px_24px_rgba(218,8,7,0.20)] transition-all duration-300 hover:-translate-y-1 hover:border-[#171313] hover:bg-[#171313] hover:shadow-[0_12px_28px_rgba(23,19,19,0.18)] ${className}`}
     >
       {children}
     </Button>
   );
 }
 
-function ServiceImage({ src, alt, className = '', loading = 'lazy' }) {
+function ServiceImage({
+  src,
+  alt,
+  className = '',
+  loading = 'lazy',
+}) {
   if (!src) {
     return (
       <div
-        className={`flex items-center justify-center bg-[#E5E5E5] ${className}`}
+        className={`flex items-center justify-center bg-gradient-to-br from-[#E5E5E5] to-[#FDFDFD] ${className}`}
         role="img"
         aria-label={alt}
       >
-        <Sparkles className="w-8 h-8 text-[#A09E9D]" />
+        <Sparkles className="h-9 w-9 text-[#A09E9D]" />
       </div>
     );
   }
@@ -57,7 +72,7 @@ function ServiceImage({ src, alt, className = '', loading = 'lazy' }) {
 function Eyebrow({ children, color = COLORS.red }) {
   return (
     <p
-      className="text-sm font-bold uppercase tracking-[.2em] mb-3"
+      className="mb-3 text-xs font-extrabold uppercase tracking-[0.2em] sm:text-sm"
       style={{ color }}
     >
       {children}
@@ -65,89 +80,121 @@ function Eyebrow({ children, color = COLORS.red }) {
   );
 }
 
+function SectionHeading({
+  eyebrow,
+  title,
+  highlight,
+  description,
+  centered = false,
+}) {
+  return (
+    <div
+      className={`max-w-3xl ${
+        centered ? 'mx-auto text-center' : ''
+      }`}
+    >
+      {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+
+      <h2 className="font-heading text-3xl font-extrabold leading-tight tracking-tight text-[#171313] sm:text-4xl md:text-5xl">
+        {title}{' '}
+        {highlight && (
+          <span className="text-[#DA0807]">{highlight}</span>
+        )}
+      </h2>
+
+      {description && (
+        <p className="mt-5 text-base leading-relaxed text-[#66615F] sm:text-lg">
+          {description}
+        </p>
+      )}
+    </div>
+  );
+}
+
+/* -------------------------------------------------------
+   SERVICE DIRECTORY CARD
+   No logo or logo holder
+------------------------------------------------------- */
+
 function ServiceCard({ item }) {
-  const Icon = item.icon;
   const image = item.themeImage || item.image;
 
   return (
     <Link
       to={servicePath(item)}
-      className="group overflow-hidden rounded-2xl border border-[#A09E9D]/30 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      aria-label={`Explore ${item.title}`}
+      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#171313]/25 bg-[#FDFDFD] shadow-[0_5px_14px_rgba(23,19,19,0.07),0_12px_26px_rgba(23,19,19,0.07)] transition-all duration-300 hover:-translate-y-2 hover:border-[#DA0807]/50 hover:shadow-[0_12px_28px_rgba(23,19,19,0.13),0_20px_38px_rgba(23,19,19,0.09)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DA0807] focus-visible:ring-offset-4"
     >
-      <div className="w-full aspect-[16/9] overflow-hidden bg-[#E5E5E5]">
+      <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#E5E5E5]">
         <ServiceImage
           src={image}
           alt={`${item.title} service`}
-          className="block w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+          className="block h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.05]"
+        />
+
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#171313]/25 via-transparent to-transparent opacity-70"
+          aria-hidden="true"
         />
       </div>
 
-      <div className="p-6">
-        <div
-          className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 overflow-hidden"
-          style={{
-            background: item.soft || COLORS.lightGray,
-            color: item.accent || COLORS.black,
-          }}
-        >
-          {item.logoUrl ? (
-            <img
-              src={item.logoUrl}
-              alt={`${item.title} logo`}
-              className="w-8 h-8 object-contain"
-              loading="lazy"
-              decoding="async"
-            />
-          ) : Icon ? (
-            <Icon className="w-6 h-6" />
-          ) : (
-            <Sparkles className="w-6 h-6" />
-          )}
-        </div>
-
-        <h3 className="text-xl font-bold text-[#171313] transition-colors group-hover:text-[#DA0807]">
+      <div className="flex flex-1 flex-col p-6 md:p-7">
+        <h3 className="text-xl font-extrabold text-[#171313] transition-colors duration-300 group-hover:text-[#DA0807] md:text-2xl">
           {item.title}
         </h3>
 
-        <p className="text-sm text-muted-foreground leading-relaxed mt-2">
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-[#66615F] md:text-base">
           {item.description}
         </p>
 
-        <span className="inline-flex items-center gap-2 mt-5 font-bold text-sm text-[#171313] transition-colors group-hover:text-[#DA0807]">
-          Explore service
-          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-        </span>
+        <div className="mt-6 border-t border-[#171313]/15 pt-5">
+          <span className="inline-flex items-center gap-2 text-sm font-extrabold text-[#171313] transition-colors duration-300 group-hover:text-[#DA0807]">
+            Explore service
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </span>
+        </div>
       </div>
     </Link>
   );
 }
 
+/* -------------------------------------------------------
+   CALL TO ACTION
+------------------------------------------------------- */
+
 function CallToAction({ title, description }) {
   return (
-    <section className="px-5 sm:px-8 pb-16 md:pb-24">
-      <div className="max-w-6xl mx-auto rounded-3xl px-6 py-12 md:p-16 text-center text-white bg-[#171313] relative overflow-hidden">
+    <section className="px-5 pb-20 pt-4 sm:px-8 md:pb-28">
+      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl border border-[#171313]/20 bg-[#171313] px-6 py-14 text-center text-white shadow-[0_14px_35px_rgba(23,19,19,0.15)] sm:px-10 md:px-16 md:py-20">
         <div
-          className="absolute inset-0 pointer-events-none opacity-20"
+          className="pointer-events-none absolute inset-0 opacity-30"
           style={{
             background:
-              'radial-gradient(circle at top right, #A09E9D, transparent 55%)',
+              'radial-gradient(circle at 85% 10%, rgba(218,8,7,0.65), transparent 42%)',
           }}
           aria-hidden="true"
         />
 
-        <div className="relative">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4">
+        <div
+          className="pointer-events-none absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-[#DA0807] to-transparent"
+          aria-hidden="true"
+        />
+
+        <div className="relative mx-auto max-w-3xl">
+          <Eyebrow color="#FF7777">Let's Grow Together</Eyebrow>
+
+          <h2 className="mb-5 font-heading text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
             {title}
           </h2>
 
-          <p className="text-white/80 max-w-2xl mx-auto mb-8">
+          <p className="mx-auto mb-9 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg">
             {description}
           </p>
 
           <Link to="/contact">
-            <ProjectButton>
+            <ProjectButton className="border-white bg-white text-[#171313] shadow-none hover:border-[#DA0807] hover:bg-[#DA0807] hover:text-white">
               Talk to our team
-              <ArrowRight className="ml-2 w-5 h-5" />
+              <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
             </ProjectButton>
           </Link>
         </div>
@@ -156,398 +203,407 @@ function CallToAction({ title, description }) {
   );
 }
 
-export default function ServiceDetailPage() {
-  const { slug } = useParams();
+/* -------------------------------------------------------
+   MAIN SERVICE PAGE
+------------------------------------------------------- */
 
-  const main = mainServices.find((item) => item.slug === slug);
-  const service = services.find((item) => item.slug === slug);
-
-  if (main) {
-    const children = (main.children || [])
-      .map((childSlug) =>
-        services.find((item) => item.slug === childSlug)
-      )
-      .filter(Boolean);
-
-    const heroImage =
-      main.themeImage ||
-      main.image ||
-      children.find((item) => item.themeImage)?.themeImage ||
-      children.find((item) => item.image)?.image;
-
-    return (
-      <>
-        <Helmet>
-          <title>{`${main.title} Services | Raiwa Technologies`}</title>
-          <meta name="description" content={main.description || ''} />
-        </Helmet>
-
-        <main className="bg-background">
-          {/* Main service hero */}
-          <section
-            className="relative overflow-hidden text-white"
-            style={{ background: COLORS.black }}
-          >
-            {heroImage && (
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  backgroundImage: `url("${heroImage}")`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  opacity: 0.28,
-                }}
-                aria-hidden="true"
-              />
-            )}
-
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  'linear-gradient(90deg, rgba(23,19,19,0.94) 0%, rgba(23,19,19,0.70) 55%, rgba(23,19,19,0.48) 100%)',
-              }}
-              aria-hidden="true"
-            />
-
-            <div className="relative max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-28 grid md:grid-cols-[1.1fr_.9fr] gap-10 items-center">
-              <div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-semibold mb-7">
-                  <Sparkles className="w-4 h-4" />
-                  Raiwa Technologies Services
-                </div>
-
-                <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-                  {main.title}
-                  <span className="text-white/70">, done right.</span>
-                </h1>
-
-                <p className="text-lg md:text-xl text-white/85 leading-relaxed max-w-2xl mb-8">
-                  {main.description}
-                </p>
-
-                <div className="flex flex-wrap gap-3">
-                  <Link to="/contact">
-                    <ProjectButton>
-                      Discuss Your Project
-                      <ArrowRight className="ml-2 w-5 h-5" />
-                    </ProjectButton>
-                  </Link>
-
-                  <Link
-                    to="/services"
-                    className="inline-flex items-center px-5 py-3 rounded-md border border-white/35 text-white font-semibold transition-colors hover:bg-white hover:text-[#171313]"
-                  >
-                    All Services
-                  </Link>
-                </div>
-              </div>
-
-              {heroImage && (
-                <div className="rounded-3xl overflow-hidden border border-white/20 bg-white/10 p-3 shadow-2xl">
-                  <ServiceImage
-                    src={heroImage}
-                    alt={`${main.title} services`}
-                    className="block w-full h-64 md:h-80 object-cover object-center rounded-2xl"
-                    loading="eager"
-                  />
-
-                  <div className="p-4">
-                    <p className="text-sm text-white/75">
-                      Explore our {main.title.toLowerCase()} capabilities
-                    </p>
-                    <p className="text-xl font-bold mt-1">
-                      A practical plan for your next stage of growth
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
-          </section>
-
-          {/* Main service child cards */}
-          <section className="max-w-7xl mx-auto px-5 sm:px-8 py-16 md:py-24">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-              <div>
-                <Eyebrow>Explore the category</Eyebrow>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-[#171313]">
-                  {main.title} services
-                </h2>
-                <p className="text-muted-foreground mt-3 max-w-2xl">
-                  Choose a specialist service to see its scope, benefits and
-                  next steps.
-                </p>
-              </div>
-
-              <span className="text-sm font-semibold text-muted-foreground">
-                {children.length} specialist{' '}
-                {children.length === 1 ? 'service' : 'services'}
-              </span>
-            </div>
-
-            {children.length > 0 ? (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {children.map((item) => (
-                  <ServiceCard key={item.slug} item={item} />
-                ))}
-              </div>
-            ) : (
-              <div className="rounded-2xl border border-[#A09E9D]/30 bg-[#E5E5E5]/40 p-8">
-                <p className="text-[#171313] font-semibold">
-                  Services in this category are being prepared.
-                </p>
-                <p className="text-muted-foreground mt-2">
-                  Contact our team to discuss your requirements.
-                </p>
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 mt-5 font-bold text-[#DA0807] hover:underline"
-                >
-                  Contact us <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            )}
-          </section>
-
-          <CallToAction
-            title={`Ready to get started with ${main.title}?`}
-            description="Tell us about your goals and we’ll help you choose the right approach."
-          />
-        </main>
-      </>
-    );
-  }
-
-  if (!service) {
-    return (
-      <section className="min-h-[60vh] flex flex-col items-center justify-center px-5 text-center">
-        <h1 className="text-3xl font-bold text-[#171313] mb-3">
-          Service not found
-        </h1>
-        <p className="text-muted-foreground mb-6">
-          Choose a service from our full service directory.
-        </p>
-        <Link to="/services">
-          <Button className="bg-[#171313] text-white hover:bg-[#DA0807]">
-            Explore Services
-          </Button>
-        </Link>
-      </section>
-    );
-  }
-
-  const Icon = service.icon;
-  const serviceImage = service.themeImage || service.image;
-
-  const related = services
-    .filter(
-      (item) =>
-        item.category === service.category && item.slug !== service.slug
+function MainServicePage({ main }) {
+  const children = (main.children || [])
+    .map((childSlug) =>
+      services.find((item) => item.slug === childSlug)
     )
-    .slice(0, 3);
+    .filter(Boolean);
+
+  const heroImage =
+    main.themeImage ||
+    main.image ||
+    children.find((item) => item.themeImage)?.themeImage ||
+    children.find((item) => item.image)?.image;
 
   return (
     <>
       <Helmet>
-        <title>{`${service.title} | Raiwa Technologies`}</title>
-        <meta name="description" content={service.description || ''} />
+        <title>{`${main.title} Services | Raiwa Technologies`}</title>
+        <meta
+          name="description"
+          content={main.description || `${main.title} solutions from Raiwa Technologies.`}
+        />
       </Helmet>
 
-      <main className="bg-background">
-        {/* Individual service hero */}
-        <section
-          className="relative overflow-hidden"
-          style={{ background: COLORS.black }}
-        >
-          {serviceImage && (
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                backgroundImage: `url("${serviceImage}")`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                opacity: 0.28,
-              }}
-              aria-hidden="true"
-            />
+      <main className="bg-[#FDFDFD]">
+
+        {/* MAIN SERVICE HERO */}
+        <section className="relative isolate overflow-hidden bg-[#171313] text-white">
+          {heroImage && (
+            <div className="absolute inset-0 -z-20">
+              <ServiceImage
+                src={heroImage}
+                alt=""
+                loading="eager"
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
           )}
 
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                'linear-gradient(90deg, rgba(23,19,19,0.94) 0%, rgba(23,19,19,0.70) 55%, rgba(23,19,19,0.48) 100%)',
-            }}
-            aria-hidden="true"
-          />
+          <div className="absolute inset-0 -z-10 bg-[#171313]/80" />
 
-          <div className="relative max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-28 grid md:grid-cols-[1.05fr_.95fr] gap-12 items-center">
-            <div className="text-white">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-semibold mb-7">
-                <Sparkles className="w-4 h-4" />
-                {service.category} Solutions
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#171313]/95 via-[#171313]/80 to-[#171313]/55" />
+
+          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#171313]/60 to-transparent" />
+
+          <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 md:grid-cols-[1.1fr_.9fr] md:gap-14 md:py-28">
+            <div>
+              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/[0.09] px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm">
+                <span className="h-2 w-2 rounded-full bg-[#DA0807]" />
+                Raiwa Technologies Services
               </div>
 
-              <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-                {service.title}
-                <span className="text-white/70">, done right.</span>
+              <h1 className="mb-6 font-heading text-4xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-5xl md:text-6xl">
+                {main.title}
+                <span className="text-white/65">, done right.</span>
               </h1>
 
-              <p className="text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl mb-8">
-                {service.description}
+              <p className="mb-9 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg md:text-xl">
+                {main.description}
               </p>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col gap-3 sm:flex-row">
                 <Link to="/contact">
-                  <ProjectButton>
+                  <ProjectButton className="w-full sm:w-auto">
                     Discuss Your Project
-                    <ArrowRight className="ml-2 w-5 h-5" />
+                    <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </ProjectButton>
                 </Link>
 
                 <Link
                   to="/services"
-                  className="inline-flex items-center px-5 py-3 rounded-md border border-white/35 text-white font-semibold transition-colors hover:bg-white hover:text-[#171313]"
+                  className="inline-flex h-14 items-center justify-center gap-2 rounded-md border border-white/35 px-7 text-sm font-bold text-white transition-all duration-300 hover:border-white hover:bg-white hover:text-[#171313]"
                 >
                   All Services
+                  <ChevronRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
 
-            <div className="rounded-3xl p-5 md:p-8 bg-white/10 border border-white/20 backdrop-blur-sm">
-              <div className="rounded-2xl overflow-hidden bg-white shadow-2xl">
-                <ServiceImage
-                  src={serviceImage}
-                  alt={`${service.title} service visual`}
-                  className="block w-full h-56 md:h-72 object-cover object-center"
-                  loading="eager"
-                />
+            <div className="relative">
+              <div className="rounded-3xl border border-white/20 bg-white/[0.08] p-3 shadow-[0_25px_60px_rgba(0,0,0,0.3)] backdrop-blur-sm">
+                <div className="overflow-hidden rounded-2xl bg-[#E5E5E5]">
+                  <ServiceImage
+                    src={heroImage}
+                    alt={`${main.title} services`}
+                    loading="eager"
+                    className="block h-64 w-full object-cover object-center md:h-80"
+                  />
+                </div>
 
-                <div className="p-6 md:p-8">
-                  <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4 overflow-hidden"
-                    style={{
-                      color: service.accent || COLORS.black,
-                      background: service.soft || COLORS.lightGray,
-                    }}
-                  >
-                    {service.logoUrl ? (
-                      <img
-                        src={service.logoUrl}
-                        alt={`${service.title} logo`}
-                        className="w-9 h-9 object-contain"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    ) : Icon ? (
-                      <Icon className="w-7 h-7" />
-                    ) : (
-                      <Sparkles className="w-7 h-7" />
-                    )}
-                  </div>
-
-                  <p
-                    className="text-xs uppercase tracking-[.2em] font-bold mb-2"
-                    style={{ color: service.accent || COLORS.red }}
-                  >
-                    {service.label || service.category}
+                <div className="p-5 md:p-6">
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/55">
+                    Explore our capabilities
                   </p>
 
-                  <h2 className="text-2xl font-bold text-[#171313]">
-                    A practical plan for your next stage of growth
-                  </h2>
+                  <p className="mt-2 text-xl font-bold leading-snug text-white md:text-2xl">
+                    A practical approach to your next stage of growth.
+                  </p>
                 </div>
               </div>
+
+              <div
+                className="absolute -bottom-4 -right-4 -z-10 h-32 w-32 rounded-full bg-[#DA0807]/30 blur-3xl"
+                aria-hidden="true"
+              />
             </div>
           </div>
+
+          <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-[#DA0807] to-transparent" />
         </section>
 
-        {/* Benefits */}
-        <section className="max-w-7xl mx-auto px-5 sm:px-8 py-16 md:py-24">
-          <div className="grid md:grid-cols-[.8fr_1.2fr] gap-12 md:gap-20">
-            <div>
-              <Eyebrow>What we can help with</Eyebrow>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-[#171313] leading-tight">
-                Everything you need to move forward.
-              </h2>
-              <p className="mt-5 text-muted-foreground leading-relaxed">
-                We shape the work around your goals, current setup and
-                customers. You get a clear scope, practical communication and
-                a process designed to keep progress visible.
+        {/* MAIN SERVICE CHILDREN */}
+        <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 md:py-28">
+          <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+            <SectionHeading
+              eyebrow="Explore the category"
+              title={main.title}
+              highlight="Services"
+              description="Choose a specialist service to explore its scope, benefits and next steps."
+            />
+
+            <div className="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-[#171313]/15 bg-[#E5E5E5]/40 px-4 py-2 text-sm font-bold text-[#171313] md:self-end">
+              <span className="h-2 w-2 rounded-full bg-[#DA0807]" />
+              {children.length} specialist{' '}
+              {children.length === 1 ? 'service' : 'services'}
+            </div>
+          </div>
+
+          {children.length > 0 ? (
+            <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+              {children.map((item) => (
+                <ServiceCard key={item.slug} item={item} />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-[#171313]/20 bg-[#E5E5E5]/35 p-8 md:p-10">
+              <h3 className="text-xl font-bold text-[#171313]">
+                Services in this category are being prepared.
+              </h3>
+
+              <p className="mt-3 max-w-xl leading-relaxed text-[#66615F]">
+                Contact our team to discuss your requirements and find the
+                right solution for your business.
               </p>
-            </div>
 
-            <div className="grid sm:grid-cols-2 gap-4">
-              {(service.benefits || []).map((benefit) => (
-                <div
-                  key={benefit}
-                  className="rounded-2xl border border-[#A09E9D]/30 bg-white p-6 shadow-sm"
-                >
-                  <CheckCircle2
-                    className="w-6 h-6 mb-4"
-                    style={{ color: service.accent || COLORS.red }}
-                  />
-                  <h3 className="font-bold text-lg text-[#171313]">
-                    {benefit}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    Planned around your needs, priorities and the requirements
-                    of your business.
-                  </p>
-                </div>
-              ))}
+              <Link
+                to="/contact"
+                className="mt-6 inline-flex items-center gap-2 font-bold text-[#DA0807] transition-colors hover:text-[#171313]"
+              >
+                Contact us
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
-          </div>
+          )}
         </section>
 
-        {/* Process */}
-        <section
-          className="py-16 md:py-20"
-          style={{
-            background: service.soft || `${COLORS.lightGray}80`,
-          }}
-        >
-          <div className="max-w-7xl mx-auto px-5 sm:px-8">
-            <div className="max-w-3xl mb-10">
-              <Eyebrow>How it works</Eyebrow>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-[#171313]">
-                A clear path from planning to progress.
-              </h2>
-            </div>
+        <CallToAction
+          title={`Ready to get started with ${main.title}?`}
+          description="Tell us about your goals and we’ll help you choose the right approach for your business."
+        />
+      </main>
+    </>
+  );
+}
 
-            <div className="grid md:grid-cols-3 gap-5">
-              {[
-                [
-                  '01',
-                  'Discover',
-                  'We learn about your goals, audience, current setup and what success should look like.',
-                ],
-                [
-                  '02',
-                  'Build the plan',
-                  'We agree priorities, deliverables and the best approach for your specific service.',
-                ],
-                [
-                  '03',
-                  'Launch and improve',
-                  'We implement the work, review what is happening and identify useful next steps.',
-                ],
-              ].map(([number, title, body]) => (
-                <div
-                  key={number}
-                  className="bg-white rounded-2xl p-7 border border-[#A09E9D]/30"
-                >
-                  <span
-                    className="text-sm font-extrabold"
-                    style={{ color: service.accent || COLORS.red }}
+/* -------------------------------------------------------
+   INDIVIDUAL SERVICE PAGE
+------------------------------------------------------- */
+
+function IndividualServicePage({ service }) {
+  const serviceImage = service.themeImage || service.image;
+
+  const parentCategory = mainServices.find(
+    (item) => item.title === service.category
+  );
+
+  const related = services
+    .filter(
+      (item) =>
+        item.category === service.category &&
+        item.slug !== service.slug
+    )
+    .slice(0, 3);
+
+  const benefits = service.benefits || [];
+
+  return (
+    <>
+      <Helmet>
+        <title>{`${service.title} | Raiwa Technologies`}</title>
+        <meta
+          name="description"
+          content={service.description || `${service.title} solutions from Raiwa Technologies.`}
+        />
+      </Helmet>
+
+      <main className="bg-[#FDFDFD]">
+
+        {/* INDIVIDUAL SERVICE HERO */}
+        <section className="relative isolate overflow-hidden bg-[#171313]">
+          {serviceImage && (
+            <div className="absolute inset-0 -z-20">
+              <ServiceImage
+                src={serviceImage}
+                alt=""
+                loading="eager"
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
+          )}
+
+          <div className="absolute inset-0 -z-10 bg-[#171313]/85" />
+
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#171313]/95 via-[#171313]/80 to-[#171313]/55" />
+
+          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#171313]/50 to-transparent" />
+
+          <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 md:grid-cols-[1.05fr_.95fr] md:gap-14 md:py-28">
+            <div className="text-white">
+              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/[0.09] px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm">
+                <span className="h-2 w-2 rounded-full bg-[#DA0807]" />
+                {service.category} Solutions
+              </div>
+
+              <h1 className="mb-6 font-heading text-4xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-5xl md:text-6xl">
+                {service.title}
+                <span className="text-white/65">, done right.</span>
+              </h1>
+
+              <p className="mb-9 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg md:text-xl">
+                {service.description}
+              </p>
+
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Link to="/contact">
+                  <ProjectButton className="w-full sm:w-auto">
+                    Discuss Your Project
+                    <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </ProjectButton>
+                </Link>
+
+                {parentCategory ? (
+                  <Link
+                    to={mainServicePath(parentCategory)}
+                    className="inline-flex h-14 items-center justify-center gap-2 rounded-md border border-white/35 px-6 text-sm font-bold text-white transition-all duration-300 hover:border-white hover:bg-white hover:text-[#171313]"
                   >
-                    {number}
+                    {parentCategory.title}
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                ) : (
+                  <Link
+                    to="/services"
+                    className="inline-flex h-14 items-center justify-center gap-2 rounded-md border border-white/35 px-6 text-sm font-bold text-white transition-all duration-300 hover:border-white hover:bg-white hover:text-[#171313]"
+                  >
+                    All Services
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                )}
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="rounded-3xl border border-white/20 bg-white/[0.08] p-3 shadow-[0_25px_60px_rgba(0,0,0,0.3)] backdrop-blur-sm">
+                <div className="overflow-hidden rounded-2xl bg-[#E5E5E5]">
+                  <ServiceImage
+                    src={serviceImage}
+                    alt={`${service.title} service`}
+                    loading="eager"
+                    className="block h-64 w-full object-cover object-center md:h-80"
+                  />
+                </div>
+
+                <div className="p-5 md:p-6">
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/55">
+                    Service overview
+                  </p>
+
+                  <p className="mt-2 text-xl font-bold leading-snug text-white md:text-2xl">
+                    A solution shaped around your business goals.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                className="absolute -bottom-4 -right-4 -z-10 h-32 w-32 rounded-full bg-[#DA0807]/30 blur-3xl"
+                aria-hidden="true"
+              />
+            </div>
+          </div>
+
+          <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-[#DA0807] to-transparent" />
+        </section>
+
+        {/* SERVICE BENEFITS */}
+        <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 md:py-28">
+          <div className="grid gap-12 md:grid-cols-[.8fr_1.2fr] md:gap-20">
+            <div>
+              <SectionHeading
+                eyebrow="What we can help with"
+                title="Everything you need to"
+                highlight="move forward."
+                description="We shape the work around your goals, current setup and customers. You get a clear scope, practical communication and a process designed to keep progress visible."
+              />
+
+              {parentCategory && (
+                <Link
+                  to={mainServicePath(parentCategory)}
+                  className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#171313] transition-colors hover:text-[#DA0807]"
+                >
+                  Explore all {parentCategory.title} services
+                  <ArrowRight className="h-4 w-4 text-[#DA0807]" />
+                </Link>
+              )}
+            </div>
+
+            <div>
+              {benefits.length > 0 ? (
+                <div className="grid gap-5 sm:grid-cols-2">
+                  {benefits.map((benefit) => (
+                    <div
+                      key={benefit}
+                      className="group rounded-2xl border border-[#171313]/25 bg-[#FDFDFD] p-6 shadow-[0_5px_14px_rgba(23,19,19,0.06),0_12px_25px_rgba(23,19,19,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-[#DA0807]/40 hover:shadow-[0_12px_25px_rgba(23,19,19,0.10)]"
+                    >
+                      <span className="mb-5 block h-2.5 w-2.5 rounded-full bg-[#DA0807]" />
+
+                      <h3 className="text-lg font-extrabold leading-snug text-[#171313] transition-colors group-hover:text-[#DA0807]">
+                        {benefit}
+                      </h3>
+
+                      <p className="mt-3 text-sm leading-relaxed text-[#66615F]">
+                        Planned around your needs, priorities and the
+                        requirements of your business.
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="rounded-2xl border border-[#171313]/20 bg-[#E5E5E5]/35 p-8">
+                  <p className="font-semibold text-[#171313]">
+                    We tailor this service to your requirements.
+                  </p>
+                  <p className="mt-2 leading-relaxed text-[#66615F]">
+                    Contact our team to discuss the scope and priorities of
+                    your project.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* SERVICE PROCESS */}
+        <section className="border-y border-[#171313]/10 bg-[#E5E5E5]/40 py-20 md:py-24">
+          <div className="mx-auto max-w-7xl px-5 sm:px-8">
+            <div className="mb-12 max-w-3xl">
+              <SectionHeading
+                eyebrow="How it works"
+                title="A clear path from"
+                highlight="planning to progress."
+                description="A straightforward process that keeps your project organized, focused and moving in the right direction."
+              />
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              {[
+                {
+                  number: '01',
+                  title: 'Discover',
+                  description:
+                    'We learn about your goals, audience, current setup and what success should look like.',
+                },
+                {
+                  number: '02',
+                  title: 'Build the Plan',
+                  description:
+                    'We agree on priorities, deliverables and the best approach for your specific service.',
+                },
+                {
+                  number: '03',
+                  title: 'Launch & Improve',
+                  description:
+                    'We implement the work, review progress and identify useful next steps.',
+                },
+              ].map((step) => (
+                <div
+                  key={step.number}
+                  className="group rounded-2xl border border-[#171313]/25 bg-[#FDFDFD] p-7 shadow-[0_5px_14px_rgba(23,19,19,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-[#DA0807]/40 hover:shadow-[0_12px_25px_rgba(23,19,19,0.10)] md:p-8"
+                >
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#171313] text-sm font-extrabold text-white transition-colors duration-300 group-hover:bg-[#DA0807]">
+                    {step.number}
                   </span>
-                  <h3 className="text-xl font-bold text-[#171313] mt-4 mb-2">
-                    {title}
+
+                  <h3 className="mt-6 text-xl font-extrabold text-[#171313]">
+                    {step.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {body}
+
+                  <p className="mt-3 text-sm leading-relaxed text-[#66615F] sm:text-base">
+                    {step.description}
                   </p>
                 </div>
               ))}
@@ -555,38 +611,102 @@ export default function ServiceDetailPage() {
           </div>
         </section>
 
+        {/* CTA */}
         <CallToAction
           title={`Ready to get started with ${service.title}?`}
           description="Tell us about your goals and we’ll help you work out the right next step."
         />
 
-        {/* Related services */}
+        {/* RELATED SERVICES */}
         {related.length > 0 && (
-          <section className="max-w-7xl mx-auto px-5 sm:px-8 py-16 md:py-20">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-              <div>
-                <Eyebrow>Explore more</Eyebrow>
-                <h2 className="text-3xl font-extrabold text-[#171313]">
-                  Related services
-                </h2>
+          <section className="border-t border-[#171313]/10 bg-[#FDFDFD] px-5 py-20 sm:px-8 md:py-24">
+            <div className="mx-auto max-w-7xl">
+              <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+                <SectionHeading
+                  eyebrow="Explore more"
+                  title="Related"
+                  highlight="Services"
+                  description="Discover other services that may support your business goals."
+                />
+
+                <Link
+                  to="/services"
+                  className="inline-flex shrink-0 items-center gap-2 text-sm font-extrabold text-[#171313] transition-colors hover:text-[#DA0807]"
+                >
+                  View all services
+                  <ChevronRight className="h-4 w-4 text-[#DA0807]" />
+                </Link>
               </div>
 
-              <Link
-                to="/services"
-                className="inline-flex items-center gap-2 text-[#171313] hover:text-[#DA0807] font-bold transition-colors"
-              >
-                View all services
-                <ChevronRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-5">
-              {related.map((item) => (
-                <ServiceCard key={item.slug} item={item} />
-              ))}
+              <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+                {related.map((item) => (
+                  <ServiceCard key={item.slug} item={item} />
+                ))}
+              </div>
             </div>
           </section>
         )}
+      </main>
+    </>
+  );
+}
+
+/* -------------------------------------------------------
+   PAGE ROUTER
+------------------------------------------------------- */
+
+export default function ServiceDetailPage() {
+  const { slug } = useParams();
+
+  const main = mainServices.find(
+    (item) => item.slug === slug
+  );
+
+  const service = services.find(
+    (item) => item.slug === slug
+  );
+
+  if (main) {
+    return <MainServicePage main={main} />;
+  }
+
+  if (service) {
+    return <IndividualServicePage service={service} />;
+  }
+
+  return (
+    <>
+      <Helmet>
+        <title>Service Not Found | Raiwa Technologies</title>
+        <meta
+          name="description"
+          content="Explore the complete range of services offered by Raiwa Technologies."
+        />
+      </Helmet>
+
+      <main className="flex min-h-[65vh] flex-col items-center justify-center bg-[#FDFDFD] px-5 py-20 text-center">
+        <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#E5E5E5]">
+          <Sparkles className="h-8 w-8 text-[#DA0807]" />
+        </div>
+
+        <Eyebrow>Raiwa Technologies</Eyebrow>
+
+        <h1 className="mb-4 font-heading text-3xl font-extrabold text-[#171313] sm:text-4xl">
+          Service not found
+        </h1>
+
+        <p className="mb-8 max-w-lg leading-relaxed text-[#66615F]">
+          The page you are looking for may have moved or may no longer be
+          available. Explore our full service directory to find what you
+          need.
+        </p>
+
+        <Link to="/services">
+          <ProjectButton>
+            Explore All Services
+            <ArrowRight className="ml-3 h-5 w-5" />
+          </ProjectButton>
+        </Link>
       </main>
     </>
   );

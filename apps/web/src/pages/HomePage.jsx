@@ -4,8 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
-  ShoppingCart,
-  Megaphone,
   Activity,
   Award,
   Users,
@@ -280,7 +278,7 @@ const HomePage = () => {
         />
       </Helmet>
 
-      {/* Shared homepage interaction and shadow styling */}
+      {/* HOMEPAGE STYLING */}
       <style>{`
         /* HIGH-IMPACT SERVICE CARDS */
 
@@ -507,14 +505,17 @@ const HomePage = () => {
           </div>
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="max-w-3xl">
+            <div className="max-w-[650px]">
 
               <motion.div
+                className="relative"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/90 text-[#171313] font-bold text-sm mb-8 border border-[#171313]/15 shadow-sm">
+
+                {/* ONBOARDING BADGE: UPPER-LEFT */}
+                <div className="absolute left-0 -top-20 md:-top-28 z-20 inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/95 text-[#171313] font-bold text-sm border border-[#171313]/20 shadow-[0_5px_16px_rgba(23,19,19,0.16)]">
                   <span className="relative flex h-3 w-3">
                     <span className="absolute inline-flex h-full w-full rounded-full bg-[#DA0807] opacity-30 animate-ping" />
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-[#DA0807]" />
@@ -523,18 +524,27 @@ const HomePage = () => {
                   Now Onboarding New Ecommerce Brands
                 </div>
 
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#171313] leading-[1.1] mb-6 font-heading tracking-tight">
+                {/* HERO HEADING: MOVED SLIGHTLY UP */}
+                <h1 className="text-5xl md:text-6xl lg:text-6xl font-extrabold text-[#171313] leading-[1.1] mb-6 font-heading tracking-tight -translate-y-3">
                   We Built{' '}
                   <span className="text-[#DA0807]">
                     Together.
                   </span>
                 </h1>
 
-                <p className="text-xl md:text-2xl text-[#171313]/85 mb-10 leading-relaxed max-w-2xl font-medium">
-                 Raiwa Technologies — Empowering Growth Through Digital Solutions.
+                {/* DESCRIPTION: TWO LINES */}
+                <p className="text-[clamp(13px,1.9vw,20px)] text-[#171313]/85 mb-0 leading-relaxed max-w-[620px] font-medium">
+                  <span className="block whitespace-nowrap">
+                    Raiwa Technologies — Empowering Growth
+                  </span>
+
+                  <span className="block">
+                    Through Digital Solutions.
+                  </span>
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-5 items-center">
+                {/* BUTTONS: MOVED FURTHER DOWN */}
+                <div className="mt-14 md:mt-16 flex flex-col sm:flex-row gap-5 items-center">
 
                   <Link to="/contact" className="w-full sm:w-auto">
                     <Button
@@ -818,7 +828,7 @@ const HomePage = () => {
 
             </div>
 
-            {/* Statistics */}
+            {/* STATISTICS */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mt-16 md:mt-24">
 
               <div className="home-stat-card-shell">
