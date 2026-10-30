@@ -1,15 +1,39 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Search, ShoppingCart, Megaphone, Globe, ShieldCheck, Activity, Award, Users, DollarSign, ThumbsUp, LineChart, Target, TrendingUp, Lightbulb, Settings, Rocket } from 'lucide-react';
+import {
+  ArrowRight,
+  ShoppingCart,
+  Megaphone,
+  ShieldCheck,
+  Activity,
+  Award,
+  Users,
+  DollarSign,
+  ThumbsUp,
+  LineChart,
+  Target,
+  TrendingUp,
+  Lightbulb,
+  Settings,
+  Rocket,
+} from 'lucide-react';
+
 import { Button } from '@/components/ui/button.jsx';
-import { services, servicePath } from '@/lib/services.js';
+import {
+  services,
+  servicePath,
+  mainServices,
+  mainServicePath,
+} from '@/lib/services.js';
+
 import WhatsAppButton from '@/components/WhatsAppButton.jsx';
 import ServiceCard from '@/components/ServiceCard.jsx';
 import StatCard from '@/components/StatCard.jsx';
 import BenefitCard from '@/components/BenefitCard.jsx';
 import ProcessStep from '@/components/ProcessStep.jsx';
+
 const AnimatedCounter = ({
   target,
   prefix = '',
@@ -26,40 +50,43 @@ const AnimatedCounter = ({
     let animationFrame;
     let started = false;
 
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting || started) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || started) return;
 
-      started = true;
-      observer.disconnect();
+        started = true;
+        observer.disconnect();
 
-      const reduceMotion = window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-      ).matches;
+        const reduceMotion = window.matchMedia(
+          '(prefers-reduced-motion: reduce)'
+        ).matches;
 
-      if (reduceMotion) {
-        setValue(target);
-        return;
-      }
-
-      const startTime = performance.now();
-
-      const animate = (now) => {
-        const progress = Math.min(
-          (now - startTime) / duration,
-          1
-        );
-
-        const easedProgress = 1 - Math.pow(1 - progress, 3);
-
-        setValue(Math.round(target * easedProgress));
-
-        if (progress < 1) {
-          animationFrame = requestAnimationFrame(animate);
+        if (reduceMotion) {
+          setValue(target);
+          return;
         }
-      };
 
-      animationFrame = requestAnimationFrame(animate);
-    }, { threshold: 0.3 });
+        const startTime = performance.now();
+
+        const animate = (now) => {
+          const progress = Math.min(
+            (now - startTime) / duration,
+            1
+          );
+
+          const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+          setValue(Math.round(target * easedProgress));
+
+          if (progress < 1) {
+            animationFrame = requestAnimationFrame(animate);
+          }
+        };
+
+        animationFrame = requestAnimationFrame(animate);
+      },
+      { threshold: 0.3 }
+    );
 
     observer.observe(element);
 
@@ -74,267 +101,396 @@ const AnimatedCounter = ({
 
   return (
     <span ref={counterRef}>
-      {prefix}{value}{suffix}
+      {prefix}
+      {value}
+      {suffix}
     </span>
   );
 };
-const HomePage = () => {
-const featuredServices = [
-  {
-    icon: ShoppingCart,
-    title: 'Ecommerce',
-    image: '/service-assets/ecommerce-theme.png',
-    logoUrl: '/service-assets/ecommerce-logo.png',
-    description:
-      'Complete store setup and growth across leading marketplaces, helping your products reach more customers and generate sales.',
-    benefits: [
-      'Amazon, eBay, Walmart & More',
-      'Shopify & TikTok Shop',
-      'Marketplace Account Management',
-    ],
-  },
-  {
-    icon: Megaphone,
-    title: 'Marketing',
-    image: '/service-assets/marketing-theme-image.jpg',
-    logoUrl: '/service-assets/marketing-logo.png',
-    description:
-      'Build brand awareness, attract the right audience and grow your business through digital marketing, SEO and intelligent automation.',
-    benefits: [
-      'Digital & Social Media Marketing',
-      'SEO Optimization',
-      'Marketing Automation',
-    ],
-  },
-  {
-    icon: Rocket,
-    title: 'Development',
-    image: '/service-assets/development-theme-image.jpg',
-    logoUrl: '/service-assets/development-logo.png',
-    description:
-      'Build powerful digital experiences for your business, from professional websites and mobile applications to engaging games.',
-    benefits: [
-      'Web & App Development',
-      'Game Development',
-      'Graphic Design',
-    ],
-  },
-];
 
-  const marketplaces = ['Amazon', 'eBay', 'Walmart Marketplace', 'Shopify', 'TikTok Shop', 'Temu', 'Daraz', 'Mercari'];
-  const marketplaceItems = marketplaces.map((name) => services.find((service) => service.title.toLowerCase() === name.toLowerCase() || (name === 'Walmart Marketplace' && service.slug === 'walmart-marketplace'))).filter(Boolean);
+/* Custom upward-growth graph icon for service cards */
+const GrowthChartIcon = ({ className }) => (
+  <svg
+    viewBox="0 0 48 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    aria-hidden="true"
+  >
+    {/* X and Y axes */}
+    <path
+      d="M7 5V41H43"
+      stroke="#171313"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+
+    {/* Growth graph */}
+    <path
+      d="M12 32L20 25L26 29L38 13"
+      stroke="#DA0807"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+
+    {/* Arrow head */}
+    <path
+      d="M29 13H38V22"
+      stroke="#DA0807"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+
+    {/* Graph points */}
+    <circle cx="12" cy="32" r="2" fill="#DA0807" />
+    <circle cx="20" cy="25" r="2" fill="#DA0807" />
+    <circle cx="26" cy="29" r="2" fill="#DA0807" />
+  </svg>
+);
+
+const HomePage = () => {
+  const navigate = useNavigate();
+
+  /* Featured main services */
+  const featuredServices = [
+    {
+      icon: GrowthChartIcon,
+      title: 'Ecommerce',
+      image: '/service-assets/ecommerce-theme.png',
+      description:
+        'Complete store setup and growth across leading marketplaces, helping your products reach more customers and generate sales.',
+      benefits: [
+        'Amazon, eBay, Walmart & More',
+        'Shopify & TikTok Shop',
+        'Marketplace Account Management',
+      ],
+    },
+    {
+      icon: GrowthChartIcon,
+      title: 'Marketing',
+      image: '/service-assets/marketing-theme-image.jpg',
+      description:
+        'Build brand awareness, attract the right audience and grow your business through digital marketing, SEO and intelligent automation.',
+      benefits: [
+        'Digital & Social Media Marketing',
+        'SEO Optimization',
+        'Marketing Automation',
+      ],
+    },
+    {
+      icon: GrowthChartIcon,
+      title: 'Development',
+      image: '/service-assets/development-theme-image.jpg',
+      description:
+        'Build powerful digital experiences for your business, from professional websites and mobile applications to engaging games.',
+      benefits: [
+        'Web & App Development',
+        'Game Development',
+        'Graphic Design',
+      ],
+    },
+  ];
+
+  const getFeaturedServicePath = (title) => {
+    const mainService = mainServices.find(
+      (item) =>
+        item.title.toLowerCase() === title.toLowerCase()
+    );
+
+    return mainService
+      ? mainServicePath(mainService)
+      : '/services';
+  };
+
+  const handleFeaturedCardClick = (event, title) => {
+    // Keep the card's existing CTA link working normally.
+    if (event.target.closest('a, button')) return;
+
+    navigate(getFeaturedServicePath(title));
+  };
+
+  const handleFeaturedCardKeyDown = (event, title) => {
+    if (event.target !== event.currentTarget) return;
+
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      navigate(getFeaturedServicePath(title));
+    }
+  };
+
+  const marketplaces = [
+    'Amazon',
+    'eBay',
+    'Walmart Marketplace',
+    'Shopify',
+    'TikTok Shop',
+    'Temu',
+    'Daraz',
+    'Mercari',
+  ];
+
+  const marketplaceItems = marketplaces
+    .map((name) =>
+      services.find(
+        (service) =>
+          service.title.toLowerCase() === name.toLowerCase() ||
+          (name === 'Walmart Marketplace' &&
+            service.slug === 'walmart-marketplace')
+      )
+    )
+    .filter(Boolean);
 
   const processSteps = [
     {
       number: '1',
       icon: Lightbulb,
       title: 'Discover',
-      description: 'We learn your products, goals and market so we know exactly where the biggest opportunities are.'
+      description:
+        'We learn your products, goals and market so we know exactly where the biggest opportunities are.',
     },
     {
       number: '2',
       icon: Settings,
       title: 'Plan',
-      description: 'We build a clear, practical roadmap for your store, platform and marketing channels.'
+      description:
+        'We build a clear, practical roadmap for your store, platform and marketing channels.',
     },
     {
       number: '3',
       icon: Rocket,
       title: 'Launch',
-      description: 'Our team sets up, optimizes and launches, handling the details so nothing slips through.'
+      description:
+        'Our team sets up, optimizes and launches, handling the details so nothing slips through.',
     },
     {
       number: '4',
       icon: TrendingUp,
       title: 'Scale',
-      description: 'We track results, improve what works and scale your growth with transparent reporting.'
-    }
+      description:
+        'We track results, improve what works and scale your growth with transparent reporting.',
+    },
   ];
 
   return (
     <>
       <Helmet>
-        <title>{`Raiwa Technologies | Ecommerce, Development & Digital Growth`}</title>
-        <meta name="description" content="Raiwa Technologies is an ecommerce-focused growth company offering marketplace management, app and game development, SEO, social media marketing and ads." />
+        <title>
+          Raiwa Technologies | Ecommerce, Development & Digital Growth
+        </title>
+
+        <meta
+          name="description"
+          content="Raiwa Technologies is an ecommerce-focused growth company offering marketplace management, app and game development, SEO, social media marketing and ads."
+        />
       </Helmet>
 
       <div className="flex flex-col bg-background">
-        {/* Hero Section */}
+
+        {/* HERO SECTION */}
         <section className="relative overflow-hidden min-h-[700px] flex items-center py-16 md:min-h-[760px] md:py-24">
-          <div className="absolute inset-0 z-0 bg-primary-dark">
 
-<picture className="absolute inset-0 block h-full w-full">
-  <source
-    media="(max-width: 767px)"
-    srcSet="/hero-image-phone.png"
-  />
-  <img
-    src="/hero-image-laptop.png"
-    alt="Raiwa Technologies business growth analytics"
-    className="block h-full w-full object-cover object-center"
-  />
-</picture>
+          {/* Clear hero image without dark overlay or shadow */}
+          <div className="absolute inset-0 z-0 bg-white">
+            <picture className="absolute inset-0 block h-full w-full">
+              <source
+                media="(max-width: 767px)"
+                srcSet="/hero-image-phone.png"
+              />
 
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/80 via-primary-dark/40 to-transparent" />
+              <img
+                src="/hero-image-laptop.png"
+                alt="Raiwa Technologies business growth and digital solutions"
+                className="block h-full w-full object-cover object-center"
+              />
+            </picture>
           </div>
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="max-w-3xl">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }} 
-                animate={{ opacity: 1, y: 0 }} 
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/10 text-white font-bold text-sm mb-8 border border-white/20 backdrop-blur-md shadow-lg">
+
+                {/* Onboarding badge */}
+                <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/90 text-[#171313] font-bold text-sm mb-8 border border-[#171313]/15 shadow-sm">
                   <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-light opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-primary-light"></span>
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-[#DA0807] opacity-30 animate-ping" />
+
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-[#DA0807]" />
                   </span>
+
                   Now Onboarding New Ecommerce Brands
                 </div>
-                
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-6 font-heading tracking-tight drop-shadow-md">
-                  Build. Launch. <br/>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-[#E5E5E5]">Scale Your Brand.</span>
+
+                {/* New hero heading */}
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#171313] leading-[1.1] mb-6 font-heading tracking-tight">
+                  We Built{' '}
+                  <span className="text-[#DA0807]">
+                    Together.
+                  </span>
                 </h1>
-                
-                <p className="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed max-w-2xl font-medium drop-shadow-sm">
-                  Raiwa Technologies is your growth partner for ecommerce, development, SEO and digital marketing, turning your products into predictable, profitable sales.
+
+                <p className="text-xl md:text-2xl text-[#171313]/85 mb-10 leading-relaxed max-w-2xl font-medium">
+                  Raiwa Technologies is your growth partner for ecommerce,
+                  development, SEO and digital marketing, turning your
+                  products into predictable, profitable sales.
                 </p>
-                
-                <div className="flex flex-col sm:flex-row gap-5 items-center mb-8">
+
+                {/* Hero buttons */}
+                <div className="flex flex-col sm:flex-row gap-5 items-center">
+
                   <Link to="/contact" className="w-full sm:w-auto">
-                    <Button size="lg" className="w-full text-lg h-14 px-8 font-bold bg-white text-primary-dark hover:bg-primary-lighter-bg shadow-luxury hover:shadow-luxury-hover transition-all duration-300">
+                    <Button
+                      size="lg"
+                      className="w-full text-lg h-14 px-8 font-bold bg-[#DA0807] text-white hover:bg-[#B80707] shadow-lg hover:shadow-xl transition-all duration-300"
+                    >
                       Get a Free Consultation
                       <ArrowRight className="ml-2 w-5 h-5" />
                     </Button>
                   </Link>
-                  <WhatsAppButton 
-                    variant="default" 
-                    className="w-full sm:w-auto h-14 px-8 text-lg" 
+
+                  <WhatsAppButton
+                    variant="default"
+                    className="w-full sm:w-auto h-14 px-8 text-lg"
                   />
+
                 </div>
-                
-                <div className="flex items-center gap-6 text-sm text-white/90 font-semibold drop-shadow-sm">
-                  <div className="flex items-center gap-2"><ShieldCheck className="w-5 h-5 text-primary-light"/> No Obligation</div>
-                  <div className="flex items-center gap-2"><Activity className="w-5 h-5 text-primary-light"/> Transparent Reporting</div>
-                </div>
+
+                {/* No Obligation and Transparent Reporting removed */}
+
               </motion.div>
             </div>
           </div>
         </section>
 
-       
-{/* Selected Platform Logos Marquee - directly below Hero */}
-<section
-  className="relative z-10 w-full overflow-hidden border-0 bg-primary-lighter-bg/30 py-8 sm:py-9"
-  aria-label="Platform logos"
->
-  <div className="w-full overflow-hidden">
-    <div className="services-logo-track">
-      {[0, 1].map((copy) => (
-        <div
-          key={copy}
-          className="flex shrink-0 items-center gap-8 pr-8 sm:gap-12 sm:pr-12"
-          aria-hidden={copy === 1 ? true : undefined}
+        {/* SELECTED PLATFORM LOGOS MARQUEE */}
+        <section
+          className="relative z-10 w-full overflow-hidden border-0 bg-primary-lighter-bg/30 py-8 sm:py-9"
+          aria-label="Platform logos"
         >
-          {[
-            'tiktok-shop',
-            'shopify',
-            'walmart-marketplace',
-            'mercari',
-            'temu',
-            'ebay',
-            'amazon',
-            'daraz',
-            'google-ads',
-            'meta-ads',
-            'seo-optimization',
-          ].map((slug) => {
-            const service = services.find(
-              (item) => item.slug === slug
-            );
+          <div className="w-full overflow-hidden">
+            <div className="services-logo-track">
 
-            if (!service || !service.logoUrl) {
-              return null;
+              {[0, 1].map((copy) => (
+                <div
+                  key={copy}
+                  className="flex shrink-0 items-center gap-8 pr-8 sm:gap-12 sm:pr-12"
+                  aria-hidden={copy === 1 ? true : undefined}
+                >
+                  {[
+                    'tiktok-shop',
+                    'shopify',
+                    'walmart-marketplace',
+                    'mercari',
+                    'temu',
+                    'ebay',
+                    'amazon',
+                    'daraz',
+                    'google-ads',
+                    'meta-ads',
+                    'seo-optimization',
+                  ].map((slug) => {
+                    const service = services.find(
+                      (item) => item.slug === slug
+                    );
+
+                    if (!service || !service.logoUrl) {
+                      return null;
+                    }
+
+                    return (
+                      <div
+                        key={`${copy}-${slug}`}
+                        className="flex w-24 shrink-0 items-center justify-center sm:w-28"
+                      >
+                        <img
+                          src={service.logoUrl}
+                          alt={
+                            copy === 0
+                              ? `${service.title} logo`
+                              : ''
+                          }
+                          loading="lazy"
+                          draggable="false"
+                          className="h-16 w-16 object-contain sm:h-[72px] sm:w-[72px]"
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+
+            </div>
+          </div>
+
+          <style>{`
+            .services-logo-track {
+              display: flex;
+              width: max-content;
+              animation: services-logo-scroll 45s linear infinite;
+              will-change: transform;
             }
 
-            return (
-              <div
-                key={`${copy}-${slug}`}
-                className="flex w-24 shrink-0 items-center justify-center sm:w-28"
-              >
-                <img
-                  src={service.logoUrl}
-                  alt={copy === 0 ? `${service.title} logo` : ''}
-                  loading="lazy"
-                  draggable="false"
-                  className="h-16 w-16 object-contain sm:h-[72px] sm:w-[72px]"
-                />
-              </div>
-            );
-          })}
-        </div>
-      ))}
-    </div>
-  </div>
+            @keyframes services-logo-scroll {
+              from {
+                transform: translateX(0);
+              }
 
-  <style>{`
-    .services-logo-track {
-      display: flex;
-      width: max-content;
-      animation: services-logo-scroll 45s linear infinite;
-      will-change: transform;
-    }
+              to {
+                transform: translateX(-50%);
+              }
+            }
 
-    @keyframes services-logo-scroll {
-      from {
-        transform: translateX(0);
-      }
+            @media (prefers-reduced-motion: reduce) {
+              .services-logo-track {
+                animation: none;
+              }
+            }
+          `}</style>
+        </section>
 
-      to {
-        transform: translateX(-50%);
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .services-logo-track {
-        animation: none;
-      }
-    }
-  `}</style>
-</section>
-
-                {/* Our Approach */}
+        {/* OUR APPROACH */}
         <section className="relative overflow-hidden border-0 bg-primary-lighter-bg/30 pt-0 pb-16">
-          {/* Preserve existing blur effects */}
+
+          {/* Background effects */}
           <div className="absolute -top-[150px] md:top-0 right-0 w-[600px] h-[600px] bg-[#A09E9D]/15 rounded-full blur-[120px] translate-y-0 md:-translate-y-1/2 translate-x-1/3 pointer-events-none" />
+
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#A09E9D]/15 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/3 pointer-events-none" />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+
+              {/* Dark, slightly raised approach label */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-[#E5E5E5] text-[#171313] border border-[#DA0807]/50 font-bold text-sm mb-6 uppercase tracking-widest"
+                className="inline-flex items-center justify-center px-5 py-2 rounded-full bg-[#171313]/10 text-[#171313] border border-[#171313]/10 shadow-[0_7px_20px_rgba(23,19,19,0.12)] -translate-y-1 font-bold text-sm mb-6 uppercase tracking-widest"
               >
                 Our Approach
               </motion.div>
 
               <motion.h2
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ delay: 0.1 }}
-  className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading mb-8 text-primary-dark tracking-tight"
->
-  We Don't Just Manage Stores,{' '}
-  <br className="hidden md:block" />
-  <span className="text-[#DA0807]">
-    We Grow Businesses.
-  </span>
-</motion.h2>
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading mb-8 text-primary-dark tracking-tight"
+              >
+                We Don't Just Manage Stores,{' '}
+                <br className="hidden md:block" />
+
+                <span className="text-[#DA0807]">
+                  We Grow Businesses.
+                </span>
+              </motion.h2>
+
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -347,219 +503,438 @@ const featuredServices = [
                 technology and honest reporting to build ecommerce
                 brands that last.
               </motion.p>
+
             </div>
           </div>
         </section>
 
-        {/* High-Impact Services */}
+        {/* HIGH-IMPACT SERVICES */}
         <section className="py-20 md:py-28 bg-background">
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
             <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+
               <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-6 font-heading">
-  High-Impact <span className="text-[#DA0807]">Services</span>
-</h2>
+                High-Impact{' '}
+                <span className="text-[#DA0807]">
+                  Services
+                </span>
+              </h2>
 
               <p className="text-lg md:text-xl text-muted-foreground">
                 Focused, practical solutions that help your business
                 get found, get sales and keep growing.
               </p>
+
             </div>
 
+            {/* Service card visual styling */}
+            <style>{`
+              .home-service-card-shell {
+                height: 100%;
+                cursor: pointer;
+                transition: transform 0.25s ease;
+              }
+
+              .home-service-card-shell > * {
+                height: 100%;
+                border-color: rgba(23, 19, 19, 0.13) !important;
+                box-shadow: 0 10px 28px rgba(23, 19, 19, 0.09) !important;
+              }
+
+              .home-service-card-shell:hover {
+                transform: translateY(-5px);
+              }
+
+              .home-service-card-shell:hover > * {
+                border-color: rgba(23, 19, 19, 0.18) !important;
+                box-shadow: 0 17px 34px rgba(23, 19, 19, 0.13) !important;
+              }
+
+              /* Replace gray benefit circles with red dots only */
+              .home-service-card-shell ul li > div:first-child {
+                width: 8px !important;
+                height: 8px !important;
+                min-width: 8px !important;
+                min-height: 8px !important;
+                margin-right: 12px !important;
+                background: #DA0807 !important;
+                border-radius: 50% !important;
+                overflow: hidden;
+              }
+
+              .home-service-card-shell ul li > div:first-child > div {
+                display: none !important;
+              }
+
+              .home-benefit-card-shell {
+                height: 100%;
+                transition: transform 0.25s ease;
+              }
+
+              .home-benefit-card-shell > * {
+                height: 100%;
+                border: 1px solid rgba(23, 19, 19, 0.12) !important;
+                border-color: rgba(23, 19, 19, 0.12) !important;
+                box-shadow: 0 10px 26px rgba(23, 19, 19, 0.08) !important;
+              }
+
+              .home-benefit-card-shell:hover {
+                transform: translateY(-4px);
+              }
+
+              /* Keep benefit headings dark; preserve red icons */
+              .home-benefit-card-shell h3,
+              .home-benefit-card-shell h4 {
+                color: #171313 !important;
+              }
+
+              .home-stat-card-shell {
+                height: 100%;
+                transition: transform 0.25s ease;
+              }
+
+              .home-stat-card-shell > * {
+                height: 100%;
+                border: 1px solid rgba(23, 19, 19, 0.12) !important;
+                border-color: rgba(23, 19, 19, 0.12) !important;
+                box-shadow: 0 9px 24px rgba(23, 19, 19, 0.08) !important;
+              }
+
+              .home-stat-card-shell:hover {
+                transform: translateY(-4px);
+              }
+
+              .home-process-step-shell {
+                height: 100%;
+                transition: transform 0.25s ease;
+              }
+
+              .home-process-step-shell > * {
+                height: 100%;
+                border-color: rgba(23, 19, 19, 0.12) !important;
+                box-shadow: 0 9px 24px rgba(23, 19, 19, 0.08) !important;
+              }
+
+              .home-process-step-shell:hover {
+                transform: translateY(-4px);
+              }
+            `}</style>
+
+            {/* Three clickable service cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
               {featuredServices.map((service, index) => (
-                <ServiceCard
+                <div
                   key={service.title}
-                  {...service}
-                  index={index}
-                  compact
-                />
+                  className="home-service-card-shell min-w-0"
+                  role="link"
+                  tabIndex={0}
+                  aria-label={`Explore ${service.title} services`}
+                  onClick={(event) =>
+                    handleFeaturedCardClick(event, service.title)
+                  }
+                  onKeyDown={(event) =>
+                    handleFeaturedCardKeyDown(event, service.title)
+                  }
+                >
+                  <ServiceCard
+                    {...service}
+                    iconOnly
+                    index={index}
+                    compact
+                  />
+                </div>
               ))}
+
             </div>
 
             <div className="text-center mt-12 md:mt-16">
               <Link to="/services">
                 <Button
                   size="lg"
-                  className="bg-white text-[#171313] border-2 border-[#A09E9D]/40 hover:bg-[#171313] hover:text-white hover:border-[#171313] font-bold h-14 px-10 shadow-sm transition-all duration-300 text-lg"
+                  className="bg-white text-[#171313] border-2 border-[#171313]/20 hover:bg-[#171313] hover:text-white hover:border-[#171313] font-bold h-14 px-10 shadow-sm transition-all duration-300 text-lg"
                 >
                   Explore All Services
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
             </div>
+
           </div>
         </section>
 
-        {/* What We Provide + Animated Statistics */}
+        {/* WHAT WE PROVIDE + STATISTICS */}
         <section className="relative overflow-hidden py-20 md:py-28 bg-primary-lighter-bg/30">
+
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#A09E9D]/15 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/3 pointer-events-none" />
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
             {/* Benefits heading */}
             <div className="text-center mb-12">
+
               <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-5 font-heading tracking-tight">
                 What We Provide
               </h2>
 
-              <div className="w-20 h-1 bg-[#A09E9D] rounded-full mx-auto mb-5" />
+              <div className="w-20 h-1 bg-[#171313]/20 rounded-full mx-auto mb-5" />
 
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
                 Practical solutions designed to help your business
                 grow, perform and succeed.
               </p>
+
             </div>
 
             {/* Four benefit cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              <BenefitCard
-                icon={LineChart}
-                title="Sustainable Growth"
-                description="We skip risky shortcuts and build steady growth through optimized listings, strong SEO and loyal customers, so your brand keeps growing long after the first sale."
-                index={0}
-              />
 
-              <BenefitCard
-                icon={Target}
-                title="Measurable Results"
-                description="You will always know where your money goes and what it earns. Clear reports on sales, ad spend and performance keep every decision backed by real numbers."
-                index={1}
-              />
+              <div className="home-benefit-card-shell">
+                <BenefitCard
+                  icon={LineChart}
+                  title="Sustainable Growth"
+                  description="We skip risky shortcuts and build steady growth through optimized listings, strong SEO and loyal customers, so your brand keeps growing long after the first sale."
+                  index={0}
+                />
+              </div>
 
-              <BenefitCard
-                icon={Activity}
-                title="Cost-Effective Allocation"
-                description="Every dollar of your budget is planned with care. We focus spend on the channels and products that perform, and cut what doesn't, for a stronger return."
-                index={2}
-              />
+              <div className="home-benefit-card-shell">
+                <BenefitCard
+                  icon={Target}
+                  title="Measurable Results"
+                  description="You will always know where your money goes and what it earns. Clear reports on sales, ad spend and performance keep every decision backed by real numbers."
+                  index={1}
+                />
+              </div>
 
-              <BenefitCard
-                icon={Award}
-                title="Long-term Success"
-                description="We work as your long-term partner, adapting to marketplace and algorithm changes so your brand stays competitive and keeps moving forward."
-                index={3}
-              />
+              <div className="home-benefit-card-shell">
+                <BenefitCard
+                  icon={Activity}
+                  title="Cost-Effective Allocation"
+                  description="Every dollar of your budget is planned with care. We focus spend on the channels and products that perform, and cut what doesn't, for a stronger return."
+                  index={2}
+                />
+              </div>
+
+              <div className="home-benefit-card-shell">
+                <BenefitCard
+                  icon={Award}
+                  title="Long-term Success"
+                  description="We work as your long-term partner, adapting to marketplace and algorithm changes so your brand stays competitive and keeps moving forward."
+                  index={3}
+                />
+              </div>
+
             </div>
 
-            {/* Animated statistics grid below the benefit cards */}
+            {/* Animated statistics grid */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mt-16 md:mt-24">
-              <StatCard
-                number={<AnimatedCounter target={100} suffix="%" />}
-                label="Account Handling Perfection"
-                icon={Award}
-                index={0}
-              />
 
-              <StatCard
-                number={<AnimatedCounter target={20} suffix="+" />}
-                label="Satisfied Clients"
-                icon={Users}
-                index={1}
-              />
+              <div className="home-stat-card-shell">
+                <StatCard
+                  number={
+                    <span style={{ color: '#171313' }}>
+                      <AnimatedCounter target={100} suffix="%" />
+                    </span>
+                  }
+                  label="Account Handling Perfection"
+                  icon={Award}
+                  index={0}
+                />
+              </div>
 
-              <StatCard
-                number={<AnimatedCounter target={10} prefix="$" suffix="K+" />}
-                label="Revenue Generated"
-                icon={DollarSign}
-                index={2}
-              />
+              <div className="home-stat-card-shell">
+                <StatCard
+                  number={
+                    <span style={{ color: '#171313' }}>
+                      <AnimatedCounter target={25} suffix="+" />
+                    </span>
+                  }
+                  label="Satisfied Clients"
+                  icon={Users}
+                  index={1}
+                />
+              </div>
 
-              <StatCard
-                number={<AnimatedCounter target={99} suffix="%" />}
-                label="Client Retention"
-                icon={ThumbsUp}
-                index={3}
-              />
+              <div className="home-stat-card-shell">
+                <StatCard
+                  number={
+                    <span style={{ color: '#171313' }}>
+                      <AnimatedCounter
+                        target={25}
+                        prefix="$"
+                        suffix="K+"
+                      />
+                    </span>
+                  }
+                  label="Revenue Generated"
+                  icon={DollarSign}
+                  index={2}
+                />
+              </div>
+
+              <div className="home-stat-card-shell">
+                <StatCard
+                  number={
+                    <span style={{ color: '#171313' }}>
+                      <AnimatedCounter target={99} suffix="%" />
+                    </span>
+                  }
+                  label="Client Retention"
+                  icon={ThumbsUp}
+                  index={3}
+                />
+              </div>
+
             </div>
           </div>
         </section>
 
-        {/* Marketplaces */}
-        <section className="py-24 bg-primary-lighter-bg/30 border-y border-[#A09E9D]/30">
+        {/* MARKETPLACES */}
+        <section className="py-24 bg-primary-lighter-bg/30 border-y border-[#171313]/10">
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-primary-dark mb-4 font-heading">Marketplaces We Work With</h2>
+
+            <h2 className="text-3xl md:text-4xl font-extrabold text-primary-dark mb-4 font-heading">
+              <span className="text-[#DA0807]">
+                Marketplaces
+              </span>{' '}
+              We Work With
+            </h2>
+
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
-              Marketplace specialists to help you launch, manage and grow wherever your customers shop.
+              Marketplace specialists to help you launch, manage and grow
+              wherever your customers shop.
             </p>
-            <div className="marketplace-marquee" aria-label="Marketplaces we support">
+
+            <div
+              className="marketplace-marquee"
+              aria-label="Marketplaces we support"
+            >
               <div className="marketplace-track">
-                {[...marketplaceItems, ...marketplaceItems].map((service, index) => (
-                  <Link key={`${service.slug}-${index}`} to={servicePath(service)} className="marketplace-logo-card" aria-label={`${service.title} services`}>
-                    {service.logoUrl ? <img src={service.logoUrl} alt={`${service.title} logo`} loading="lazy" /> : <span className="marketplace-fallback">{service.title.slice(0,1)}</span>}
-                    <span>{service.title}</span>
-                  </Link>
-                ))}
+
+                {[...marketplaceItems, ...marketplaceItems].map(
+                  (service, index) => (
+                    <Link
+                      key={`${service.slug}-${index}`}
+                      to={servicePath(service)}
+                      className="marketplace-logo-card"
+                      aria-label={`${service.title} services`}
+                    >
+                      {service.logoUrl ? (
+                        <img
+                          src={service.logoUrl}
+                          alt={`${service.title} logo`}
+                          loading="lazy"
+                        />
+                      ) : (
+                        <span className="marketplace-fallback">
+                          {service.title.slice(0, 1)}
+                        </span>
+                      )}
+
+                      <span>{service.title}</span>
+                    </Link>
+                  )
+                )}
+
               </div>
             </div>
+
           </div>
         </section>
 
-        {/* How We Work */}
+        {/* HOW WE WORK */}
         <section className="py-32 bg-background">
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
             <div className="text-center max-w-3xl mx-auto mb-20">
-              <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-6 font-heading">How We Work</h2>
+
+              <h2 className="text-4xl md:text-5xl font-extrabold text-primary-dark mb-6 font-heading">
+                How We Work
+              </h2>
+
               <p className="text-xl text-muted-foreground">
                 A simple, transparent process that takes you from idea to results.
               </p>
+
             </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+
               {processSteps.map((step, index) => (
-                <ProcessStep
+                <div
                   key={index}
-                  {...step}
-                  isLast={index === processSteps.length - 1}
-                  index={index}
-                />
+                  className="home-process-step-shell"
+                >
+                  <ProcessStep
+                    {...step}
+                    isLast={index === processSteps.length - 1}
+                    index={index}
+                  />
+                </div>
               ))}
+
             </div>
           </div>
         </section>
 
-      {/* Bottom CTA */}
-      <section className="py-32 bg-primary-dark relative overflow-hidden">
-        {/* Responsive background images */}
-        <picture className="absolute inset-0 z-0 block h-full w-full">
-          <source
-            media="(max-width: 767px)"
-            srcSet="/hero-above-footer-mobile.png"
-          />
-          <img
-            src="/hero-above-footer-laptop.png"
-            alt=""
+        {/* BOTTOM CTA */}
+        <section className="py-32 bg-primary-dark relative overflow-hidden">
+
+          {/* Responsive background images */}
+          <picture className="absolute inset-0 z-0 block h-full w-full">
+
+            <source
+              media="(max-width: 767px)"
+              srcSet="/hero-above-footer-mobile.png"
+            />
+
+            <img
+              src="/hero-above-footer-laptop.png"
+              alt=""
+              aria-hidden="true"
+              className="block h-full w-full object-cover object-center"
+            />
+
+          </picture>
+
+          {/* Dark overlay for readable text */}
+          <div
+            className="absolute inset-0 z-0 bg-black/50"
             aria-hidden="true"
-            className="block h-full w-full object-cover object-center"
           />
-        </picture>
 
-        {/* Dark overlay for readable text */}
-        <div
-          className="absolute inset-0 z-0 bg-black/50"
-          aria-hidden="true"
-        />
+          {/* CTA content */}
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
 
-        {/* CTA content */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-8 font-heading tracking-tight">
-            Ready to Grow Your Business?
-          </h2>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-8 font-heading tracking-tight">
+              Ready to Grow Your Business?
+            </h2>
 
-          <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Talk to the Raiwa Technologies team about your goals. Get honest
-            advice and a clear plan for growing your brand.
-          </p>
+            <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto leading-relaxed">
+              Talk to the Raiwa Technologies team about your goals. Get honest
+              advice and a clear plan for growing your brand.
+            </p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <Link to="/contact">
-              <Button
-                size="lg"
-                className="w-full sm:w-auto h-16 px-10 font-bold text-lg bg-white text-primary-dark hover:bg-primary-lighter-bg hover:text-primary transition-all shadow-luxury"
-              >
-                Book a Free Consultation
-              </Button>
-            </Link>
+            <div className="flex flex-col sm:flex-row justify-center gap-6">
+
+              <Link to="/contact">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto h-16 px-10 font-bold text-lg bg-white text-primary-dark hover:bg-primary-lighter-bg hover:text-primary transition-all shadow-luxury"
+                >
+                  Book a Free Consultation
+                </Button>
+              </Link>
+
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
       </div>
     </>
   );
