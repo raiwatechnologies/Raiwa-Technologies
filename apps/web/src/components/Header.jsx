@@ -23,7 +23,9 @@ import {
 const Header = () => {
   const [mobile, setMobile] = useState(false);
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(
+    typeof window !== 'undefined' ? window.scrollY > 40 : false
+  );
   const [active, setActive] = useState(
     mainServices[0]?.slug || ''
   );
@@ -31,11 +33,11 @@ const Header = () => {
   const location = useLocation();
   const ref = useRef(null);
 
-  // Transparent header only on homepage at the top.
-  const isHome = location.pathname === '/';
-  const isTransparent = isHome && !scrolled && !open && !mobile;
+  // Transparent at the top on EVERY page.
+  // White background after scrolling.
+  const isTransparent = !scrolled && !open && !mobile;
 
-  // Detect page scrolling.
+  // Detect scrolling on every route.
   useEffect(() => {
     const updateScroll = () => {
       setScrolled(window.scrollY > 40);
@@ -58,7 +60,7 @@ const Header = () => {
     setOpen(false);
   }, [location.pathname]);
 
-  // Close desktop menu when clicking outside or pressing Escape.
+  // Close menus when clicking outside or pressing Escape.
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
@@ -122,9 +124,10 @@ const Header = () => {
     );
   };
 
-  // Header colors:
-  // Home page at top = transparent.
-  // Scrolled homepage and every other page = white.
+  // Header background:
+  // Top of EVERY page = transparent.
+  // Scrolled = white.
+  // Menu open = white.
   const headerBackground = isTransparent
     ? 'bg-transparent border-transparent shadow-none backdrop-blur-0'
     : 'bg-white/95 border-[#171313]/10 shadow-sm backdrop-blur-xl';
@@ -136,8 +139,8 @@ const Header = () => {
   return (
     <header
       className={cn(
-        isHome ? 'fixed top-0 left-0 right-0' : 'sticky top-0',
-        'z-50 w-full border-b transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-in-out',
+        'fixed top-0 left-0 right-0 z-50 w-full border-b',
+        'transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-in-out',
         headerBackground
       )}
     >

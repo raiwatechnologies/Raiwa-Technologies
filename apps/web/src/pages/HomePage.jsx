@@ -27,7 +27,6 @@ import {
 } from '@/lib/services.js';
 
 import WhatsAppButton from '@/components/WhatsAppButton.jsx';
-import ServiceCard from '@/components/ServiceCard.jsx';
 import StatCard from '@/components/StatCard.jsx';
 import BenefitCard from '@/components/BenefitCard.jsx';
 import ProcessStep from '@/components/ProcessStep.jsx';
@@ -106,7 +105,7 @@ const AnimatedCounter = ({
   );
 };
 
-/* Custom upward-growth graph icon for service cards */
+/* Custom upward-growth graph icon */
 const GrowthChartIcon = ({ className }) => (
   <svg
     viewBox="0 0 48 48"
@@ -150,7 +149,6 @@ const HomePage = () => {
 
   const featuredServices = [
     {
-      icon: GrowthChartIcon,
       title: 'Ecommerce',
       image: '/service-assets/ecommerce-theme.png',
       description:
@@ -162,7 +160,6 @@ const HomePage = () => {
       ],
     },
     {
-      icon: GrowthChartIcon,
       title: 'Marketing',
       image: '/service-assets/marketing-theme-image.jpg',
       description:
@@ -174,7 +171,6 @@ const HomePage = () => {
       ],
     },
     {
-      icon: GrowthChartIcon,
       title: 'Development',
       image: '/service-assets/development-theme-image.jpg',
       description:
@@ -287,32 +283,21 @@ const HomePage = () => {
           height: 100%;
           min-width: 0;
           cursor: pointer;
+          overflow: hidden;
+          border: none !important;
           border-radius: 1rem;
-          transition: transform 280ms ease;
-          perspective: 1000px;
-        }
-
-        .home-service-card-shell > * {
-          height: 100%;
-          border: 1px solid rgba(23, 19, 19, 0.20) !important;
-          border-radius: 1rem;
-          box-shadow:
-            0 4px 12px rgba(0, 0, 0, 0.04) !important;
+          background: #ffffff;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.025);
           transition:
-            border-color 280ms ease,
-            box-shadow 280ms ease,
-            background-color 280ms ease;
+            transform 280ms ease,
+            box-shadow 280ms ease;
         }
 
         .home-service-card-shell:hover {
           transform: translateY(-3px);
+          border: none !important;
+          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
           z-index: 2;
-        }
-
-        .home-service-card-shell:hover > * {
-          border-color: rgba(23, 19, 19, 0.20) !important;
-          box-shadow:
-            0 8px 22px rgba(0, 0, 0, 0.07) !important;
         }
 
         .home-service-card-shell:focus-visible {
@@ -320,50 +305,61 @@ const HomePage = () => {
           outline-offset: 4px;
         }
 
-        /* Simple red benefit dots */
-
-        .home-service-card-shell ul li > div:first-child {
-          width: 8px !important;
-          height: 8px !important;
-          min-width: 8px !important;
-          min-height: 8px !important;
-          margin-right: 12px !important;
-          background: #DA0807 !important;
-          border-radius: 50% !important;
-          overflow: hidden;
+        .home-service-card-image {
+          display: block;
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          object-fit: cover;
+          object-position: center;
         }
 
-        .home-service-card-shell ul li > div:first-child > div {
-          display: none !important;
+        .home-service-icon-box {
+          display: flex;
+          width: 48px;
+          height: 48px;
+          min-width: 48px;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(23, 19, 19, 0.10);
+          border-radius: 10px;
+          background: #ffffff;
         }
 
-        /* WHAT WE PROVIDE:
-           Transparent cards, without prominent backgrounds */
+        .home-service-icon-box svg {
+          width: 29px;
+          height: 29px;
+        }
+
+        .home-service-benefit-dot {
+          display: inline-block;
+          width: 7px;
+          height: 7px;
+          min-width: 7px;
+          border-radius: 50%;
+          background: #DA0807;
+        }
+
+        /* WHAT WE PROVIDE — MORE VISIBLE CARDS */
 
         .home-benefit-card-shell {
           height: 100%;
-          transition: none;
         }
 
         .home-benefit-card-shell > * {
           height: 100%;
-          background: transparent !important;
-          border: none !important;
-          box-shadow: none !important;
+          background: #ffffff !important;
+          border: 1px solid rgba(23, 19, 19, 0.10) !important;
+          border-radius: 1rem;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.025) !important;
           transition:
-            background-color 280ms ease,
-            box-shadow 280ms ease;
-        }
-
-        .home-benefit-card-shell:hover {
-          transform: none;
+            box-shadow 280ms ease,
+            background-color 280ms ease;
         }
 
         .home-benefit-card-shell:hover > * {
-          background: rgba(23, 19, 19, 0.02) !important;
-          border: none !important;
-          box-shadow:
-            0 8px 22px rgba(0, 0, 0, 0.07) !important;
+          background: #ffffff !important;
+          border: 1px solid rgba(23, 19, 19, 0.10) !important;
+          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07) !important;
         }
 
         .home-benefit-card-shell h3,
@@ -398,31 +394,24 @@ const HomePage = () => {
             0 8px 22px rgba(0, 0, 0, 0.07) !important;
         }
 
-        /* HOW WE WORK CARDS */
+        /* HOW WE WORK — NO BORDER OR SHADOW */
 
         .home-process-step-shell {
           height: 100%;
-          transition: transform 280ms ease;
+          border: none !important;
+          box-shadow: none !important;
+          transition: none !important;
         }
 
-        .home-process-step-shell > * {
-          height: 100%;
-          border: 1px solid rgba(23, 19, 19, 0.20) !important;
-          box-shadow:
-            0 4px 12px rgba(0, 0, 0, 0.04) !important;
-          transition:
-            border-color 280ms ease,
-            box-shadow 280ms ease;
-        }
-
-        .home-process-step-shell:hover {
-          transform: translateY(-3px);
-        }
-
+        .home-process-step-shell > *,
         .home-process-step-shell:hover > * {
-          border-color: rgba(23, 19, 19, 0.20) !important;
-          box-shadow:
-            0 8px 22px rgba(0, 0, 0, 0.07) !important;
+          height: 100%;
+          border: none !important;
+          outline: none !important;
+          box-shadow: none !important;
+          background: transparent;
+          transform: none !important;
+          transition: none !important;
         }
 
         /* HERO BUTTONS */
@@ -455,8 +444,6 @@ const HomePage = () => {
 
         @media (prefers-reduced-motion: reduce) {
           .home-service-card-shell,
-          .home-service-card-shell > *,
-          .home-benefit-card-shell,
           .home-benefit-card-shell > *,
           .home-stat-card-shell,
           .home-stat-card-shell > *,
@@ -467,9 +454,7 @@ const HomePage = () => {
           }
 
           .home-service-card-shell:hover,
-          .home-benefit-card-shell:hover,
           .home-stat-card-shell:hover,
-          .home-process-step-shell:hover,
           .home-hero-button:hover {
             transform: none;
           }
@@ -506,7 +491,6 @@ const HomePage = () => {
                 transition={{ duration: 0.6 }}
               >
 
-                {/* HERO HEADING */}
                 <h1 className="home-hero-heading mb-4 -translate-y-3 text-5xl font-extrabold tracking-tight text-[#171313] sm:text-5xl md:text-6xl lg:text-6xl">
                   We Built{' '}
                   <span className="whitespace-nowrap text-[#DA0807]">
@@ -514,7 +498,6 @@ const HomePage = () => {
                   </span>
                 </h1>
 
-                {/* HERO DESCRIPTION */}
                 <p className="-translate-y-1 text-[clamp(13px,1.9vw,20px)] font-medium leading-relaxed text-[#171313]/85">
                   <span className="block whitespace-nowrap">
                     Raiwa Technologies — Empowering Growth
@@ -525,7 +508,6 @@ const HomePage = () => {
                   </span>
                 </p>
 
-                {/* HERO BUTTONS */}
                 <div className="mt-16 flex flex-col items-start gap-5 sm:flex-row sm:items-center md:mt-20 lg:mt-24">
 
                   <Link to="/contact" className="w-full sm:w-auto">
@@ -648,8 +630,6 @@ const HomePage = () => {
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
 
-              {/* OUR APPROACH LABEL REMOVED */}
-
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -703,10 +683,10 @@ const HomePage = () => {
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 
-              {featuredServices.map((service, index) => (
+              {featuredServices.map((service) => (
                 <div
                   key={service.title}
-                  className="home-service-card-shell min-w-0"
+                  className="home-service-card-shell"
                   role="link"
                   tabIndex={0}
                   aria-label={`Explore ${service.title} services`}
@@ -717,12 +697,46 @@ const HomePage = () => {
                     handleFeaturedCardKeyDown(event, service.title)
                   }
                 >
-                  <ServiceCard
-                    {...service}
-                    iconOnly
-                    index={index}
-                    compact
+                  {/* IMAGE AT THE TOP */}
+                  <img
+                    src={service.image}
+                    alt={`${service.title} services`}
+                    loading="lazy"
+                    className="home-service-card-image"
                   />
+
+                  {/* LOGO BELOW IMAGE + CONTENT */}
+                  <div className="p-6">
+
+                    <div className="mb-4 flex items-center gap-3">
+
+                      <div className="home-service-icon-box">
+                        <GrowthChartIcon />
+                      </div>
+
+                      <h3 className="font-heading text-xl font-bold text-[#171313] sm:text-2xl">
+                        {service.title}
+                      </h3>
+
+                    </div>
+
+                    <p className="mb-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                      {service.description}
+                    </p>
+
+                    <ul className="space-y-3">
+                      {service.benefits.map((benefit) => (
+                        <li
+                          key={benefit}
+                          className="flex items-start text-sm font-medium text-[#171313]/85"
+                        >
+                          <span className="home-service-benefit-dot mt-1.5 mr-3" />
+                          <span>{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                  </div>
                 </div>
               ))}
 
@@ -744,9 +758,7 @@ const HomePage = () => {
         </section>
 
         {/* WHAT WE PROVIDE + STATISTICS */}
-        <section className="relative overflow-hidden bg-background py-20 md:py-28">
-
-          {/* Decorative background shade removed */}
+        <section className="relative overflow-hidden bg-[#F7F7F7] py-20 md:py-28">
 
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
