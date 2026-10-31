@@ -20,6 +20,7 @@ import {
   ClipboardList,
   Workflow,
   Palette,
+  Image,
 } from 'lucide-react';
 
 const A = '/service-assets/';
@@ -272,6 +273,47 @@ export const services = [
     label: 'Graphic Design',
   },
 
+  // BRANDING & CREATIVE
+  {
+    title: 'Brand Identity',
+    slug: 'brand-identity',
+    logoUrl: A + 'brand-identity-logo.png',
+    themeImage: A + 'brand-identity-theme.jpg',
+    image: A + 'brand-identity-theme.jpg',
+    category: 'Branding & Creative',
+    icon: Palette,
+    accent: '#DA0807',
+    soft: '#E5E5E5',
+    description:
+      'Build a distinctive and consistent brand identity with professional visual direction that helps your business stand out and become recognizable.',
+    benefits: [
+      'Logo and brand design',
+      'Brand colors and typography',
+      'Brand guidelines and visual identity',
+    ],
+    label: 'Brand Identity',
+  },
+
+  {
+    title: 'Visual Content Creation',
+    slug: 'visual-content-creation',
+    logoUrl: A + 'visual-content-creation-logo.png',
+    themeImage: A + 'visual-content-creation-theme.jpg',
+    image: A + 'visual-content-creation-theme.jpg',
+    category: 'Branding & Creative',
+    icon: Image,
+    accent: '#DA0807',
+    soft: '#E5E5E5',
+    description:
+      'Create engaging visual content for digital platforms, campaigns and business promotions with professional and consistent creative assets.',
+    benefits: [
+      'Social media graphics',
+      'Marketing and advertising creatives',
+      'Digital promotional content',
+    ],
+    label: 'Visual Content Creation',
+  },
+
   // MARKETING
   {
     title: 'Digital Marketing',
@@ -498,6 +540,21 @@ export const mainServices = [
       'game-development',
       'web-development',
       'graphic-design',
+    ],
+  },
+
+  {
+    title: 'Branding & Creative',
+    slug: 'branding-and-creative',
+    category: 'Branding & Creative',
+    accent: '#DA0807',
+    description:
+      'Brand identity and visual content creation.',
+    image: A + 'branding-and-creativity-theme.jpg',
+    themeImage: A + 'branding-and-creativity-theme.jpg',
+    children: [
+      'brand-identity',
+      'visual-content-creation',
     ],
   },
 

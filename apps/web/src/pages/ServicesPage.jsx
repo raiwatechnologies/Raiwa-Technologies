@@ -25,6 +25,8 @@ import {
   LayoutDashboard,
   ClipboardList,
   ArrowRight,
+  Palette,
+  Image,
 } from 'lucide-react';
 
 import ServiceCard from '@/components/ServiceCard.jsx';
@@ -34,7 +36,12 @@ import { Button } from '@/components/ui/button.jsx';
 import { Link } from 'react-router-dom';
 import { mainServices, mainServicePath } from '@/lib/services.js';
 
+/* =====================================================
+   SERVICE CATEGORIES
+===================================================== */
+
 const serviceCategories = [
+  // ECOMMERCE
   {
     id: 'ecommerce',
     title: 'Ecommerce',
@@ -131,6 +138,8 @@ const serviceCategories = [
       },
     ],
   },
+
+  // DEVELOPMENT
   {
     id: 'development',
     title: 'Development',
@@ -183,6 +192,46 @@ const serviceCategories = [
       },
     ],
   },
+
+  // BRANDING & CREATIVE
+  {
+    id: 'branding-and-creative',
+    title: 'Branding & Creative',
+    description:
+      'Brand identity and visual content creation.',
+    services: [
+      {
+        slug: 'brand-identity',
+        icon: Palette,
+        title: 'Brand Identity',
+        image: '/service-assets/brand-identity-theme.jpg',
+        themeImage: '/service-assets/brand-identity-theme.jpg',
+        description:
+          'Build a distinctive and consistent brand identity with professional visual direction that helps your business stand out and become recognizable.',
+        benefits: [
+          'Logo and Brand Design',
+          'Brand Colors & Typography',
+          'Brand Guidelines & Visual Identity',
+        ],
+      },
+      {
+        slug: 'visual-content-creation',
+        icon: Image,
+        title: 'Visual Content Creation',
+        image: '/service-assets/visual-content-creation-theme.jpg',
+        themeImage: '/service-assets/visual-content-creation-theme.jpg',
+        description:
+          'Create engaging visual content for digital platforms, campaigns and business promotions with professional and consistent creative assets.',
+        benefits: [
+          'Social Media Graphics',
+          'Marketing & Advertising Creatives',
+          'Digital Promotional Content',
+        ],
+      },
+    ],
+  },
+
+  // MARKETING
   {
     id: 'marketing',
     title: 'Marketing',
@@ -235,6 +284,8 @@ const serviceCategories = [
       },
     ],
   },
+
+  // ADS
   {
     id: 'ads',
     title: 'Ads',
@@ -265,6 +316,8 @@ const serviceCategories = [
       },
     ],
   },
+
+  // MANAGEMENT
   {
     id: 'management',
     title: 'Management',
@@ -297,16 +350,20 @@ const serviceCategories = [
   },
 ];
 
+/* =====================================================
+   FREQUENTLY ASKED QUESTIONS
+===================================================== */
+
 const faqs = [
   {
-    question: 'Which platforms and marketplaces do you work with?',
+    question: 'Which platforms and services do you work with?',
     answer:
-      'We work with TikTok Shop, eBay, Amazon, Walmart, Temu, Mercari, Shopify and Daraz. We also build websites, apps and games, and run SEO, social media and paid advertising.',
+      'We work with TikTok Shop, eBay, Amazon, Walmart, Temu, Mercari, Shopify and Daraz. We also build websites, apps and games, create brand identities and visual content, and provide SEO, social media marketing and paid advertising.',
   },
   {
     question: 'How long does it take to see results?',
     answer:
-      'It depends on the service and your market. Store setup and ad campaigns can start showing movement within weeks, while SEO and organic growth typically build over several months. We will give you a realistic timeline for your project after an initial consultation.',
+      'It depends on the service and your market. Store setup and ad campaigns can start showing movement within weeks, while SEO and organic growth typically build over several months. Branding and creative projects depend on the scope and deliverables. We will give you a realistic timeline for your project after an initial consultation.',
   },
   {
     question: 'How much do your services cost?',
@@ -321,7 +378,7 @@ const faqs = [
   {
     question: 'Can you build a custom website, app or game?',
     answer:
-      'Absolutely. Our development team builds custom websites, mobile apps and games, from the first concept through launch and ongoing support.',
+      'Absolutely. Our development team builds custom websites, mobile apps and games, from the first concept through launch and ongoing support. We also provide brand identity and visual content creation.',
   },
   {
     question: 'How do I get started?',
@@ -329,6 +386,10 @@ const faqs = [
       'Send us a message through the contact form or chat with us directly on WhatsApp. We will learn about your goals, answer your questions and suggest the best next steps.',
   },
 ];
+
+/* =====================================================
+   MAIN SERVICE ROUTING
+===================================================== */
 
 const getMainServiceLink = (title) => {
   const mainService = mainServices.find(
@@ -340,6 +401,10 @@ const getMainServiceLink = (title) => {
     : '/services';
 };
 
+/* =====================================================
+   SERVICES PAGE
+===================================================== */
+
 const ServicesPage = () => {
   return (
     <>
@@ -347,7 +412,7 @@ const ServicesPage = () => {
         <title>Our Services | Raiwa Technologies</title>
         <meta
           name="description"
-          content="Ecommerce marketplace management, app, game and web development, digital marketing, ads, SEO and account management from Raiwa Technologies."
+          content="Ecommerce marketplace management, app, game and web development, branding and creative services, digital marketing, ads, SEO and account management from Raiwa Technologies."
         />
       </Helmet>
 
@@ -365,8 +430,7 @@ const ServicesPage = () => {
         .services-hover-card {
           height: 100%;
           min-width: 0;
-          transition:
-            transform 280ms ease;
+          transition: transform 280ms ease;
           will-change: transform;
         }
 

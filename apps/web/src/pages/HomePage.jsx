@@ -116,7 +116,7 @@ const HomePage = () => {
   const [activeProcessTab, setActiveProcessTab] = React.useState('startup');
 
   /* -------------------------------------------------------
-     FEATURED SERVICES - ALL FIVE MAIN CATEGORIES
+     FEATURED SERVICES - ALL SIX MAIN CATEGORIES
   ------------------------------------------------------- */
 
   const featuredServiceContent = [
@@ -149,6 +149,12 @@ const HomePage = () => {
       slug: 'management',
       description:
         'Reliable website and account management.',
+    },
+    {
+      title: 'Branding & Creative',
+      slug: 'branding-and-creative',
+      description:
+        'Brand identity and visual content creation.',
     },
   ];
 
@@ -228,34 +234,32 @@ const HomePage = () => {
      EXISTING LOGOS + 6 NEW PNG LOGOS
   ------------------------------------------------------- */
 
-
-const additionalPlatformLogos = [
-  {
-    title: 'Android',
-    logoUrl: '/service-assets/android-logo.png',
-  },
-  {
-    title: 'Apple',
-    logoUrl: '/service-assets/apple-logo.png',
-  },
-  {
-    title: 'App Store',
-    logoUrl: '/service-assets/appstore-logo.png',
-  },
-  {
-    title: 'iOS',
-    logoUrl: '/service-assets/ios-logo.png',
-  },
-  {
-    title: 'Play Store',
-    logoUrl: '/service-assets/playstore-logo.png',
-  },
-  {
-    title: 'Unity',
-    logoUrl: '/service-assets/unity-logo.png',
-  },
-];
-
+  const additionalPlatformLogos = [
+    {
+      title: 'Android',
+      logoUrl: '/service-assets/android-logo.png',
+    },
+    {
+      title: 'Apple',
+      logoUrl: '/service-assets/apple-logo.png',
+    },
+    {
+      title: 'App Store',
+      logoUrl: '/service-assets/appstore-logo.png',
+    },
+    {
+      title: 'iOS',
+      logoUrl: '/service-assets/ios-logo.png',
+    },
+    {
+      title: 'Play Store',
+      logoUrl: '/service-assets/playstore-logo.png',
+    },
+    {
+      title: 'Unity',
+      logoUrl: '/service-assets/unity-logo.png',
+    },
+  ];
 
   const selectedPlatformSlugs = [
     'tiktok-shop',
@@ -399,7 +403,7 @@ const additionalPlatformLogos = [
 
         <meta
           name="description"
-          content="Raiwa Technologies is an ecommerce-focused growth company offering marketplace management, app and game development, SEO, social media marketing and ads."
+          content="Raiwa Technologies provides ecommerce management, development, branding and creative services, digital marketing, SEO, advertising and business management."
         />
       </Helmet>
 
@@ -621,7 +625,10 @@ const additionalPlatformLogos = [
           line-height: 1.4;
           text-align: center;
           cursor: pointer;
-          transition: color 220ms ease, border-color 220ms ease, background 220ms ease;
+          transition:
+            color 220ms ease,
+            border-color 220ms ease,
+            background 220ms ease;
         }
 
         .home-process-tab svg {
@@ -637,7 +644,11 @@ const additionalPlatformLogos = [
 
         .home-process-tab[aria-selected="true"] {
           border-bottom-color: #DA0807;
-          background: linear-gradient(to top, rgba(218, 8, 7, 0.055), transparent 75%);
+          background: linear-gradient(
+            to top,
+            rgba(218, 8, 7, 0.055),
+            transparent 75%
+          );
         }
 
         .home-process-tab:focus-visible {
@@ -665,7 +676,9 @@ const additionalPlatformLogos = [
           min-height: 142px;
           padding: 17px 18px 17px 12px;
           border-radius: 15px;
-          transition: background-color 220ms ease, box-shadow 220ms ease;
+          transition:
+            background-color 220ms ease,
+            box-shadow 220ms ease;
         }
 
         .home-process-item.is-active {
@@ -769,8 +782,16 @@ const additionalPlatformLogos = [
           border: 2px dashed rgba(218, 8, 7, 0.28);
           border-radius: 22px;
           background:
-            radial-gradient(circle at 85% 15%, rgba(218, 8, 7, 0.09), transparent 28%),
-            radial-gradient(circle at 10% 90%, rgba(218, 8, 7, 0.055), transparent 30%),
+            radial-gradient(
+              circle at 85% 15%,
+              rgba(218, 8, 7, 0.09),
+              transparent 28%
+            ),
+            radial-gradient(
+              circle at 10% 90%,
+              rgba(218, 8, 7, 0.055),
+              transparent 30%
+            ),
             #F7F7F7;
         }
 
@@ -1044,7 +1065,7 @@ const additionalPlatformLogos = [
               >
 
                 <h1 className="home-hero-heading mb-4 -translate-y-3 text-5xl font-extrabold tracking-tight text-[#171313] sm:text-5xl md:text-6xl lg:text-6xl">
-                  We Built{' '}
+                  We Build{' '}
                   <span className="whitespace-nowrap text-[#DA0807]">
                     Together.
                   </span>
@@ -1154,7 +1175,8 @@ const additionalPlatformLogos = [
         </section>
 
         {/* ===============================================
-            HIGH-IMPACT SERVICES
+            HIGH-IMPACT SERVICES - SIX MAIN CATEGORIES
+            DESKTOP: 3 CARDS + 3 CARDS
         =============================================== */}
 
         <section className="bg-background py-10 md:py-14">
@@ -1174,53 +1196,44 @@ const additionalPlatformLogos = [
               </p>
             </div>
 
-            <div className="home-card-grid grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
+            <div className="home-card-grid grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 
-              {featuredServices.map((service, index) => {
-                const cardPositionClass =
-                  index === 3
-                    ? 'lg:col-span-2 lg:col-start-2'
-                    : index === 4
-                      ? 'lg:col-span-2 lg:col-start-4'
-                      : 'lg:col-span-2';
+              {featuredServices.map((service) => (
+                <div
+                  key={service.slug}
+                  className="home-service-card-shell"
+                  role="link"
+                  tabIndex={0}
+                  aria-label={`Explore ${service.title} services`}
+                  onClick={(event) =>
+                    handleFeaturedCardClick(event, service.title)
+                  }
+                  onKeyDown={(event) =>
+                    handleFeaturedCardKeyDown(event, service.title)
+                  }
+                >
 
-                return (
-                  <div
-                    key={service.slug}
-                    className={`home-service-card-shell ${cardPositionClass}`}
-                    role="link"
-                    tabIndex={0}
-                    aria-label={`Explore ${service.title} services`}
-                    onClick={(event) =>
-                      handleFeaturedCardClick(event, service.title)
-                    }
-                    onKeyDown={(event) =>
-                      handleFeaturedCardKeyDown(event, service.title)
-                    }
-                  >
+                  <img
+                    src={service.image}
+                    alt={`${service.title} services`}
+                    loading="lazy"
+                    className="home-service-card-image"
+                  />
 
-                    <img
-                      src={service.image}
-                      alt={`${service.title} services`}
-                      loading="lazy"
-                      className="home-service-card-image"
-                    />
+                  <div className="home-service-card-content">
 
-                    <div className="home-service-card-content">
+                    <h3 className="home-service-card-title">
+                      {service.title}
+                    </h3>
 
-                      <h3 className="home-service-card-title">
-                        {service.title}
-                      </h3>
-
-                      <p className="home-service-card-description">
-                        {service.description}
-                      </p>
-
-                    </div>
+                    <p className="home-service-card-description">
+                      {service.description}
+                    </p>
 
                   </div>
-                );
-              })}
+
+                </div>
+              ))}
 
             </div>
 
@@ -1416,7 +1429,8 @@ const additionalPlatformLogos = [
 
             <div className="mx-auto mb-12 max-w-3xl text-center md:mb-14">
               <h2 className="mb-5 font-heading text-4xl font-extrabold text-primary-dark md:text-5xl">
-                How We Grow Your<span className="text-[#DA0807]">Business</span>
+                How We Grow Your{' '}
+                <span className="text-[#DA0807]">Business</span>
               </h2>
 
               <p className="text-lg text-muted-foreground md:text-xl">
@@ -1471,10 +1485,14 @@ const additionalPlatformLogos = [
                       key={`${activeProcessTab}-${step.number}`}
                       className={`home-process-item ${index === 0 ? 'is-active' : ''}`}
                     >
-                      <div className="home-process-marker-column" aria-hidden="true">
+                      <div
+                        className="home-process-marker-column"
+                        aria-hidden="true"
+                      >
                         <div className="home-process-number">
                           {step.number}
                         </div>
+
                         {index !== activeWorkProcess.steps.length - 1 && (
                           <div className="home-process-connector" />
                         )}
@@ -1482,9 +1500,13 @@ const additionalPlatformLogos = [
 
                       <div className="home-process-copy">
                         <h3>
-                          <StepIcon className="home-process-step-icon" aria-hidden="true" />
+                          <StepIcon
+                            className="home-process-step-icon"
+                            aria-hidden="true"
+                          />
                           <span>{step.title}</span>
                         </h3>
+
                         <p>{step.description}</p>
                       </div>
                     </article>
@@ -1493,6 +1515,7 @@ const additionalPlatformLogos = [
               </div>
 
               <div className="home-process-image-column">
+
                 {activeProcessTab === 'startup' ? (
                   <div
                     className="home-process-image-placeholder"
@@ -1503,7 +1526,9 @@ const additionalPlatformLogos = [
                       <span className="home-process-image-placeholder-label">
                         STARTUP IMAGE AREA
                       </span>
+
                       <h3>Startup Product Development</h3>
+
                       <p>
                         Add your startup-focused image here. Replace this placeholder with your Startup image.
                       </p>
@@ -1519,13 +1544,16 @@ const additionalPlatformLogos = [
                       <span className="home-process-image-placeholder-label">
                         ENTERPRISE IMAGE AREA
                       </span>
+
                       <h3>Enterprise Software Solutions</h3>
+
                       <p>
                         Add your enterprise-focused image here. Replace this placeholder with your Enterprise image.
                       </p>
                     </div>
                   </div>
                 )}
+
                 <p className="home-process-image-note">
                   Each tab has its own separate image placeholder.
                 </p>
