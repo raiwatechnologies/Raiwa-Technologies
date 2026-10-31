@@ -399,11 +399,11 @@ const HomePage = () => {
           align-items: center;
           justify-content: center;
           gap: 10px;
-          margin-top: 20px;
+          margin-top: 24px;
           border: 1px solid rgba(23, 19, 19, 0.07);
           border-radius: 9px;
           background: #F7F7F7;
-          padding: 12px 18px;
+          padding: 16px 18px;
           color: #171313;
           font-size: 14px;
           font-weight: 700;
@@ -424,7 +424,7 @@ const HomePage = () => {
           width: 100%;
           height: 1px;
           background: rgba(23, 19, 19, 0.12);
-          top: -11px;
+          top: -15px;
           left: 0;
         }
 
