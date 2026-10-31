@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import Logo from '@/components/Logo.jsx';
 import { BRAND, getWhatsAppUrl } from '@/lib/brand.js';
 import { mainServices, mainServicePath } from '@/lib/services.js';
@@ -21,9 +21,6 @@ const Footer = () => {
     name: service.title,
     path: mainServicePath(service),
   }));
-
-  const socialLinkClass =
-    'flex h-10 w-10 items-center justify-center rounded-full border border-[#A09E9D]/40 bg-[#171313] text-[#FDFDFD] transition-all duration-300 hover:-translate-y-1 hover:border-[#DA0807] hover:bg-[#DA0807]';
 
   const contactIconClass =
     'flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#A09E9D]/30 bg-[#E5E5E5] transition-colors duration-300 group-hover:border-[#DA0807] group-hover:bg-[#DA0807]';
@@ -48,34 +45,6 @@ const Footer = () => {
               across ecommerce marketplaces, with development, marketing, ads
               and SEO that deliver measurable growth.
             </p>
-
-            <div className="flex gap-4">
-              <a
-                href={getWhatsAppUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={socialLinkClass}
-                aria-label="Chat on WhatsApp"
-              >
-                <MessageCircle className="h-4 w-4" />
-              </a>
-
-              <a
-                href={`mailto:${BRAND.email}`}
-                className={socialLinkClass}
-                aria-label="Send us an email"
-              >
-                <Mail className="h-4 w-4" />
-              </a>
-
-              <a
-                href={`tel:${BRAND.phoneTel}`}
-                className={socialLinkClass}
-                aria-label="Call us"
-              >
-                <Phone className="h-4 w-4" />
-              </a>
-            </div>
           </div>
 
           <div>
