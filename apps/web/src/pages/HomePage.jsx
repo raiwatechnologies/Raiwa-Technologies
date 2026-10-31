@@ -31,6 +31,10 @@ import StatCard from '@/components/StatCard.jsx';
 import BenefitCard from '@/components/BenefitCard.jsx';
 import ProcessStep from '@/components/ProcessStep.jsx';
 
+/* -------------------------------------------------------
+   ANIMATED COUNTER
+------------------------------------------------------- */
+
 const AnimatedCounter = ({
   target,
   prefix = '',
@@ -105,7 +109,10 @@ const AnimatedCounter = ({
   );
 };
 
-/* Custom upward-growth graph icon */
+/* -------------------------------------------------------
+   CUSTOM GROWTH GRAPH ICON
+------------------------------------------------------- */
+
 const GrowthChartIcon = ({ className }) => (
   <svg
     viewBox="0 0 48 48"
@@ -144,8 +151,14 @@ const GrowthChartIcon = ({ className }) => (
   </svg>
 );
 
+/* -------------------------------------------------------
+   HOMEPAGE
+------------------------------------------------------- */
+
 const HomePage = () => {
   const navigate = useNavigate();
+
+  /* FEATURED SERVICES */
 
   const featuredServices = [
     {
@@ -183,6 +196,8 @@ const HomePage = () => {
     },
   ];
 
+  /* SERVICE PAGE ROUTING */
+
   const getFeaturedServicePath = (title) => {
     const mainService = mainServices.find(
       (item) =>
@@ -195,6 +210,7 @@ const HomePage = () => {
   };
 
   const handleFeaturedCardClick = (event, title) => {
+    // Allow the information button to follow its own link.
     if (event.target.closest('a, button')) return;
 
     navigate(getFeaturedServicePath(title));
@@ -208,6 +224,8 @@ const HomePage = () => {
       navigate(getFeaturedServicePath(title));
     }
   };
+
+  /* MARKETPLACES */
 
   const marketplaces = [
     'Amazon',
@@ -230,6 +248,8 @@ const HomePage = () => {
       )
     )
     .filter(Boolean);
+
+  /* WORK PROCESS */
 
   const processSteps = [
     {
@@ -275,26 +295,51 @@ const HomePage = () => {
         />
       </Helmet>
 
-      {/* HOMEPAGE STYLING */}
+      {/* -------------------------------------------------
+          HOMEPAGE STYLES
+      ------------------------------------------------- */}
+
       <style>{`
-        /* HIGH-IMPACT SERVICE CARDS */
+
+        /* ================================================
+           3D CARD PERSPECTIVE
+        ================================================ */
+
+        .home-card-grid {
+          perspective: 1200px;
+          perspective-origin: center center;
+        }
+
+        .home-service-card-shell,
+        .home-benefit-card-shell,
+        .home-stat-card-shell,
+        .home-process-step-shell {
+          transform-style: preserve-3d;
+          backface-visibility: hidden;
+          transition:
+            transform 350ms cubic-bezier(0.2, 0.7, 0.3, 1),
+            box-shadow 350ms ease;
+        }
+
+        /* ================================================
+           HIGH-IMPACT SERVICE CARDS
+        ================================================ */
 
         .home-service-card-shell {
+          display: flex;
           height: 100%;
           min-width: 0;
+          flex-direction: column;
           cursor: pointer;
           overflow: hidden;
           border: none !important;
           border-radius: 1rem;
           background: #ffffff;
           box-shadow: 0 3px 10px rgba(0, 0, 0, 0.025);
-          transition:
-            transform 280ms ease,
-            box-shadow 280ms ease;
         }
 
         .home-service-card-shell:hover {
-          transform: translateY(-3px);
+          transform: translate3d(0, 0, 18px) scale(1.015);
           border: none !important;
           box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
           z-index: 2;
@@ -313,6 +358,8 @@ const HomePage = () => {
           object-position: center;
         }
 
+        /* GRAPH ICON BOX */
+
         .home-service-icon-box {
           display: flex;
           width: 48px;
@@ -330,6 +377,8 @@ const HomePage = () => {
           height: 29px;
         }
 
+        /* BENEFIT DOTS */
+
         .home-service-benefit-dot {
           display: inline-block;
           width: 7px;
@@ -339,7 +388,58 @@ const HomePage = () => {
           background: #DA0807;
         }
 
-        /* WHAT WE PROVIDE — MORE VISIBLE CARDS */
+        /* ================================================
+           FOR MORE INFORMATION BUTTON
+        ================================================ */
+
+        .home-service-more-button {
+          display: flex;
+          width: 100%;
+          min-height: 48px;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          margin-top: auto;
+          border: 1px solid rgba(23, 19, 19, 0.10);
+          border-radius: 9px;
+          background: #F1F1F1;
+          padding: 12px 18px;
+          color: #171313;
+          font-size: 14px;
+          font-weight: 700;
+          text-decoration: none;
+          transition:
+            background-color 220ms ease,
+            border-color 220ms ease,
+            color 220ms ease,
+            transform 220ms ease;
+        }
+
+        .home-service-more-button:hover {
+          background: #E5E5E5;
+          border-color: rgba(23, 19, 19, 0.20);
+          color: #171313;
+          transform: translateY(-1px);
+        }
+
+        .home-service-more-button svg {
+          width: 17px;
+          height: 17px;
+          transition: transform 220ms ease;
+        }
+
+        .home-service-more-button:hover svg {
+          transform: translateX(3px);
+        }
+
+        .home-service-more-button:focus-visible {
+          outline: 2px solid #DA0807;
+          outline-offset: 3px;
+        }
+
+        /* ================================================
+           WHAT WE PROVIDE
+        ================================================ */
 
         .home-benefit-card-shell {
           height: 100%;
@@ -352,8 +452,13 @@ const HomePage = () => {
           border-radius: 1rem;
           box-shadow: 0 3px 10px rgba(0, 0, 0, 0.025) !important;
           transition:
-            box-shadow 280ms ease,
-            background-color 280ms ease;
+            box-shadow 350ms ease,
+            background-color 350ms ease;
+        }
+
+        .home-benefit-card-shell:hover {
+          transform: translate3d(0, 0, 18px) scale(1.015);
+          z-index: 2;
         }
 
         .home-benefit-card-shell:hover > * {
@@ -367,40 +472,45 @@ const HomePage = () => {
           color: #171313 !important;
         }
 
-        /* STATISTIC CARDS */
+        /* ================================================
+           STATISTIC CARDS
+        ================================================ */
 
         .home-stat-card-shell {
           height: 100%;
-          transition: transform 280ms ease;
         }
 
         .home-stat-card-shell > * {
           height: 100%;
           border: 1px solid rgba(23, 19, 19, 0.20) !important;
-          box-shadow:
-            0 4px 12px rgba(0, 0, 0, 0.04) !important;
-          transition:
-            border-color 280ms ease,
-            box-shadow 280ms ease;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+          transition: box-shadow 350ms ease;
         }
 
         .home-stat-card-shell:hover {
-          transform: translateY(-3px);
+          transform: translate3d(0, 0, 18px) scale(1.015);
+          z-index: 2;
         }
 
         .home-stat-card-shell:hover > * {
           border-color: rgba(23, 19, 19, 0.20) !important;
-          box-shadow:
-            0 8px 22px rgba(0, 0, 0, 0.07) !important;
+          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07) !important;
         }
 
-        /* HOW WE WORK — NO BORDER OR SHADOW */
+        /* ================================================
+           HOW WE WORK
+           No border and no shadow
+        ================================================ */
 
         .home-process-step-shell {
           height: 100%;
           border: none !important;
           box-shadow: none !important;
-          transition: none !important;
+        }
+
+        .home-process-step-shell:hover {
+          transform: translate3d(0, 0, 18px) scale(1.015);
+          z-index: 2;
         }
 
         .home-process-step-shell > *,
@@ -409,12 +519,14 @@ const HomePage = () => {
           border: none !important;
           outline: none !important;
           box-shadow: none !important;
-          background: transparent;
+          background: transparent !important;
           transform: none !important;
           transition: none !important;
         }
 
-        /* HERO BUTTONS */
+        /* ================================================
+           HERO BUTTONS
+        ================================================ */
 
         .home-hero-button {
           transition:
@@ -442,28 +554,41 @@ const HomePage = () => {
           outline-offset: 4px;
         }
 
+        /* ================================================
+           REDUCED MOTION ACCESSIBILITY
+        ================================================ */
+
         @media (prefers-reduced-motion: reduce) {
           .home-service-card-shell,
-          .home-benefit-card-shell > *,
+          .home-benefit-card-shell,
           .home-stat-card-shell,
-          .home-stat-card-shell > *,
           .home-process-step-shell,
+          .home-benefit-card-shell > *,
+          .home-stat-card-shell > *,
           .home-process-step-shell > *,
+          .home-service-more-button,
           .home-hero-button {
             transition: none !important;
           }
 
           .home-service-card-shell:hover,
+          .home-benefit-card-shell:hover,
           .home-stat-card-shell:hover,
+          .home-process-step-shell:hover,
+          .home-service-more-button:hover,
           .home-hero-button:hover {
-            transform: none;
+            transform: none !important;
           }
         }
+
       `}</style>
 
       <div className="flex flex-col bg-background">
 
-        {/* HERO SECTION */}
+        {/* ===============================================
+            HERO SECTION
+        =============================================== */}
+
         <section className="relative flex min-h-[700px] items-center overflow-hidden py-16 md:min-h-[760px] md:py-24">
 
           <div className="absolute inset-0 z-0 bg-white">
@@ -508,6 +633,8 @@ const HomePage = () => {
                   </span>
                 </p>
 
+                {/* HERO BUTTONS */}
+
                 <div className="mt-16 flex flex-col items-start gap-5 sm:flex-row sm:items-center md:mt-20 lg:mt-24">
 
                   <Link to="/contact" className="w-full sm:w-auto">
@@ -534,7 +661,10 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* SELECTED PLATFORM LOGOS MARQUEE */}
+        {/* ===============================================
+            SELECTED PLATFORM LOGOS MARQUEE
+        =============================================== */}
+
         <section
           className="relative z-10 w-full overflow-hidden border-0 bg-primary-lighter-bg/30 py-8 sm:py-9"
           aria-label="Platform logos"
@@ -620,7 +750,10 @@ const HomePage = () => {
           `}</style>
         </section>
 
-        {/* OUR APPROACH */}
+        {/* ===============================================
+            OUR APPROACH
+        =============================================== */}
+
         <section className="relative overflow-hidden border-0 bg-primary-lighter-bg/30 pb-16 pt-0">
 
           <div className="pointer-events-none absolute -right-1/3 -top-[150px] h-[600px] w-[600px] translate-y-0 rounded-full bg-[#A09E9D]/15 blur-[120px] md:top-0 md:-translate-y-1/2" />
@@ -662,7 +795,10 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* HIGH-IMPACT SERVICES */}
+        {/* ===============================================
+            HIGH-IMPACT SERVICES
+        =============================================== */}
+
         <section className="bg-background py-20 md:py-28">
 
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -681,7 +817,7 @@ const HomePage = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="home-card-grid grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 
               {featuredServices.map((service) => (
                 <div
@@ -697,7 +833,9 @@ const HomePage = () => {
                     handleFeaturedCardKeyDown(event, service.title)
                   }
                 >
-                  {/* IMAGE AT THE TOP */}
+
+                  {/* SERVICE IMAGE */}
+
                   <img
                     src={service.image}
                     alt={`${service.title} services`}
@@ -705,8 +843,11 @@ const HomePage = () => {
                     className="home-service-card-image"
                   />
 
-                  {/* LOGO BELOW IMAGE + CONTENT */}
-                  <div className="p-6">
+                  {/* SERVICE CONTENT */}
+
+                  <div className="flex flex-1 flex-col p-6">
+
+                    {/* GRAPH ICON AND SERVICE NAME */}
 
                     <div className="mb-4 flex items-center gap-3">
 
@@ -720,9 +861,13 @@ const HomePage = () => {
 
                     </div>
 
+                    {/* DESCRIPTION */}
+
                     <p className="mb-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
                       {service.description}
                     </p>
+
+                    {/* BENEFITS */}
 
                     <ul className="space-y-3">
                       {service.benefits.map((benefit) => (
@@ -736,11 +881,24 @@ const HomePage = () => {
                       ))}
                     </ul>
 
+                    {/* MORE INFORMATION BUTTON */}
+
+                    <Link
+                      to={getFeaturedServicePath(service.title)}
+                      className="home-service-more-button"
+                      aria-label={`For more information about ${service.title}`}
+                    >
+                      <span>For More Information</span>
+                      <ArrowRight />
+                    </Link>
+
                   </div>
                 </div>
               ))}
 
             </div>
+
+            {/* EXPLORE ALL SERVICES BUTTON */}
 
             <div className="mt-12 text-center md:mt-16">
               <Link to="/services">
@@ -757,10 +915,15 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* WHAT WE PROVIDE + STATISTICS */}
+        {/* ===============================================
+            WHAT WE PROVIDE + STATISTICS
+        =============================================== */}
+
         <section className="relative overflow-hidden bg-[#F7F7F7] py-20 md:py-28">
 
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+            {/* SECTION INTRODUCTION */}
 
             <div className="mb-12 text-center">
               <h2 className="mb-5 font-heading text-4xl font-extrabold tracking-tight text-primary-dark md:text-5xl">
@@ -775,7 +938,9 @@ const HomePage = () => {
               </p>
             </div>
 
-            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2">
+            {/* BENEFIT CARDS */}
+
+            <div className="home-card-grid mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2">
 
               <div className="home-benefit-card-shell">
                 <BenefitCard
@@ -816,7 +981,8 @@ const HomePage = () => {
             </div>
 
             {/* STATISTICS */}
-            <div className="mt-16 grid grid-cols-2 gap-4 sm:gap-6 lg:mt-24 lg:grid-cols-4 lg:gap-8">
+
+            <div className="home-card-grid mt-16 grid grid-cols-2 gap-4 sm:gap-6 lg:mt-24 lg:grid-cols-4 lg:gap-8">
 
               <div className="home-stat-card-shell">
                 <StatCard
@@ -878,7 +1044,10 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* MARKETPLACES */}
+        {/* ===============================================
+            MARKETPLACES
+        =============================================== */}
+
         <section className="border-y border-[#171313]/15 bg-primary-lighter-bg/30 py-24">
 
           <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
@@ -929,10 +1098,15 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* HOW WE WORK */}
+        {/* ===============================================
+            HOW WE WORK
+        =============================================== */}
+
         <section className="bg-background py-32">
 
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+            {/* SECTION INTRODUCTION */}
 
             <div className="mx-auto mb-20 max-w-3xl text-center">
               <h2 className="mb-6 font-heading text-4xl font-extrabold text-primary-dark md:text-5xl">
@@ -944,11 +1118,13 @@ const HomePage = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+            {/* PROCESS CARDS */}
+
+            <div className="home-card-grid grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
 
               {processSteps.map((step, index) => (
                 <div
-                  key={index}
+                  key={step.number}
                   className="home-process-step-shell"
                 >
                   <ProcessStep
@@ -963,7 +1139,10 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* BOTTOM CTA */}
+        {/* ===============================================
+            BOTTOM CTA
+        =============================================== */}
+
         <section className="relative overflow-hidden bg-primary-dark py-32">
 
           <picture className="absolute inset-0 z-0 block h-full w-full">

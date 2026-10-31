@@ -7,7 +7,7 @@ import { BRAND, getWhatsAppUrl } from '@/lib/brand.js';
 import { mainServices, mainServicePath } from '@/lib/services.js';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+  const currentYear = 2020;
 
   const quickLinks = [
     { name: 'Home', path: '/' },

@@ -33,7 +33,7 @@ const Header = () => {
   const location = useLocation();
   const ref = useRef(null);
 
-  // Transparent at the top on EVERY page.
+  // Transparent at the top on every page.
   // White background after scrolling.
   const isTransparent = !scrolled && !open && !mobile;
 
@@ -79,15 +79,8 @@ const Header = () => {
     document.addEventListener('keydown', handleEscape);
 
     return () => {
-      document.removeEventListener(
-        'mousedown',
-        handleOutsideClick
-      );
-
-      document.removeEventListener(
-        'keydown',
-        handleEscape
-      );
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('keydown', handleEscape);
     };
   }, []);
 
@@ -124,17 +117,19 @@ const Header = () => {
     );
   };
 
-  // Header background:
-  // Top of EVERY page = transparent.
-  // Scrolled = white.
-  // Menu open = white.
+  // Header background.
   const headerBackground = isTransparent
     ? 'bg-transparent border-transparent shadow-none backdrop-blur-0'
     : 'bg-white/95 border-[#171313]/10 shadow-sm backdrop-blur-xl';
 
+  // All header text is white while transparent and black on white.
+  const headerTextColor = isTransparent
+    ? 'text-white'
+    : 'text-[#171313]';
+
   const navTextColor = isTransparent
-    ? 'text-[#171313]/90 hover:text-[#DA0807]'
-    : 'text-[#171313]/80 hover:text-[#DA0807]';
+    ? 'text-white hover:text-white/75'
+    : 'text-[#171313] hover:text-[#DA0807]';
 
   return (
     <header
@@ -157,9 +152,21 @@ const Header = () => {
           >
             <Logo className="h-12 w-12 transition-transform duration-300 group-hover:scale-105" />
 
-            <span className="font-heading text-xl font-bold tracking-tight text-[#171313] sm:text-2xl">
+            <span
+              className={cn(
+                'font-heading text-xl font-bold tracking-tight transition-colors duration-300 sm:text-2xl',
+                headerTextColor
+              )}
+            >
               Raiwa
-              <span className="text-[#DA0807]">
+              <span
+                className={cn(
+                  'transition-colors duration-300',
+                  isTransparent
+                    ? 'text-white'
+                    : 'text-[#171313]'
+                )}
+              >
                 {' '}Technologies
               </span>
             </span>
@@ -174,10 +181,8 @@ const Header = () => {
             <Link
               to="/"
               className={cn(
-                'py-2 text-sm font-semibold transition-colors',
-                location.pathname === '/'
-                  ? 'text-[#DA0807]'
-                  : navTextColor
+                'py-2 text-sm font-semibold transition-colors duration-300',
+                navTextColor
               )}
             >
               Home
@@ -197,10 +202,8 @@ const Header = () => {
                 aria-haspopup="true"
                 onClick={toggleDesktopMenu}
                 className={cn(
-                  'inline-flex items-center gap-1.5 py-2 text-sm font-semibold transition-colors',
-                  location.pathname.startsWith('/services')
-                    ? 'text-[#DA0807]'
-                    : navTextColor
+                  'inline-flex items-center gap-1.5 py-2 text-sm font-semibold transition-colors duration-300',
+                  navTextColor
                 )}
               >
                 Services
@@ -396,10 +399,8 @@ const Header = () => {
                 key={link.name}
                 to={link.path}
                 className={cn(
-                  'py-2 text-sm font-semibold transition-colors',
-                  location.pathname === link.path
-                    ? 'text-[#DA0807]'
-                    : navTextColor
+                  'py-2 text-sm font-semibold transition-colors duration-300',
+                  navTextColor
                 )}
               >
                 {link.name}
@@ -425,7 +426,10 @@ const Header = () => {
               onClick={() => setMobile((previous) => !previous)}
               aria-label={mobile ? 'Close menu' : 'Open menu'}
               aria-expanded={mobile}
-              className="rounded-lg p-2 text-[#171313] transition-colors hover:bg-[#171313]/5"
+              className={cn(
+                'rounded-lg p-2 transition-colors hover:bg-white/10',
+                headerTextColor
+              )}
             >
               {mobile ? (
                 <X className="h-6 w-6" />
