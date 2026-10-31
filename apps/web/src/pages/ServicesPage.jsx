@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
@@ -388,27 +387,28 @@ const ServicesPage = () => {
       <style>{`
         /*
           Unified subtle card hover:
-          - No dark border on hover.
-          - Border keeps its original shade.
-          - 7% black shadow.
-          - Maximum 3px upward movement.
+          - Existing borders remain unchanged.
+          - No dark or black border appears on hover.
+          - Normal shadow: 2.5% black.
+          - Hover shadow: 7% black.
+          - Cards lift slightly by 3px.
         */
 
         .services-hover-card {
           height: 100%;
           min-width: 0;
-          transition: transform 280ms ease;
+          transition:
+            transform 280ms ease;
+          will-change: transform;
         }
 
         .services-hover-card > *,
         .services-hover-card .service-card {
-          border-color: rgba(23, 19, 19, 0.18) !important;
           box-shadow:
             0 3px 10px rgba(0, 0, 0, 0.025) !important;
           transition:
             transform 280ms ease,
-            box-shadow 280ms ease,
-            border-color 280ms ease !important;
+            box-shadow 280ms ease !important;
         }
 
         .services-hover-card:hover {
@@ -417,28 +417,26 @@ const ServicesPage = () => {
 
         .services-hover-card:hover > *,
         .services-hover-card:hover .service-card {
-          border-color: rgba(23, 19, 19, 0.18) !important;
           box-shadow:
             0 8px 22px rgba(0, 0, 0, 0.07) !important;
         }
 
-        /* Prevent nested card hover from creating a dark outline. */
+        /* Nested service cards keep the same subtle hover shadow. */
         .services-hover-card > *:hover,
         .services-hover-card .service-card:hover {
-          border-color: rgba(23, 19, 19, 0.18) !important;
           box-shadow:
             0 8px 22px rgba(0, 0, 0, 0.07) !important;
         }
 
-        /* FAQ rows and bordered accordion elements */
+        /* FAQ rows: subtle shadow without changing their original border. */
         .services-faq-hover-area [class*="border"] {
           transition:
-            box-shadow 280ms ease,
-            border-color 280ms ease;
+            transform 280ms ease,
+            box-shadow 280ms ease;
         }
 
         .services-faq-hover-area [class*="border"]:hover {
-          border-color: rgba(23, 19, 19, 0.18) !important;
+          transform: translateY(-3px);
           box-shadow:
             0 8px 22px rgba(0, 0, 0, 0.07) !important;
         }
@@ -446,11 +444,13 @@ const ServicesPage = () => {
         @media (prefers-reduced-motion: reduce) {
           .services-hover-card,
           .services-hover-card > *,
+          .services-hover-card .service-card,
           .services-faq-hover-area [class*="border"] {
             transition: none !important;
           }
 
-          .services-hover-card:hover {
+          .services-hover-card:hover,
+          .services-faq-hover-area [class*="border"]:hover {
             transform: none;
           }
         }

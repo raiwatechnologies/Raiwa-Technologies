@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
@@ -61,11 +60,16 @@ const ServiceCard = ({
         duration: 0.5,
         delay: index * 0.1,
       }}
-      // Homepage wrapper already handles its card movement.
+      // Standard cards lift by 3px.
+      // Homepage icon-only cards retain their wrapper's 3D movement.
       whileHover={
         iconOnly
           ? undefined
-          : { y: -3 }
+          : {
+              y: -3,
+              boxShadow: '0 8px 22px rgba(0, 0, 0, 0.07)',
+              borderColor: 'rgba(23, 19, 19, 0.18)',
+            }
       }
       className="service-card group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-[#FDFDFD] shadow-[0_3px_10px_rgba(0,0,0,0.025)] transition-shadow duration-300 hover:shadow-[0_8px_22px_rgba(0,0,0,0.07)]"
       style={{

@@ -399,15 +399,16 @@ const HomePage = () => {
           align-items: center;
           justify-content: center;
           gap: 10px;
-          margin-top: auto;
-          border: 1px solid rgba(23, 19, 19, 0.10);
+          margin-top: 20px;
+          border: 1px solid rgba(23, 19, 19, 0.07);
           border-radius: 9px;
-          background: #F1F1F1;
+          background: #F7F7F7;
           padding: 12px 18px;
           color: #171313;
           font-size: 14px;
           font-weight: 700;
           text-decoration: none;
+          position: relative;
           transition:
             background-color 220ms ease,
             border-color 220ms ease,
@@ -415,9 +416,21 @@ const HomePage = () => {
             transform 220ms ease;
         }
 
+        /* Subtle divider above the button */
+
+        .home-service-more-button::before {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 1px;
+          background: rgba(23, 19, 19, 0.12);
+          top: -11px;
+          left: 0;
+        }
+
         .home-service-more-button:hover {
-          background: #E5E5E5;
-          border-color: rgba(23, 19, 19, 0.20);
+          background: #F1F1F1;
+          border-color: rgba(23, 19, 19, 0.10);
           color: #171313;
           transform: translateY(-1px);
         }

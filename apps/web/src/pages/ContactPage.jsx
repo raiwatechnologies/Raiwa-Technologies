@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Mail, Phone, MapPin } from 'lucide-react';
@@ -20,18 +19,25 @@ const ContactPage = () => {
 
       {/* CONTACT PAGE CARD HOVER STYLING */}
       <style>{`
+        /*
+          Raiwa Technologies shared card hover standard:
+
+          - Preserve the original card border.
+          - Never add a dark or black border on hover.
+          - Normal shadow: 2.5% black.
+          - Hover shadow: 7% black.
+          - Smooth 3px upward movement.
+        */
+
         .contact-hover-card {
-          border: 1px solid rgba(23, 19, 19, 0.18) !important;
           box-shadow:
             0 3px 10px rgba(0, 0, 0, 0.025) !important;
           transition:
             transform 280ms ease,
-            box-shadow 280ms ease,
-            border-color 280ms ease !important;
+            box-shadow 280ms ease !important;
         }
 
         .contact-hover-card:hover {
-          border-color: rgba(23, 19, 19, 0.18) !important;
           box-shadow:
             0 8px 22px rgba(0, 0, 0, 0.07) !important;
           transform: translateY(-3px);

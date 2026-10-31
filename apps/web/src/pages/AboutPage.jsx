@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
@@ -85,11 +84,14 @@ const AboutPage = () => {
       {/* ABOUT PAGE CARD HOVER STYLING */}
       <style>{`
         /*
-          Consistent card hover effect:
-          - Keep the existing border shade.
-          - Never darken the border on hover.
-          - Use a subtle 7% black shadow.
-          - Apply only slight upward movement.
+          Raiwa Technologies shared card hover standard:
+
+          - Preserve each card's original border.
+          - Never add a dark or black border on hover.
+          - Normal shadow: 2.5% black.
+          - Hover shadow: 7% black.
+          - Smooth 3px upward movement.
+          - Preserve original card backgrounds and design.
         */
 
         .about-hover-card {
@@ -100,13 +102,10 @@ const AboutPage = () => {
 
         .about-hover-card > * {
           height: 100%;
-          border-color: rgba(23, 19, 19, 0.18) !important;
           box-shadow:
             0 3px 10px rgba(0, 0, 0, 0.025) !important;
           transition:
-            box-shadow 280ms ease,
-            border-color 280ms ease,
-            background-color 280ms ease;
+            box-shadow 280ms ease !important;
         }
 
         .about-hover-card:hover {
@@ -114,13 +113,6 @@ const AboutPage = () => {
         }
 
         .about-hover-card:hover > * {
-          border-color: rgba(23, 19, 19, 0.18) !important;
-          box-shadow:
-            0 8px 22px rgba(0, 0, 0, 0.07) !important;
-        }
-
-        .about-hover-card > *:hover {
-          border-color: rgba(23, 19, 19, 0.18) !important;
           box-shadow:
             0 8px 22px rgba(0, 0, 0, 0.07) !important;
         }

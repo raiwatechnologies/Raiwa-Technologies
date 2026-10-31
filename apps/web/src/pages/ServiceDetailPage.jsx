@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -31,27 +30,26 @@ const COLORS = {
 
 const CARD_HOVER_STYLES = `
   /*
-    Consistent Raiwa Technologies card hover:
+    Raiwa Technologies shared card hover standard:
 
-    Normal border remains unchanged.
-    No dark or black border on hover.
-    Only 7% black shadow.
-    Maximum 3px upward movement.
+    - Preserve each card's original border.
+    - Never add a dark or black border on hover.
+    - Normal shadow: 2.5% black.
+    - Hover shadow: 7% black.
+    - Smooth 3px upward movement.
+    - Preserve existing card backgrounds and content.
   */
 
   .detail-hover-card {
     height: 100%;
     min-width: 0;
-    border-color: rgba(23, 19, 19, 0.18) !important;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.025) !important;
     transition:
       transform 280ms ease,
-      box-shadow 280ms ease,
-      border-color 280ms ease !important;
+      box-shadow 280ms ease !important;
   }
 
   .detail-hover-card:hover {
-    border-color: rgba(23, 19, 19, 0.18) !important;
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07) !important;
     transform: translateY(-3px);
   }
@@ -61,15 +59,8 @@ const CARD_HOVER_STYLES = `
     outline-offset: 4px;
   }
 
-  .detail-hover-card * {
-    transition:
-      color 250ms ease,
-      background-color 250ms ease;
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .detail-hover-card,
-    .detail-hover-card * {
+    .detail-hover-card {
       transition: none !important;
     }
 
