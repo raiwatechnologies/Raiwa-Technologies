@@ -1,3 +1,4 @@
+
 import {
   Video,
   Tag,
@@ -507,6 +508,8 @@ export const mainServices = [
     accent: '#DA0807',
     description:
       'Run focused, measurable paid campaigns across search and social platforms with ongoing optimization.',
+    image: A + 'ads-theme-image.jpg',
+    themeImage: A + 'ads-theme-image.jpg',
     children: [
       'meta-ads',
       'google-ads',
@@ -520,6 +523,8 @@ export const mainServices = [
     accent: '#DA0807',
     description:
       'Keep websites, stores and business accounts organized, maintained and moving forward with reliable ongoing support.',
+    image: A + 'management-theme-image.jpg',
+    themeImage: A + 'management-theme-image.jpg',
     children: [
       'web-management',
       'account-management',

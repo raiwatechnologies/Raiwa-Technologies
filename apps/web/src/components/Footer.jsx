@@ -34,7 +34,11 @@ const Footer = () => {
         <div className="mb-12 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
             <Link to="/" className="group mb-6 inline-flex items-center gap-2">
-              <Logo className="h-12 w-12 transition-transform duration-300 group-hover:scale-105" />
+              <img
+  src="/logo-footer.png"
+  alt="Raiwa Technologies"
+  className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+/>
               <span className="font-heading text-2xl font-bold tracking-tight text-[#FDFDFD]">
                 Raiwa<span className="text-[#DA0807]"> Technologies</span>
               </span>
