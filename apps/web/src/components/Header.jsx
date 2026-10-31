@@ -122,9 +122,9 @@ const Header = () => {
     ? 'bg-transparent border-transparent shadow-none backdrop-blur-0'
     : 'bg-white border-[#171313]/10 shadow-sm backdrop-blur-xl';
 
-  const navTextColor = isTransparent
-    ? 'text-white hover:text-white/75'
-    : 'text-[#171313] hover:text-[#DA0807]';
+const navTextColor = isTransparent
+  ? 'text-[#171313] hover:text-[#DA0807] [text-shadow:0_1px_3px_rgba(255,255,255,0.85)]'
+  : 'text-[#171313] hover:text-[#DA0807]';
 
   const headerControlColor = isTransparent
     ? 'text-white'

@@ -228,32 +228,34 @@ const HomePage = () => {
      EXISTING LOGOS + 6 NEW PNG LOGOS
   ------------------------------------------------------- */
 
-  const additionalPlatformLogos = [
-    {
-      title: 'Android',
-      logoUrl: '/android-logo.png',
-    },
-    {
-      title: 'Apple',
-      logoUrl: '/apple-logo.png',
-    },
-    {
-      title: 'App Store',
-      logoUrl: '/appstore-logo.png',
-    },
-    {
-      title: 'iOS',
-      logoUrl: '/ios-logo.png',
-    },
-    {
-      title: 'Play Store',
-      logoUrl: '/playstore-logo.png',
-    },
-    {
-      title: 'Unity',
-      logoUrl: '/unity-logo.png',
-    },
-  ];
+
+const additionalPlatformLogos = [
+  {
+    title: 'Android',
+    logoUrl: '/service-assets/android-logo.png',
+  },
+  {
+    title: 'Apple',
+    logoUrl: '/service-assets/apple-logo.png',
+  },
+  {
+    title: 'App Store',
+    logoUrl: '/service-assets/appstore-logo.png',
+  },
+  {
+    title: 'iOS',
+    logoUrl: '/service-assets/ios-logo.png',
+  },
+  {
+    title: 'Play Store',
+    logoUrl: '/service-assets/playstore-logo.png',
+  },
+  {
+    title: 'Unity',
+    logoUrl: '/service-assets/unity-logo.png',
+  },
+];
+
 
   const selectedPlatformSlugs = [
     'tiktok-shop',

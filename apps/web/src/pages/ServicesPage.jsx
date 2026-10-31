@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
@@ -10,7 +11,6 @@ import {
   Target,
   Lightbulb,
   Settings,
-  Rocket,
   ShoppingBag,
   ShoppingCart,
   Store,
@@ -29,7 +29,6 @@ import {
 
 import ServiceCard from '@/components/ServiceCard.jsx';
 import BenefitCard from '@/components/BenefitCard.jsx';
-import ProcessStep from '@/components/ProcessStep.jsx';
 import FAQSection from '@/components/FAQSection.jsx';
 import { Button } from '@/components/ui/button.jsx';
 import { Link } from 'react-router-dom';
@@ -295,37 +294,6 @@ const serviceCategories = [
         ],
       },
     ],
-  },
-];
-
-const processSteps = [
-  {
-    number: '1',
-    icon: Lightbulb,
-    title: 'Discovery & Analysis',
-    description:
-      'We learn about your business, products and goals, and review your current setup to find the biggest opportunities.',
-  },
-  {
-    number: '2',
-    icon: Settings,
-    title: 'Strategy Development',
-    description:
-      'We create a clear, tailored plan for the platforms and channels that will work best for your brand.',
-  },
-  {
-    number: '3',
-    icon: Rocket,
-    title: 'Implementation',
-    description:
-      'Our team handles setup, development, listings and campaigns with careful attention to every detail.',
-  },
-  {
-    number: '4',
-    icon: TrendingUp,
-    title: 'Optimization & Reporting',
-    description:
-      'We keep improving what works and share transparent reports so you always know where you stand.',
   },
 ];
 
@@ -669,42 +637,6 @@ const ServicesPage = () => {
                   index={2}
                 />
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* OUR PROCESS */}
-        <section className="bg-[#FDFDFD] py-20 md:py-28">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-            <div className="mx-auto mb-16 max-w-3xl text-center md:mb-20">
-              <span className="mb-4 inline-block text-sm font-bold uppercase tracking-[0.2em] text-[#DA0807]">
-                How We Work
-              </span>
-
-              <h2 className="mb-5 font-heading text-3xl font-extrabold tracking-tight text-[#171313] sm:text-4xl md:text-5xl">
-                Our Proven <span className="text-[#DA0807]">Process</span>
-              </h2>
-
-              <p className="text-base leading-relaxed text-[#66615F] sm:text-lg">
-                A simple, systematic approach that takes you from first
-                conversation to measurable growth.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-              {processSteps.map((step, index) => (
-                <div
-                  key={step.number}
-                  className="services-hover-card"
-                >
-                  <ProcessStep
-                    {...step}
-                    isLast={index === processSteps.length - 1}
-                    index={index}
-                  />
-                </div>
-              ))}
             </div>
           </div>
         </section>
