@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link, useNavigate } from 'react-router-dom';
@@ -113,7 +112,8 @@ const AnimatedCounter = ({
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [activeProcessTab, setActiveProcessTab] = React.useState('startup');
+  const [activeProcessTab, setActiveProcessTab] =
+    React.useState('startup');
 
   /* -------------------------------------------------------
      FEATURED SERVICES - ALL SIX MAIN CATEGORIES
@@ -172,6 +172,97 @@ const HomePage = () => {
         '',
     };
   });
+
+  /* -------------------------------------------------------
+     ABOUT OUR SERVICES - DETAILED SERVICE CONTENT
+  ------------------------------------------------------- */
+
+  const aboutServiceDetails = [
+    {
+      slug: 'ecommerce',
+      title: 'Ecommerce Solutions',
+      description:
+        'We help businesses launch, manage and grow their ecommerce operations across leading marketplaces with reliable account management and performance-focused strategies.',
+      coverage: [
+        'Marketplace store setup and configuration.',
+        'Product listings and catalogue optimization.',
+        'Account health and policy compliance.',
+        'Inventory, orders and store operations.',
+        'Marketplace growth and performance monitoring.',
+        'Amazon, eBay, Walmart, Shopify and more.',
+      ],
+    },
+    {
+      slug: 'marketing',
+      title: 'Digital Marketing',
+      description:
+        'We build effective digital marketing strategies that strengthen your online presence, reach the right audience and create sustainable brand growth.',
+      coverage: [
+        'Digital marketing strategy and planning.',
+        'Social media marketing and management.',
+        'Search Engine Optimization (SEO).',
+        'Content strategy and audience growth.',
+        'Marketing automation solutions.',
+        'Brand awareness and online visibility.',
+      ],
+    },
+    {
+      slug: 'development',
+      title: 'Development Solutions',
+      description:
+        'From websites and mobile applications to games and graphic design, we develop digital experiences that turn ideas into practical, scalable products.',
+      coverage: [
+        'Custom website development.',
+        'Android and iOS application development.',
+        'Game development and interactive experiences.',
+        'UI/UX and graphics designing.',
+        'Custom features and system integrations.',
+        'Performance optimization and maintenance.',
+      ],
+    },
+    {
+      slug: 'ads',
+      title: 'Advertising Solutions',
+      description:
+        'We create and optimize targeted advertising campaigns across Google and Meta platforms to help businesses reach potential customers and improve campaign performance.',
+      coverage: [
+        'Google Search and Display advertising.',
+        'Meta Facebook and Instagram Ads.',
+        'Campaign strategy and audience targeting.',
+        'Retargeting and conversion tracking.',
+        'Ad creative and campaign optimization.',
+        'Performance monitoring and reporting.',
+      ],
+    },
+    {
+      slug: 'management',
+      title: 'Business Management',
+      description:
+        'We simplify everyday business operations through structured account management, operational support and performance monitoring so you can focus on growth.',
+      coverage: [
+        'Ecommerce account management.',
+        'Store and operational management.',
+        'Product and order coordination.',
+        'Account health monitoring and support.',
+        'Performance tracking and reporting.',
+        'Workflow optimization and operational support.',
+      ],
+    },
+    {
+      slug: 'branding-and-creative',
+      title: 'Branding & Creative',
+      description:
+        'We create consistent and professional brand identities through strategic visual design and creative assets that help businesses communicate their value.',
+      coverage: [
+        'Brand identity and visual direction.',
+        'Logo and graphic design.',
+        'Social media creative designs.',
+        'Marketing and advertising visuals.',
+        'Product graphics and promotional assets.',
+        'Consistent branding across digital platforms.',
+      ],
+    },
+  ];
 
   /* -------------------------------------------------------
      SERVICE PAGE ROUTING
@@ -597,6 +688,448 @@ const HomePage = () => {
         }
 
         /* ================================================
+           ABOUT OUR SERVICES - PREMIUM SECTION
+        ================================================ */
+
+        .home-about-services-section {
+          position: relative;
+          overflow: hidden;
+          padding: 90px 0;
+          background: #FFFFFF;
+        }
+
+        .home-about-services-heading {
+          max-width: 750px;
+          margin: 0 auto 75px;
+          text-align: center;
+        }
+
+        .home-about-services-heading h2 {
+          margin-bottom: 16px;
+          color: #171313;
+          font-size: clamp(32px, 4vw, 48px);
+          font-weight: 850;
+          line-height: 1.2;
+          letter-spacing: -0.035em;
+        }
+
+        .home-about-services-heading h2 span {
+          color: #DA0807;
+        }
+
+        .home-about-services-heading p {
+          max-width: 620px;
+          margin: 0 auto;
+          color: #777777;
+          font-size: 16px;
+          line-height: 1.8;
+        }
+
+        .home-about-services-line {
+          width: 65px;
+          height: 4px;
+          margin: 22px auto;
+          border-radius: 20px;
+          background: #DA0807;
+        }
+
+        /* SERVICE ROWS */
+
+        .home-about-service-list {
+          display: flex;
+          flex-direction: column;
+          gap: 75px;
+        }
+
+        .home-about-service-row {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          align-items: center;
+          gap: 65px;
+          min-width: 0;
+        }
+
+        .home-about-service-row:not(:last-child) {
+          padding-bottom: 70px;
+          border-bottom: 1px solid rgba(23, 19, 19, 0.09);
+        }
+
+        /* ALTERNATING IMAGE POSITION */
+
+        .home-about-service-row.is-reversed
+        .home-about-service-media {
+          order: 2;
+        }
+
+        .home-about-service-row.is-reversed
+        .home-about-service-content {
+          order: 1;
+        }
+
+        /* IMAGE PLACEHOLDER */
+
+        .home-about-service-media {
+          position: relative;
+          display: flex;
+          min-width: 0;
+          min-height: 350px;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          border: 1px dashed rgba(23, 19, 19, 0.20);
+          border-radius: 22px;
+
+          background:
+            radial-gradient(
+              circle at 85% 15%,
+              rgba(218, 8, 7, 0.10),
+              transparent 35%
+            ),
+            radial-gradient(
+              circle at 10% 90%,
+              rgba(218, 8, 7, 0.06),
+              transparent 35%
+            ),
+            #F7F7F7;
+
+          box-shadow:
+            0 8px 28px rgba(23, 19, 19, 0.045);
+
+          transition:
+            transform 400ms ease,
+            box-shadow 400ms ease;
+        }
+
+        .home-about-service-media:hover {
+          transform: translateY(-5px);
+          box-shadow:
+            0 16px 35px rgba(23, 19, 19, 0.09);
+        }
+
+        .home-about-service-media::before,
+        .home-about-service-media::after {
+          position: absolute;
+          content: "";
+          border: 1px solid rgba(218, 8, 7, 0.12);
+          border-radius: 50%;
+          pointer-events: none;
+        }
+
+        .home-about-service-media::before {
+          top: -100px;
+          right: -75px;
+          width: 250px;
+          height: 250px;
+        }
+
+        .home-about-service-media::after {
+          bottom: -100px;
+          left: -75px;
+          width: 220px;
+          height: 220px;
+        }
+
+        .home-about-image-placeholder-content {
+          position: relative;
+          z-index: 1;
+          max-width: 300px;
+          padding: 25px;
+          text-align: center;
+        }
+
+        .home-about-image-placeholder-label {
+          display: inline-flex;
+          margin-bottom: 15px;
+          padding: 8px 15px;
+          border: 1px solid rgba(218, 8, 7, 0.18);
+          border-radius: 30px;
+          background: rgba(218, 8, 7, 0.07);
+          color: #DA0807;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.12em;
+        }
+
+        .home-about-image-placeholder-content h3 {
+          margin-bottom: 9px;
+          color: #171313;
+          font-size: 21px;
+          font-weight: 800;
+        }
+
+        .home-about-image-placeholder-content p {
+          margin: 0;
+          color: #858585;
+          font-size: 13px;
+          line-height: 1.7;
+        }
+
+        /* SERVICE CONTENT */
+
+        .home-about-service-content {
+          min-width: 0;
+        }
+
+        .home-about-service-eyebrow {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 17px;
+          color: #DA0807;
+          font-size: 11px;
+          font-weight: 850;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+        }
+
+        .home-about-service-eyebrow::before {
+          width: 27px;
+          height: 2px;
+          background: #DA0807;
+          content: "";
+        }
+
+        .home-about-service-content h3 {
+          margin-bottom: 17px;
+          color: #171313;
+          font-size: clamp(25px, 3vw, 34px);
+          font-weight: 850;
+          line-height: 1.25;
+          letter-spacing: -0.025em;
+        }
+
+        .home-about-service-description {
+          margin-bottom: 25px;
+          color: #696969;
+          font-size: 15px;
+          line-height: 1.85;
+        }
+
+        /* COVERAGE LIST */
+
+        .home-about-service-list-heading {
+          margin-bottom: 15px;
+          color: #171313;
+          font-size: 12px;
+          font-weight: 850;
+          letter-spacing: 0.10em;
+          text-transform: uppercase;
+        }
+
+        .home-about-service-points {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 13px 18px;
+          margin: 0 0 30px;
+          padding: 0;
+          list-style: none;
+        }
+
+        .home-about-service-point {
+          display: flex;
+          min-width: 0;
+          align-items: flex-start;
+          gap: 10px;
+          color: #626262;
+          font-size: 13px;
+          font-weight: 500;
+          line-height: 1.6;
+        }
+
+        .home-about-point-mark {
+          display: inline-flex;
+          flex: 0 0 19px;
+          width: 19px;
+          height: 19px;
+          align-items: center;
+          justify-content: center;
+          margin-top: 1px;
+          border-radius: 50%;
+          background: #DA0807;
+          color: #FFFFFF;
+          font-size: 11px;
+          font-weight: 900;
+        }
+
+        /* SERVICE BUTTONS */
+
+        .home-about-service-actions {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 13px;
+        }
+
+        .home-about-book-link {
+          display: inline-flex;
+          text-decoration: none;
+        }
+
+        .home-about-book-button {
+          height: 53px !important;
+          padding: 0 24px !important;
+          border: 1px solid #DA0807 !important;
+          border-radius: 11px !important;
+          background: #DA0807 !important;
+          color: #FFFFFF !important;
+          font-size: 14px !important;
+          font-weight: 750 !important;
+          box-shadow: 0 5px 15px rgba(218, 8, 7, 0.15) !important;
+          transition:
+            transform 250ms ease,
+            background-color 250ms ease,
+            box-shadow 250ms ease !important;
+        }
+
+        .home-about-book-button:hover {
+          transform: translateY(-4px);
+          background: #B80707 !important;
+          box-shadow: 0 10px 22px rgba(218, 8, 7, 0.25) !important;
+        }
+
+        .home-about-learn-button {
+          display: inline-flex;
+          min-height: 53px;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: 0 23px;
+          border: 1px solid rgba(23, 19, 19, 0.10);
+          border-radius: 11px;
+          background: #FFFFFF;
+          color: #171313;
+          font-size: 14px;
+          font-weight: 700;
+          text-decoration: none;
+          box-shadow: 0 4px 13px rgba(23, 19, 19, 0.06);
+          transition:
+            transform 250ms ease,
+            color 250ms ease,
+            border-color 250ms ease,
+            box-shadow 250ms ease;
+        }
+
+        .home-about-learn-button svg {
+          width: 17px;
+          height: 17px;
+          transition: transform 250ms ease;
+        }
+
+        .home-about-learn-button:hover {
+          transform: translateY(-4px);
+          border-color: #DA0807;
+          color: #DA0807;
+          box-shadow: 0 9px 20px rgba(23, 19, 19, 0.09);
+        }
+
+        .home-about-learn-button:hover svg {
+          transform: translateX(5px);
+        }
+
+        .home-about-book-button:focus-visible,
+        .home-about-learn-button:focus-visible {
+          outline: 3px solid rgba(218, 8, 7, 0.35);
+          outline-offset: 4px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+          .home-about-service-row {
+            gap: 35px;
+          }
+
+          .home-about-service-media {
+            min-height: 310px;
+          }
+
+          .home-about-service-points {
+            grid-template-columns: 1fr;
+            gap: 11px;
+          }
+        }
+
+        @media (max-width: 767px) {
+          .home-about-services-section {
+            padding: 65px 0;
+          }
+
+          .home-about-services-heading {
+            margin-bottom: 48px;
+          }
+
+          .home-about-service-list {
+            gap: 45px;
+          }
+
+          .home-about-service-row {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 25px;
+            padding-bottom: 42px !important;
+          }
+
+          .home-about-service-row .home-about-service-media,
+          .home-about-service-row.is-reversed .home-about-service-media {
+            order: 1;
+            min-height: 280px;
+          }
+
+          .home-about-service-row .home-about-service-content,
+          .home-about-service-row.is-reversed .home-about-service-content {
+            order: 2;
+          }
+
+          .home-about-service-content h3 {
+            font-size: 27px;
+          }
+
+          .home-about-service-points {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+
+        @media (max-width: 480px) {
+          .home-about-services-heading h2 {
+            font-size: 32px;
+          }
+
+          .home-about-services-heading p {
+            font-size: 14px;
+          }
+
+          .home-about-service-media {
+            min-height: 235px !important;
+            border-radius: 16px;
+          }
+
+          .home-about-service-content h3 {
+            font-size: 25px;
+          }
+
+          .home-about-service-description {
+            font-size: 14px;
+          }
+
+          .home-about-service-points {
+            grid-template-columns: 1fr;
+          }
+
+          .home-about-service-actions {
+            align-items: stretch;
+            flex-direction: column;
+          }
+
+          .home-about-book-link {
+            width: 100%;
+          }
+
+          .home-about-book-button,
+          .home-about-learn-button {
+            width: 100%;
+          }
+        }
+
+        /* ================================================
            HOW WE WORK - TWO BUSINESS PROCESS TABS
         ================================================ */
 
@@ -1016,7 +1549,11 @@ const HomePage = () => {
           .home-process-tab,
           .home-process-item,
           .home-stat-card-shell > *,
-          .home-hero-button {
+          .home-hero-button,
+          .home-about-service-media,
+          .home-about-book-button,
+          .home-about-learn-button,
+          .home-about-learn-button svg {
             transition: none !important;
           }
 
@@ -1024,7 +1561,10 @@ const HomePage = () => {
           .home-benefit-feature:hover,
           .home-stat-card-shell:hover,
           .home-process-item:hover,
-          .home-hero-button:hover {
+          .home-hero-button:hover,
+          .home-about-service-media:hover,
+          .home-about-book-button:hover,
+          .home-about-learn-button:hover {
             transform: none !important;
           }
         }
@@ -1238,6 +1778,197 @@ const HomePage = () => {
             </div>
 
           </div>
+        </section>
+
+        {/* ===============================================
+            ABOUT OUR SERVICES - SIX MAIN SERVICES
+        =============================================== */}
+
+        <section className="home-about-services-section">
+
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+            {/* SECTION HEADING */}
+
+            <motion.div
+              className="home-about-services-heading"
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.65 }}
+            >
+
+              <h2>
+                About Our{' '}
+                <span>Services</span>
+              </h2>
+
+              <div className="home-about-services-line" />
+
+              <p>
+                Explore our complete range of digital solutions.
+                From building your brand to managing operations,
+                we provide the expertise and support your business
+                needs to move forward.
+              </p>
+
+            </motion.div>
+
+            {/* SIX MAIN SERVICE SECTIONS */}
+
+            <div className="home-about-service-list">
+
+              {aboutServiceDetails.map((service, index) => {
+
+                const mainService = mainServices.find(
+                  (item) => item.slug === service.slug
+                );
+
+                const learnMorePath = mainService
+                  ? mainServicePath(mainService)
+                  : '/services';
+
+                return (
+
+                  <motion.article
+                    key={service.slug}
+                    className={`home-about-service-row ${
+                      index % 2 !== 0 ? 'is-reversed' : ''
+                    }`}
+
+                    initial={{ opacity: 0, y: 45 }}
+
+                    whileInView={{ opacity: 1, y: 0 }}
+
+                    viewport={{
+                      once: true,
+                      amount: 0.15,
+                    }}
+
+                    transition={{
+                      duration: 0.7,
+                      delay: 0.08,
+                      ease: 'easeOut',
+                    }}
+                  >
+
+                    {/* IMAGE PLACEHOLDER */}
+
+                    <div
+                      className="home-about-service-media"
+                      role="img"
+                      aria-label={`${service.title} image placeholder`}
+                    >
+
+                      <div className="home-about-image-placeholder-content">
+
+                        <span className="home-about-image-placeholder-label">
+                          IMAGE PLACEHOLDER · 0{index + 1}
+                        </span>
+
+                        <h3>{service.title}</h3>
+
+                        <p>
+                          Add your dedicated {service.title.toLowerCase()}
+                          image here.
+                        </p>
+
+                      </div>
+
+                    </div>
+
+                    {/* SERVICE INFORMATION */}
+
+                    <div className="home-about-service-content">
+
+                      <div className="home-about-service-eyebrow">
+                        OUR SERVICES / 0{index + 1}
+                      </div>
+
+                      <h3>
+                        {service.title}
+                      </h3>
+
+                      <p className="home-about-service-description">
+                        {service.description}
+                      </p>
+
+                      {/* SERVICE COVERAGE */}
+
+                      <h4 className="home-about-service-list-heading">
+                        What We Cover
+                      </h4>
+
+                      <ul className="home-about-service-points">
+
+                        {service.coverage.map((point) => (
+
+                          <li
+                            key={point}
+                            className="home-about-service-point"
+                          >
+
+                            <span
+                              className="home-about-point-mark"
+                              aria-hidden="true"
+                            >
+                              ✓
+                            </span>
+
+                            <span>{point}</span>
+
+                          </li>
+
+                        ))}
+
+                      </ul>
+
+                      {/* ACTION BUTTONS */}
+
+                      <div className="home-about-service-actions">
+
+                        <Link
+                          to="/contact"
+                          className="home-about-book-link"
+                        >
+
+                          <Button
+                            size="lg"
+                            className="home-about-book-button"
+                          >
+                            Book Consultation
+
+                            <ArrowRight className="ml-2 h-4 w-4" />
+
+                          </Button>
+
+                        </Link>
+
+                        <Link
+                          to={learnMorePath}
+                          className="home-about-learn-button"
+                        >
+
+                          Learn More
+
+                          <ArrowRight />
+
+                        </Link>
+
+                      </div>
+
+                    </div>
+
+                  </motion.article>
+
+                );
+
+              })}
+
+            </div>
+
+          </div>
+
         </section>
 
         {/* ===============================================
