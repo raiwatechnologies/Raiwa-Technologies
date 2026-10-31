@@ -23,9 +23,12 @@ import {
 const Header = () => {
   const [mobile, setMobile] = useState(false);
   const [open, setOpen] = useState(false);
+  const [headerHovered, setHeaderHovered] = useState(false);
+
   const [scrolled, setScrolled] = useState(
     typeof window !== 'undefined' ? window.scrollY > 40 : false
   );
+
   const [active, setActive] = useState(
     mainServices[0]?.slug || ''
   );
@@ -33,9 +36,12 @@ const Header = () => {
   const location = useLocation();
   const ref = useRef(null);
 
-  // Transparent at the top on every page.
-  // White background after scrolling.
-  const isTransparent = !scrolled && !open && !mobile;
+  // Header becomes white when scrolling, opening a menu,
+  // or moving the cursor over the header.
+  const isSolid =
+    scrolled || open || mobile || headerHovered;
+
+  const isTransparent = !isSolid;
 
   // Detect scrolling on every route.
   useEffect(() => {
@@ -58,6 +64,7 @@ const Header = () => {
   useEffect(() => {
     setMobile(false);
     setOpen(false);
+    setHeaderHovered(false);
   }, [location.pathname]);
 
   // Close menus when clicking outside or pressing Escape.
@@ -117,22 +124,24 @@ const Header = () => {
     );
   };
 
-  // Header background.
+  // Transparent state: white navigation text.
+  // Solid state: black navigation text.
   const headerBackground = isTransparent
     ? 'bg-transparent border-transparent shadow-none backdrop-blur-0'
-    : 'bg-white/95 border-[#171313]/10 shadow-sm backdrop-blur-xl';
-
-  // All header text is white while transparent and black on white.
-  const headerTextColor = isTransparent
-    ? 'text-white'
-    : 'text-[#171313]';
+    : 'bg-white border-[#171313]/10 shadow-sm backdrop-blur-xl';
 
   const navTextColor = isTransparent
     ? 'text-white hover:text-white/75'
     : 'text-[#171313] hover:text-[#DA0807]';
 
+  const headerControlColor = isTransparent
+    ? 'text-white'
+    : 'text-[#171313]';
+
   return (
     <header
+      onMouseEnter={() => setHeaderHovered(true)}
+      onMouseLeave={() => setHeaderHovered(false)}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 w-full border-b',
         'transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-in-out',
@@ -152,21 +161,13 @@ const Header = () => {
           >
             <Logo className="h-12 w-12 transition-transform duration-300 group-hover:scale-105" />
 
-            <span
-              className={cn(
-                'font-heading text-xl font-bold tracking-tight transition-colors duration-300 sm:text-2xl',
-                headerTextColor
-              )}
-            >
-              Raiwa
-              <span
-                className={cn(
-                  'transition-colors duration-300',
-                  isTransparent
-                    ? 'text-white'
-                    : 'text-[#171313]'
-                )}
-              >
+            {/* BRAND COLORS ALWAYS REMAIN THE SAME */}
+            <span className="font-heading text-xl font-bold tracking-tight sm:text-2xl">
+              <span className="text-[#DA0807]">
+                Raiwa
+              </span>
+
+              <span className="text-[#171313]">
                 {' '}Technologies
               </span>
             </span>
@@ -428,7 +429,7 @@ const Header = () => {
               aria-expanded={mobile}
               className={cn(
                 'rounded-lg p-2 transition-colors hover:bg-white/10',
-                headerTextColor
+                headerControlColor
               )}
             >
               {mobile ? (

@@ -176,7 +176,7 @@ const HomePage = () => {
       title: 'Marketing',
       image: '/service-assets/marketing-theme-image.jpg',
       description:
-        'Build brand awareness, attract the right audience and grow your business through digital marketing, SEO and intelligent automation.',
+        'Build brand awareness, attract audience and grow your business via digital marketing, SEO and intelligent automation.',
       benefits: [
         'Digital & Social Media Marketing',
         'SEO Optimization',
