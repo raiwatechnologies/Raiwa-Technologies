@@ -14,6 +14,7 @@ import {
   Lightbulb,
   Settings,
   Rocket,
+  TrendingUp,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button.jsx';
@@ -39,63 +40,68 @@ const AnimatedCounter = ({
   duration = 1800,
 }) => {
   const [value, setValue] = React.useState(0);
+  const [isVisible, setIsVisible] = React.useState(false);
   const counterRef = React.useRef(null);
 
+  // Observe the counter so it animates only while its section is visible.
   React.useEffect(() => {
     const element = counterRef.current;
-    if (!element) return;
-
-    let animationFrame;
-    let started = false;
+    if (!element) return undefined;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting || started) return;
-
-        started = true;
-        observer.disconnect();
-
-        const reduceMotion = window.matchMedia(
-          '(prefers-reduced-motion: reduce)'
-        ).matches;
-
-        if (reduceMotion) {
-          setValue(target);
-          return;
-        }
-
-        const startTime = performance.now();
-
-        const animate = (now) => {
-          const progress = Math.min(
-            (now - startTime) / duration,
-            1
-          );
-
-          const easedProgress = 1 - Math.pow(1 - progress, 3);
-
-          setValue(Math.round(target * easedProgress));
-
-          if (progress < 1) {
-            animationFrame = requestAnimationFrame(animate);
-          }
-        };
-
-        animationFrame = requestAnimationFrame(animate);
-      },
+      ([entry]) => setIsVisible(entry.isIntersecting),
       { threshold: 0.3 }
     );
 
     observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  // Replay the count-up animation every six seconds while visible.
+  React.useEffect(() => {
+    if (!isVisible) return undefined;
+
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (reduceMotion) {
+      setValue(target);
+      return undefined;
+    }
+
+    let animationFrame = null;
+    let restartTimer = null;
+    let cancelled = false;
+
+    const runAnimation = () => {
+      setValue(0);
+      const startTime = performance.now();
+
+      const animate = (now) => {
+        if (cancelled) return;
+
+        const progress = Math.min((now - startTime) / duration, 1);
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+        setValue(Math.round(target * easedProgress));
+
+        if (progress < 1) {
+          animationFrame = requestAnimationFrame(animate);
+        }
+      };
+
+      animationFrame = requestAnimationFrame(animate);
+      restartTimer = window.setTimeout(runAnimation, 6000);
+    };
+
+    runAnimation();
 
     return () => {
-      observer.disconnect();
-
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
+      cancelled = true;
+      if (animationFrame !== null) cancelAnimationFrame(animationFrame);
+      if (restartTimer !== null) window.clearTimeout(restartTimer);
     };
-  }, [target, duration]);
+  }, [isVisible, target, duration]);
 
   return (
     <span ref={counterRef}>
@@ -112,8 +118,7 @@ const AnimatedCounter = ({
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [activeProcessTab, setActiveProcessTab] =
-    React.useState('startup');
+  const [showAllServices, setShowAllServices] = React.useState(false);
 
   /* -------------------------------------------------------
      FEATURED SERVICES - ALL SIX MAIN CATEGORIES
@@ -181,6 +186,7 @@ const HomePage = () => {
     {
       slug: 'ecommerce',
       title: 'Ecommerce Solutions',
+      image: '/service-assets/ecommerce-solutions.png',
       description:
         'We help businesses launch, manage and grow their ecommerce operations across leading marketplaces with reliable account management and performance-focused strategies.',
       coverage: [
@@ -194,7 +200,8 @@ const HomePage = () => {
     },
     {
       slug: 'marketing',
-      title: 'Digital Marketing',
+      title: 'Marketing Solutions',
+      image: '/service-assets/marketing-solutions.png',
       description:
         'We build effective digital marketing strategies that strengthen your online presence, reach the right audience and create sustainable brand growth.',
       coverage: [
@@ -209,6 +216,7 @@ const HomePage = () => {
     {
       slug: 'development',
       title: 'Development Solutions',
+      image: '/service-assets/development-solutions.png',
       description:
         'From websites and mobile applications to games and graphic design, we develop digital experiences that turn ideas into practical, scalable products.',
       coverage: [
@@ -223,6 +231,7 @@ const HomePage = () => {
     {
       slug: 'ads',
       title: 'Advertising Solutions',
+      image: '/service-assets/advertising-solutions.png',
       description:
         'We create and optimize targeted advertising campaigns across Google and Meta platforms to help businesses reach potential customers and improve campaign performance.',
       coverage: [
@@ -237,6 +246,7 @@ const HomePage = () => {
     {
       slug: 'management',
       title: 'Business Management',
+      image: '/service-assets/business-management.png',
       description:
         'We simplify everyday business operations through structured account management, operational support and performance monitoring so you can focus on growth.',
       coverage: [
@@ -251,6 +261,7 @@ const HomePage = () => {
     {
       slug: 'branding-and-creative',
       title: 'Branding & Creative',
+      image: '/service-assets/branding-creative.png',
       description:
         'We create consistent and professional brand identities through strategic visual design and creative assets that help businesses communicate their value.',
       coverage: [
@@ -411,79 +422,39 @@ const HomePage = () => {
   ];
 
   /* -------------------------------------------------------
-     HOW WE WORK - STARTUP & ENTERPRISE PROCESSES
+     HOW WE GROW YOUR BUSINESS - FOUR SIMPLE STEPS
   ------------------------------------------------------- */
 
-  const workProcessTabs = {
-    startup: {
-      label: 'Startup Product Development',
-      steps: [
-        {
-          number: '1',
-          icon: Lightbulb,
-          title: 'Discovery Call',
-          description:
-            'We discuss your product idea, business goals, target users, market opportunity and key requirements to define the right product direction.',
-        },
-        {
-          number: '2',
-          icon: Target,
-          title: 'MVP Planning',
-          description:
-            'We prioritize core MVP features, define the product roadmap, select the right technology stack and build a practical development plan.',
-        },
-        {
-          number: '3',
-          icon: Settings,
-          title: 'Design & Development',
-          description:
-            'We shape the user experience and build your product in focused stages, keeping you involved through regular updates and reviews.',
-        },
-        {
-          number: '4',
-          icon: Rocket,
-          title: 'Testing & Launch',
-          description:
-            'We test key features, refine the experience and prepare your product for launch, then help you plan the next improvements.',
-        },
-      ],
+  const growthSteps = [
+    {
+      number: '1',
+      icon: Lightbulb,
+      title: 'Discover',
+      description:
+        'We learn your products, goals and market so we know exactly where the biggest opportunities are.',
     },
-    enterprise: {
-      label: 'Enterprise Software Solutions',
-      steps: [
-        {
-          number: '1',
-          icon: Users,
-          title: 'Business & Requirements Analysis',
-          description:
-            'We work with your stakeholders to understand business workflows, operational challenges, system requirements and project priorities.',
-        },
-        {
-          number: '2',
-          icon: Target,
-          title: 'Solution Architecture',
-          description:
-            'We define the system architecture, integrations, technology stack and delivery roadmap around your organization’s needs.',
-        },
-        {
-          number: '3',
-          icon: Settings,
-          title: 'Development & Integration',
-          description:
-            'We build and configure the solution, connect required systems and keep implementation aligned with your teams and workflows.',
-        },
-        {
-          number: '4',
-          icon: Award,
-          title: 'Quality, Deployment & Support',
-          description:
-            'We validate functionality, coordinate deployment and provide ongoing improvements and support as your business requirements evolve.',
-        },
-      ],
+    {
+      number: '2',
+      icon: Settings,
+      title: 'Plan',
+      description:
+        'We build a clear, practical roadmap for your store, platform and marketing channels.',
     },
-  };
-
-  const activeWorkProcess = workProcessTabs[activeProcessTab];
+    {
+      number: '3',
+      icon: Rocket,
+      title: 'Launch',
+      description:
+        'Our team sets up, optimizes and launches, handling the details so nothing slips through.',
+    },
+    {
+      number: '4',
+      icon: TrendingUp,
+      title: 'Scale',
+      description:
+        'We track results, improve what works and scale your growth with transparent reporting.',
+    },
+  ];
 
   return (
     <>
@@ -526,6 +497,31 @@ const HomePage = () => {
         /* ================================================
            HIGH-IMPACT SERVICE CARDS
         ================================================ */
+
+        .home-featured-services-grid {
+          display: grid;
+          width: 100%;
+          max-width: 1120px;
+          margin: 0 auto;
+          grid-template-columns: minmax(0, 1fr);
+          column-gap: 28px;
+          row-gap: 34px;
+          align-items: stretch;
+        }
+
+        @media (min-width: 640px) {
+          .home-featured-services-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .home-featured-services-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            column-gap: 30px;
+            row-gap: 36px;
+          }
+        }
 
         .home-service-card-shell {
           display: flex;
@@ -738,20 +734,32 @@ const HomePage = () => {
         .home-about-service-list {
           display: flex;
           flex-direction: column;
-          gap: 75px;
+          gap: 34px;
         }
 
         .home-about-service-row {
           display: grid;
           grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
           align-items: center;
-          gap: 65px;
+          gap: 52px;
           min-width: 0;
+          padding: 22px;
+          border: 0;
+          border-radius: 20px;
+          background: #FFFFFF;
+          box-shadow: 0 2px 10px rgba(23, 19, 19, 0.025);
+          transition:
+            transform 300ms cubic-bezier(0.2, 0.7, 0.3, 1),
+            background-color 300ms ease,
+            box-shadow 300ms ease;
+          will-change: transform;
         }
 
-        .home-about-service-row:not(:last-child) {
-          padding-bottom: 70px;
-          border-bottom: 1px solid rgba(23, 19, 19, 0.09);
+        .home-about-service-row:hover {
+          transform: translateY(-5px);
+          border: 0;
+          background: rgba(23, 19, 19, 0.07);
+          box-shadow: 0 12px 30px rgba(23, 19, 19, 0.07);
         }
 
         /* ALTERNATING IMAGE POSITION */
@@ -766,127 +774,31 @@ const HomePage = () => {
           order: 1;
         }
 
-        /* IMAGE PLACEHOLDER */
+        /* SERVICE IMAGES */
 
         .home-about-service-media {
-          position: relative;
-          display: flex;
+          display: block;
+          width: 100%;
           min-width: 0;
           min-height: 350px;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-          border: 1px dashed rgba(23, 19, 19, 0.20);
-          border-radius: 22px;
-
-          background:
-            radial-gradient(
-              circle at 85% 15%,
-              rgba(218, 8, 7, 0.10),
-              transparent 35%
-            ),
-            radial-gradient(
-              circle at 10% 90%,
-              rgba(218, 8, 7, 0.06),
-              transparent 35%
-            ),
-            #F7F7F7;
-
-          box-shadow:
-            0 8px 28px rgba(23, 19, 19, 0.045);
-
-          transition:
-            transform 400ms ease,
-            box-shadow 400ms ease;
+          aspect-ratio: 4 / 3;
+          object-fit: cover;
+          object-position: center;
+          border: 0;
+          border-radius: 18px;
+          background: #F3F3F3;
+          box-shadow: none;
+          transition: transform 350ms ease;
         }
 
-        .home-about-service-media:hover {
-          transform: translateY(-5px);
-          box-shadow:
-            0 16px 35px rgba(23, 19, 19, 0.09);
-        }
-
-        .home-about-service-media::before,
-        .home-about-service-media::after {
-          position: absolute;
-          content: "";
-          border: 1px solid rgba(218, 8, 7, 0.12);
-          border-radius: 50%;
-          pointer-events: none;
-        }
-
-        .home-about-service-media::before {
-          top: -100px;
-          right: -75px;
-          width: 250px;
-          height: 250px;
-        }
-
-        .home-about-service-media::after {
-          bottom: -100px;
-          left: -75px;
-          width: 220px;
-          height: 220px;
-        }
-
-        .home-about-image-placeholder-content {
-          position: relative;
-          z-index: 1;
-          max-width: 300px;
-          padding: 25px;
-          text-align: center;
-        }
-
-        .home-about-image-placeholder-label {
-          display: inline-flex;
-          margin-bottom: 15px;
-          padding: 8px 15px;
-          border: 1px solid rgba(218, 8, 7, 0.18);
-          border-radius: 30px;
-          background: rgba(218, 8, 7, 0.07);
-          color: #DA0807;
-          font-size: 11px;
-          font-weight: 800;
-          letter-spacing: 0.12em;
-        }
-
-        .home-about-image-placeholder-content h3 {
-          margin-bottom: 9px;
-          color: #171313;
-          font-size: 21px;
-          font-weight: 800;
-        }
-
-        .home-about-image-placeholder-content p {
-          margin: 0;
-          color: #858585;
-          font-size: 13px;
-          line-height: 1.7;
+        .home-about-service-row:hover .home-about-service-media {
+          transform: scale(1.01);
         }
 
         /* SERVICE CONTENT */
 
         .home-about-service-content {
           min-width: 0;
-        }
-
-        .home-about-service-eyebrow {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          margin-bottom: 17px;
-          color: #DA0807;
-          font-size: 11px;
-          font-weight: 850;
-          letter-spacing: 0.16em;
-          text-transform: uppercase;
-        }
-
-        .home-about-service-eyebrow::before {
-          width: 27px;
-          height: 2px;
-          background: #DA0807;
-          content: "";
         }
 
         .home-about-service-content h3 {
@@ -929,26 +841,21 @@ const HomePage = () => {
           display: flex;
           min-width: 0;
           align-items: flex-start;
-          gap: 10px;
-          color: #626262;
+          gap: 9px;
+          color: #171313;
           font-size: 13px;
-          font-weight: 500;
+          font-weight: 750;
           line-height: 1.6;
         }
 
         .home-about-point-mark {
-          display: inline-flex;
-          flex: 0 0 19px;
-          width: 19px;
-          height: 19px;
-          align-items: center;
-          justify-content: center;
-          margin-top: 1px;
-          border-radius: 50%;
-          background: #DA0807;
-          color: #FFFFFF;
-          font-size: 11px;
+          display: inline-block;
+          flex: 0 0 auto;
+          margin-top: -1px;
+          color: #171313;
+          font-size: 18px;
           font-weight: 900;
+          line-height: 1.2;
         }
 
         /* SERVICE BUTTONS */
@@ -968,23 +875,26 @@ const HomePage = () => {
         .home-about-book-button {
           height: 53px !important;
           padding: 0 24px !important;
-          border: 1px solid #DA0807 !important;
+          border: 0 !important;
           border-radius: 11px !important;
-          background: #DA0807 !important;
-          color: #FFFFFF !important;
+          background: #FFFFFF !important;
+          color: #171313 !important;
           font-size: 14px !important;
           font-weight: 750 !important;
-          box-shadow: 0 5px 15px rgba(218, 8, 7, 0.15) !important;
+          box-shadow: 0 7px 16px rgba(23, 19, 19, 0.07) !important;
           transition:
             transform 250ms ease,
             background-color 250ms ease,
+            color 250ms ease,
             box-shadow 250ms ease !important;
         }
 
         .home-about-book-button:hover {
           transform: translateY(-4px);
-          background: #B80707 !important;
-          box-shadow: 0 10px 22px rgba(218, 8, 7, 0.25) !important;
+          border: 0 !important;
+          background: #DA0807 !important;
+          color: #FFFFFF !important;
+          box-shadow: 0 12px 24px rgba(23, 19, 19, 0.07) !important;
         }
 
         .home-about-learn-button {
@@ -994,41 +904,92 @@ const HomePage = () => {
           justify-content: center;
           gap: 10px;
           padding: 0 23px;
-          border: 1px solid rgba(23, 19, 19, 0.10);
+          border: 0;
           border-radius: 11px;
           background: #FFFFFF;
           color: #171313;
           font-size: 14px;
           font-weight: 700;
           text-decoration: none;
-          box-shadow: 0 4px 13px rgba(23, 19, 19, 0.06);
+          box-shadow: 0 7px 16px rgba(23, 19, 19, 0.07);
           transition:
             transform 250ms ease,
-            color 250ms ease,
-            border-color 250ms ease,
             box-shadow 250ms ease;
         }
 
         .home-about-learn-button svg {
           width: 17px;
           height: 17px;
+          color: #171313;
           transition: transform 250ms ease;
         }
 
         .home-about-learn-button:hover {
           transform: translateY(-4px);
-          border-color: #DA0807;
-          color: #DA0807;
-          box-shadow: 0 9px 20px rgba(23, 19, 19, 0.09);
+          border: 0;
+          background: #FFFFFF;
+          color: #171313;
+          box-shadow: 0 12px 24px rgba(23, 19, 19, 0.07);
         }
 
         .home-about-learn-button:hover svg {
           transform: translateX(5px);
+          color: #171313;
         }
 
         .home-about-book-button:focus-visible,
         .home-about-learn-button:focus-visible {
-          outline: 3px solid rgba(218, 8, 7, 0.35);
+          outline: 3px solid rgba(23, 19, 19, 0.25);
+          outline-offset: 4px;
+        }
+
+        /* VIEW ALL SERVICES */
+
+        .home-about-view-all-wrap {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 16px;
+          margin-top: 42px;
+        }
+
+        .home-about-view-all-wrap::before,
+        .home-about-view-all-wrap::after {
+          width: 38px;
+          height: 1px;
+          background: rgba(23, 19, 19, 0.28);
+          content: '';
+        }
+
+        .home-about-view-all-button {
+          min-height: 42px;
+          padding: 0 20px;
+          border: 0;
+          border-radius: 999px;
+          background: #FFFFFF;
+          color: #171313;
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: 0.02em;
+          box-shadow: 0 7px 16px rgba(23, 19, 19, 0.07);
+          cursor: pointer;
+          transition:
+            transform 240ms ease,
+            background-color 240ms ease,
+            color 240ms ease,
+            box-shadow 240ms ease;
+        }
+
+        .home-about-view-all-button:hover {
+          transform: translateY(-3px);
+          border: 0;
+          background: #DA0807;
+          color: #FFFFFF;
+          box-shadow: 0 12px 22px rgba(23, 19, 19, 0.07);
+        }
+
+        .home-about-view-all-button:focus-visible {
+          outline: 3px solid rgba(23, 19, 19, 0.25);
           outline-offset: 4px;
         }
 
@@ -1036,11 +997,12 @@ const HomePage = () => {
 
         @media (max-width: 900px) {
           .home-about-service-row {
-            gap: 35px;
+            gap: 30px;
+            padding: 16px;
           }
 
           .home-about-service-media {
-            min-height: 310px;
+            min-height: 300px;
           }
 
           .home-about-service-points {
@@ -1064,14 +1026,15 @@ const HomePage = () => {
 
           .home-about-service-row {
             grid-template-columns: minmax(0, 1fr);
-            gap: 25px;
-            padding-bottom: 42px !important;
+            gap: 22px;
+            padding: 14px;
           }
 
           .home-about-service-row .home-about-service-media,
           .home-about-service-row.is-reversed .home-about-service-media {
             order: 1;
             min-height: 280px;
+            aspect-ratio: 16 / 10;
           }
 
           .home-about-service-row .home-about-service-content,
@@ -1099,7 +1062,12 @@ const HomePage = () => {
 
           .home-about-service-media {
             min-height: 235px !important;
-            border-radius: 16px;
+            border-radius: 14px;
+          }
+
+          .home-about-service-row {
+            padding: 10px;
+            border-radius: 15px;
           }
 
           .home-about-service-content h3 {
@@ -1127,359 +1095,333 @@ const HomePage = () => {
           .home-about-learn-button {
             width: 100%;
           }
+
+          .home-about-view-all-wrap {
+            gap: 10px;
+            margin-top: 30px;
+          }
+
+          .home-about-view-all-wrap::before,
+          .home-about-view-all-wrap::after {
+            width: 24px;
+          }
         }
 
         /* ================================================
-           HOW WE WORK - TWO BUSINESS PROCESS TABS
+           HOW WE GROW YOUR BUSINESS - FOUR STEP PROCESS
         ================================================ */
 
-        .home-process-tabs {
-          display: flex;
-          width: 100%;
-          max-width: 850px;
-          margin: 0 auto 34px;
-          border-bottom: 1px solid rgba(23, 19, 19, 0.14);
-        }
-
-        .home-process-tab {
-          display: flex;
-          flex: 1 1 50%;
-          min-width: 0;
-          align-items: center;
-          justify-content: center;
-          gap: 11px;
-          padding: 17px 18px;
-          border: 0;
-          border-bottom: 3px solid transparent;
-          background: transparent;
-          color: #777777;
-          font-size: 16px;
-          font-weight: 700;
-          line-height: 1.4;
-          text-align: center;
-          cursor: pointer;
-          transition:
-            color 220ms ease,
-            border-color 220ms ease,
-            background 220ms ease;
-        }
-
-        .home-process-tab svg {
-          width: 23px;
-          height: 23px;
-          flex: 0 0 auto;
-        }
-
-        .home-process-tab:hover,
-        .home-process-tab[aria-selected="true"] {
-          color: #DA0807;
-        }
-
-        .home-process-tab[aria-selected="true"] {
-          border-bottom-color: #DA0807;
-          background: linear-gradient(
-            to top,
-            rgba(218, 8, 7, 0.055),
-            transparent 75%
-          );
-        }
-
-        .home-process-tab:focus-visible {
-          outline: 2px solid #DA0807;
-          outline-offset: -3px;
-          border-radius: 8px 8px 0 0;
-        }
-
-        .home-process-panel {
+        .home-growth-layout {
           display: grid;
           grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-          align-items: stretch;
-          gap: 48px;
+          align-items: center;
+          gap: clamp(30px, 5vw, 68px);
         }
 
-        .home-process-timeline {
+        .home-growth-steps {
           min-width: 0;
         }
 
-        .home-process-item {
+        .home-growth-step {
           position: relative;
           display: grid;
-          grid-template-columns: 78px minmax(0, 1fr);
-          gap: 16px;
-          min-height: 142px;
-          padding: 17px 18px 17px 12px;
-          border-radius: 15px;
+          grid-template-columns: 82px minmax(0, 1fr);
+          align-items: start;
+          gap: 19px;
+          min-height: 126px;
+          padding: 12px 14px 16px;
+          border: 0;
+          border-radius: 18px;
           transition:
-            background-color 220ms ease,
-            box-shadow 220ms ease;
+            transform 240ms cubic-bezier(0.2, 0.7, 0.3, 1),
+            background-color 240ms ease,
+            border-color 240ms ease,
+            box-shadow 240ms ease;
+          will-change: transform;
         }
 
-        .home-process-item.is-active {
-          background: #FFF7F7;
-          box-shadow: inset 3px 0 0 #DA0807;
+        .home-growth-step:hover {
+          transform: translateY(-5px);
+          border: 0;
+          background: rgba(23, 19, 19, 0.07);
+          box-shadow: 0 12px 28px rgba(23, 19, 19, 0.07);
         }
 
-        .home-process-item:hover:not(.is-active) {
-          background: #FAFAFA;
+        .home-growth-step:focus-within {
+          outline: 2px solid rgba(23, 19, 19, 0.25);
+          outline-offset: 3px;
         }
 
-        .home-process-marker-column {
+        .home-growth-marker {
           position: relative;
           display: flex;
-          justify-content: center;
-          align-items: flex-start;
-        }
-
-        .home-process-number {
-          position: relative;
-          z-index: 1;
-          display: flex;
-          width: 54px;
-          height: 54px;
+          width: 72px;
+          height: 72px;
           align-items: center;
           justify-content: center;
-          border: 1px solid rgba(218, 8, 7, 0.17);
+        }
+
+        .home-growth-icon {
+          display: flex;
+          width: 68px;
+          height: 68px;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid rgba(23, 19, 19, 0.18);
           border-radius: 50%;
           background: #FFFFFF;
-          color: #DA0807;
-          font-size: 17px;
-          font-weight: 800;
-          box-shadow: 0 4px 12px rgba(23, 19, 19, 0.08);
-        }
-
-        .home-process-item.is-active .home-process-number {
-          border-color: #DA0807;
-          background: #DA0807;
-          color: #FFFFFF;
-          box-shadow: 0 6px 16px rgba(218, 8, 7, 0.20);
-        }
-
-        .home-process-connector {
-          position: absolute;
-          top: 62px;
-          bottom: -17px;
-          left: 50%;
-          width: 1px;
-          border-left: 2px dashed rgba(23, 19, 19, 0.20);
-          transform: translateX(-50%);
-        }
-
-        .home-process-copy {
-          min-width: 0;
-          padding: 1px 0 7px;
-        }
-
-        .home-process-copy h3 {
-          display: flex;
-          align-items: center;
-          gap: 9px;
-          margin: 0 0 7px;
           color: #171313;
-          font-size: 21px;
-          font-weight: 750;
-          line-height: 1.3;
+          box-shadow: 0 7px 17px rgba(23, 19, 19, 0.07);
+          transition:
+            transform 240ms ease,
+            border-color 240ms ease,
+            box-shadow 240ms ease;
         }
 
-        .home-process-step-icon {
-          width: 20px;
-          height: 20px;
-          flex: 0 0 auto;
-          color: #DA0807;
+        .home-growth-icon svg {
+          width: 29px;
+          height: 29px;
           stroke-width: 2;
         }
 
-        .home-process-copy p {
+        .home-growth-step:hover .home-growth-icon {
+          transform: scale(1.045);
+          border-color: rgba(23, 19, 19, 0.28);
+          box-shadow: 0 9px 20px rgba(23, 19, 19, 0.07);
+        }
+
+        .home-growth-number {
+          position: absolute;
+          top: -5px;
+          right: -5px;
+          z-index: 2;
+          display: flex;
+          width: 31px;
+          height: 31px;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          background: linear-gradient(145deg, #292929, #080808);
+          color: #FFFFFF;
+          font-size: 13px;
+          font-weight: 800;
+          box-shadow: 0 3px 8px rgba(0, 0, 0, 0.17);
+        }
+
+        .home-growth-connector {
+          position: absolute;
+          top: 87px;
+          left: 55px;
+          width: 1px;
+          height: 28px;
+          background: linear-gradient(
+            to bottom,
+            rgba(23, 19, 19, 0.20),
+            rgba(23, 19, 19, 0.07)
+          );
+          pointer-events: none;
+        }
+
+        .home-growth-connector::after {
+          position: absolute;
+          bottom: 1px;
+          left: -4px;
+          width: 7px;
+          height: 7px;
+          border-right: 1px solid rgba(23, 19, 19, 0.24);
+          border-bottom: 1px solid rgba(23, 19, 19, 0.24);
+          content: '';
+          transform: rotate(45deg);
+        }
+
+        .home-growth-copy {
+          min-width: 0;
+          padding: 5px 0 0;
+        }
+
+        .home-growth-copy h3 {
+          margin: 0 0 7px;
+          color: #171313;
+          font-size: 21px;
+          font-weight: 800;
+          line-height: 1.3;
+        }
+
+        .home-growth-copy p {
+          max-width: 500px;
           margin: 0;
           color: #6F6F6F;
           font-size: 14px;
           font-weight: 400;
-          line-height: 1.65;
+          line-height: 1.7;
         }
 
-        .home-process-image-column {
-          display: flex;
-          min-width: 0;
-          flex-direction: column;
-          justify-content: center;
-          gap: 12px;
-        }
-
-        .home-process-image-placeholder {
+        .home-growth-visual {
           position: relative;
           display: flex;
-          min-height: 430px;
-          width: 100%;
+          min-width: 0;
+          min-height: 470px;
           align-items: center;
           justify-content: center;
           overflow: hidden;
-          border: 2px dashed rgba(218, 8, 7, 0.28);
-          border-radius: 22px;
-          background:
-            radial-gradient(
-              circle at 85% 15%,
-              rgba(218, 8, 7, 0.09),
-              transparent 28%
-            ),
-            radial-gradient(
-              circle at 10% 90%,
-              rgba(218, 8, 7, 0.055),
-              transparent 30%
-            ),
-            #F7F7F7;
+          border: 0;
+          border-radius: 26px;
+          background: rgba(23, 19, 19, 0.025);
+          box-shadow: 0 12px 30px rgba(23, 19, 19, 0.07);
         }
 
-        .home-process-image-placeholder::before,
-        .home-process-image-placeholder::after {
-          position: absolute;
-          content: "";
-          border: 1px solid rgba(218, 8, 7, 0.10);
-          border-radius: 50%;
-          pointer-events: none;
-        }
-
-        .home-process-image-placeholder::before {
-          width: 240px;
-          height: 240px;
-          top: -115px;
-          right: -75px;
-        }
-
-        .home-process-image-placeholder::after {
-          width: 190px;
-          height: 190px;
-          bottom: -95px;
-          left: -65px;
-        }
-
-        .home-process-image-placeholder-content {
-          position: relative;
-          z-index: 1;
-          max-width: 300px;
-          padding: 24px;
-          text-align: center;
-        }
-
-        .home-process-image-placeholder-label {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 13px;
-          padding: 7px 12px;
-          border-radius: 999px;
-          background: rgba(218, 8, 7, 0.09);
-          color: #DA0807;
-          font-size: 11px;
-          font-weight: 800;
-          letter-spacing: 0.12em;
-        }
-
-        .home-process-image-placeholder-content h3 {
-          margin: 0 0 8px;
-          color: #171313;
-          font-size: 20px;
-          font-weight: 800;
-        }
-
-        .home-process-image-placeholder-content p {
-          margin: 0;
-          color: #777777;
-          font-size: 13px;
-          line-height: 1.6;
-        }
-
-        .home-process-image-note {
-          color: #999999;
-          font-size: 12px;
-          line-height: 1.5;
-          text-align: center;
+        .home-growth-image {
+          display: block;
+          width: 100%;
+          height: 100%;
+          min-height: 470px;
+          object-fit: contain;
+          object-position: center;
         }
 
         @media (max-width: 900px) {
-          .home-process-panel {
-            grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
-            gap: 25px;
+          .home-growth-layout {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+            gap: 24px;
           }
 
-          .home-process-image-placeholder {
-            min-height: 390px;
-          }
-
-          .home-process-item {
-            grid-template-columns: 65px minmax(0, 1fr);
-            gap: 12px;
+          .home-growth-step {
+            grid-template-columns: 70px minmax(0, 1fr);
+            gap: 13px;
+            min-height: 132px;
             padding-left: 8px;
-            padding-right: 10px;
+            padding-right: 8px;
           }
 
-          .home-process-copy h3 {
+          .home-growth-marker {
+            width: 66px;
+            height: 66px;
+          }
+
+          .home-growth-icon {
+            width: 62px;
+            height: 62px;
+          }
+
+          .home-growth-connector {
+            top: 82px;
+            left: 41px;
+          }
+
+          .home-growth-copy h3 {
             font-size: 18px;
+          }
+
+          .home-growth-copy p {
+            font-size: 13px;
+          }
+
+          .home-growth-visual,
+          .home-growth-image {
+            min-height: 410px;
           }
         }
 
         @media (max-width: 767px) {
-          .home-process-tabs {
-            margin-bottom: 24px;
+          .home-growth-layout {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 28px;
           }
 
-          .home-process-tab {
-            gap: 7px;
-            padding: 13px 8px;
+          .home-growth-step {
+            grid-template-columns: 72px minmax(0, 1fr);
+            min-height: 116px;
+            gap: 13px;
+            padding: 9px 8px 14px;
+          }
+
+          .home-growth-marker {
+            width: 68px;
+            height: 68px;
+          }
+
+          .home-growth-icon {
+            width: 64px;
+            height: 64px;
+          }
+
+          .home-growth-connector {
+            top: 78px;
+            left: 42px;
+            height: 27px;
+          }
+
+          .home-growth-copy h3 {
+            font-size: 19px;
+          }
+
+          .home-growth-copy p {
             font-size: 13px;
           }
 
-          .home-process-tab svg {
-            width: 19px;
-            height: 19px;
-          }
-
-          .home-process-panel {
-            grid-template-columns: minmax(0, 1fr);
-            gap: 24px;
-          }
-
-          .home-process-image-placeholder {
-            min-height: 300px;
-          }
-
-          .home-process-item {
-            min-height: 130px;
+          .home-growth-visual,
+          .home-growth-image {
+            min-height: 320px;
           }
         }
 
         @media (max-width: 480px) {
-          .home-process-tab {
-            flex-direction: column;
-            min-height: 78px;
+          .home-growth-step {
+            grid-template-columns: 60px minmax(0, 1fr);
+            min-height: 116px;
+            gap: 12px;
+            padding: 8px 5px 14px;
+          }
+
+          .home-growth-marker {
+            width: 58px;
+            height: 58px;
+          }
+
+          .home-growth-icon {
+            width: 54px;
+            height: 54px;
+          }
+
+          .home-growth-icon svg {
+            width: 25px;
+            height: 25px;
+          }
+
+          .home-growth-number {
+            top: -5px;
+            right: -5px;
+            width: 27px;
+            height: 27px;
             font-size: 12px;
           }
 
-          .home-process-item {
-            grid-template-columns: 52px minmax(0, 1fr);
-            gap: 10px;
-            padding: 14px 9px;
+          .home-growth-connector {
+            top: 68px;
+            left: 35px;
+            height: 36px;
           }
 
-          .home-process-number {
-            width: 42px;
-            height: 42px;
-            font-size: 14px;
+          .home-growth-copy {
+            padding-top: 2px;
           }
 
-          .home-process-connector {
-            top: 50px;
+          .home-growth-copy h3 {
+            font-size: 17px;
           }
 
-          .home-process-copy h3 {
-            font-size: 16px;
-          }
-
-          .home-process-copy p {
+          .home-growth-copy p {
             font-size: 12px;
+            line-height: 1.6;
           }
 
-          .home-process-image-placeholder {
-            min-height: 250px;
-            border-radius: 16px;
+          .home-growth-visual,
+          .home-growth-image {
+            min-height: 260px;
+          }
+
+          .home-growth-visual {
+            border-radius: 18px;
           }
         }
 
@@ -1550,10 +1492,12 @@ const HomePage = () => {
           .home-process-item,
           .home-stat-card-shell > *,
           .home-hero-button,
+          .home-about-service-row,
           .home-about-service-media,
           .home-about-book-button,
           .home-about-learn-button,
-          .home-about-learn-button svg {
+          .home-about-learn-button svg,
+          .home-about-view-all-button {
             transition: none !important;
           }
 
@@ -1562,16 +1506,49 @@ const HomePage = () => {
           .home-stat-card-shell:hover,
           .home-process-item:hover,
           .home-hero-button:hover,
+          .home-about-service-row:hover,
           .home-about-service-media:hover,
           .home-about-book-button:hover,
-          .home-about-learn-button:hover {
+          .home-about-learn-button:hover,
+          .home-about-view-all-button:hover {
             transform: none !important;
           }
         }
 
+        /* ================================================
+           REFINED PAGE-WIDE HEADING TYPOGRAPHY
+        ================================================ */
+
+        .home-page-scope h1,
+        .home-page-scope h2 {
+          font-weight: 700;
+          letter-spacing: 0.006em;
+          line-height: 1.2;
+        }
+
+        .home-page-scope h3,
+        .home-page-scope h4,
+        .home-page-scope h5,
+        .home-page-scope h6 {
+          font-weight: 650;
+          letter-spacing: 0.008em;
+          line-height: 1.3;
+        }
+
+        .home-page-scope h1,
+        .home-page-scope h2,
+        .home-page-scope h3,
+        .home-page-scope h4,
+        .home-page-scope h5,
+        .home-page-scope h6 {
+          overflow-wrap: normal;
+          word-break: normal;
+          text-wrap: pretty;
+        }
+
       `}</style>
 
-      <div className="flex flex-col bg-background">
+      <div className="home-page-scope flex flex-col bg-background">
 
         {/* ===============================================
             HERO SECTION
@@ -1736,7 +1713,7 @@ const HomePage = () => {
               </p>
             </div>
 
-            <div className="home-card-grid grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="home-card-grid home-featured-services-grid">
 
               {featuredServices.map((service) => (
                 <div
@@ -1818,7 +1795,9 @@ const HomePage = () => {
 
             <div className="home-about-service-list">
 
-              {aboutServiceDetails.map((service, index) => {
+              {aboutServiceDetails
+                .slice(0, showAllServices ? aboutServiceDetails.length : 3)
+                .map((service, index) => {
 
                 const mainService = mainServices.find(
                   (item) => item.slug === service.slug
@@ -1852,38 +1831,18 @@ const HomePage = () => {
                     }}
                   >
 
-                    {/* IMAGE PLACEHOLDER */}
+                    {/* SERVICE IMAGE */}
 
-                    <div
+                    <img
+                      src={service.image}
+                      alt={`${service.title} service`}
+                      loading="lazy"
                       className="home-about-service-media"
-                      role="img"
-                      aria-label={`${service.title} image placeholder`}
-                    >
-
-                      <div className="home-about-image-placeholder-content">
-
-                        <span className="home-about-image-placeholder-label">
-                          IMAGE PLACEHOLDER · 0{index + 1}
-                        </span>
-
-                        <h3>{service.title}</h3>
-
-                        <p>
-                          Add your dedicated {service.title.toLowerCase()}
-                          image here.
-                        </p>
-
-                      </div>
-
-                    </div>
+                    />
 
                     {/* SERVICE INFORMATION */}
 
                     <div className="home-about-service-content">
-
-                      <div className="home-about-service-eyebrow">
-                        OUR SERVICES / 0{index + 1}
-                      </div>
 
                       <h3>
                         {service.title}
@@ -1912,10 +1871,10 @@ const HomePage = () => {
                               className="home-about-point-mark"
                               aria-hidden="true"
                             >
-                              ✓
+                              •
                             </span>
 
-                            <span>{point}</span>
+                            <strong>{point}</strong>
 
                           </li>
 
@@ -1965,6 +1924,17 @@ const HomePage = () => {
 
               })}
 
+            </div>
+
+            <div className="home-about-view-all-wrap">
+              <button
+                type="button"
+                className="home-about-view-all-button"
+                aria-expanded={showAllServices}
+                onClick={() => setShowAllServices((current) => !current)}
+              >
+                {showAllServices ? 'Show Less' : 'View All'}
+              </button>
             </div>
 
           </div>
@@ -2151,146 +2121,66 @@ const HomePage = () => {
         </section>
 
         {/* ===============================================
-            HOW WE WORK - STARTUP & ENTERPRISE TABS
+            HOW WE GROW YOUR BUSINESS
         =============================================== */}
 
         <section className="bg-background py-24 md:py-28">
-
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
             <div className="mx-auto mb-12 max-w-3xl text-center md:mb-14">
-              <h2 className="mb-5 font-heading text-4xl font-extrabold text-primary-dark md:text-5xl">
+              <h2 className="mb-5 font-heading text-4xl font-extrabold text-[#171313] md:text-5xl">
                 How We Grow Your{' '}
-                <span className="text-[#DA0807]">Business</span>
+                <span className="text-[#171313]">Business</span>
               </h2>
 
               <p className="text-lg text-muted-foreground md:text-xl">
-                A simple, transparent process tailored to your business and goals.
+                A simple, transparent process that takes you from idea to results.
               </p>
             </div>
 
-            <div
-              className="home-process-tabs"
-              role="tablist"
-              aria-label="Choose your project type"
-            >
-              <button
-                type="button"
-                id="startup-process-tab"
-                role="tab"
-                aria-selected={activeProcessTab === 'startup'}
-                aria-controls="startup-enterprise-process-panel"
-                className="home-process-tab"
-                onClick={() => setActiveProcessTab('startup')}
-              >
-                <Rocket aria-hidden="true" />
-                <span>Startup Product Development</span>
-              </button>
-
-              <button
-                type="button"
-                id="enterprise-process-tab"
-                role="tab"
-                aria-selected={activeProcessTab === 'enterprise'}
-                aria-controls="startup-enterprise-process-panel"
-                className="home-process-tab"
-                onClick={() => setActiveProcessTab('enterprise')}
-              >
-                <Users aria-hidden="true" />
-                <span>Enterprise Software Solutions</span>
-              </button>
-            </div>
-
-            <div
-              id="startup-enterprise-process-panel"
-              className="home-process-panel"
-              role="tabpanel"
-              aria-labelledby={`${activeProcessTab}-process-tab`}
-            >
-              <div className="home-process-timeline">
-                {activeWorkProcess.steps.map((step, index) => {
+            <div className="home-growth-layout">
+              <div className="home-growth-steps">
+                {growthSteps.map((step, index) => {
                   const StepIcon = step.icon;
 
                   return (
                     <article
-                      key={`${activeProcessTab}-${step.number}`}
-                      className={`home-process-item ${index === 0 ? 'is-active' : ''}`}
+                      key={step.number}
+                      className="home-growth-step"
                     >
-                      <div
-                        className="home-process-marker-column"
-                        aria-hidden="true"
-                      >
-                        <div className="home-process-number">
-                          {step.number}
+                      <div className="home-growth-marker" aria-hidden="true">
+                        <div className="home-growth-icon">
+                          <StepIcon />
                         </div>
-
-                        {index !== activeWorkProcess.steps.length - 1 && (
-                          <div className="home-process-connector" />
-                        )}
+                        <span className="home-growth-number">
+                          {step.number}
+                        </span>
                       </div>
 
-                      <div className="home-process-copy">
-                        <h3>
-                          <StepIcon
-                            className="home-process-step-icon"
-                            aria-hidden="true"
-                          />
-                          <span>{step.title}</span>
-                        </h3>
-
+                      <div className="home-growth-copy">
+                        <h3>{step.title}</h3>
                         <p>{step.description}</p>
                       </div>
+
+                      {index < growthSteps.length - 1 && (
+                        <span
+                          className="home-growth-connector"
+                          aria-hidden="true"
+                        />
+                      )}
                     </article>
                   );
                 })}
               </div>
 
-              <div className="home-process-image-column">
-
-                {activeProcessTab === 'startup' ? (
-                  <div
-                    className="home-process-image-placeholder"
-                    role="img"
-                    aria-label="Startup Product Development image placeholder"
-                  >
-                    <div className="home-process-image-placeholder-content">
-                      <span className="home-process-image-placeholder-label">
-                        STARTUP IMAGE AREA
-                      </span>
-
-                      <h3>Startup Product Development</h3>
-
-                      <p>
-                        Add your startup-focused image here. Replace this placeholder with your Startup image.
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <div
-                    className="home-process-image-placeholder"
-                    role="img"
-                    aria-label="Enterprise Software Solutions image placeholder"
-                  >
-                    <div className="home-process-image-placeholder-content">
-                      <span className="home-process-image-placeholder-label">
-                        ENTERPRISE IMAGE AREA
-                      </span>
-
-                      <h3>Enterprise Software Solutions</h3>
-
-                      <p>
-                        Add your enterprise-focused image here. Replace this placeholder with your Enterprise image.
-                      </p>
-                    </div>
-                  </div>
-                )}
-
-                <p className="home-process-image-note">
-                  Each tab has its own separate image placeholder.
-                </p>
+              <div className="home-growth-visual">
+                <img
+                  src="/service-assets/growth.png"
+                  alt="Raiwa Technologies business growth process"
+                  loading="lazy"
+                  className="home-growth-image"
+                />
               </div>
             </div>
-
           </div>
         </section>
 
