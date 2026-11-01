@@ -770,7 +770,7 @@ const HomePage = () => {
           order: 1;
         }
 
-        /* IMAGE WRAPPER AND SUBTLE HOVER SHADE */
+        /* IMAGE WRAPPER - MATCH HIGH-IMPACT CARD HOVER */
 
         .home-about-service-media-wrap {
           display: flex;
@@ -782,11 +782,7 @@ const HomePage = () => {
           padding: 8px;
           border-radius: 22px;
           background: transparent;
-          transition: background-color 300ms ease;
-        }
-
-        .home-about-service-media-wrap:hover {
-          background: rgba(23, 19, 19, 0.03);
+          perspective: 1200px;
         }
 
         /* SERVICE IMAGES */
@@ -802,15 +798,16 @@ const HomePage = () => {
           border: 0;
           border-radius: 17px;
           background: #F3F3F3;
-          box-shadow: none;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.025);
+          transform-style: preserve-3d;
           transition:
             transform 350ms cubic-bezier(0.2, 0.7, 0.3, 1),
             box-shadow 350ms ease;
         }
 
         .home-about-service-media-wrap:hover .home-about-service-media {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 22px rgba(23, 19, 19, 0.03);
+          transform: translate3d(0, 0, 18px) scale(1.015);
+          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
         }
 
         /* SERVICE CONTENT */
@@ -863,8 +860,12 @@ const HomePage = () => {
           gap: 9px;
           color: #171313;
           font-size: 13px;
-          font-weight: 750;
+          font-weight: 400 !important;
           line-height: 1.6;
+        }
+
+        .home-about-service-point * {
+          font-weight: 400 !important;
         }
 
         .home-about-point-mark {
@@ -1277,7 +1278,7 @@ const HomePage = () => {
           line-height: 1.7;
         }
 
-        /* GROWTH IMAGE - FIXED 4:3 RATIO */
+        /* GROWTH IMAGE - MATCH HIGH-IMPACT CARD HOVER */
 
         .home-growth-visual {
           position: relative;
@@ -1293,11 +1294,7 @@ const HomePage = () => {
           border-radius: 26px;
           background: transparent;
           box-shadow: none;
-          transition: background-color 300ms ease;
-        }
-
-        .home-growth-visual:hover {
-          background: rgba(23, 19, 19, 0.03);
+          perspective: 1200px;
         }
 
         .home-growth-image {
@@ -1309,15 +1306,16 @@ const HomePage = () => {
           object-position: center;
           border: 0;
           border-radius: 18px;
-          box-shadow: none;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.025);
+          transform-style: preserve-3d;
           transition:
             transform 350ms cubic-bezier(0.2, 0.7, 0.3, 1),
             box-shadow 350ms ease;
         }
 
         .home-growth-visual:hover .home-growth-image {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 22px rgba(23, 19, 19, 0.03);
+          transform: translate3d(0, 0, 18px) scale(1.015);
+          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
         }
 
         @media (max-width: 900px) {
@@ -1905,7 +1903,7 @@ const HomePage = () => {
                               •
                             </span>
 
-                            <strong>{point}</strong>
+                            {point}
 
                           </li>
 
