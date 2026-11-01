@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
@@ -242,41 +243,88 @@ const PortfolioPage = () => {
 
       <main className="flex flex-col bg-background">
 
-        {/* HERO SECTION */}
-        <section className="relative flex min-h-[70vh] items-center overflow-hidden py-20 md:py-32">
+        {/* HERO SECTION - WHITE & RED SUSTAINABLE GROWTH THEME */}
 
-          <div className="absolute inset-0 z-0">
-            <img
-              src="https://images.unsplash.com/photo-1617957689230-231cdaa2fe5c?auto=format&fit=crop&w=2000&q=80"
-              alt="Modern workspace"
-              className="block h-full w-full object-cover object-center"
-            />
+        <section className="relative flex min-h-[70vh] items-center overflow-hidden border-b border-[#171313]/10 bg-[#F1F0F1] py-20 md:py-32">
 
-            <div className="absolute inset-0 bg-[#171313]/85 mix-blend-multiply" />
+          {/* LIGHT BACKGROUND WITH RED ACCENTS */}
 
-            <div className="absolute inset-0 bg-gradient-to-t from-[#171313] via-[#171313]/75 to-transparent" />
-          </div>
+          <div
+            className="absolute inset-0 z-0"
+            aria-hidden="true"
+            style={{
+              background: `
+                radial-gradient(
+                  circle at 100% 0%,
+                  rgba(218, 8, 7, 0.12) 0%,
+                  rgba(218, 8, 7, 0) 34%
+                ),
+                radial-gradient(
+                  circle at 0% 100%,
+                  rgba(218, 8, 7, 0.08) 0%,
+                  rgba(218, 8, 7, 0) 30%
+                ),
+                linear-gradient(
+                  135deg,
+                  #FDFDFD 0%,
+                  #F4F3F3 48%,
+                  #E9E8E8 100%
+                )
+              `,
+            }}
+          />
+
+          {/* TOP RIGHT RED ACCENT */}
+
+          <div
+            className="pointer-events-none absolute -right-36 -top-60 z-0 h-[420px] w-[420px] rounded-full bg-[#DA0807]/[0.07]"
+            aria-hidden="true"
+          />
+
+          {/* BOTTOM LEFT SOFT RED ACCENT */}
+
+          <div
+            className="pointer-events-none absolute -bottom-64 -left-40 z-0 h-[420px] w-[420px] rounded-full bg-[#DA0807]/[0.06]"
+            aria-hidden="true"
+          />
+
+          {/* HERO CONTENT */}
 
           <div className="relative z-10 mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="mb-8 inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold uppercase tracking-widest text-white backdrop-blur-md">
+
+              {/* SECTION BADGE */}
+
+              <div className="mb-8 inline-flex items-center justify-center rounded-full border border-[#171313]/15 bg-white/80 px-5 py-2.5 text-sm font-bold uppercase tracking-widest text-[#171313] shadow-[0_3px_10px_rgba(0,0,0,0.025)]">
                 Our Work
               </div>
 
-              <h1 className="mb-8 font-heading text-5xl font-extrabold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">
+              {/* MAIN HEADING */}
+
+              <h1 className="mb-8 font-heading text-5xl font-extrabold leading-tight tracking-tight text-[#171313] md:text-6xl lg:text-7xl">
                 Our Portfolio of{' '}
-                <span className="text-[#E5E5E5]">Success</span>
+                <span className="text-[#DA0807]">
+                  Success
+                </span>
               </h1>
 
-              <p className="mx-auto max-w-3xl text-xl leading-relaxed text-white/80 md:text-2xl">
+              {/* DESCRIPTION */}
+
+              <p className="mx-auto max-w-3xl text-xl leading-relaxed text-[#555151] md:text-2xl">
                 We don't just deliver services; we build growth. Explore
                 the kind of work we do for ambitious brands across
                 ecommerce, development, marketing and SEO.
               </p>
+
+              {/* RED UNDERLINE */}
+
+              <div className="mx-auto mt-9 h-1 w-20 rounded-full bg-[#DA0807]" />
+
             </motion.div>
           </div>
         </section>

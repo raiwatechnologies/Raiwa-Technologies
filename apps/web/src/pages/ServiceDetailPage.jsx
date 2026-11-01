@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -301,12 +302,6 @@ function MainServicePage({ main }) {
             </div>
           )}
 
-          <div className="absolute inset-0 -z-10 bg-[#171313]/80" />
-
-          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#171313]/95 via-[#171313]/80 to-[#171313]/55" />
-
-          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#171313]/60 to-transparent" />
-
           <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 md:grid-cols-[1.1fr_.9fr] md:gap-14 md:py-28">
             <div>
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/[0.09] px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm">
@@ -484,12 +479,6 @@ function IndividualServicePage({ service }) {
               />
             </div>
           )}
-
-          <div className="absolute inset-0 -z-10 bg-[#171313]/85" />
-
-          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#171313]/95 via-[#171313]/80 to-[#171313]/55" />
-
-          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#171313]/50 to-transparent" />
 
           <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 md:grid-cols-[1.05fr_.95fr] md:gap-14 md:py-28">
             <div className="text-white">

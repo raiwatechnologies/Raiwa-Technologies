@@ -506,16 +506,6 @@ const ServicesPage = () => {
             />
           </picture>
 
-          <div
-            className="absolute inset-0 -z-10 bg-[#171313]/80"
-            aria-hidden="true"
-          />
-
-          <div
-            className="absolute inset-0 -z-10 bg-gradient-to-r from-[#171313]/80 via-[#171313]/45 to-[#171313]/70"
-            aria-hidden="true"
-          />
-
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 25 }}
