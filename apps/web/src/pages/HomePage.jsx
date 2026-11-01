@@ -607,7 +607,7 @@ const HomePage = () => {
         .home-benefit-feature:hover {
           transform: translate3d(0, 0, 18px) scale(1.015);
           border: 1px solid rgba(23, 19, 19, 0.10);
-          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
+          box-shadow: 0 8px 22px rgba(23, 19, 19, 0.03);
           z-index: 2;
         }
 
@@ -747,25 +747,21 @@ const HomePage = () => {
           border: 0;
           border-radius: 20px;
           background: #FFFFFF;
-          box-shadow: 0 2px 10px rgba(23, 19, 19, 0.025);
-          transition:
-            transform 300ms cubic-bezier(0.2, 0.7, 0.3, 1),
-            background-color 300ms ease,
-            box-shadow 300ms ease;
-          will-change: transform;
+          box-shadow: none;
         }
 
+        /* No full-row hover shade: keep service text clean. */
+
         .home-about-service-row:hover {
-          transform: translateY(-5px);
-          border: 0;
-          background: rgba(23, 19, 19, 0.07);
-          box-shadow: 0 12px 30px rgba(23, 19, 19, 0.07);
+          transform: none;
+          background: #FFFFFF;
+          box-shadow: none;
         }
 
         /* ALTERNATING IMAGE POSITION */
 
         .home-about-service-row.is-reversed
-        .home-about-service-media {
+        .home-about-service-media-wrap {
           order: 2;
         }
 
@@ -774,25 +770,47 @@ const HomePage = () => {
           order: 1;
         }
 
+        /* IMAGE WRAPPER AND SUBTLE HOVER SHADE */
+
+        .home-about-service-media-wrap {
+          display: flex;
+          min-width: 0;
+          width: 100%;
+          aspect-ratio: 4 / 3;
+          align-items: center;
+          justify-content: center;
+          padding: 8px;
+          border-radius: 22px;
+          background: transparent;
+          transition: background-color 300ms ease;
+        }
+
+        .home-about-service-media-wrap:hover {
+          background: rgba(23, 19, 19, 0.03);
+        }
+
         /* SERVICE IMAGES */
 
         .home-about-service-media {
           display: block;
           width: 100%;
+          height: 100%;
           min-width: 0;
-          min-height: 350px;
           aspect-ratio: 4 / 3;
           object-fit: cover;
           object-position: center;
           border: 0;
-          border-radius: 18px;
+          border-radius: 17px;
           background: #F3F3F3;
           box-shadow: none;
-          transition: transform 350ms ease;
+          transition:
+            transform 350ms cubic-bezier(0.2, 0.7, 0.3, 1),
+            box-shadow 350ms ease;
         }
 
-        .home-about-service-row:hover .home-about-service-media {
-          transform: scale(1.01);
+        .home-about-service-media-wrap:hover .home-about-service-media {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 22px rgba(23, 19, 19, 0.03);
         }
 
         /* SERVICE CONTENT */
@@ -805,15 +823,16 @@ const HomePage = () => {
           margin-bottom: 17px;
           color: #171313;
           font-size: clamp(25px, 3vw, 34px);
-          font-weight: 850;
-          line-height: 1.25;
-          letter-spacing: -0.025em;
+          font-weight: 650;
+          line-height: 1.3;
+          letter-spacing: 0.005em;
         }
 
         .home-about-service-description {
           margin-bottom: 25px;
           color: #696969;
           font-size: 15px;
+          font-weight: 400;
           line-height: 1.85;
         }
 
@@ -993,7 +1012,7 @@ const HomePage = () => {
           outline-offset: 4px;
         }
 
-        /* RESPONSIVE */
+        /* RESPONSIVE ABOUT OUR SERVICES */
 
         @media (max-width: 900px) {
           .home-about-service-row {
@@ -1001,8 +1020,8 @@ const HomePage = () => {
             padding: 16px;
           }
 
-          .home-about-service-media {
-            min-height: 300px;
+          .home-about-service-media-wrap {
+            padding: 7px;
           }
 
           .home-about-service-points {
@@ -1030,11 +1049,9 @@ const HomePage = () => {
             padding: 14px;
           }
 
-          .home-about-service-row .home-about-service-media,
-          .home-about-service-row.is-reversed .home-about-service-media {
+          .home-about-service-row .home-about-service-media-wrap,
+          .home-about-service-row.is-reversed .home-about-service-media-wrap {
             order: 1;
-            min-height: 280px;
-            aspect-ratio: 16 / 10;
           }
 
           .home-about-service-row .home-about-service-content,
@@ -1060,9 +1077,13 @@ const HomePage = () => {
             font-size: 14px;
           }
 
+          .home-about-service-media-wrap {
+            border-radius: 16px;
+            padding: 6px;
+          }
+
           .home-about-service-media {
-            min-height: 235px !important;
-            border-radius: 14px;
+            border-radius: 13px;
           }
 
           .home-about-service-row {
@@ -1256,27 +1277,47 @@ const HomePage = () => {
           line-height: 1.7;
         }
 
+        /* GROWTH IMAGE - FIXED 4:3 RATIO */
+
         .home-growth-visual {
           position: relative;
           display: flex;
+          width: 100%;
           min-width: 0;
-          min-height: 470px;
+          aspect-ratio: 4 / 3;
           align-items: center;
           justify-content: center;
-          overflow: hidden;
+          overflow: visible;
+          padding: 8px;
           border: 0;
           border-radius: 26px;
-          background: rgba(23, 19, 19, 0.025);
-          box-shadow: 0 12px 30px rgba(23, 19, 19, 0.07);
+          background: transparent;
+          box-shadow: none;
+          transition: background-color 300ms ease;
+        }
+
+        .home-growth-visual:hover {
+          background: rgba(23, 19, 19, 0.03);
         }
 
         .home-growth-image {
           display: block;
           width: 100%;
           height: 100%;
-          min-height: 470px;
+          aspect-ratio: 4 / 3;
           object-fit: contain;
           object-position: center;
+          border: 0;
+          border-radius: 18px;
+          box-shadow: none;
+          transition:
+            transform 350ms cubic-bezier(0.2, 0.7, 0.3, 1),
+            box-shadow 350ms ease;
+        }
+
+        .home-growth-visual:hover .home-growth-image {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 22px rgba(23, 19, 19, 0.03);
         }
 
         @media (max-width: 900px) {
@@ -1315,11 +1356,6 @@ const HomePage = () => {
           .home-growth-copy p {
             font-size: 13px;
           }
-
-          .home-growth-visual,
-          .home-growth-image {
-            min-height: 410px;
-          }
         }
 
         @media (max-width: 767px) {
@@ -1357,11 +1393,6 @@ const HomePage = () => {
 
           .home-growth-copy p {
             font-size: 13px;
-          }
-
-          .home-growth-visual,
-          .home-growth-image {
-            min-height: 320px;
           }
         }
 
@@ -1415,13 +1446,12 @@ const HomePage = () => {
             line-height: 1.6;
           }
 
-          .home-growth-visual,
-          .home-growth-image {
-            min-height: 260px;
-          }
-
           .home-growth-visual {
             border-radius: 18px;
+          }
+
+          .home-growth-image {
+            border-radius: 13px;
           }
         }
 
@@ -1488,29 +1518,28 @@ const HomePage = () => {
           .home-service-card-shell,
           .home-benefit-feature,
           .home-stat-card-shell,
-          .home-process-tab,
-          .home-process-item,
-          .home-stat-card-shell > *,
           .home-hero-button,
-          .home-about-service-row,
           .home-about-service-media,
           .home-about-book-button,
           .home-about-learn-button,
           .home-about-learn-button svg,
-          .home-about-view-all-button {
+          .home-about-view-all-button,
+          .home-growth-step,
+          .home-growth-icon,
+          .home-growth-image {
             transition: none !important;
           }
 
           .home-service-card-shell:hover,
           .home-benefit-feature:hover,
           .home-stat-card-shell:hover,
-          .home-process-item:hover,
           .home-hero-button:hover,
-          .home-about-service-row:hover,
-          .home-about-service-media:hover,
+          .home-about-service-media-wrap:hover .home-about-service-media,
           .home-about-book-button:hover,
           .home-about-learn-button:hover,
-          .home-about-view-all-button:hover {
+          .home-about-view-all-button:hover,
+          .home-growth-step:hover,
+          .home-growth-visual:hover .home-growth-image {
             transform: none !important;
           }
         }
@@ -1833,12 +1862,14 @@ const HomePage = () => {
 
                     {/* SERVICE IMAGE */}
 
-                    <img
-                      src={service.image}
-                      alt={`${service.title} service`}
-                      loading="lazy"
-                      className="home-about-service-media"
-                    />
+                    <div className="home-about-service-media-wrap">
+                      <img
+                        src={service.image}
+                        alt={`${service.title} service`}
+                        loading="lazy"
+                        className="home-about-service-media"
+                      />
+                    </div>
 
                     {/* SERVICE INFORMATION */}
 
@@ -2129,7 +2160,7 @@ const HomePage = () => {
             <div className="mx-auto mb-12 max-w-3xl text-center md:mb-14">
               <h2 className="mb-5 font-heading text-4xl font-extrabold text-[#171313] md:text-5xl">
                 How We Grow Your{' '}
-                <span className="text-[#171313]">Business</span>
+                <span className="text-[#DA0807]">Business</span>
               </h2>
 
               <p className="text-lg text-muted-foreground md:text-xl">
@@ -2151,6 +2182,7 @@ const HomePage = () => {
                         <div className="home-growth-icon">
                           <StepIcon />
                         </div>
+
                         <span className="home-growth-number">
                           {step.number}
                         </span>
