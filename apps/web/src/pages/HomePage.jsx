@@ -620,7 +620,7 @@ const HomePage = () => {
           justify-content: center;
           border: 1px solid rgba(23, 19, 19, 0.08);
           border-radius: 12px;
-          background: #F7F7F7;
+          background: #FAFAFA;
         }
 
         .home-benefit-feature-icon svg {
@@ -668,7 +668,7 @@ const HomePage = () => {
 
         .home-stat-card-shell > * {
           height: 100%;
-          border: 1px solid rgba(23, 19, 19, 0.20) !important;
+          border: 0 !important;
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
           transition: box-shadow 350ms ease;
         }
@@ -820,7 +820,7 @@ const HomePage = () => {
           margin-bottom: 17px;
           color: #171313;
           font-size: clamp(25px, 3vw, 34px);
-          font-weight: 650;
+          font-weight: 550;
           line-height: 1.3;
           letter-spacing: 0.005em;
         }
@@ -947,7 +947,7 @@ const HomePage = () => {
         .home-about-learn-button:hover {
           transform: translateY(-4px);
           border: 0;
-          background: #FFFFFF;
+          background: #F5F3F3;
           color: #171313;
           box-shadow: 0 12px 24px rgba(23, 19, 19, 0.07);
         }
@@ -1163,11 +1163,11 @@ const HomePage = () => {
         }
 
         .home-growth-step:hover {
-          transform: translateY(-5px);
-          border: 0;
-          background: rgba(23, 19, 19, 0.07);
-          box-shadow: 0 12px 28px rgba(23, 19, 19, 0.07);
-        }
+  transform: translateY(-3px);
+  border: 0;
+  background: rgba(23, 19, 19, 0.015);
+  box-shadow: 0 4px 10px rgba(23, 19, 19, 0.025);
+}
 
         .home-growth-step:focus-within {
           outline: 2px solid rgba(23, 19, 19, 0.25);
@@ -1189,7 +1189,7 @@ const HomePage = () => {
           height: 68px;
           align-items: center;
           justify-content: center;
-          border: 2px solid rgba(23, 19, 19, 0.18);
+          border: none;
           border-radius: 50%;
           background: #FFFFFF;
           color: #171313;
@@ -1572,6 +1572,22 @@ const HomePage = () => {
           word-break: normal;
           text-wrap: pretty;
         }
+        
+/* ================================================
+   MARKETPLACES - CLEAN BORDERLESS CARDS
+================================================ */
+
+.marketplace-logo-card {
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.035) !important;
+}
+
+.marketplace-logo-card:hover {
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.065) !important;
+}
 
       `}</style>
 
@@ -2032,6 +2048,15 @@ const HomePage = () => {
             </div>
 
             {/* STATISTICS */}
+
+            <div className="mb-10 mt-16 text-center">
+  <h2 className="mb-3 font-heading text-4xl font-extrabold tracking-tight text-[#171313] md:text-5xl">
+    Our <span className="text-[#DA0807]">Performance</span>
+  </h2>
+  <p className="text-lg text-muted-foreground md:text-xl">
+    Our Success in Numbers
+  </p>
+</div>
 
             <div className="home-card-grid mt-16 grid grid-cols-2 gap-4 sm:gap-6 lg:mt-24 lg:grid-cols-4 lg:gap-8">
 
