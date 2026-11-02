@@ -399,25 +399,25 @@ const HomePage = () => {
       icon: LineChart,
       title: 'Sustainable Growth',
       description:
-        'We skip risky shortcuts and build steady growth through optimized listings, strong SEO and loyal customers, so your brand keeps growing long after the first sale.',
+        'We build sustainable growth through optimized listings, strong SEO, and loyal customers.',
     },
     {
       icon: Target,
       title: 'Measurable Results',
       description:
-        'You will always know where your money goes and what it earns. Clear reports on sales, ad spend and performance keep every decision backed by real numbers.',
+        'Clear reports on sales, ad spend, and performance ensure every decision is data-driven.',
     },
     {
       icon: Activity,
       title: 'Cost-Effective Allocation',
       description:
-        "Every dollar of your budget is planned with care. We focus spend on the channels and products that perform, and cut what doesn't, for a stronger return.",
+        "We optimize every dollar by focusing on high-performing channels and products to maximize returns.",
     },
     {
       icon: Award,
       title: 'Long-term Success',
       description:
-        'We work as your long-term partner, adapting to marketplace and algorithm changes so your brand stays competitive and keeps moving forward.',
+        'We adapt to marketplace changes and support your brands long-term growth and success.',
     },
   ];
 
@@ -1231,30 +1231,26 @@ const HomePage = () => {
         }
 
         .home-growth-connector {
-          position: absolute;
-          top: 87px;
-          left: 55px;
-          width: 1px;
-          height: 28px;
-          background: linear-gradient(
-            to bottom,
-            rgba(23, 19, 19, 0.20),
-            rgba(23, 19, 19, 0.07)
-          );
-          pointer-events: none;
-        }
+  position: absolute;
+  top: 87px;
+  left: 50px;
+  width: 1px;
+  height: 20px;
+  background: rgba(23, 19, 19, 0.16);
+  pointer-events: none;
+}
 
-        .home-growth-connector::after {
-          position: absolute;
-          bottom: 1px;
-          left: -4px;
-          width: 7px;
-          height: 7px;
-          border-right: 1px solid rgba(23, 19, 19, 0.24);
-          border-bottom: 1px solid rgba(23, 19, 19, 0.24);
-          content: '';
-          transform: rotate(45deg);
-        }
+.home-growth-connector::after {
+  position: absolute;
+  bottom: 0;
+  left: -3px;
+  width: 6px;
+  height: 6px;
+  border-right: 1px solid rgba(23, 19, 19, 0.22);
+  border-bottom: 1px solid rgba(23, 19, 19, 0.22);
+  content: '';
+  transform: rotate(45deg);
+}
 
         .home-growth-copy {
           min-width: 0;
@@ -1382,7 +1378,7 @@ const HomePage = () => {
           .home-growth-connector {
             top: 78px;
             left: 42px;
-            height: 27px;
+            height: 20px;
           }
 
           .home-growth-copy h3 {
@@ -1427,8 +1423,8 @@ const HomePage = () => {
 
           .home-growth-connector {
             top: 68px;
-            left: 35px;
-            height: 36px;
+            left: 34px;
+            height: 20px;
           }
 
           .home-growth-copy {
@@ -2206,9 +2202,6 @@ const HomePage = () => {
                           <StepIcon />
                         </div>
 
-                        <span className="home-growth-number">
-                          {step.number}
-                        </span>
                       </div>
 
                       <div className="home-growth-copy">
