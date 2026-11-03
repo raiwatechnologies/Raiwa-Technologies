@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button.jsx';
 
 import {
   services,
@@ -10,6 +9,8 @@ import {
   mainServices,
   mainServicePath,
 } from '@/lib/services.js';
+
+const MotionLink = motion(Link);
 
 const ServiceCard = ({
   icon: Icon,
@@ -52,7 +53,8 @@ const ServiceCard = ({
   const soft = serviceData?.soft || '#E5E5E5';
 
   return (
-    <motion.div
+    <MotionLink
+      to={destination}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -60,23 +62,20 @@ const ServiceCard = ({
         duration: 0.5,
         delay: index * 0.1,
       }}
-      // Standard cards lift by 3px.
-      // Homepage icon-only cards retain their wrapper's 3D movement.
       whileHover={
         iconOnly
           ? undefined
           : {
               y: -3,
-              boxShadow: '0 8px 22px rgba(0, 0, 0, 0.07)',
-              borderColor: 'rgba(23, 19, 19, 0.18)',
+              boxShadow: '0 8px 22px rgba(0, 0, 0, 0.03)',
             }
       }
-      className="service-card group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-[#FDFDFD] shadow-[0_3px_10px_rgba(0,0,0,0.025)] transition-shadow duration-300 hover:shadow-[0_8px_22px_rgba(0,0,0,0.07)]"
+      className="service-card group relative flex h-full flex-col overflow-hidden rounded-2xl bg-[#FDFDFD] shadow-[0_3px_12px_rgba(0,0,0,0.03)] transition-all duration-300 no-underline"
       style={{
-        borderColor: 'rgba(23, 19, 19, 0.18)',
+        textDecoration: 'none',
+        color: 'inherit',
       }}
     >
-
       {/* Decorative corner */}
       <div
         className="absolute -right-8 -top-8 z-0 h-32 w-32 rounded-bl-[100px] transition-transform duration-500 group-hover:scale-150"
@@ -97,7 +96,7 @@ const ServiceCard = ({
         {/* SERVICE IMAGE */}
         {themeImage && (
           <div
-            className={`mx-3 mt-3 mb-5 overflow-hidden rounded-xl bg-[#FDFDFD] ${
+            className={`mx-3 mt-3 mb-5 overflow-hidden rounded-xl bg-[#FDFDFD] shadow-[0_6px_14px_rgba(0,0,0,0.03)] ${
               compact ? 'h-48' : 'h-48'
             }`}
           >
@@ -128,7 +127,7 @@ const ServiceCard = ({
           {description}
         </p>
 
-        {/* SERVICE BENEFITS: SIMPLE RED DOTS */}
+        {/* SERVICE BENEFITS */}
         {benefits && benefits.length > 0 && (
           <ul className="mb-8 space-y-3 px-8">
             {benefits.map((benefit, i) => (
@@ -149,24 +148,18 @@ const ServiceCard = ({
 
         {/* CARD CTA */}
         <div className="mx-8 mt-auto border-t border-[#171313]/15 pb-2 pt-6">
-          <Link
-            to={destination}
-            className="block"
+          <span
+            className="flex h-12 w-full items-center justify-between rounded-md px-4 font-bold text-[#171313] transition-colors duration-200 group-hover:bg-[#171313] group-hover:text-[#FDFDFD]"
             aria-label={`${ctaText} about ${title}`}
           >
-            <Button
-              variant="ghost"
-              className="group/btn h-12 w-full justify-between font-bold text-[#171313] transition-colors duration-200 hover:bg-[#171313] hover:text-[#FDFDFD]"
-            >
-              {ctaText}
+            {ctaText}
 
-              <ArrowRight className="h-5 w-5 text-[#DA0807] transition-transform group-hover/btn:translate-x-1 group-hover/btn:text-[#FDFDFD]" />
-            </Button>
-          </Link>
+            <ArrowRight className="h-5 w-5 text-[#DA0807] transition-all duration-200 group-hover:translate-x-1 group-hover:text-[#FDFDFD]" />
+          </span>
         </div>
 
       </div>
-    </motion.div>
+    </MotionLink>
   );
 };
 

@@ -416,15 +416,14 @@ const ServicesPage = () => {
         />
       </Helmet>
 
-      {/* SERVICES PAGE CARD HOVER STANDARD */}
+            {/* SERVICES PAGE CARD HOVER STANDARD */}
       <style>{`
         /*
-          Unified subtle card hover:
-          - Existing borders remain unchanged.
-          - No dark or black border appears on hover.
-          - Normal shadow: 2.5% black.
-          - Hover shadow: 7% black.
-          - Cards lift slightly by 3px.
+          Unified card styling:
+          - Remove card borders.
+          - Normal shadow: 3% black.
+          - Hover shadow: 3% black.
+          - Cards lift by 3px.
         */
 
         .services-hover-card {
@@ -434,16 +433,10 @@ const ServicesPage = () => {
           will-change: transform;
         }
 
-        /* Subtle shadow on all service images */
-.services-hover-card img {
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.03));
-  transition: filter 300ms ease;
-}
-  
         .services-hover-card > *,
         .services-hover-card .service-card {
-          box-shadow:
-            0 3px 10px rgba(0, 0, 0, 0.025) !important;
+          border: none !important;
+          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03) !important;
           transition:
             transform 280ms ease,
             box-shadow 280ms ease !important;
@@ -454,19 +447,13 @@ const ServicesPage = () => {
         }
 
         .services-hover-card:hover > *,
-        .services-hover-card:hover .service-card {
-          box-shadow:
-            0 8px 22px rgba(0, 0, 0, 0.07) !important;
-        }
-
-        /* Nested service cards keep the same subtle hover shadow. */
+        .services-hover-card:hover .service-card,
         .services-hover-card > *:hover,
         .services-hover-card .service-card:hover {
-          box-shadow:
-            0 8px 22px rgba(0, 0, 0, 0.07) !important;
+          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.03) !important;
         }
 
-        /* FAQ rows: subtle shadow without changing their original border. */
+        /* FAQ hover effect */
         .services-faq-hover-area [class*="border"] {
           transition:
             transform 280ms ease,
@@ -475,8 +462,7 @@ const ServicesPage = () => {
 
         .services-faq-hover-area [class*="border"]:hover {
           transform: translateY(-3px);
-          box-shadow:
-            0 8px 22px rgba(0, 0, 0, 0.07) !important;
+          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.03) !important;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -511,6 +497,12 @@ const ServicesPage = () => {
               className="h-full w-full object-cover object-center"
             />
           </picture>
+
+                    {/* SUBTLE HERO TEXT OVERLAY */}
+          <div
+            className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#171313]/55 via-[#171313]/30 to-[#171313]/10"
+            aria-hidden="true"
+          />
 
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <motion.div

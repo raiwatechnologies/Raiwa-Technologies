@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -33,25 +32,25 @@ const CARD_HOVER_STYLES = `
   /*
     Raiwa Technologies shared card hover standard:
 
-    - Preserve each card's original border.
-    - Never add a dark or black border on hover.
-    - Normal shadow: 2.5% black.
-    - Hover shadow: 7% black.
+    - Remove all card borders.
+    - Normal shadow: 3% black.
+    - Hover shadow: 3% black.
     - Smooth 3px upward movement.
-    - Preserve existing card backgrounds and content.
   */
 
   .detail-hover-card {
     height: 100%;
     min-width: 0;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.025) !important;
+    border: none !important;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03) !important;
     transition:
       transform 280ms ease,
       box-shadow 280ms ease !important;
   }
 
   .detail-hover-card:hover {
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07) !important;
+    border: none !important;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.03) !important;
     transform: translateY(-3px);
   }
 
@@ -143,8 +142,11 @@ function SectionHeading({
 
       <h2 className="font-heading text-3xl font-extrabold leading-tight tracking-tight text-[#171313] sm:text-4xl md:text-5xl">
         {title}{' '}
+
         {highlight && (
-          <span className="text-[#DA0807]">{highlight}</span>
+          <span className="text-[#DA0807]">
+            {highlight}
+          </span>
         )}
       </h2>
 
@@ -159,6 +161,7 @@ function SectionHeading({
 
 /* -------------------------------------------------------
    SERVICE DIRECTORY CARD
+   Whole card clickable
    No logo or logo holder
 ------------------------------------------------------- */
 
@@ -169,11 +172,10 @@ function ServiceCard({ item }) {
     <Link
       to={servicePath(item)}
       aria-label={`Explore ${item.title}`}
-      className="detail-hover-card group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-[#FDFDFD] shadow-[0_3px_10px_rgba(0,0,0,0.025)] transition-all duration-300 focus-visible:outline-none"
-      style={{
-        borderColor: 'rgba(23, 19, 19, 0.18)',
-      }}
+      className="detail-hover-card group relative flex h-full flex-col overflow-hidden rounded-2xl bg-[#FDFDFD] transition-all duration-300 focus-visible:outline-none"
     >
+      {/* SERVICE IMAGE */}
+
       <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#E5E5E5]">
         <ServiceImage
           src={image}
@@ -187,6 +189,8 @@ function ServiceCard({ item }) {
         />
       </div>
 
+      {/* CARD CONTENT */}
+
       <div className="flex flex-1 flex-col p-6 md:p-7">
         <h3 className="text-xl font-extrabold text-[#171313] transition-colors duration-300 group-hover:text-[#DA0807] md:text-2xl">
           {item.title}
@@ -196,9 +200,10 @@ function ServiceCard({ item }) {
           {item.description}
         </p>
 
-        <div className="mt-6 border-t border-[#171313]/15 pt-5">
+        <div className="mt-6 pt-5">
           <span className="inline-flex items-center gap-2 text-sm font-extrabold text-[#171313] transition-colors duration-300 group-hover:text-[#DA0807]">
             Explore service
+
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </span>
         </div>
@@ -246,6 +251,7 @@ function CallToAction({ title, description }) {
           <Link to="/contact">
             <ProjectButton className="border-white bg-white text-[#171313] shadow-none hover:border-white hover:bg-white hover:text-[#171313]">
               Talk to our team
+
               <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
             </ProjectButton>
           </Link>
@@ -275,7 +281,10 @@ function MainServicePage({ main }) {
   return (
     <>
       <Helmet>
-        <title>{`${main.title} Services | Raiwa Technologies`}</title>
+        <title>
+          {`${main.title} Services | Raiwa Technologies`}
+        </title>
+
         <meta
           name="description"
           content={
@@ -290,7 +299,9 @@ function MainServicePage({ main }) {
       <main className="bg-[#FDFDFD]">
 
         {/* MAIN SERVICE HERO */}
+
         <section className="relative isolate overflow-hidden bg-[#171313] text-white">
+
           {heroImage && (
             <div className="absolute inset-0 -z-20">
               <ServiceImage
@@ -302,7 +313,17 @@ function MainServicePage({ main }) {
             </div>
           )}
 
+          {/* HERO TEXT READABILITY OVERLAY */}
+
+          <div
+            className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#171313]/55 via-[#171313]/25 to-[#171313]/10"
+            aria-hidden="true"
+          />
+
           <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 md:grid-cols-[1.1fr_.9fr] md:gap-14 md:py-28">
+
+            {/* HERO CONTENT */}
+
             <div>
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/[0.09] px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm">
                 <span className="h-2 w-2 rounded-full bg-[#DA0807]" />
@@ -311,7 +332,10 @@ function MainServicePage({ main }) {
 
               <h1 className="mb-6 font-heading text-4xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-5xl md:text-6xl">
                 {main.title}
-                <span className="text-white/65">, done right.</span>
+
+                <span className="text-white/65">
+                  , done right.
+                </span>
               </h1>
 
               <p className="mb-9 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg md:text-xl">
@@ -322,6 +346,7 @@ function MainServicePage({ main }) {
                 <Link to="/contact">
                   <ProjectButton className="w-full sm:w-auto">
                     Discuss Your Project
+
                     <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </ProjectButton>
                 </Link>
@@ -331,15 +356,18 @@ function MainServicePage({ main }) {
                   className="inline-flex h-14 items-center justify-center gap-2 rounded-md border border-white/35 px-7 text-sm font-bold text-white transition-all duration-300 hover:border-white hover:bg-white hover:text-[#171313]"
                 >
                   All Services
+
                   <ChevronRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
 
-            <div className="relative">
-              <div className="rounded-3xl border border-white/20 bg-white/[0.08] p-3 shadow-[0_25px_60px_rgba(0,0,0,0.3)] backdrop-blur-sm">
+            {/* HERO IMAGE CARD */}
 
-                <div className="overflow-hidden rounded-2xl bg-[#E5E5E5]">
+            <div className="relative">
+              <div className="rounded-3xl bg-white/[0.08] p-3 shadow-[0_8px_22px_rgba(0,0,0,0.03)] backdrop-blur-sm">
+
+                <div className="detail-hero-image-frame overflow-hidden rounded-2xl bg-[#E5E5E5] shadow-[0_6px_14px_rgba(0,0,0,0.03)]">
                   <ServiceImage
                     src={heroImage}
                     alt={`${main.title} services`}
@@ -370,7 +398,9 @@ function MainServicePage({ main }) {
         </section>
 
         {/* MAIN SERVICE CHILDREN */}
+
         <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 md:py-28">
+
           <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
 
             <SectionHeading
@@ -382,6 +412,7 @@ function MainServicePage({ main }) {
 
             <div className="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-[#171313]/15 bg-[#E5E5E5]/40 px-4 py-2 text-sm font-bold text-[#171313] md:self-end">
               <span className="h-2 w-2 rounded-full bg-[#DA0807]" />
+
               {children.length} specialist{' '}
               {children.length === 1 ? 'service' : 'services'}
             </div>
@@ -390,16 +421,15 @@ function MainServicePage({ main }) {
           {children.length > 0 ? (
             <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
               {children.map((item) => (
-                <ServiceCard key={item.slug} item={item} />
+                <ServiceCard
+                  key={item.slug}
+                  item={item}
+                />
               ))}
             </div>
           ) : (
-            <div
-              className="detail-hover-card rounded-2xl border bg-[#E5E5E5]/35 p-8 md:p-10"
-              style={{
-                borderColor: 'rgba(23, 19, 19, 0.18)',
-              }}
-            >
+            <div className="detail-hover-card rounded-2xl bg-[#E5E5E5]/35 p-8 md:p-10">
+
               <h3 className="text-xl font-bold text-[#171313]">
                 Services in this category are being prepared.
               </h3>
@@ -414,16 +444,20 @@ function MainServicePage({ main }) {
                 className="mt-6 inline-flex items-center gap-2 font-bold text-[#DA0807] transition-colors hover:text-[#171313]"
               >
                 Contact us
+
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           )}
         </section>
 
+        {/* CALL TO ACTION */}
+
         <CallToAction
           title={`Ready to get started with ${main.title}?`}
           description="Tell us about your goals and we’ll help you choose the right approach for your business."
         />
+
       </main>
     </>
   );
@@ -453,7 +487,10 @@ function IndividualServicePage({ service }) {
   return (
     <>
       <Helmet>
-        <title>{`${service.title} | Raiwa Technologies`}</title>
+        <title>
+          {`${service.title} | Raiwa Technologies`}
+        </title>
+
         <meta
           name="description"
           content={
@@ -468,7 +505,9 @@ function IndividualServicePage({ service }) {
       <main className="bg-[#FDFDFD]">
 
         {/* INDIVIDUAL SERVICE HERO */}
+
         <section className="relative isolate overflow-hidden bg-[#171313]">
+
           {serviceImage && (
             <div className="absolute inset-0 -z-20">
               <ServiceImage
@@ -480,16 +519,30 @@ function IndividualServicePage({ service }) {
             </div>
           )}
 
+          {/* HERO TEXT READABILITY OVERLAY */}
+
+          <div
+            className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#171313]/55 via-[#171313]/25 to-[#171313]/10"
+            aria-hidden="true"
+          />
+
           <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 md:grid-cols-[1.05fr_.95fr] md:gap-14 md:py-28">
+
+            {/* HERO CONTENT */}
+
             <div className="text-white">
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/[0.09] px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm">
                 <span className="h-2 w-2 rounded-full bg-[#DA0807]" />
+
                 {service.category} Solutions
               </div>
 
               <h1 className="mb-6 font-heading text-4xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-5xl md:text-6xl">
                 {service.title}
-                <span className="text-white/65">, done right.</span>
+
+                <span className="text-white/65">
+                  , done right.
+                </span>
               </h1>
 
               <p className="mb-9 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg md:text-xl">
@@ -497,9 +550,11 @@ function IndividualServicePage({ service }) {
               </p>
 
               <div className="flex flex-col gap-3 sm:flex-row">
+
                 <Link to="/contact">
                   <ProjectButton className="w-full sm:w-auto">
                     Discuss Your Project
+
                     <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </ProjectButton>
                 </Link>
@@ -510,6 +565,7 @@ function IndividualServicePage({ service }) {
                     className="inline-flex h-14 items-center justify-center gap-2 rounded-md border border-white/35 px-6 text-sm font-bold text-white transition-all duration-300 hover:border-white hover:bg-white hover:text-[#171313]"
                   >
                     {parentCategory.title}
+
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                 ) : (
@@ -518,16 +574,19 @@ function IndividualServicePage({ service }) {
                     className="inline-flex h-14 items-center justify-center gap-2 rounded-md border border-white/35 px-6 text-sm font-bold text-white transition-all duration-300 hover:border-white hover:bg-white hover:text-[#171313]"
                   >
                     All Services
+
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                 )}
               </div>
             </div>
 
-            <div className="relative">
-              <div className="rounded-3xl border border-white/20 bg-white/[0.08] p-3 shadow-[0_25px_60px_rgba(0,0,0,0.3)] backdrop-blur-sm">
+            {/* HERO IMAGE CARD */}
 
-                <div className="overflow-hidden rounded-2xl bg-[#E5E5E5]">
+            <div className="relative">
+              <div className="rounded-3xl bg-white/[0.08] p-3 shadow-[0_8px_22px_rgba(0,0,0,0.03)] backdrop-blur-sm">
+
+                <div className="detail-hero-image-frame overflow-hidden rounded-2xl bg-[#E5E5E5] shadow-[0_6px_14px_rgba(0,0,0,0.03)]">
                   <ServiceImage
                     src={serviceImage}
                     alt={`${service.title} service`}
@@ -558,7 +617,9 @@ function IndividualServicePage({ service }) {
         </section>
 
         {/* SERVICE BENEFITS */}
+
         <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 md:py-28">
+
           <div className="grid gap-12 md:grid-cols-[.8fr_1.2fr] md:gap-20">
 
             <div>
@@ -575,6 +636,7 @@ function IndividualServicePage({ service }) {
                   className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#171313] transition-colors hover:text-[#DA0807]"
                 >
                   Explore all {parentCategory.title} services
+
                   <ArrowRight className="h-4 w-4 text-[#DA0807]" />
                 </Link>
               )}
@@ -583,13 +645,11 @@ function IndividualServicePage({ service }) {
             <div>
               {benefits.length > 0 ? (
                 <div className="grid gap-5 sm:grid-cols-2">
+
                   {benefits.map((benefit) => (
                     <div
                       key={benefit}
-                      className="detail-hover-card group rounded-2xl border bg-[#FDFDFD] p-6"
-                      style={{
-                        borderColor: 'rgba(23, 19, 19, 0.18)',
-                      }}
+                      className="detail-hover-card group rounded-2xl bg-[#FDFDFD] p-6"
                     >
                       <span className="mb-5 block h-2.5 w-2.5 rounded-full bg-[#DA0807]" />
 
@@ -603,14 +663,11 @@ function IndividualServicePage({ service }) {
                       </p>
                     </div>
                   ))}
+
                 </div>
               ) : (
-                <div
-                  className="detail-hover-card rounded-2xl border bg-[#E5E5E5]/35 p-8"
-                  style={{
-                    borderColor: 'rgba(23, 19, 19, 0.18)',
-                  }}
-                >
+                <div className="detail-hover-card rounded-2xl bg-[#E5E5E5]/35 p-8">
+
                   <p className="font-semibold text-[#171313]">
                     We tailor this service to your requirements.
                   </p>
@@ -626,7 +683,9 @@ function IndividualServicePage({ service }) {
         </section>
 
         {/* SERVICE PROCESS */}
+
         <section className="border-y border-[#171313]/10 bg-[#E5E5E5]/40 py-20 md:py-24">
+
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
 
             <div className="mb-12 max-w-3xl">
@@ -639,6 +698,7 @@ function IndividualServicePage({ service }) {
             </div>
 
             <div className="grid gap-6 md:grid-cols-3">
+
               {[
                 {
                   number: '01',
@@ -661,10 +721,7 @@ function IndividualServicePage({ service }) {
               ].map((step) => (
                 <div
                   key={step.number}
-                  className="detail-hover-card group rounded-2xl border bg-[#FDFDFD] p-7 md:p-8"
-                  style={{
-                    borderColor: 'rgba(23, 19, 19, 0.18)',
-                  }}
+                  className="detail-hover-card group rounded-2xl bg-[#FDFDFD] p-7 md:p-8"
                 >
                   <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#171313] text-sm font-extrabold text-white transition-colors duration-300 group-hover:bg-[#DA0807]">
                     {step.number}
@@ -679,22 +736,27 @@ function IndividualServicePage({ service }) {
                   </p>
                 </div>
               ))}
+
             </div>
           </div>
         </section>
 
-        {/* CTA */}
+        {/* CALL TO ACTION */}
+
         <CallToAction
           title={`Ready to get started with ${service.title}?`}
           description="Tell us about your goals and we’ll help you work out the right next step."
         />
 
         {/* RELATED SERVICES */}
+
         {related.length > 0 && (
           <section className="border-t border-[#171313]/10 bg-[#FDFDFD] px-5 py-20 sm:px-8 md:py-24">
+
             <div className="mx-auto max-w-7xl">
 
               <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+
                 <SectionHeading
                   eyebrow="Explore more"
                   title="Related"
@@ -707,18 +769,25 @@ function IndividualServicePage({ service }) {
                   className="inline-flex shrink-0 items-center gap-2 text-sm font-extrabold text-[#171313] transition-colors hover:text-[#DA0807]"
                 >
                   View all services
+
                   <ChevronRight className="h-4 w-4 text-[#DA0807]" />
                 </Link>
               </div>
 
               <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+
                 {related.map((item) => (
-                  <ServiceCard key={item.slug} item={item} />
+                  <ServiceCard
+                    key={item.slug}
+                    item={item}
+                  />
                 ))}
+
               </div>
             </div>
           </section>
         )}
+
       </main>
     </>
   );
@@ -750,7 +819,10 @@ export default function ServiceDetailPage() {
   return (
     <>
       <Helmet>
-        <title>Service Not Found | Raiwa Technologies</title>
+        <title>
+          Service Not Found | Raiwa Technologies
+        </title>
+
         <meta
           name="description"
           content="Explore the complete range of services offered by Raiwa Technologies."
@@ -760,11 +832,14 @@ export default function ServiceDetailPage() {
       <style>{CARD_HOVER_STYLES}</style>
 
       <main className="flex min-h-[65vh] flex-col items-center justify-center bg-[#FDFDFD] px-5 py-20 text-center">
+
         <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#E5E5E5]">
           <Sparkles className="h-8 w-8 text-[#DA0807]" />
         </div>
 
-        <Eyebrow>Raiwa Technologies</Eyebrow>
+        <Eyebrow>
+          Raiwa Technologies
+        </Eyebrow>
 
         <h1 className="mb-4 font-heading text-3xl font-extrabold text-[#171313] sm:text-4xl">
           Service not found
@@ -779,9 +854,11 @@ export default function ServiceDetailPage() {
         <Link to="/services">
           <ProjectButton>
             Explore All Services
+
             <ArrowRight className="ml-3 h-5 w-5" />
           </ProjectButton>
         </Link>
+
       </main>
     </>
   );
