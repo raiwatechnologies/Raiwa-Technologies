@@ -1224,17 +1224,18 @@ const benefitFeatures = [
 }
 
 /* Icon changes only when the complete step is hovered */
-.home-growth-step:hover .home-growth-icon {
+.home-growth-icon {
   background: #FFFFFF !important;
   color: #DA0807 !important;
   transform: none !important;
   box-shadow: 0 7px 17px rgba(23, 19, 19, 0.07);
 }
 
-/* Only the icon symbol turns red */
-.home-growth-step:hover .home-growth-icon svg {
+.home-growth-icon svg {
   color: #DA0807 !important;
   stroke: #DA0807 !important;
+}
+
 }
 
         .home-growth-number {
