@@ -588,6 +588,317 @@ const HomePage = () => {
         }
 
         /* ================================================
+           HIGH-IMPACT SERVICES - EDITORIAL BUILD / GROW / SCALE
+        ================================================ */
+
+        .home-growth-services-section {
+          position: relative;
+          isolation: isolate;
+          overflow: hidden;
+          padding: clamp(72px, 8vw, 112px) 0;
+          background: #171313;
+          color: #FFFFFF;
+        }
+
+        .home-growth-services-section::before {
+          position: absolute;
+          top: -230px;
+          right: -170px;
+          z-index: -1;
+          width: 560px;
+          height: 560px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(218, 8, 7, 0.16), rgba(218, 8, 7, 0) 68%);
+          content: '';
+          pointer-events: none;
+        }
+
+        .home-growth-services-heading {
+          max-width: 790px;
+          margin: 0 0 42px;
+        }
+
+        .home-growth-services-eyebrow {
+          display: inline-block;
+          margin-bottom: 16px;
+          color: #DA0807;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.16em;
+        }
+
+        .home-growth-services-heading h2 {
+          margin: 0 0 16px;
+          color: #FFFFFF;
+          font-size: clamp(34px, 5vw, 58px);
+          font-weight: 800;
+          line-height: 1.08;
+          letter-spacing: -0.045em;
+        }
+
+        .home-growth-services-heading h2 span {
+          color: #DA0807;
+        }
+
+        .home-growth-services-heading p {
+          max-width: 610px;
+          margin: 0;
+          color: rgba(255, 255, 255, 0.68);
+          font-size: 15px;
+          line-height: 1.8;
+        }
+
+        .home-service-journey-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+          gap: 20px;
+          align-items: stretch;
+        }
+
+        .home-journey-side {
+          display: grid;
+          min-width: 0;
+          grid-template-rows: repeat(2, minmax(0, 1fr));
+          gap: 20px;
+        }
+
+        .home-journey-card {
+          position: relative;
+          display: flex;
+          min-width: 0;
+          min-height: 280px;
+          overflow: hidden;
+          isolation: isolate;
+          border: 0;
+          border-radius: 22px;
+          background: #292323;
+          box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+          transition: transform 320ms cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 320ms ease;
+        }
+
+        .home-journey-build {
+          min-height: 590px;
+        }
+
+        .home-journey-card:hover {
+          transform: translateY(-4px);
+          border: 0;
+          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+        }
+
+        .home-journey-card:focus-within {
+          outline: 2px solid #DA0807;
+          outline-offset: 4px;
+        }
+
+        .home-journey-image,
+        .home-journey-overlay {
+          position: absolute;
+          inset: 0;
+          z-index: -1;
+          width: 100%;
+          height: 100%;
+        }
+
+        .home-journey-image {
+          object-fit: cover;
+          object-position: center;
+          opacity: 0.72;
+          transform: scale(1.001);
+          transition: transform 650ms cubic-bezier(0.2, 0.7, 0.3, 1), opacity 350ms ease;
+        }
+
+        .home-journey-card:hover .home-journey-image {
+          transform: scale(1.045);
+          opacity: 0.82;
+        }
+
+        .home-journey-overlay {
+          background: linear-gradient(180deg, rgba(15, 12, 12, 0.16) 0%, rgba(15, 12, 12, 0.34) 36%, rgba(15, 12, 12, 0.94) 100%);
+        }
+
+        .home-journey-content {
+          display: flex;
+          width: 100%;
+          min-height: inherit;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 30px;
+          padding: clamp(22px, 3vw, 34px);
+        }
+
+        .home-journey-meta {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          color: rgba(255, 255, 255, 0.76);
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 0.13em;
+        }
+
+        .home-journey-stage {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 62px;
+          min-height: 29px;
+          padding: 0 11px;
+          border-radius: 999px;
+          background: #DA0807;
+          color: #FFFFFF;
+          font-size: 10px;
+          letter-spacing: 0.1em;
+        }
+
+        .home-journey-copy h3 {
+          max-width: 570px;
+          margin: 0 0 12px;
+          color: #FFFFFF;
+          font-size: clamp(27px, 3.5vw, 43px);
+          font-weight: 800;
+          line-height: 1.12;
+          letter-spacing: -0.035em;
+        }
+
+        .home-journey-copy p {
+          max-width: 510px;
+          margin: 0 0 20px;
+          color: rgba(255, 255, 255, 0.78);
+          font-size: 14px;
+          line-height: 1.75;
+        }
+
+        .home-journey-small .home-journey-copy h3 {
+          max-width: 430px;
+          font-size: clamp(23px, 2.4vw, 30px);
+        }
+
+        .home-journey-small .home-journey-copy p {
+          margin-bottom: 15px;
+          font-size: 13px;
+        }
+
+        .home-journey-service-links {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-bottom: 20px;
+        }
+
+        .home-journey-service-links a {
+          display: inline-flex;
+          align-items: center;
+          min-height: 31px;
+          padding: 5px 11px;
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.09);
+          color: #FFFFFF;
+          font-size: 11px;
+          font-weight: 650;
+          text-decoration: none;
+          backdrop-filter: blur(8px);
+          transition: background-color 220ms ease, border-color 220ms ease;
+        }
+
+        .home-journey-service-links a:hover {
+          border-color: rgba(255, 255, 255, 0.25);
+          background: rgba(218, 8, 7, 0.82);
+          color: #FFFFFF;
+        }
+
+        .home-journey-cta {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          color: #FFFFFF;
+          font-size: 13px;
+          font-weight: 800;
+          text-decoration: none;
+        }
+
+        .home-journey-cta svg {
+          width: 17px;
+          height: 17px;
+          color: #DA0807;
+          transition: transform 220ms ease;
+        }
+
+        .home-journey-cta:hover svg {
+          transform: translateX(5px);
+        }
+
+        .home-journey-cta:focus-visible,
+        .home-journey-service-links a:focus-visible {
+          outline: 2px solid #FFFFFF;
+          outline-offset: 4px;
+        }
+
+        @media (max-width: 900px) {
+          .home-service-journey-grid {
+            grid-template-columns: minmax(0, 1fr);
+          }
+
+          .home-journey-build {
+            min-height: 470px;
+          }
+
+          .home-journey-side {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-rows: minmax(300px, auto);
+          }
+
+          .home-journey-small .home-journey-content {
+            padding: 23px;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .home-growth-services-section {
+            padding: 68px 0;
+          }
+
+          .home-growth-services-heading {
+            margin-bottom: 30px;
+          }
+
+          .home-growth-services-heading p {
+            font-size: 14px;
+          }
+
+          .home-service-journey-grid,
+          .home-journey-side {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 14px;
+          }
+
+          .home-journey-build {
+            min-height: 440px;
+          }
+
+          .home-journey-small {
+            min-height: 360px;
+          }
+
+          .home-journey-content,
+          .home-journey-small .home-journey-content {
+            padding: 22px;
+          }
+
+          .home-journey-copy h3,
+          .home-journey-small .home-journey-copy h3 {
+            font-size: 27px;
+          }
+
+          .home-journey-copy p,
+          .home-journey-small .home-journey-copy p {
+            font-size: 13px;
+          }
+        }
+
+        /* ================================================
            HORIZONTAL BENEFIT FEATURE LIST
         ================================================ */
 
@@ -1543,7 +1854,11 @@ const HomePage = () => {
           .home-about-view-all-button,
           .home-growth-step,
           .home-growth-icon,
-          .home-growth-image {
+          .home-growth-image,
+          .home-journey-card,
+          .home-journey-image,
+          .home-journey-service-links a,
+          .home-journey-cta svg {
             transition: none !important;
           }
 
@@ -1556,7 +1871,10 @@ const HomePage = () => {
           .home-about-learn-button:hover,
           .home-about-view-all-button:hover,
           .home-growth-step:hover,
-          .home-growth-visual:hover .home-growth-image {
+          .home-growth-visual:hover .home-growth-image,
+          .home-journey-card:hover,
+          .home-journey-card:hover .home-journey-image,
+          .home-journey-cta:hover svg {
             transform: none !important;
           }
         }
@@ -1591,7 +1909,7 @@ const HomePage = () => {
           word-break: normal;
           text-wrap: pretty;
         }
-        
+
 /* ================================================
    MARKETPLACES - CLEAN BORDERLESS CARDS
 ================================================ */
@@ -1754,68 +2072,174 @@ const HomePage = () => {
         </section>
 
         {/* ===============================================
-            HIGH-IMPACT SERVICES - SIX MAIN CATEGORIES
-            DESKTOP: 3 CARDS + 3 CARDS
+            HIGH-IMPACT SERVICES - BUILD / GROW / SCALE
+            EDITORIAL FEATURE LAYOUT
         =============================================== */}
 
-        <section className="bg-background py-10 md:py-14">
-
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-            <div className="mx-auto mb-8 max-w-3xl text-center">
-              <h2 className="mb-2 font-heading text-3xl font-extrabold text-primary-dark md:text-4xl">
-                High-Impact{' '}
-                <span className="text-[#DA0807]">
-                  Services
-                </span>
+        <section className="home-growth-services-section">
+          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <motion.div
+              className="home-growth-services-heading"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="home-growth-services-eyebrow">
+                WHAT WE DO / HOW WE HELP
+              </span>
+              <h2>
+                One Partner.{' '}
+                <span>Every Stage of Growth.</span>
               </h2>
-
-              <p className="text-sm text-muted-foreground md:text-base">
-                Focused solutions to help your business grow.
+              <p>
+                From your first digital steps to sustainable business growth,
+                we bring the right expertise together under one roof.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="home-card-grid home-featured-services-grid">
-
-              {featuredServices.map((service) => (
-                <div
-                  key={service.slug}
-                  className="home-service-card-shell"
-                  role="link"
-                  tabIndex={0}
-                  aria-label={`Explore ${service.title} services`}
-                  onClick={(event) =>
-                    handleFeaturedCardClick(event, service.title)
+            <div className="home-service-journey-grid">
+              {/* BUILD - FEATURED PANEL */}
+              <motion.article
+                className="home-journey-card home-journey-build"
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.65 }}
+              >
+                <img
+                  src={
+                    featuredServices.find((item) => item.slug === 'development')?.image ||
+                    featuredServices.find((item) => item.slug === 'ecommerce')?.image ||
+                    ''
                   }
-                  onKeyDown={(event) =>
-                    handleFeaturedCardKeyDown(event, service.title)
-                  }
-                >
-
-                  <img
-                    src={service.image}
-                    alt={`${service.title} services`}
-                    loading="lazy"
-                    className="home-service-card-image"
-                  />
-
-                  <div className="home-service-card-content">
-
-                    <h3 className="home-service-card-title">
-                      {service.title}
-                    </h3>
-
-                    <p className="home-service-card-description">
-                      {service.description}
-                    </p>
-
+                  alt="Digital products, ecommerce and development solutions"
+                  loading="lazy"
+                  className="home-journey-image"
+                />
+                <div className="home-journey-overlay" aria-hidden="true" />
+                <div className="home-journey-content">
+                  <div className="home-journey-meta">
+                    <span>01 / THE FOUNDATION</span>
+                    <span className="home-journey-stage">BUILD</span>
                   </div>
-
+                  <div className="home-journey-copy">
+                    <h3>Build a stronger digital foundation.</h3>
+                    <p>
+                      Create the platforms, storefronts and brand experiences
+                      your business needs to move forward.
+                    </p>
+                    <div className="home-journey-service-links">
+                      {['Ecommerce', 'Development', 'Branding & Creative'].map((name) => (
+                        <Link key={name} to={getFeaturedServicePath(name)}>
+                          {name}
+                        </Link>
+                      ))}
+                    </div>
+                    <Link
+                      to={getFeaturedServicePath('Development')}
+                      className="home-journey-cta"
+                    >
+                      Explore Build Services <ArrowRight aria-hidden="true" />
+                    </Link>
+                  </div>
                 </div>
-              ))}
+              </motion.article>
 
+              <div className="home-journey-side">
+                {/* GROW */}
+                <motion.article
+                  className="home-journey-card home-journey-small"
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.65, delay: 0.08 }}
+                >
+                  <img
+                    src={
+                      featuredServices.find((item) => item.slug === 'marketing')?.image ||
+                      featuredServices.find((item) => item.slug === 'ads')?.image ||
+                      ''
+                    }
+                    alt="Digital marketing and advertising growth solutions"
+                    loading="lazy"
+                    className="home-journey-image"
+                  />
+                  <div className="home-journey-overlay" aria-hidden="true" />
+                  <div className="home-journey-content">
+                    <div className="home-journey-meta">
+                      <span>02 / REACH & RESULTS</span>
+                      <span className="home-journey-stage">GROW</span>
+                    </div>
+                    <div className="home-journey-copy">
+                      <h3>Reach the right people. Create momentum.</h3>
+                      <p>
+                        Turn attention into opportunity with smarter marketing
+                        and performance-led campaigns.
+                      </p>
+                      <div className="home-journey-service-links">
+                        {['Marketing', 'Ads'].map((name) => (
+                          <Link key={name} to={getFeaturedServicePath(name)}>
+                            {name}
+                          </Link>
+                        ))}
+                      </div>
+                      <Link
+                        to={getFeaturedServicePath('Marketing')}
+                        className="home-journey-cta"
+                      >
+                        Explore Growth Services <ArrowRight aria-hidden="true" />
+                      </Link>
+                    </div>
+                  </div>
+                </motion.article>
+
+                {/* SCALE */}
+                <motion.article
+                  className="home-journey-card home-journey-small"
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.65, delay: 0.16 }}
+                >
+                  <img
+                    src={
+                      featuredServices.find((item) => item.slug === 'management')?.image ||
+                      featuredServices.find((item) => item.slug === 'ecommerce')?.image ||
+                      ''
+                    }
+                    alt="Business management and operational scaling solutions"
+                    loading="lazy"
+                    className="home-journey-image"
+                  />
+                  <div className="home-journey-overlay" aria-hidden="true" />
+                  <div className="home-journey-content">
+                    <div className="home-journey-meta">
+                      <span>03 / SYSTEMS & CONTINUITY</span>
+                      <span className="home-journey-stage">SCALE</span>
+                    </div>
+                    <div className="home-journey-copy">
+                      <h3>Make growth easier to manage.</h3>
+                      <p>
+                        Streamline operations, strengthen performance and
+                        build systems that support what comes next.
+                      </p>
+                      <div className="home-journey-service-links">
+                        <Link to={getFeaturedServicePath('Management')}>
+                          Management
+                        </Link>
+                      </div>
+                      <Link
+                        to={getFeaturedServicePath('Management')}
+                        className="home-journey-cta"
+                      >
+                        Explore Management <ArrowRight aria-hidden="true" />
+                      </Link>
+                    </div>
+                  </div>
+                </motion.article>
+              </div>
             </div>
-
           </div>
         </section>
 
