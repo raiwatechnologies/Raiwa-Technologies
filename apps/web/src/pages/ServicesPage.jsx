@@ -434,6 +434,12 @@ const ServicesPage = () => {
           will-change: transform;
         }
 
+        /* Subtle shadow on all service images */
+.services-hover-card img {
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.03));
+  transition: filter 300ms ease;
+}
+  
         .services-hover-card > *,
         .services-hover-card .service-card {
           box-shadow:
