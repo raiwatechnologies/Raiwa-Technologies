@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
+  ArrowUpRight,
   Activity,
   Award,
   Users,
@@ -130,36 +131,42 @@ const HomePage = () => {
       slug: 'ecommerce',
       description:
         'Marketplace store setup, management and growth.',
+      tags: ['Amazon', 'eBay', 'Shopify'],
     },
     {
       title: 'Marketing',
       slug: 'marketing',
       description:
         'Digital marketing, SEO and audience growth.',
+      tags: ['SEO', 'Social Media', 'Content'],
     },
     {
       title: 'Development',
       slug: 'development',
       description:
         'Websites, apps, games and creative design.',
+      tags: ['Websites', 'Mobile Apps', 'Games'],
     },
     {
       title: 'Ads',
       slug: 'ads',
       description:
         'Targeted advertising campaigns and optimization.',
+      tags: ['Google Ads', 'Meta Ads', 'Retargeting'],
     },
     {
       title: 'Management',
       slug: 'management',
       description:
         'Reliable website and account management.',
+      tags: ['Accounts', 'Orders', 'Reporting'],
     },
     {
       title: 'Branding & Creative',
       slug: 'branding-and-creative',
       description:
         'Brand identity and visual content creation.',
+      tags: ['Logo', 'Visuals', 'Social Designs'],
     },
   ];
 
@@ -495,18 +502,56 @@ const HomePage = () => {
         }
 
         /* ================================================
-           HIGH-IMPACT SERVICE CARDS
+           HIGH-IMPACT SERVICES - IMAGE OVERLAY CARDS
         ================================================ */
 
+        .home-services-section {
+          position: relative;
+          overflow: hidden;
+          background: linear-gradient(180deg, #FFFFFF 0%, #FFF6F6 100%);
+        }
+
+        .home-services-section::before {
+          position: absolute;
+          top: -140px;
+          right: -120px;
+          width: 420px;
+          height: 420px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(218, 8, 7, 0.08) 0%,
+            rgba(218, 8, 7, 0) 70%
+          );
+          content: '';
+          pointer-events: none;
+        }
+
+        .home-services-section::after {
+          position: absolute;
+          bottom: -160px;
+          left: -120px;
+          width: 420px;
+          height: 420px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(218, 8, 7, 0.06) 0%,
+            rgba(218, 8, 7, 0) 70%
+          );
+          content: '';
+          pointer-events: none;
+        }
+
         .home-featured-services-grid {
+          position: relative;
+          z-index: 1;
           display: grid;
           width: 100%;
           max-width: 1120px;
           margin: 0 auto;
           grid-template-columns: minmax(0, 1fr);
-          column-gap: 28px;
-          row-gap: 34px;
-          align-items: stretch;
+          gap: 22px;
         }
 
         @media (min-width: 640px) {
@@ -518,28 +563,39 @@ const HomePage = () => {
         @media (min-width: 1024px) {
           .home-featured-services-grid {
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            column-gap: 30px;
-            row-gap: 36px;
+            gap: 26px;
           }
         }
 
         .home-service-card-shell {
-          display: flex;
-          height: 100%;
+          position: relative;
+          display: block;
           min-width: 0;
-          flex-direction: column;
+          aspect-ratio: 4 / 3;
           cursor: pointer;
           overflow: hidden;
           border: none !important;
-          border-radius: 1rem;
-          background: #ffffff;
-          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.025);
+          border-radius: 1.25rem;
+          background: #171313;
+          box-shadow: 0 6px 18px rgba(23, 19, 19, 0.08);
+          isolation: isolate;
+          transition:
+            transform 320ms cubic-bezier(0.2, 0.7, 0.3, 1),
+            box-shadow 320ms ease;
+        }
+
+        @media (min-width: 1024px) {
+          .home-service-card-shell {
+            aspect-ratio: 4 / 4.6;
+          }
         }
 
         .home-service-card-shell:hover {
-          transform: translate3d(0, 0, 18px) scale(1.015);
+          transform: translateY(-6px);
           border: none !important;
-          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
+          box-shadow:
+            0 14px 30px rgba(23, 19, 19, 0.12),
+            0 8px 26px rgba(218, 8, 7, 0.14);
           z-index: 2;
         }
 
@@ -549,42 +605,215 @@ const HomePage = () => {
         }
 
         .home-service-card-image {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
           display: block;
           width: 100%;
-          aspect-ratio: 16 / 9;
+          height: 100%;
           object-fit: cover;
           object-position: center;
-          flex-shrink: 0;
+          transition: transform 700ms cubic-bezier(0.2, 0.7, 0.3, 1);
+        }
+
+        .home-service-card-shell:hover .home-service-card-image {
+          transform: scale(1.06);
+        }
+
+        .home-service-card-shade {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          background:
+            linear-gradient(
+              180deg,
+              rgba(23, 19, 19, 0) 30%,
+              rgba(23, 19, 19, 0.58) 66%,
+              rgba(23, 19, 19, 0.9) 100%
+            ),
+            linear-gradient(
+              0deg,
+              rgba(218, 8, 7, 0.16) 0%,
+              rgba(218, 8, 7, 0) 38%
+            );
+          pointer-events: none;
+        }
+
+        .home-service-card-arrow {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          z-index: 3;
+          display: flex;
+          width: 44px;
+          height: 44px;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.94);
+          color: #171313;
+          box-shadow: 0 6px 14px rgba(23, 19, 19, 0.14);
+          transition:
+            background-color 250ms ease,
+            color 250ms ease,
+            transform 250ms ease;
+        }
+
+        .home-service-card-arrow svg {
+          width: 20px;
+          height: 20px;
+        }
+
+        .home-service-card-shell:hover .home-service-card-arrow {
+          background: #DA0807;
+          color: #FFFFFF;
+          transform: rotate(45deg);
         }
 
         .home-service-card-content {
-          display: flex;
-          flex: 1;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          z-index: 2;
           min-width: 0;
-          flex-direction: column;
-          justify-content: center;
-          padding: 13px 14px 15px;
+          padding: 22px 22px 24px;
+          color: #FFFFFF;
+        }
+
+        .home-service-card-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 7px;
+          margin: 0 0 12px;
+          padding: 0;
+          list-style: none;
+        }
+
+        .home-service-card-tag {
+          padding: 4px 10px;
+          border: 1px solid rgba(255, 255, 255, 0.24);
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.14);
+          color: #FFFFFF;
+          font-size: 11px;
+          font-weight: 600;
+          line-height: 1.4;
+          -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+          transition:
+            background-color 250ms ease,
+            border-color 250ms ease;
+        }
+
+        .home-service-card-shell:hover .home-service-card-tag {
+          border-color: rgba(255, 140, 140, 0.55);
+          background: rgba(218, 8, 7, 0.34);
         }
 
         .home-service-card-title {
-          overflow: hidden;
-          color: #171313;
-          font-size: 16px;
+          margin: 0;
+          color: #FFFFFF;
+          font-size: 22px;
           font-weight: 800;
-          line-height: 1.3;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+          line-height: 1.25;
         }
 
         .home-service-card-description {
-          margin-top: 5px;
+          display: -webkit-box;
+          margin: 7px 0 0;
           overflow: hidden;
-          color: #777777;
-          font-size: 12px;
+          color: rgba(255, 255, 255, 0.84);
+          font-size: 13px;
           font-weight: 500;
-          line-height: 1.5;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+          line-height: 1.6;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+
+        .home-service-card-line {
+          display: block;
+          width: 34px;
+          height: 3px;
+          margin-top: 15px;
+          border-radius: 4px;
+          background: #DA0807;
+          transition: width 320ms cubic-bezier(0.2, 0.7, 0.3, 1);
+        }
+
+        .home-service-card-shell:hover .home-service-card-line {
+          width: 72px;
+        }
+
+        .home-services-all-link {
+          position: relative;
+          z-index: 1;
+          display: inline-flex;
+          min-height: 46px;
+          align-items: center;
+          justify-content: center;
+          gap: 9px;
+          padding: 0 24px;
+          border-radius: 999px;
+          background: #FFFFFF;
+          color: #171313;
+          font-size: 14px;
+          font-weight: 700;
+          text-decoration: none;
+          box-shadow: 0 7px 16px rgba(23, 19, 19, 0.07);
+          transition:
+            transform 240ms ease,
+            background-color 240ms ease,
+            color 240ms ease,
+            box-shadow 240ms ease;
+        }
+
+        .home-services-all-link svg {
+          width: 16px;
+          height: 16px;
+          transition: transform 240ms ease;
+        }
+
+        .home-services-all-link:hover {
+          transform: translateY(-3px);
+          background: #DA0807;
+          color: #FFFFFF;
+          box-shadow: 0 12px 22px rgba(218, 8, 7, 0.18);
+        }
+
+        .home-services-all-link:hover svg {
+          transform: translateX(4px);
+        }
+
+        .home-services-all-link:focus-visible {
+          outline: 3px solid rgba(23, 19, 19, 0.25);
+          outline-offset: 4px;
+        }
+
+        @media (max-width: 480px) {
+          .home-service-card-content {
+            padding: 18px 18px 20px;
+          }
+
+          .home-service-card-title {
+            font-size: 20px;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .home-service-card-image,
+          .home-service-card-arrow,
+          .home-service-card-line,
+          .home-service-card-tag,
+          .home-services-all-link {
+            transition: none !important;
+          }
+
+          .home-service-card-shell:hover .home-service-card-image,
+          .home-service-card-shell:hover .home-service-card-arrow,
+          .home-services-all-link:hover {
+            transform: none !important;
+          }
         }
 
         /* ================================================
@@ -1758,20 +1987,22 @@ const HomePage = () => {
             DESKTOP: 3 CARDS + 3 CARDS
         =============================================== */}
 
-        <section className="bg-background py-10 md:py-14">
+        <section className="home-services-section py-14 md:py-20">
 
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-            <div className="mx-auto mb-8 max-w-3xl text-center">
-              <h2 className="mb-2 font-heading text-3xl font-extrabold text-primary-dark md:text-4xl">
+            <div className="mx-auto mb-10 max-w-3xl text-center md:mb-12">
+              <h2 className="mb-3 font-heading text-3xl font-extrabold text-primary-dark md:text-4xl">
                 High-Impact{' '}
                 <span className="text-[#DA0807]">
                   Services
                 </span>
               </h2>
 
+              <div className="mx-auto mb-4 h-1 w-16 rounded-full bg-[#DA0807]" />
+
               <p className="text-sm text-muted-foreground md:text-base">
-                Focused solutions to help your business grow.
+                Six focused solutions to launch, manage and grow your business.
               </p>
             </div>
 
@@ -1799,7 +2030,30 @@ const HomePage = () => {
                     className="home-service-card-image"
                   />
 
+                  <div
+                    className="home-service-card-shade"
+                    aria-hidden="true"
+                  />
+
+                  <span
+                    className="home-service-card-arrow"
+                    aria-hidden="true"
+                  >
+                    <ArrowUpRight />
+                  </span>
+
                   <div className="home-service-card-content">
+
+                    <ul className="home-service-card-tags">
+                      {service.tags.map((tag) => (
+                        <li
+                          key={tag}
+                          className="home-service-card-tag"
+                        >
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
 
                     <h3 className="home-service-card-title">
                       {service.title}
@@ -1809,11 +2063,23 @@ const HomePage = () => {
                       {service.description}
                     </p>
 
+                    <span
+                      className="home-service-card-line"
+                      aria-hidden="true"
+                    />
+
                   </div>
 
                 </div>
               ))}
 
+            </div>
+
+            <div className="mt-10 flex justify-center">
+              <Link to="/services" className="home-services-all-link">
+                Explore All Services
+                <ArrowRight />
+              </Link>
             </div>
 
           </div>
