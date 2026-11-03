@@ -492,8 +492,8 @@ export const mainServices = [
     accent: '#DA0807',
     description:
       'Launch, optimize and manage your stores across leading online marketplaces and ecommerce platforms.',
-    image: A + 'ecommerce-theme.png',
-    themeImage: A + 'ecommerce-theme.png',
+    image: A + 'ecommerce-theme.webp',
+    themeImage: A + 'ecommerce-theme.webp',
     logoUrl: A + 'ecommerce-logo.png',
     children: [
       'tiktok-shop',
@@ -514,8 +514,8 @@ export const mainServices = [
     accent: '#DA0807',
     description:
       'Create a consistent marketing engine that builds awareness, attracts the right audience and supports sustainable growth.',
-    image: A + 'marketing-theme-image.jpg',
-    themeImage: A + 'marketing-theme-image.jpg',
+    image: A + 'marketing-theme-image.webp',
+    themeImage: A + 'marketing-theme-image.webp',
     logoUrl: A + 'marketing-logo.png',
     children: [
       'digital-marketing',
@@ -532,8 +532,8 @@ export const mainServices = [
     accent: '#DA0807',
     description:
       'Build the digital products your business needs, from high-performing websites and apps to games and creative assets.',
-    image: A + 'development-theme-image.jpg',
-    themeImage: A + 'development-theme-image.jpg',
+    image: A + 'development-theme-image.webp',
+    themeImage: A + 'development-theme-image.webp',
     logoUrl: A + 'development-logo.png',
     children: [
       'app-development',
@@ -550,8 +550,8 @@ export const mainServices = [
     accent: '#DA0807',
     description:
       'Brand identity and visual content creation.',
-    image: A + 'branding-and-creativity-theme.jpg',
-    themeImage: A + 'branding-and-creativity-theme.jpg',
+    image: A + 'branding-and-creativity-theme.webp',
+    themeImage: A + 'branding-and-creativity-theme.webp',
     children: [
       'brand-identity',
       'visual-content-creation',
@@ -565,8 +565,8 @@ export const mainServices = [
     accent: '#DA0807',
     description:
       'Run focused, measurable paid campaigns across search and social platforms with ongoing optimization.',
-    image: A + 'ads-theme-image.jpg',
-    themeImage: A + 'ads-theme-image.jpg',
+    image: A + 'ads-theme-image.webp',
+    themeImage: A + 'ads-theme-image.webp',
     children: [
       'meta-ads',
       'google-ads',
@@ -580,8 +580,8 @@ export const mainServices = [
     accent: '#DA0807',
     description:
       'Keep websites, stores and business accounts organized, maintained and moving forward with reliable ongoing support.',
-    image: A + 'management-theme-image.jpg',
-    themeImage: A + 'management-theme-image.jpg',
+    image: A + 'management-theme-image.webp',
+    themeImage: A + 'management-theme-image.webp',
     children: [
       'web-management',
       'account-management',

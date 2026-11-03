@@ -662,26 +662,34 @@ const HomePage = () => {
            STATISTIC CARDS
         ================================================ */
 
-        .home-stat-card-shell {
-          height: 100%;
-        }
+.home-stat-card-shell {
+  height: 100%;
+  transform: none !important;
+  transition: none !important;
+}
 
-        .home-stat-card-shell > * {
-          height: 100%;
-          border: 0 !important;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
-          transition: box-shadow 350ms ease;
-        }
+.home-stat-card-shell > * {
+  height: 100%;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: none !important;
+}
 
-        .home-stat-card-shell:hover {
-          transform: translate3d(0, 0, 18px) scale(1.015);
-          z-index: 2;
-        }
+.home-stat-card-shell:hover {
+  transform: none !important;
+  z-index: auto;
+}
 
-        .home-stat-card-shell:hover > * {
-          border-color: rgba(23, 19, 19, 0.20) !important;
-          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07) !important;
-        }
+.home-stat-card-shell:hover > * {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
 
         /* ================================================
            ABOUT OUR SERVICES - PREMIUM SECTION
@@ -1206,11 +1214,26 @@ const HomePage = () => {
           stroke-width: 2;
         }
 
-        .home-growth-step:hover .home-growth-icon {
-          transform: scale(1.045);
-          border-color: rgba(23, 19, 19, 0.28);
-          box-shadow: 0 9px 20px rgba(23, 19, 19, 0.07);
-        }
+        /* Icon hover only when cursor is directly over the icon */
+.home-growth-icon {
+  transition:
+    background 250ms ease,
+    color 250ms ease,
+    transform 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.home-growth-icon:hover {
+  background: rgba(218, 8, 7, 0.055) !important;
+  color: #DA0807 !important;
+  transform: scale(1.025);
+  box-shadow: 0 5px 13px rgba(218, 8, 7, 0.07);
+}
+
+.home-growth-icon:hover svg {
+  color: #DA0807 !important;
+  stroke: #DA0807 !important;
+}
 
         .home-growth-number {
           position: absolute;
