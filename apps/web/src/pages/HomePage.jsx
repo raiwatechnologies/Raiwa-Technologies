@@ -429,7 +429,7 @@ const benefitFeatures = [
     {
       number: '1',
       icon: Lightbulb,
-      title: 'Discover',
+      title: 'Research',
       description:
         'We learn your products, goals and market so we know exactly where the biggest opportunities are.',
     },
@@ -450,7 +450,7 @@ const benefitFeatures = [
     {
       number: '4',
       icon: TrendingUp,
-      title: 'Scale',
+      title: 'Growth',
       description:
         'We track results, improve what works and scale your growth with transparent reporting.',
     },
