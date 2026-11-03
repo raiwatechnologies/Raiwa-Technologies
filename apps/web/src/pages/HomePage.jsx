@@ -494,89 +494,169 @@ const benefitFeatures = [
             box-shadow 350ms ease;
         }
 
-/* ================================================
-   PREMIUM BUSINESS BENEFIT CARDS
-================================================ */
+        /* ================================================
+           HIGH-IMPACT SERVICE CARDS
+        ================================================ */
 
-.home-benefit-feature {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 0;
-  height: 100%;
-  min-height: 225px;
-  gap: 18px;
-  padding: 28px 25px;
-  border: 1px solid rgba(23, 19, 19, 0.09);
-  border-radius: 16px;
-  background: #FFFFFF;
-  box-shadow: 0 3px 12px rgba(23, 19, 19, 0.025);
-  transition:
-    transform 300ms ease,
-    box-shadow 300ms ease,
-    border-color 300ms ease;
-}
+        .home-featured-services-grid {
+          display: grid;
+          width: 100%;
+          max-width: 1120px;
+          margin: 0 auto;
+          grid-template-columns: minmax(0, 1fr);
+          column-gap: 28px;
+          row-gap: 34px;
+          align-items: stretch;
+        }
 
-.home-benefit-feature:hover {
-  transform: translateY(-5px);
-  border-color: rgba(218, 8, 7, 0.22);
-  box-shadow: 0 12px 28px rgba(23, 19, 19, 0.055);
-  z-index: 2;
-}
+        @media (min-width: 640px) {
+          .home-featured-services-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
 
-/* ICON */
+        @media (min-width: 1024px) {
+          .home-featured-services-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            column-gap: 30px;
+            row-gap: 36px;
+          }
+        }
 
-.home-benefit-feature-icon {
-  display: flex;
-  flex: 0 0 52px;
-  width: 52px;
-  height: 52px;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(218, 8, 7, 0.13);
-  border-radius: 14px;
-  background: #FFFFFF;
-  transition: border-color 300ms ease;
-}
+        .home-service-card-shell {
+          display: flex;
+          height: 100%;
+          min-width: 0;
+          flex-direction: column;
+          cursor: pointer;
+          overflow: hidden;
+          border: none !important;
+          border-radius: 1rem;
+          background: #ffffff;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.025);
+        }
 
-.home-benefit-feature-icon svg {
-  width: 24px;
-  height: 24px;
-  color: #DA0807;
-  stroke-width: 2;
-}
+        .home-service-card-shell:hover {
+          transform: translate3d(0, 0, 18px) scale(1.015);
+          border: none !important;
+          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
+          z-index: 2;
+        }
 
-/* CONTENT */
+        .home-service-card-shell:focus-visible {
+          outline: 2px solid #DA0807;
+          outline-offset: 4px;
+        }
 
-.home-benefit-feature-content {
-  flex: 1;
-  min-width: 0;
-}
+        .home-service-card-image {
+          display: block;
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          object-fit: cover;
+          object-position: center;
+          flex-shrink: 0;
+        }
 
-.home-benefit-feature-title {
-  margin-bottom: 10px;
-  color: #171313;
-  font-size: 19px;
-  font-weight: 750;
-  line-height: 1.35;
-}
+        .home-service-card-content {
+          display: flex;
+          flex: 1;
+          min-width: 0;
+          flex-direction: column;
+          justify-content: center;
+          padding: 13px 14px 15px;
+        }
 
-.home-benefit-feature-description {
-  color: #777777;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.75;
-}
+        .home-service-card-title {
+          overflow: hidden;
+          color: #171313;
+          font-size: 16px;
+          font-weight: 800;
+          line-height: 1.3;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
 
-/* RED ACCENT LINE */
+        .home-service-card-description {
+          margin-top: 5px;
+          overflow: hidden;
+          color: #777777;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 1.5;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
 
-.home-benefit-feature-divider {
-  width: 38px;
-  height: 3px;
-  margin-top: 15px;
-  border-radius: 4px;
-  background: #DA0807;
-}
+        /* ================================================
+           HORIZONTAL BENEFIT FEATURE LIST
+        ================================================ */
+
+        .home-benefit-feature {
+          display: flex;
+          min-width: 0;
+          height: 100%;
+          align-items: flex-start;
+          gap: 17px;
+          padding: 22px;
+          border: 1px solid rgba(23, 19, 19, 0.10);
+          border-radius: 14px;
+          background: #ffffff;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.025);
+        }
+
+        .home-benefit-feature:hover {
+          transform: translate3d(0, 0, 18px) scale(1.015);
+          border: 1px solid rgba(23, 19, 19, 0.10);
+          box-shadow: 0 8px 22px rgba(23, 19, 19, 0.03);
+          z-index: 2;
+        }
+
+        .home-benefit-feature-icon {
+          display: flex;
+          flex: 0 0 48px;
+          width: 48px;
+          height: 48px;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(23, 19, 19, 0.08);
+          border-radius: 12px;
+          background: #FAFAFA;
+        }
+
+        .home-benefit-feature-icon svg {
+          width: 23px;
+          height: 23px;
+          color: #DA0807;
+          stroke-width: 2;
+        }
+
+        .home-benefit-feature-content {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .home-benefit-feature-title {
+          margin-bottom: 7px;
+          color: #171313;
+          font-size: 17px;
+          font-weight: 800;
+          line-height: 1.35;
+        }
+
+        .home-benefit-feature-description {
+          color: #777777;
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 1.7;
+        }
+
+        .home-benefit-feature-divider {
+          width: 34px;
+          height: 2px;
+          margin-top: 12px;
+          border-radius: 4px;
+          background: #DA0807;
+        }
 
         /* ================================================
            STATISTIC CARDS
@@ -1428,27 +1508,26 @@ const benefitFeatures = [
            RESPONSIVE FEATURE LIST
         ================================================ */
 
-@media (max-width: 480px) {
-  .home-benefit-feature {
-    min-height: auto;
-    gap: 15px;
-    padding: 22px 20px;
-  }
+        @media (max-width: 480px) {
+          .home-benefit-feature {
+            gap: 13px;
+            padding: 17px;
+          }
 
-  .home-benefit-feature-icon {
-    flex-basis: 52px;
-    width: 52px;
-    height: 52px;
-  }
+          .home-benefit-feature-icon {
+            flex-basis: 42px;
+            width: 42px;
+            height: 42px;
+          }
 
-  .home-benefit-feature-title {
-    font-size: 18px;
-  }
+          .home-benefit-feature-title {
+            font-size: 15px;
+          }
 
-  .home-benefit-feature-description {
-    font-size: 14px;
-  }
-}
+          .home-benefit-feature-description {
+            font-size: 12px;
+          }
+        }
 
         /* ================================================
            REDUCED MOTION ACCESSIBILITY
@@ -1944,9 +2023,9 @@ const benefitFeatures = [
               <div className="mx-auto mb-5 h-1 w-20 rounded-full bg-[#171313]/30" />
 
               <p className="mx-auto max-w-2xl text-lg text-muted-foreground md:text-xl">
-  From getting more customers to saving time and money, we help
-  your business grow with simple and effective solutions.
-</p>
+                Practical solutions designed to help your business
+                grow, perform and succeed.
+              </p>
             </div>
 
             {/* HORIZONTAL BENEFIT FEATURE LIST */}
