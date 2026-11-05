@@ -36,11 +36,20 @@ const Header = () => {
   const location = useLocation();
   const ref = useRef(null);
 
-  const isSolid =
-    scrolled || open || mobile || headerHovered;
+  // HOME PAGE CHECK
+  const isHomePage = location.pathname === '/';
 
-  const isTransparent = !isSolid;
+  // HEADER TRANSPARENCY LOGIC
+  const isTransparent =
+    isHomePage &&
+    !scrolled &&
+    !open &&
+    !mobile &&
+    !headerHovered;
 
+  const isSolid = !isTransparent;
+
+  // UPDATE HEADER ON SCROLL
   useEffect(() => {
     const updateScroll = () => {
       setScrolled(window.scrollY > 40);
@@ -57,12 +66,14 @@ const Header = () => {
     };
   }, [location.pathname]);
 
+  // RESET MENUS ON PAGE CHANGE
   useEffect(() => {
     setMobile(false);
     setOpen(false);
     setHeaderHovered(false);
   }, [location.pathname]);
 
+  // CLOSE MENUS ON OUTSIDE CLICK / ESCAPE
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
@@ -118,14 +129,17 @@ const Header = () => {
     );
   };
 
+  // HEADER BACKGROUND
   const headerBackground = isTransparent
     ? 'bg-transparent border-transparent shadow-none backdrop-blur-0'
     : 'bg-white border-[#171313]/10 shadow-sm backdrop-blur-xl';
 
-const navTextColor = isTransparent
-  ? 'text-[#171313] hover:text-[#DA0807] [text-shadow:0_1px_3px_rgba(255,255,255,0.85)]'
-  : 'text-[#171313] hover:text-[#DA0807]';
+  // NAVIGATION TEXT COLOUR
+  const navTextColor = isTransparent
+    ? 'text-white hover:text-[#DA0807]'
+    : 'text-[#171313] hover:text-[#DA0807]';
 
+  // MOBILE MENU ICON COLOUR
   const headerControlColor = isTransparent
     ? 'text-white'
     : 'text-[#171313]';

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -31,7 +32,6 @@ const COLORS = {
 const CARD_HOVER_STYLES = `
   /*
     Raiwa Technologies shared card hover standard:
-
     - Remove all card borders.
     - Normal shadow: 3% black.
     - Hover shadow: 3% black.
@@ -192,7 +192,7 @@ function ServiceCard({ item }) {
       {/* CARD CONTENT */}
 
       <div className="flex flex-1 flex-col p-6 md:p-7">
-        <h3 className="text-xl font-extrabold text-[#171313] transition-colors duration-300 group-hover:text-[#DA0807] md:text-2xl">
+        <h3 className="text-xl font-extrabold text-[#171313] md:text-2xl">
           {item.title}
         </h3>
 
@@ -320,16 +320,11 @@ function MainServicePage({ main }) {
             aria-hidden="true"
           />
 
-          <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 md:grid-cols-[1.1fr_.9fr] md:gap-14 md:py-28">
+          <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 md:py-28">
 
             {/* HERO CONTENT */}
 
-            <div>
-              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/[0.09] px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm">
-                <span className="h-2 w-2 rounded-full bg-[#DA0807]" />
-                Raiwa Technologies Services
-              </div>
-
+            <div className="max-w-3xl">
               <h1 className="mb-6 font-heading text-4xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-5xl md:text-6xl">
                 {main.title}
 
@@ -362,36 +357,6 @@ function MainServicePage({ main }) {
               </div>
             </div>
 
-            {/* HERO IMAGE CARD */}
-
-            <div className="relative">
-              <div className="rounded-3xl bg-white/[0.08] p-3 shadow-[0_8px_22px_rgba(0,0,0,0.03)] backdrop-blur-sm">
-
-                <div className="detail-hero-image-frame overflow-hidden rounded-2xl bg-[#E5E5E5] shadow-[0_6px_14px_rgba(0,0,0,0.03)]">
-                  <ServiceImage
-                    src={heroImage}
-                    alt={`${main.title} services`}
-                    loading="eager"
-                    className="block h-64 w-full object-cover object-center md:h-80"
-                  />
-                </div>
-
-                <div className="p-5 md:p-6">
-                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/55">
-                    Explore our capabilities
-                  </p>
-
-                  <p className="mt-2 text-xl font-bold leading-snug text-white md:text-2xl">
-                    A practical approach to your next stage of growth.
-                  </p>
-                </div>
-              </div>
-
-              <div
-                className="absolute -bottom-4 -right-4 -z-10 h-32 w-32 rounded-full bg-[#DA0807]/30 blur-3xl"
-                aria-hidden="true"
-              />
-            </div>
           </div>
 
           <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-[#DA0807] to-transparent" />
@@ -526,17 +491,11 @@ function IndividualServicePage({ service }) {
             aria-hidden="true"
           />
 
-          <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 md:grid-cols-[1.05fr_.95fr] md:gap-14 md:py-28">
+          <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 md:py-28">
 
             {/* HERO CONTENT */}
 
-            <div className="text-white">
-              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/[0.09] px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm">
-                <span className="h-2 w-2 rounded-full bg-[#DA0807]" />
-
-                {service.category} Solutions
-              </div>
-
+            <div className="max-w-3xl text-white">
               <h1 className="mb-6 font-heading text-4xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-5xl md:text-6xl">
                 {service.title}
 
@@ -581,36 +540,6 @@ function IndividualServicePage({ service }) {
               </div>
             </div>
 
-            {/* HERO IMAGE CARD */}
-
-            <div className="relative">
-              <div className="rounded-3xl bg-white/[0.08] p-3 shadow-[0_8px_22px_rgba(0,0,0,0.03)] backdrop-blur-sm">
-
-                <div className="detail-hero-image-frame overflow-hidden rounded-2xl bg-[#E5E5E5] shadow-[0_6px_14px_rgba(0,0,0,0.03)]">
-                  <ServiceImage
-                    src={serviceImage}
-                    alt={`${service.title} service`}
-                    loading="eager"
-                    className="block h-64 w-full object-cover object-center md:h-80"
-                  />
-                </div>
-
-                <div className="p-5 md:p-6">
-                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/55">
-                    Service overview
-                  </p>
-
-                  <p className="mt-2 text-xl font-bold leading-snug text-white md:text-2xl">
-                    A solution shaped around your business goals.
-                  </p>
-                </div>
-              </div>
-
-              <div
-                className="absolute -bottom-4 -right-4 -z-10 h-32 w-32 rounded-full bg-[#DA0807]/30 blur-3xl"
-                aria-hidden="true"
-              />
-            </div>
           </div>
 
           <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-[#DA0807] to-transparent" />
@@ -644,27 +573,25 @@ function IndividualServicePage({ service }) {
 
             <div>
               {benefits.length > 0 ? (
-                <div className="grid gap-5 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
 
-                  {benefits.map((benefit) => (
-                    <div
-                      key={benefit}
-                      className="detail-hover-card group rounded-2xl bg-[#FDFDFD] p-6"
-                    >
-                      <span className="mb-5 block h-2.5 w-2.5 rounded-full bg-[#DA0807]" />
+  {benefits.map((benefit, index) => (
+    <div
+      key={`${benefit}-${index}`}
+      className="detail-hover-card rounded-2xl bg-[#FDFDFD] p-6"
+    >
+      <h3 className="text-lg font-extrabold leading-snug text-[#171313]">
+        {benefit}
+      </h3>
 
-                      <h3 className="text-lg font-extrabold leading-snug text-[#171313] transition-colors group-hover:text-[#DA0807]">
-                        {benefit}
-                      </h3>
+      <p className="mt-3 text-sm leading-relaxed text-[#66615F]">
+        Planned around your needs, priorities and the
+        requirements of your business.
+      </p>
+    </div>
+  ))}
 
-                      <p className="mt-3 text-sm leading-relaxed text-[#66615F]">
-                        Planned around your needs, priorities and the
-                        requirements of your business.
-                      </p>
-                    </div>
-                  ))}
-
-                </div>
+</div>
               ) : (
                 <div className="detail-hover-card rounded-2xl bg-[#E5E5E5]/35 p-8">
 
@@ -702,7 +629,7 @@ function IndividualServicePage({ service }) {
               {[
                 {
                   number: '01',
-                  title: 'Discover',
+                  title: 'Research',
                   description:
                     'We learn about your goals, audience, current setup and what success should look like.',
                 },
@@ -714,7 +641,7 @@ function IndividualServicePage({ service }) {
                 },
                 {
                   number: '03',
-                  title: 'Launch & Improve',
+                  title: 'Launch & Growth',
                   description:
                     'We implement the work, review progress and identify useful next steps.',
                 },
