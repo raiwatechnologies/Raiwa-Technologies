@@ -135,9 +135,8 @@ const Header = () => {
     : 'bg-white border-[#171313]/10 shadow-sm backdrop-blur-xl';
 
   // NAVIGATION TEXT COLOUR
-  const navTextColor = isTransparent
-    ? 'text-white hover:text-[#DA0807]'
-    : 'text-[#171313] hover:text-[#DA0807]';
+  const navTextColor =
+  'text-[#171313] hover:text-[#DA0807]';
 
   // MOBILE MENU ICON COLOUR
   const headerControlColor = isTransparent

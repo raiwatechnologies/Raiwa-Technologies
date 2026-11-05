@@ -27,11 +27,12 @@ const A = '/service-assets/';
 
 /* =====================================================
    INDIVIDUAL SERVICES
-   Each service has one unique slug and one category.
+   Each service has four unique benefits.
 ===================================================== */
 
 export const services = [
   // ECOMMERCE
+
   {
     title: 'TikTok Shop',
     slug: 'tiktok-shop',
@@ -45,9 +46,22 @@ export const services = [
     description:
       'Launch and grow your TikTok Shop with a store setup, optimized product listings and social-commerce support.',
     benefits: [
-      'Shop setup and product listing',
-      'Content and promotion support',
-      'Order and account handling',
+      {
+        title: 'Shop Setup',
+        description: 'Set up your TikTok Shop with organized products and a professional storefront.',
+      },
+      {
+        title: 'Product Listings',
+        description: 'Create engaging listings with clear descriptions and attractive product visuals.',
+      },
+      {
+        title: 'Content Promotion',
+        description: 'Support product visibility through engaging content and promotional activities.',
+      },
+      {
+        title: 'Order Management',
+        description: 'Keep orders, inventory and daily store operations organized.',
+      },
     ],
     label: 'TikTok Shop',
   },
@@ -65,9 +79,22 @@ export const services = [
     description:
       'Build a stronger eBay presence with clear listings, store organization and ongoing marketplace support.',
     benefits: [
-      'Store setup and listing optimization',
-      'Pricing and promotions',
-      'Ongoing account management',
+      {
+        title: 'Store Setup',
+        description: 'Organize your eBay seller store for a professional shopping experience.',
+      },
+      {
+        title: 'Listing Optimization',
+        description: 'Improve product titles, descriptions, images and item details.',
+      },
+      {
+        title: 'Pricing Strategy',
+        description: 'Review product pricing and promotions to support competitiveness.',
+      },
+      {
+        title: 'Account Management',
+        description: 'Monitor store activity, orders and everyday account operations.',
+      },
     ],
     label: 'eBay',
   },
@@ -85,9 +112,22 @@ export const services = [
     description:
       'Create a healthy, discoverable Amazon store with seller onboarding, keyword-focused listings and account care.',
     benefits: [
-      'Seller account setup',
-      'Listing and keyword optimization',
-      'Account health monitoring',
+      {
+        title: 'Seller Account Setup',
+        description: 'Prepare your Amazon seller account and organize essential store details.',
+      },
+      {
+        title: 'Keyword Research',
+        description: 'Identify relevant search terms to improve product discoverability.',
+      },
+      {
+        title: 'Listing Optimization',
+        description: 'Improve product titles, bullet points, descriptions and images.',
+      },
+      {
+        title: 'Account Health',
+        description: 'Monitor account performance, policy notifications and seller metrics.',
+      },
     ],
     label: 'Amazon',
   },
@@ -105,9 +145,22 @@ export const services = [
     description:
       'Reach more shoppers with marketplace onboarding, catalog organization and ongoing Walmart account support.',
     benefits: [
-      'Seller onboarding',
-      'Catalog and listing management',
-      'Performance tracking',
+      {
+        title: 'Seller Onboarding',
+        description: 'Organize seller registration and marketplace account requirements.',
+      },
+      {
+        title: 'Catalog Management',
+        description: 'Keep product information, categories and catalog details organized.',
+      },
+      {
+        title: 'Listing Optimization',
+        description: 'Improve product titles, descriptions and listing presentation.',
+      },
+      {
+        title: 'Performance Tracking',
+        description: 'Review store performance and identify opportunities for improvement.',
+      },
     ],
     label: 'Walmart Marketplace',
   },
@@ -125,9 +178,22 @@ export const services = [
     description:
       'Prepare your products for Temu with structured setup, accurate product information and reliable account support.',
     benefits: [
-      'Store setup',
-      'Product upload and optimization',
-      'Order and account support',
+      {
+        title: 'Store Setup',
+        description: 'Organize your Temu seller presence and essential store information.',
+      },
+      {
+        title: 'Product Upload',
+        description: 'Add products with accurate details, images and category information.',
+      },
+      {
+        title: 'Product Optimization',
+        description: 'Improve product presentation and listing information for shoppers.',
+      },
+      {
+        title: 'Order Support',
+        description: 'Keep order processing and account activities organized.',
+      },
     ],
     label: 'Temu',
   },
@@ -145,9 +211,22 @@ export const services = [
     description:
       'Keep your Mercari shop organized with compelling listings, thoughtful pricing and consistent operational support.',
     benefits: [
-      'Shop setup',
-      'Listing and pricing management',
-      'Ongoing account support',
+      {
+        title: 'Shop Organization',
+        description: 'Organize your Mercari shop and maintain accurate product information.',
+      },
+      {
+        title: 'Product Listings',
+        description: 'Create clear listings with useful descriptions and product images.',
+      },
+      {
+        title: 'Pricing Management',
+        description: 'Review product prices and adjust offers to remain competitive.',
+      },
+      {
+        title: 'Order Handling',
+        description: 'Keep orders, customer communication and shop activities organized.',
+      },
     ],
     label: 'Mercari',
   },
@@ -165,9 +244,22 @@ export const services = [
     description:
       'Launch a beautiful, conversion-focused Shopify storefront that gives your brand control of its customer experience.',
     benefits: [
-      'Store design and setup',
-      'Product and collection management',
-      'Conversion optimization',
+      {
+        title: 'Store Design',
+        description: 'Create a professional storefront that reflects your brand identity.',
+      },
+      {
+        title: 'Product Management',
+        description: 'Organize products, collections, variants and store information.',
+      },
+      {
+        title: 'App Integrations',
+        description: 'Connect useful Shopify apps and tools to extend store functionality.',
+      },
+      {
+        title: 'Conversion Optimization',
+        description: 'Improve navigation, product pages and shopping experiences.',
+      },
     ],
     label: 'Shopify',
   },
@@ -185,14 +277,28 @@ export const services = [
     description:
       'Grow your South Asian marketplace presence through seller setup, product listing improvements and campaign support.',
     benefits: [
-      'Seller account setup',
-      'Listing and campaign management',
-      'Order and account support',
+      {
+        title: 'Seller Account Setup',
+        description: 'Organize your Daraz seller account and marketplace requirements.',
+      },
+      {
+        title: 'Product Listings',
+        description: 'Upload products with accurate details, images and descriptions.',
+      },
+      {
+        title: 'Campaign Management',
+        description: 'Prepare products and promotions for relevant marketplace campaigns.',
+      },
+      {
+        title: 'Order Management',
+        description: 'Monitor orders, product availability and everyday store activities.',
+      },
     ],
     label: 'Daraz',
   },
 
   // DEVELOPMENT
+
   {
     title: 'App Development',
     slug: 'app-development',
@@ -206,9 +312,22 @@ export const services = [
     description:
       'Create mobile apps designed around your customers, with thoughtful interfaces, dependable performance and room to scale.',
     benefits: [
-      'Android and iOS apps',
-      'UI/UX design',
-      'Testing and launch support',
+      {
+        title: 'Android & iOS Apps',
+        description: 'Build mobile applications for Android and Apple devices.',
+      },
+      {
+        title: 'UI/UX Design',
+        description: 'Design intuitive interfaces and smooth user experiences.',
+      },
+      {
+        title: 'App Functionality',
+        description: 'Develop features, integrations and interactive app experiences.',
+      },
+      {
+        title: 'Testing & Launch',
+        description: 'Test app performance and prepare applications for release.',
+      },
     ],
     label: 'App Development',
   },
@@ -226,9 +345,22 @@ export const services = [
     description:
       'Turn a game concept into a playable experience with engaging systems, polished presentation and performance-minded development.',
     benefits: [
-      'Game design and prototyping',
-      'Mobile and web games',
-      'Updates and maintenance',
+      {
+        title: 'Game Concept & Design',
+        description: 'Transform creative ideas into structured game concepts and mechanics.',
+      },
+      {
+        title: 'Gameplay Development',
+        description: 'Build interactive gameplay, controls and engaging game systems.',
+      },
+      {
+        title: 'Graphics & Animation',
+        description: 'Create visual assets, animations and immersive game environments.',
+      },
+      {
+        title: 'Testing & Updates',
+        description: 'Improve gameplay quality through testing, fixes and updates.',
+      },
     ],
     label: 'Game Development',
   },
@@ -246,9 +378,22 @@ export const services = [
     description:
       'Build fast, responsive websites that present your brand professionally and guide visitors toward meaningful action.',
     benefits: [
-      'Business and ecommerce websites',
-      'Responsive design',
-      'Speed and security',
+      {
+        title: 'Website Development',
+        description: 'Build business websites and ecommerce platforms around your goals.',
+      },
+      {
+        title: 'Responsive Design',
+        description: 'Create layouts that work smoothly across desktop, tablet and mobile.',
+      },
+      {
+        title: 'Custom Functionality',
+        description: 'Develop interactive features and integrations for your website.',
+      },
+      {
+        title: 'Speed & Security',
+        description: 'Improve website performance, reliability and security practices.',
+      },
     ],
     label: 'Web Development',
   },
@@ -266,14 +411,28 @@ export const services = [
     description:
       'Create a consistent visual identity with thoughtful brand assets and design that communicates clearly across channels.',
     benefits: [
-      'Brand and campaign assets',
-      'Social and digital graphics',
-      'Design systems and templates',
+      {
+        title: 'Brand Graphics',
+        description: 'Design visual assets that communicate your brand identity clearly.',
+      },
+      {
+        title: 'Social Media Designs',
+        description: 'Create platform-ready graphics for posts, stories and promotions.',
+      },
+      {
+        title: 'Marketing Creatives',
+        description: 'Design banners, advertisements and promotional materials.',
+      },
+      {
+        title: 'Creative Templates',
+        description: 'Build reusable design templates for consistent visual communication.',
+      },
     ],
     label: 'Graphic Design',
   },
 
   // BRANDING & CREATIVE
+
   {
     title: 'Brand Identity',
     slug: 'brand-identity',
@@ -287,9 +446,22 @@ export const services = [
     description:
       'Build a distinctive and consistent brand identity with professional visual direction that helps your business stand out and become recognizable.',
     benefits: [
-      'Logo and brand design',
-      'Brand colors and typography',
-      'Brand guidelines and visual identity',
+      {
+        title: 'Logo Design',
+        description: 'Create a distinctive logo that represents your business identity.',
+      },
+      {
+        title: 'Color & Typography',
+        description: 'Choose consistent brand colors and typography for recognition.',
+      },
+      {
+        title: 'Visual Identity',
+        description: 'Develop supporting graphics and visual elements for your brand.',
+      },
+      {
+        title: 'Brand Guidelines',
+        description: 'Establish clear guidelines for consistent brand presentation.',
+      },
     ],
     label: 'Brand Identity',
   },
@@ -307,14 +479,28 @@ export const services = [
     description:
       'Create engaging visual content for digital platforms, campaigns and business promotions with professional and consistent creative assets.',
     benefits: [
-      'Social media graphics',
-      'Marketing and advertising creatives',
-      'Digital promotional content',
+      {
+        title: 'Social Media Content',
+        description: 'Create engaging graphics and visuals for social media platforms.',
+      },
+      {
+        title: 'Promotional Designs',
+        description: 'Develop creative visuals for products, offers and promotions.',
+      },
+      {
+        title: 'Digital Campaign Assets',
+        description: 'Prepare visual materials for online marketing campaigns.',
+      },
+      {
+        title: 'Consistent Visual Style',
+        description: 'Maintain a recognizable look across all digital content.',
+      },
     ],
     label: 'Visual Content Creation',
   },
 
   // MARKETING
+
   {
     title: 'Digital Marketing',
     slug: 'digital-marketing',
@@ -328,9 +514,22 @@ export const services = [
     description:
       'Bring strategy, content and channel planning together to reach the right audience and support measurable business goals.',
     benefits: [
-      'Strategy and planning',
-      'Content and email marketing',
-      'Performance reporting',
+      {
+        title: 'Marketing Strategy',
+        description: 'Build marketing plans around your audience and business objectives.',
+      },
+      {
+        title: 'Content Marketing',
+        description: 'Develop useful content that communicates your brand message.',
+      },
+      {
+        title: 'Channel Management',
+        description: 'Coordinate digital marketing activities across relevant channels.',
+      },
+      {
+        title: 'Performance Reporting',
+        description: 'Track campaign results and identify opportunities for improvement.',
+      },
     ],
     label: 'Digital Marketing',
   },
@@ -348,9 +547,22 @@ export const services = [
     description:
       'Build a recognizable social presence with consistent content, audience engagement and channel-specific planning.',
     benefits: [
-      'Content planning',
-      'Community engagement',
-      'Platform-specific strategy',
+      {
+        title: 'Content Planning',
+        description: 'Plan relevant posts and content around your brand objectives.',
+      },
+      {
+        title: 'Post Management',
+        description: 'Organize publishing schedules and maintain consistent posting.',
+      },
+      {
+        title: 'Audience Engagement',
+        description: 'Support community interaction and meaningful audience connections.',
+      },
+      {
+        title: 'Social Performance',
+        description: 'Review engagement and platform insights to improve content strategy.',
+      },
     ],
     label: 'Social Media Marketing',
   },
@@ -368,9 +580,22 @@ export const services = [
     description:
       'Improve search visibility through technical fixes, useful content and keyword strategy for long-term organic discovery.',
     benefits: [
-      'Technical SEO audits',
-      'Keyword research and on-page SEO',
-      'Content recommendations',
+      {
+        title: 'Technical SEO',
+        description: 'Review website structure, indexing and technical search issues.',
+      },
+      {
+        title: 'Keyword Research',
+        description: 'Find relevant search terms based on your audience and services.',
+      },
+      {
+        title: 'On-Page Optimization',
+        description: 'Improve page titles, headings, content and internal links.',
+      },
+      {
+        title: 'SEO Performance',
+        description: 'Monitor search visibility and identify further optimization opportunities.',
+      },
     ],
     label: 'SEO Optimization',
   },
@@ -388,14 +613,28 @@ export const services = [
     description:
       'Streamline marketing operations and repetitive workflows, reporting and data integrations with dependable automation solutions.',
     benefits: [
-      'Marketing workflow automation',
-      'Reporting and data integrations',
-      'Process monitoring and support',
+      {
+        title: 'Workflow Automation',
+        description: 'Automate repetitive tasks and connect everyday business processes.',
+      },
+      {
+        title: 'Data Integration',
+        description: 'Connect relevant platforms to support smoother information flow.',
+      },
+      {
+        title: 'Automated Reporting',
+        description: 'Organize data collection and recurring performance reports.',
+      },
+      {
+        title: 'Process Monitoring',
+        description: 'Review automated workflows and improve their ongoing reliability.',
+      },
     ],
     label: 'Automation Solutions',
   },
 
   // ADS
+
   {
     title: 'Meta Ads',
     slug: 'meta-ads',
@@ -409,9 +648,22 @@ export const services = [
     description:
       'Plan and optimize Facebook and Instagram advertising with thoughtful targeting, creative testing and clear reporting.',
     benefits: [
-      'Audience targeting',
-      'Creative and copy direction',
-      'Retargeting campaigns',
+      {
+        title: 'Audience Targeting',
+        description: 'Define relevant audiences based on interests and campaign goals.',
+      },
+      {
+        title: 'Ad Creative Design',
+        description: 'Prepare engaging visuals and copy for Facebook and Instagram ads.',
+      },
+      {
+        title: 'Campaign Optimization',
+        description: 'Review campaign performance and refine advertising settings.',
+      },
+      {
+        title: 'Retargeting & Reporting',
+        description: 'Reconnect with interested audiences and monitor campaign results.',
+      },
     ],
     label: 'Meta Ads',
   },
@@ -429,14 +681,28 @@ export const services = [
     description:
       'Reach customers when they search for your products with focused search and shopping campaigns and conversion tracking.',
     benefits: [
-      'Search and shopping ads',
-      'Keyword research',
-      'Conversion tracking',
+      {
+        title: 'Search Campaigns',
+        description: 'Create targeted search ads for relevant customer queries.',
+      },
+      {
+        title: 'Keyword Strategy',
+        description: 'Research search terms that align with your products and services.',
+      },
+      {
+        title: 'Shopping Ads',
+        description: 'Organize product advertising to showcase items in Google Shopping.',
+      },
+      {
+        title: 'Conversion Tracking',
+        description: 'Measure important actions and review advertising performance.',
+      },
     ],
     label: 'Google Ads',
   },
 
   // MANAGEMENT
+
   {
     title: 'Web Management',
     slug: 'web-management',
@@ -450,9 +716,22 @@ export const services = [
     description:
       'Keep your website reliable, secure and current with ongoing maintenance and practical technical support.',
     benefits: [
-      'Updates and content changes',
-      'Performance and security checks',
-      'Issue fixing and support',
+      {
+        title: 'Website Updates',
+        description: 'Manage content changes, page updates and website improvements.',
+      },
+      {
+        title: 'Performance Monitoring',
+        description: 'Review loading speed and website functionality regularly.',
+      },
+      {
+        title: 'Security Maintenance',
+        description: 'Monitor website security and maintain essential updates.',
+      },
+      {
+        title: 'Technical Support',
+        description: 'Identify website issues and coordinate practical fixes.',
+      },
     ],
     label: 'Web Management',
   },
@@ -470,9 +749,22 @@ export const services = [
     description:
       'Keep marketplace and advertising accounts organized with attentive monitoring, operational support and regular reporting.',
     benefits: [
-      'Account monitoring',
-      'Order and customer handling',
-      'Regular performance reports',
+      {
+        title: 'Account Monitoring',
+        description: 'Keep track of account activity, status and important notifications.',
+      },
+      {
+        title: 'Order & Operations',
+        description: 'Organize order handling and everyday account operations.',
+      },
+      {
+        title: 'Customer Support',
+        description: 'Coordinate customer queries and relevant account communication.',
+      },
+      {
+        title: 'Performance Reports',
+        description: 'Review account activity and share regular performance insights.',
+      },
     ],
     label: 'Account Management',
   },

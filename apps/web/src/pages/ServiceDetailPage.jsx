@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -17,6 +16,10 @@ import {
 
 import { Button } from '@/components/ui/button.jsx';
 
+/* -------------------------------------------------------
+   BRAND COLORS
+------------------------------------------------------- */
+
 const COLORS = {
   white: '#FDFDFD',
   lightGray: '#E5E5E5',
@@ -26,15 +29,25 @@ const COLORS = {
 };
 
 /* -------------------------------------------------------
+   PAGE SPACING
+   Header is fixed, so page content starts below it.
+------------------------------------------------------- */
+
+const PAGE_TOP_SPACING =
+  'pt-[72px] md:pt-[80px]';
+
+/* -------------------------------------------------------
    SHARED CARD HOVER STANDARD
 ------------------------------------------------------- */
 
 const CARD_HOVER_STYLES = `
   /*
     Raiwa Technologies shared card hover standard:
-    - Remove all card borders.
-    - Normal shadow: 3% black.
-    - Hover shadow: 3% black.
+
+    - No dark/black border on hover.
+    - No border added to cards.
+    - Very subtle normal shadow.
+    - Very subtle hover shadow.
     - Smooth 3px upward movement.
   */
 
@@ -74,16 +87,40 @@ const CARD_HOVER_STYLES = `
    REUSABLE COMPONENTS
 ------------------------------------------------------- */
 
-function ProjectButton({ children, className = '' }) {
+function ProjectButton({
+  children,
+  className = '',
+}) {
   return (
     <Button
       size="lg"
-      className={`group h-14 border border-[#DA0807] bg-[#DA0807] px-7 font-bold text-white shadow-[0_8px_24px_rgba(218,8,7,0.20)] transition-all duration-300 hover:-translate-y-1 hover:border-[#B80707] hover:bg-[#B80707] hover:shadow-[0_8px_22px_rgba(0,0,0,0.07)] ${className}`}
+      className={`
+        group
+        h-14
+        border
+        border-[#DA0807]
+        bg-[#DA0807]
+        px-7
+        font-bold
+        text-white
+        shadow-[0_8px_24px_rgba(218,8,7,0.20)]
+        transition-all
+        duration-300
+        hover:-translate-y-1
+        hover:border-[#B80707]
+        hover:bg-[#B80707]
+        hover:shadow-[0_8px_22px_rgba(0,0,0,0.07)]
+        ${className}
+      `}
     >
       {children}
     </Button>
   );
 }
+
+/* -------------------------------------------------------
+   SERVICE IMAGE
+------------------------------------------------------- */
 
 function ServiceImage({
   src,
@@ -94,7 +131,15 @@ function ServiceImage({
   if (!src) {
     return (
       <div
-        className={`flex items-center justify-center bg-gradient-to-br from-[#E5E5E5] to-[#FDFDFD] ${className}`}
+        className={`
+          flex
+          items-center
+          justify-center
+          bg-gradient-to-br
+          from-[#E5E5E5]
+          to-[#FDFDFD]
+          ${className}
+        `}
         role="img"
         aria-label={alt}
       >
@@ -114,7 +159,14 @@ function ServiceImage({
   );
 }
 
-function Eyebrow({ children, color = COLORS.red }) {
+/* -------------------------------------------------------
+   EYEBROW
+------------------------------------------------------- */
+
+function Eyebrow({
+  children,
+  color = COLORS.red,
+}) {
   return (
     <p
       className="mb-3 text-xs font-extrabold uppercase tracking-[0.2em] sm:text-sm"
@@ -125,6 +177,10 @@ function Eyebrow({ children, color = COLORS.red }) {
   );
 }
 
+/* -------------------------------------------------------
+   SECTION HEADING
+------------------------------------------------------- */
+
 function SectionHeading({
   eyebrow,
   title,
@@ -134,11 +190,16 @@ function SectionHeading({
 }) {
   return (
     <div
-      className={`max-w-3xl ${
-        centered ? 'mx-auto text-center' : ''
-      }`}
+      className={`
+        max-w-3xl
+        ${centered ? 'mx-auto text-center' : ''}
+      `}
     >
-      {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+      {eyebrow && (
+        <Eyebrow>
+          {eyebrow}
+        </Eyebrow>
+      )}
 
       <h2 className="font-heading text-3xl font-extrabold leading-tight tracking-tight text-[#171313] sm:text-4xl md:text-5xl">
         {title}{' '}
@@ -161,35 +222,66 @@ function SectionHeading({
 
 /* -------------------------------------------------------
    SERVICE DIRECTORY CARD
-   Whole card clickable
-   No logo or logo holder
 ------------------------------------------------------- */
 
 function ServiceCard({ item }) {
-  const image = item.themeImage || item.image;
+  const image =
+    item.themeImage ||
+    item.image;
 
   return (
     <Link
       to={servicePath(item)}
       aria-label={`Explore ${item.title}`}
-      className="detail-hover-card group relative flex h-full flex-col overflow-hidden rounded-2xl bg-[#FDFDFD] transition-all duration-300 focus-visible:outline-none"
+      className="
+        detail-hover-card
+        group
+        relative
+        flex
+        h-full
+        flex-col
+        overflow-hidden
+        rounded-2xl
+        bg-[#FDFDFD]
+        transition-all
+        duration-300
+        focus-visible:outline-none
+      "
     >
-      {/* SERVICE IMAGE */}
+      {/* IMAGE */}
 
       <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#E5E5E5]">
         <ServiceImage
           src={image}
           alt={`${item.title} service`}
-          className="block h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.05]"
+          className="
+            block
+            h-full
+            w-full
+            object-cover
+            object-center
+            transition-transform
+            duration-700
+            group-hover:scale-[1.05]
+          "
         />
 
         <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#171313]/25 via-transparent to-transparent opacity-70"
+          className="
+            pointer-events-none
+            absolute
+            inset-0
+            bg-gradient-to-t
+            from-[#171313]/25
+            via-transparent
+            to-transparent
+            opacity-70
+          "
           aria-hidden="true"
         />
       </div>
 
-      {/* CARD CONTENT */}
+      {/* CONTENT */}
 
       <div className="flex flex-1 flex-col p-6 md:p-7">
         <h3 className="text-xl font-extrabold text-[#171313] md:text-2xl">
@@ -216,10 +308,33 @@ function ServiceCard({ item }) {
    CALL TO ACTION
 ------------------------------------------------------- */
 
-function CallToAction({ title, description }) {
+function CallToAction({
+  title,
+  description,
+}) {
   return (
     <section className="px-5 pb-20 pt-4 sm:px-8 md:pb-28">
-      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl border border-[#171313]/20 bg-[#171313] px-6 py-14 text-center text-white shadow-[0_14px_35px_rgba(23,19,19,0.15)] sm:px-10 md:px-16 md:py-20">
+      <div
+        className="
+          relative
+          mx-auto
+          max-w-7xl
+          overflow-hidden
+          rounded-3xl
+          border
+          border-[#171313]/20
+          bg-[#171313]
+          px-6
+          py-14
+          text-center
+          text-white
+          shadow-[0_14px_35px_rgba(23,19,19,0.15)]
+          sm:px-10
+          md:px-16
+          md:py-20
+        "
+      >
+        {/* RED GLOW */}
 
         <div
           className="pointer-events-none absolute inset-0 opacity-30"
@@ -230,8 +345,21 @@ function CallToAction({ title, description }) {
           aria-hidden="true"
         />
 
+        {/* RED LINE */}
+
         <div
-          className="pointer-events-none absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-[#DA0807] to-transparent"
+          className="
+            pointer-events-none
+            absolute
+            bottom-0
+            left-0
+            h-1
+            w-full
+            bg-gradient-to-r
+            from-transparent
+            via-[#DA0807]
+            to-transparent
+          "
           aria-hidden="true"
         />
 
@@ -249,7 +377,17 @@ function CallToAction({ title, description }) {
           </p>
 
           <Link to="/contact">
-            <ProjectButton className="border-white bg-white text-[#171313] shadow-none hover:border-white hover:bg-white hover:text-[#171313]">
+            <ProjectButton
+              className="
+                border-white
+                bg-white
+                text-[#171313]
+                shadow-none
+                hover:border-white
+                hover:bg-white
+                hover:text-[#171313]
+              "
+            >
               Talk to our team
 
               <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -268,15 +406,21 @@ function CallToAction({ title, description }) {
 function MainServicePage({ main }) {
   const children = (main.children || [])
     .map((childSlug) =>
-      services.find((item) => item.slug === childSlug)
+      services.find(
+        (item) => item.slug === childSlug
+      )
     )
     .filter(Boolean);
 
   const heroImage =
     main.themeImage ||
     main.image ||
-    children.find((item) => item.themeImage)?.themeImage ||
-    children.find((item) => item.image)?.image;
+    children.find(
+      (item) => item.themeImage
+    )?.themeImage ||
+    children.find(
+      (item) => item.image
+    )?.image;
 
   return (
     <>
@@ -294,36 +438,69 @@ function MainServicePage({ main }) {
         />
       </Helmet>
 
-      <style>{CARD_HOVER_STYLES}</style>
+      <style>
+        {CARD_HOVER_STYLES}
+      </style>
 
-      <main className="bg-[#FDFDFD]">
+      <main
+        className={`
+          min-h-screen
+          bg-[#FDFDFD]
+          ${PAGE_TOP_SPACING}
+        `}
+      >
+        {/* ------------------------------------------------
+            MAIN SERVICE HERO
+        ------------------------------------------------ */}
 
-        {/* MAIN SERVICE HERO */}
-
-        <section className="relative isolate overflow-hidden bg-[#171313] text-white">
-
+        <section className="relative isolate min-h-[520px] overflow-hidden bg-[#171313] text-white md:min-h-[600px]">
           {heroImage && (
             <div className="absolute inset-0 -z-20">
               <ServiceImage
                 src={heroImage}
                 alt=""
                 loading="eager"
-                className="h-full w-full object-cover object-center"
+                className="
+                  h-full
+                  w-full
+                  object-cover
+                  object-center
+                "
               />
             </div>
           )}
 
-          {/* HERO TEXT READABILITY OVERLAY */}
+          {/* READABILITY OVERLAY */}
 
           <div
-            className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#171313]/55 via-[#171313]/25 to-[#171313]/10"
+            className="
+              pointer-events-none
+              absolute
+              inset-0
+              -z-10
+              bg-gradient-to-r
+              from-[#171313]/65
+              via-[#171313]/35
+              to-[#171313]/10
+            "
             aria-hidden="true"
           />
 
-          <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 md:py-28">
+          {/* EXTRA MOBILE OVERLAY */}
 
-            {/* HERO CONTENT */}
+          <div
+            className="
+              pointer-events-none
+              absolute
+              inset-0
+              -z-10
+              bg-[#171313]/10
+              md:hidden
+            "
+            aria-hidden="true"
+          />
 
+          <div className="relative mx-auto flex min-h-[520px] max-w-7xl items-center px-5 py-20 sm:px-8 md:min-h-[600px] md:py-28">
             <div className="max-w-3xl">
               <h1 className="mb-6 font-heading text-4xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-5xl md:text-6xl">
                 {main.title}
@@ -348,7 +525,25 @@ function MainServicePage({ main }) {
 
                 <Link
                   to="/services"
-                  className="inline-flex h-14 items-center justify-center gap-2 rounded-md border border-white/35 px-7 text-sm font-bold text-white transition-all duration-300 hover:border-white hover:bg-white hover:text-[#171313]"
+                  className="
+                    inline-flex
+                    h-14
+                    items-center
+                    justify-center
+                    gap-2
+                    rounded-md
+                    border
+                    border-white/35
+                    px-7
+                    text-sm
+                    font-bold
+                    text-white
+                    transition-all
+                    duration-300
+                    hover:border-white
+                    hover:bg-white
+                    hover:text-[#171313]
+                  "
                 >
                   All Services
 
@@ -356,18 +551,31 @@ function MainServicePage({ main }) {
                 </Link>
               </div>
             </div>
-
           </div>
 
-          <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-[#DA0807] to-transparent" />
+          {/* RED BOTTOM LINE */}
+
+          <div
+            className="
+              absolute
+              bottom-0
+              left-0
+              h-1
+              w-full
+              bg-gradient-to-r
+              from-transparent
+              via-[#DA0807]
+              to-transparent
+            "
+          />
         </section>
 
-        {/* MAIN SERVICE CHILDREN */}
+        {/* ------------------------------------------------
+            MAIN SERVICE CHILDREN
+        ------------------------------------------------ */}
 
         <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 md:py-28">
-
           <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-
             <SectionHeading
               eyebrow="Explore the category"
               title={main.title}
@@ -375,11 +583,31 @@ function MainServicePage({ main }) {
               description="Choose a specialist service to explore its scope, benefits and next steps."
             />
 
-            <div className="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-[#171313]/15 bg-[#E5E5E5]/40 px-4 py-2 text-sm font-bold text-[#171313] md:self-end">
+            <div
+              className="
+                inline-flex
+                shrink-0
+                items-center
+                gap-2
+                self-start
+                rounded-full
+                border
+                border-[#171313]/15
+                bg-[#E5E5E5]/40
+                px-4
+                py-2
+                text-sm
+                font-bold
+                text-[#171313]
+                md:self-end
+              "
+            >
               <span className="h-2 w-2 rounded-full bg-[#DA0807]" />
 
               {children.length} specialist{' '}
-              {children.length === 1 ? 'service' : 'services'}
+              {children.length === 1
+                ? 'service'
+                : 'services'}
             </div>
           </div>
 
@@ -394,7 +622,6 @@ function MainServicePage({ main }) {
             </div>
           ) : (
             <div className="detail-hover-card rounded-2xl bg-[#E5E5E5]/35 p-8 md:p-10">
-
               <h3 className="text-xl font-bold text-[#171313]">
                 Services in this category are being prepared.
               </h3>
@@ -406,7 +633,16 @@ function MainServicePage({ main }) {
 
               <Link
                 to="/contact"
-                className="mt-6 inline-flex items-center gap-2 font-bold text-[#DA0807] transition-colors hover:text-[#171313]"
+                className="
+                  mt-6
+                  inline-flex
+                  items-center
+                  gap-2
+                  font-bold
+                  text-[#DA0807]
+                  transition-colors
+                  hover:text-[#171313]
+                "
               >
                 Contact us
 
@@ -416,13 +652,12 @@ function MainServicePage({ main }) {
           )}
         </section>
 
-        {/* CALL TO ACTION */}
+        {/* CTA */}
 
         <CallToAction
           title={`Ready to get started with ${main.title}?`}
           description="Tell us about your goals and we’ll help you choose the right approach for your business."
         />
-
       </main>
     </>
   );
@@ -433,11 +668,15 @@ function MainServicePage({ main }) {
 ------------------------------------------------------- */
 
 function IndividualServicePage({ service }) {
-  const serviceImage = service.themeImage || service.image;
+  const serviceImage =
+    service.themeImage ||
+    service.image;
 
-  const parentCategory = mainServices.find(
-    (item) => item.title === service.category
-  );
+  const parentCategory =
+    mainServices.find(
+      (item) =>
+        item.title === service.category
+    );
 
   const related = services
     .filter(
@@ -447,7 +686,8 @@ function IndividualServicePage({ service }) {
     )
     .slice(0, 3);
 
-  const benefits = service.benefits || [];
+  const benefits =
+    service.benefits || [];
 
   return (
     <>
@@ -465,36 +705,55 @@ function IndividualServicePage({ service }) {
         />
       </Helmet>
 
-      <style>{CARD_HOVER_STYLES}</style>
+      <style>
+        {CARD_HOVER_STYLES}
+      </style>
 
-      <main className="bg-[#FDFDFD]">
+      <main
+        className={`
+          min-h-screen
+          bg-[#FDFDFD]
+          ${PAGE_TOP_SPACING}
+        `}
+      >
+        {/* ------------------------------------------------
+            INDIVIDUAL SERVICE HERO
+        ------------------------------------------------ */}
 
-        {/* INDIVIDUAL SERVICE HERO */}
-
-        <section className="relative isolate overflow-hidden bg-[#171313]">
-
+        <section className="relative isolate min-h-[520px] overflow-hidden bg-[#171313] md:min-h-[600px]">
           {serviceImage && (
             <div className="absolute inset-0 -z-20">
               <ServiceImage
                 src={serviceImage}
                 alt=""
                 loading="eager"
-                className="h-full w-full object-cover object-center"
+                className="
+                  h-full
+                  w-full
+                  object-cover
+                  object-center
+                "
               />
             </div>
           )}
 
-          {/* HERO TEXT READABILITY OVERLAY */}
+          {/* READABILITY OVERLAY */}
 
           <div
-            className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#171313]/55 via-[#171313]/25 to-[#171313]/10"
+            className="
+              pointer-events-none
+              absolute
+              inset-0
+              -z-10
+              bg-gradient-to-r
+              from-[#171313]/65
+              via-[#171313]/35
+              to-[#171313]/10
+            "
             aria-hidden="true"
           />
 
-          <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 md:py-28">
-
-            {/* HERO CONTENT */}
-
+          <div className="relative mx-auto flex min-h-[520px] max-w-7xl items-center px-5 py-20 sm:px-8 md:min-h-[600px] md:py-28">
             <div className="max-w-3xl text-white">
               <h1 className="mb-6 font-heading text-4xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-5xl md:text-6xl">
                 {service.title}
@@ -509,7 +768,6 @@ function IndividualServicePage({ service }) {
               </p>
 
               <div className="flex flex-col gap-3 sm:flex-row">
-
                 <Link to="/contact">
                   <ProjectButton className="w-full sm:w-auto">
                     Discuss Your Project
@@ -520,8 +778,28 @@ function IndividualServicePage({ service }) {
 
                 {parentCategory ? (
                   <Link
-                    to={mainServicePath(parentCategory)}
-                    className="inline-flex h-14 items-center justify-center gap-2 rounded-md border border-white/35 px-6 text-sm font-bold text-white transition-all duration-300 hover:border-white hover:bg-white hover:text-[#171313]"
+                    to={mainServicePath(
+                      parentCategory
+                    )}
+                    className="
+                      inline-flex
+                      h-14
+                      items-center
+                      justify-center
+                      gap-2
+                      rounded-md
+                      border
+                      border-white/35
+                      px-6
+                      text-sm
+                      font-bold
+                      text-white
+                      transition-all
+                      duration-300
+                      hover:border-white
+                      hover:bg-white
+                      hover:text-[#171313]
+                    "
                   >
                     {parentCategory.title}
 
@@ -530,7 +808,25 @@ function IndividualServicePage({ service }) {
                 ) : (
                   <Link
                     to="/services"
-                    className="inline-flex h-14 items-center justify-center gap-2 rounded-md border border-white/35 px-6 text-sm font-bold text-white transition-all duration-300 hover:border-white hover:bg-white hover:text-[#171313]"
+                    className="
+                      inline-flex
+                      h-14
+                      items-center
+                      justify-center
+                      gap-2
+                      rounded-md
+                      border
+                      border-white/35
+                      px-6
+                      text-sm
+                      font-bold
+                      text-white
+                      transition-all
+                      duration-300
+                      hover:border-white
+                      hover:bg-white
+                      hover:text-[#171313]
+                    "
                   >
                     All Services
 
@@ -539,18 +835,31 @@ function IndividualServicePage({ service }) {
                 )}
               </div>
             </div>
-
           </div>
 
-          <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-[#DA0807] to-transparent" />
+          {/* RED BOTTOM LINE */}
+
+          <div
+            className="
+              absolute
+              bottom-0
+              left-0
+              h-1
+              w-full
+              bg-gradient-to-r
+              from-transparent
+              via-[#DA0807]
+              to-transparent
+            "
+          />
         </section>
 
-        {/* SERVICE BENEFITS */}
+        {/* ------------------------------------------------
+            SERVICE BENEFITS
+        ------------------------------------------------ */}
 
         <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 md:py-28">
-
           <div className="grid gap-12 md:grid-cols-[.8fr_1.2fr] md:gap-20">
-
             <div>
               <SectionHeading
                 eyebrow="What we can help with"
@@ -561,10 +870,24 @@ function IndividualServicePage({ service }) {
 
               {parentCategory && (
                 <Link
-                  to={mainServicePath(parentCategory)}
-                  className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#171313] transition-colors hover:text-[#DA0807]"
+                  to={mainServicePath(
+                    parentCategory
+                  )}
+                  className="
+                    mt-7
+                    inline-flex
+                    items-center
+                    gap-2
+                    text-sm
+                    font-bold
+                    text-[#171313]
+                    transition-colors
+                    hover:text-[#DA0807]
+                  "
                 >
-                  Explore all {parentCategory.title} services
+                  Explore all{' '}
+                  {parentCategory.title}{' '}
+                  services
 
                   <ArrowRight className="h-4 w-4 text-[#DA0807]" />
                 </Link>
@@ -574,34 +897,39 @@ function IndividualServicePage({ service }) {
             <div>
               {benefits.length > 0 ? (
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  
+{benefits.map((benefit, index) => (
+  <div
+    key={`${service.slug}-${index}`}
+    className="
+      detail-hover-card
+      rounded-2xl
+      bg-[#FDFDFD]
+      p-6
+    "
+  >
+    <h3 className="text-lg font-extrabold leading-snug text-[#171313]">
+      {benefit.title}
+    </h3>
 
-  {benefits.map((benefit, index) => (
-    <div
-      key={`${benefit}-${index}`}
-      className="detail-hover-card rounded-2xl bg-[#FDFDFD] p-6"
-    >
-      <h3 className="text-lg font-extrabold leading-snug text-[#171313]">
-        {benefit}
-      </h3>
+    <p className="mt-3 text-sm leading-relaxed text-[#66615F]">
+      {benefit.description}
+    </p>
+  </div>
+))}
 
-      <p className="mt-3 text-sm leading-relaxed text-[#66615F]">
-        Planned around your needs, priorities and the
-        requirements of your business.
-      </p>
-    </div>
-  ))}
-
-</div>
+                </div>
               ) : (
                 <div className="detail-hover-card rounded-2xl bg-[#E5E5E5]/35 p-8">
-
                   <p className="font-semibold text-[#171313]">
-                    We tailor this service to your requirements.
+                    We tailor this service to your
+                    requirements.
                   </p>
 
                   <p className="mt-2 leading-relaxed text-[#66615F]">
-                    Contact our team to discuss the scope and priorities of
-                    your project.
+                    Contact our team to discuss the
+                    scope and priorities of your
+                    project.
                   </p>
                 </div>
               )}
@@ -609,12 +937,12 @@ function IndividualServicePage({ service }) {
           </div>
         </section>
 
-        {/* SERVICE PROCESS */}
+        {/* ------------------------------------------------
+            SERVICE PROCESS
+        ------------------------------------------------ */}
 
         <section className="border-y border-[#171313]/10 bg-[#E5E5E5]/40 py-20 md:py-24">
-
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
-
             <div className="mb-12 max-w-3xl">
               <SectionHeading
                 eyebrow="How it works"
@@ -625,7 +953,6 @@ function IndividualServicePage({ service }) {
             </div>
 
             <div className="grid gap-6 md:grid-cols-3">
-
               {[
                 {
                   number: '01',
@@ -648,9 +975,32 @@ function IndividualServicePage({ service }) {
               ].map((step) => (
                 <div
                   key={step.number}
-                  className="detail-hover-card group rounded-2xl bg-[#FDFDFD] p-7 md:p-8"
+                  className="
+                    detail-hover-card
+                    group
+                    rounded-2xl
+                    bg-[#FDFDFD]
+                    p-7
+                    md:p-8
+                  "
                 >
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#171313] text-sm font-extrabold text-white transition-colors duration-300 group-hover:bg-[#DA0807]">
+                  <span
+                    className="
+                      inline-flex
+                      h-11
+                      w-11
+                      items-center
+                      justify-center
+                      rounded-full
+                      bg-[#171313]
+                      text-sm
+                      font-extrabold
+                      text-white
+                      transition-colors
+                      duration-300
+                      group-hover:bg-[#DA0807]
+                    "
+                  >
                     {step.number}
                   </span>
 
@@ -663,27 +1013,27 @@ function IndividualServicePage({ service }) {
                   </p>
                 </div>
               ))}
-
             </div>
           </div>
         </section>
 
-        {/* CALL TO ACTION */}
+        {/* ------------------------------------------------
+            CTA
+        ------------------------------------------------ */}
 
         <CallToAction
           title={`Ready to get started with ${service.title}?`}
           description="Tell us about your goals and we’ll help you work out the right next step."
         />
 
-        {/* RELATED SERVICES */}
+        {/* ------------------------------------------------
+            RELATED SERVICES
+        ------------------------------------------------ */}
 
         {related.length > 0 && (
           <section className="border-t border-[#171313]/10 bg-[#FDFDFD] px-5 py-20 sm:px-8 md:py-24">
-
             <div className="mx-auto max-w-7xl">
-
               <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-
                 <SectionHeading
                   eyebrow="Explore more"
                   title="Related"
@@ -693,7 +1043,17 @@ function IndividualServicePage({ service }) {
 
                 <Link
                   to="/services"
-                  className="inline-flex shrink-0 items-center gap-2 text-sm font-extrabold text-[#171313] transition-colors hover:text-[#DA0807]"
+                  className="
+                    inline-flex
+                    shrink-0
+                    items-center
+                    gap-2
+                    text-sm
+                    font-extrabold
+                    text-[#171313]
+                    transition-colors
+                    hover:text-[#DA0807]
+                  "
                 >
                   View all services
 
@@ -702,19 +1062,16 @@ function IndividualServicePage({ service }) {
               </div>
 
               <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
-
                 {related.map((item) => (
                   <ServiceCard
                     key={item.slug}
                     item={item}
                   />
                 ))}
-
               </div>
             </div>
           </section>
         )}
-
       </main>
     </>
   );
@@ -735,13 +1092,33 @@ export default function ServiceDetailPage() {
     (item) => item.slug === slug
   );
 
+  /* -----------------------------------------------------
+     MAIN SERVICE
+  ----------------------------------------------------- */
+
   if (main) {
-    return <MainServicePage main={main} />;
+    return (
+      <MainServicePage
+        main={main}
+      />
+    );
   }
 
+  /* -----------------------------------------------------
+     INDIVIDUAL SERVICE
+  ----------------------------------------------------- */
+
   if (service) {
-    return <IndividualServicePage service={service} />;
+    return (
+      <IndividualServicePage
+        service={service}
+      />
+    );
   }
+
+  /* -----------------------------------------------------
+     SERVICE NOT FOUND
+  ----------------------------------------------------- */
 
   return (
     <>
@@ -756,10 +1133,24 @@ export default function ServiceDetailPage() {
         />
       </Helmet>
 
-      <style>{CARD_HOVER_STYLES}</style>
+      <style>
+        {CARD_HOVER_STYLES}
+      </style>
 
-      <main className="flex min-h-[65vh] flex-col items-center justify-center bg-[#FDFDFD] px-5 py-20 text-center">
-
+      <main
+        className={`
+          flex
+          min-h-[65vh]
+          flex-col
+          items-center
+          justify-center
+          bg-[#FDFDFD]
+          px-5
+          py-20
+          text-center
+          ${PAGE_TOP_SPACING}
+        `}
+      >
         <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#E5E5E5]">
           <Sparkles className="h-8 w-8 text-[#DA0807]" />
         </div>
@@ -773,9 +1164,10 @@ export default function ServiceDetailPage() {
         </h1>
 
         <p className="mb-8 max-w-lg leading-relaxed text-[#66615F]">
-          The page you are looking for may have moved or may no longer be
-          available. Explore our full service directory to find what you
-          need.
+          The page you are looking for may have
+          moved or may no longer be available.
+          Explore our full service directory to
+          find what you need.
         </p>
 
         <Link to="/services">
@@ -785,7 +1177,6 @@ export default function ServiceDetailPage() {
             <ArrowRight className="ml-3 h-5 w-5" />
           </ProjectButton>
         </Link>
-
       </main>
     </>
   );
