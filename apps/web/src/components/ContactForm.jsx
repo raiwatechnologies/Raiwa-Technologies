@@ -93,8 +93,7 @@ const ContactForm = () => {
     setLoading(true);
     
     try {
-      // $autoCancel: false is required so React re-renders don't cancel the request
-      await pb.collection('contacts').create({
+      const payload = {
         name: formData.name.trim(),
         email: formData.email.trim(),
         phone: formData.phone.trim(),
@@ -102,7 +101,35 @@ const ContactForm = () => {
         marketing_challenges: formData.marketing_challenges,
         preferred_contact: formData.preferred_contact || 'Email',
         message: formData.message.trim()
-      }, { $autoCancel: false });
+      };
+
+      let submitted = false;
+
+      // Primary: Try Vercel Serverless API (/api/contact) which syncs to PocketBase & Google Sheets
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          submitted = true;
+        } else if (res.status !== 404) {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error || 'Server error occurred');
+        }
+      } catch (apiErr) {
+        // If not a 404 (endpoint exists but failed validation or server error), throw
+        if (apiErr.message !== 'Failed to fetch' && !apiErr.message.includes('404')) {
+          console.warn('API endpoint failed, checking direct client fallback:', apiErr.message);
+        }
+      }
+
+      // Fallback: If /api/contact is unavailable (e.g. local Vite preview), post directly to PocketBase
+      if (!submitted) {
+        await pb.collection('contacts').create(payload, { $autoCancel: false });
+      }
       
       setIsSuccess(true);
       toast.success('Message sent successfully! We will be in touch shortly.');

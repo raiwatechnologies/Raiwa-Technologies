@@ -14,9 +14,12 @@ import ContactPage from '@/pages/ContactPage.jsx';
 import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage.jsx';
 import TermsPage from '@/pages/TermsPage.jsx';
 import WhatsAppButton from '@/components/WhatsAppButton.jsx';
+import ChatWidget from '@/components/ChatWidget.jsx';
+import { getServiceContextFromPath } from '@/lib/serviceContext.js';
 
 function AppContent() {
   const location = useLocation();
+  const serviceCtx = getServiceContextFromPath(location.pathname);
   return (
     <ErrorBoundary>
         <ScrollToTop />
@@ -45,7 +48,8 @@ function AppContent() {
           </main>
           <Footer />
         </div>
-        <WhatsAppButton variant="floating" />
+        <WhatsAppButton variant="floating" serviceContext={serviceCtx} />
+        <ChatWidget />
         <Toaster position="bottom-right" richColors closeButton />
     </ErrorBoundary>
   );

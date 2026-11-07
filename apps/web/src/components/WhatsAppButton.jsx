@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button.jsx';
 import { cn } from '@/lib/utils.js';
-import { getWhatsAppUrl } from '@/lib/brand.js';
+import { getServiceWhatsAppUrl } from '@/lib/brand.js';
 
 const WhatsAppMark = ({ className = 'w-6 h-6' }) => (
   <svg viewBox="0 0 32 32" aria-hidden="true" className={className} fill="currentColor">
@@ -9,24 +9,75 @@ const WhatsAppMark = ({ className = 'w-6 h-6' }) => (
   </svg>
 );
 
-const WhatsAppButton = ({ variant = 'floating', className, text = 'Chat on WhatsApp' }) => {
-  const url = getWhatsAppUrl();
+const WhatsAppButton = ({
+  variant = 'floating',
+  className,
+  text = 'Chat on WhatsApp',
+  serviceContext,
+  source,
+  page,
+}) => {
+  const url = getServiceWhatsAppUrl(serviceContext);
+
+  const trackClick = () => {
+    try {
+      const payload = JSON.stringify({
+        page: page || (typeof window !== 'undefined' ? window.location.pathname : ''),
+        service: serviceContext || '',
+        source: source || (variant === 'floating' ? 'floating_button' : 'cta_button'),
+      });
+
+      if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
+        const blob = new Blob([payload], { type: 'application/json' });
+        navigator.sendBeacon('/api/track-click', blob);
+      } else if (typeof fetch !== 'undefined') {
+        fetch('/api/track-click', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload,
+          keepalive: true,
+        }).catch(() => {});
+      }
+    } catch {
+      // Non-blocking
+    }
+  };
 
   if (variant === 'floating') {
     return (
-      <a href={url} target="_blank" rel="noopener noreferrer" className={cn(
-        'fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full p-4 shadow-lg transition-all duration-300 active:scale-95 flex items-center justify-center hover:scale-110 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-green-300',
-        className
-      )} aria-label="Chat with us on WhatsApp">
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={trackClick}
+        className={cn(
+          'fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full p-4 shadow-lg transition-all duration-300 active:scale-95 flex items-center justify-center hover:scale-110 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-green-300',
+          className
+        )}
+        aria-label="Chat with us on WhatsApp"
+      >
         <WhatsAppMark className="w-7 h-7" />
       </a>
     );
   }
 
   return (
-    <Button asChild className={cn('bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold transition-all duration-300 shadow-md', className)}>
-      <a href={url} target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
-        <WhatsAppMark className="w-5 h-5 mr-2" />{text}
+    <Button
+      asChild
+      className={cn(
+        'bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold transition-all duration-300 shadow-md',
+        className
+      )}
+    >
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={trackClick}
+        aria-label="Chat with us on WhatsApp"
+      >
+        <WhatsAppMark className="w-5 h-5 mr-2" />
+        {text}
       </a>
     </Button>
   );

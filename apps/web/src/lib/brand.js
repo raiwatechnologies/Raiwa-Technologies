@@ -17,3 +17,10 @@ export const BRAND = {
 
 export const getWhatsAppUrl = (message = BRAND.whatsappMessage) =>
   `https://wa.me/${BRAND.whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+export const getServiceWhatsAppUrl = (serviceName) => {
+  const message = serviceName
+    ? `Hey! Can I get more info on ${serviceName}?`
+    : BRAND.whatsappMessage;
+  return `https://wa.me/${BRAND.whatsappNumber}?text=${encodeURIComponent(message)}`;
+};

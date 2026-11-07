@@ -15,6 +15,7 @@ import {
 } from '@/lib/services.js';
 
 import { Button } from '@/components/ui/button.jsx';
+import WhatsAppButton from '@/components/WhatsAppButton.jsx';
 
 /* -------------------------------------------------------
    BRAND COLORS
@@ -311,6 +312,7 @@ function ServiceCard({ item }) {
 function CallToAction({
   title,
   description,
+  serviceContext,
 }) {
   return (
     <section className="px-5 pb-20 pt-4 sm:px-8 md:pb-28">
@@ -376,23 +378,31 @@ function CallToAction({
             {description}
           </p>
 
-          <Link to="/contact">
-            <ProjectButton
-              className="
-                border-white
-                bg-white
-                text-[#171313]
-                shadow-none
-                hover:border-white
-                hover:bg-white
-                hover:text-[#171313]
-              "
-            >
-              Talk to our team
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link to="/contact">
+              <ProjectButton
+                className="
+                  border-white
+                  bg-white
+                  text-[#171313]
+                  shadow-none
+                  hover:border-white
+                  hover:bg-white
+                  hover:text-[#171313]
+                "
+              >
+                Talk to our team
 
-              <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-            </ProjectButton>
-          </Link>
+                <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+              </ProjectButton>
+            </Link>
+
+            <WhatsAppButton
+              serviceContext={serviceContext}
+              source="service_detail_cta"
+              className="h-14 px-7 text-sm font-bold"
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -522,6 +532,12 @@ function MainServicePage({ main }) {
                     <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </ProjectButton>
                 </Link>
+
+                <WhatsAppButton
+                  serviceContext={main.title}
+                  source="main_service_hero"
+                  className="h-14 w-full px-7 text-sm sm:w-auto"
+                />
 
                 <Link
                   to="/services"
@@ -657,6 +673,7 @@ function MainServicePage({ main }) {
         <CallToAction
           title={`Ready to get started with ${main.title}?`}
           description="Tell us about your goals and we’ll help you choose the right approach for your business."
+          serviceContext={main.title}
         />
       </main>
     </>
@@ -775,6 +792,12 @@ function IndividualServicePage({ service }) {
                     <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </ProjectButton>
                 </Link>
+
+                <WhatsAppButton
+                  serviceContext={service.title}
+                  source="individual_service_hero"
+                  className="h-14 w-full px-7 text-sm sm:w-auto"
+                />
 
                 {parentCategory ? (
                   <Link
@@ -1024,6 +1047,7 @@ function IndividualServicePage({ service }) {
         <CallToAction
           title={`Ready to get started with ${service.title}?`}
           description="Tell us about your goals and we’ll help you work out the right next step."
+          serviceContext={service.title}
         />
 
         {/* ------------------------------------------------

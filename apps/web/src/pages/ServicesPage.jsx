@@ -34,6 +34,7 @@ import BenefitCard from '@/components/BenefitCard.jsx';
 import FAQSection from '@/components/FAQSection.jsx';
 import { Button } from '@/components/ui/button.jsx';
 import { Link } from 'react-router-dom';
+import WhatsAppButton from '@/components/WhatsAppButton.jsx';
 import { mainServices, mainServicePath } from '@/lib/services.js';
 
 /* =====================================================
@@ -765,15 +766,23 @@ const ServicesPage = () => {
                 honest advice and a clear plan for growing your brand.
               </p>
 
-              <Link to="/contact">
-                <Button
-                  size="lg"
-                  className="group h-14 w-full border-2 border-white bg-white px-9 text-base font-bold text-[#171313] shadow-[0_5px_12px_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-[#DA0807] hover:bg-[#DA0807] hover:text-white hover:shadow-[0_8px_22px_rgba(0,0,0,0.07)] sm:w-auto"
-                >
-                  Book a Free Consultation
-                  <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-                </Button>
-              </Link>
+              <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <Link to="/contact">
+                  <Button
+                    size="lg"
+                    className="group h-14 w-full border-2 border-white bg-white px-9 text-base font-bold text-[#171313] shadow-[0_5px_12px_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-[#DA0807] hover:bg-[#DA0807] hover:text-white hover:shadow-[0_8px_22px_rgba(0,0,0,0.07)] sm:w-auto"
+                  >
+                    Book a Free Consultation
+                    <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Button>
+                </Link>
+
+                <WhatsAppButton
+                  serviceContext="Services"
+                  source="services_page_cta"
+                  className="h-14 px-9 text-base font-bold"
+                />
+              </div>
             </motion.div>
           </div>
         </section>
