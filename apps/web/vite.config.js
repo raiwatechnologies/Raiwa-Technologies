@@ -5,7 +5,6 @@ import inlineEditPlugin from './plugins/visual-editor/vite-plugin-react-inline-e
 import editModeDevPlugin from './plugins/visual-editor/vite-plugin-edit-mode.js';
 import iframeRouteRestorationPlugin from './plugins/vite-plugin-iframe-route-restoration.js';
 import sitePagesPlugin from './plugins/vite-plugin-site-pages.js';
-import pocketbaseAuthPlugin from './plugins/vite-plugin-pocketbase-auth.js';
 import sessionJournalPlugin from './plugins/session-journal/vite-plugin-session-journal.js';
 
 import { existsSync, readFileSync } from 'node:fs';
@@ -178,10 +177,8 @@ console.warn = function(...args) {
 `;
 
 const configWindowFetchMonkeyPatch = `
-// Prevents authentication failures (PB returns 400) from crashing the app — use console.info, not console.error/PM2.
-// [urlPattern, bodyPattern] tuples; align with sandboxErrorUtils ERROR_BLACKLIST.
+// Avoid reporting expected errors from optional external integrations as runtime failures.
 const BENIGN_FETCH_ERRORS = [
-	[/hcgi\\/platform\\/api\\/collections\\/.*auth-with-password.*/i, /Failed to authenticate/i],
 	[/hcgi\\/api\\//i, /Insufficient credits/i],
 	// A user-supplied integration secret (Stripe/PayPal/Twilio/...) is not set yet — an expected setup state, not a bug to fix.
 	[/hcgi\\/api\\//i, /INTEGRATION_NOT_CONFIGURED/i],
@@ -190,36 +187,6 @@ const BENIGN_FETCH_ERRORS = [
 function isBenignFetchError(url, body) {
 	return BENIGN_FETCH_ERRORS.some(([urlPattern, bodyPattern]) =>
 		urlPattern.test(url) && (!bodyPattern || bodyPattern.test(body)));
-}
-
-const PLATFORM_URL_PATTERN = /hcgi\\/platform\\//i;
-const VALIDATION_CODE_TEXT_PATTERN = /validation_/;
-
-function hasValidationCode(value) {
-	if (value == null) {
-		return false;
-	}
-	if (typeof value === 'string') {
-		return value.startsWith('validation_');
-	}
-	if (Array.isArray(value)) {
-		return value.some(hasValidationCode);
-	}
-	if (typeof value === 'object') {
-		return Object.values(value).some(hasValidationCode);
-	}
-	return false;
-}
-
-function isValidationFetchWarning(url, body) {
-	if (!PLATFORM_URL_PATTERN.test(url)) {
-		return false;
-	}
-	try {
-		return hasValidationCode(JSON.parse(body));
-	} catch {
-		return VALIDATION_CODE_TEXT_PATTERN.test(body);
-	}
 }
 
 const originalFetch = window.fetch;
@@ -252,8 +219,6 @@ window.fetch = function(...args) {
 
 					if (isBenignFetchError(requestUrl, errorFromRes)) {
 						console.info(errorMessage);
-					} else if (isValidationFetchWarning(requestUrl, errorFromRes)) {
-						console.warn(errorMessage);
 					} else {
 						console.error(errorMessage);
 					}
@@ -392,13 +357,12 @@ logger.error = (msg, options) => {
 	loggerError(msg, options);
 }
 
-// The hosted platform serves these paths itself. When running locally, forward them
-// to the local PocketBase (8090) and API (3001) servers so the contact form works.
+// When running locally, send website API calls to the Express API server.
 const localProxy = {
-	'/hcgi/platform': {
-		target: 'http://localhost:8090',
+	'/api': {
+		target: 'http://localhost:3001',
 		changeOrigin: true,
-		rewrite: (p) => p.replace(/^\/hcgi\/platform/, ''),
+		rewrite: (p) => p.replace(/^\/api/, ''),
 	},
 	'/hcgi/api': {
 		target: 'http://localhost:3001',
@@ -413,7 +377,7 @@ export default defineConfig({
 	},
 	customLogger: logger,
 	plugins: [
-		...(isDev ? [inlineEditPlugin(), editModeDevPlugin(), iframeRouteRestorationPlugin(), sitePagesPlugin(), pocketbaseAuthPlugin(), sessionJournalPlugin()] : []),
+		...(isDev ? [inlineEditPlugin(), editModeDevPlugin(), iframeRouteRestorationPlugin(), sitePagesPlugin(), sessionJournalPlugin()] : []),
 		react(),
 		addTransformIndexHtml,
 		domainCheckoutDevPlugin,

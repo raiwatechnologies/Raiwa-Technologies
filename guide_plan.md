@@ -10,8 +10,8 @@
 ```
 User Browser (raiwatechnologies.com)
   ├── 1. Service Pages (/services/:slug) ──> Context-aware WhatsApp button ("Hey! Can I get more info on <service>?")
-  ├── 2. WhatsApp Click ──────────────────> POST /api/track-click ──> PocketBase (whatsapp_clicks) + Google Sheets
-  ├── 3. Contact Form ────────────────────> POST /api/contact     ──> PocketBase (contacts) + Google Sheets
+  ├── 2. WhatsApp Click ──────────────────> POST /api/track-click ──> Supabase (whatsapp_clicks) + Google Sheets
+  ├── 3. Contact Form ────────────────────> POST /api/contact     ──> Supabase (contacts) + Google Sheets + email notification
   └── 4. Floating Chatbot (Bottom-Left) ──> POST /api/chat
                                               ├── OpenRouter Cloud API (Vector Embeddings & Cosine Search, >3 chunks)
                                               └── Ollama Cloud API or OpenRouter (Generates personalized response)
@@ -105,15 +105,24 @@ In Vercel:
 
 ---
 
-## 🗄️ Part 4: PocketBase Setup (When Ready)
+## 🗄️ Part 4: Supabase Setup
 
-If you host your own PocketBase instance:
-1. PocketBase code and migrations are located in `apps/pocketbase`.
-2. A new migration [`1777234400_001_created_whatsapp_clicks.js`](file:///d:/claude/raiwa%20technologies/Raiwa%20Technologies/apps/pocketbase/pb_migrations/1777234400_001_created_whatsapp_clicks.js) has been added to create the `whatsapp_clicks` collection.
-3. When deployed, configure these environment variables in Vercel:
-   - `PB_URL`: Your PocketBase base URL (e.g. `https://pb.raiwatechnologies.com`).
-   - `PB_SUPERUSER_EMAIL`: Superuser admin email.
-   - `PB_SUPERUSER_PASSWORD`: Superuser admin password.
+The database schema is maintained in [`supabase/migrations`](./supabase/migrations). The migration creates `contacts` and `whatsapp_clicks` tables with server-only write access; the Supabase service-role key must never be exposed to the browser.
+
+1. Create a Supabase project and copy its project URL and service-role key from **Project Settings → API**.
+2. Apply the migration using the Supabase CLI:
+   ```powershell
+   npx supabase login
+   npx supabase link --project-ref YOUR_PROJECT_REF
+   npx supabase db push
+   ```
+   Alternatively, run the SQL in the migration file in the Supabase SQL Editor.
+3. Configure `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` for the Vercel serverless functions. For local development, put them in `apps/api/.env`.
+4. The Supabase Dashboard / Table Editor replaces the PocketBase admin UI. Data is intentionally not exposed through a public contacts-list API.
+
+Contact email notifications use Resend. Set `RESEND_API_KEY` and a verified `CONTACT_NOTIFICATION_FROM` sender to enable them. The notification is best-effort and does not undo a successful database write.
+
+PocketBase's Hostinger-specific preview-to-live promotion, external admin shell, builder mailer, and log-forwarder hooks were removed; they have no direct Supabase equivalent. Use separate Supabase projects and normal versioned SQL migrations for schema changes, Supabase Studio for administration, the Supabase log explorer/log drains for logs, and the Supabase project's Auth SMTP configuration for auth emails. Existing PocketBase local data was removed as requested and was not transferred.
 
 ---
 
@@ -131,29 +140,30 @@ Go to **Vercel Dashboard > Project Settings > Environment Variables** and add th
 | `GOOGLE_SHEET_ID` | Optional | ID of Google Sheet for lead sync | `1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms` |
 | `GOOGLE_SERVICE_ACCOUNT_EMAIL` | Optional | Service account email | `sheets-sync@app.iam.gserviceaccount.com` |
 | `GOOGLE_SERVICE_ACCOUNT_KEY` | Optional | Service account private key PEM | `-----BEGIN PRIVATE KEY-----\n...` |
-| `PB_URL` | Optional | Remote PocketBase endpoint | `https://pb.yourdomain.com` |
-| `PB_SUPERUSER_EMAIL` | Optional | PocketBase admin email | `admin@raiwatechnologies.com` |
-| `PB_SUPERUSER_PASSWORD` | Optional | PocketBase admin password | `YourStrongPassword` |
+| `SUPABASE_URL` | **Yes** | Supabase project URL | `https://your-project.supabase.co` |
+| `SUPABASE_SERVICE_ROLE_KEY` | **Yes** | Server-only Supabase service-role secret; never use in browser code | `your-service-role-key` |
+| `RESEND_API_KEY` | Optional | Send contact-submission notifications | `re_...` |
+| `CONTACT_NOTIFICATION_FROM` | Optional | Verified Resend sender address | `Raiwa Technologies <no-reply@yourdomain.com>` |
 
 ---
 
 ## 🧪 Part 6: How to Test Locally
 
-1. **Start the local dev server:**
+1. Add `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, and (optionally) the email and Google Sheets variables to `apps/api/.env`.
+2. **Start the local website and API:**
    ```powershell
-   cd "d:\claude\raiwa technologies\Raiwa Technologies\apps\web"
    npm run dev
    ```
-2. **Test Context-Aware WhatsApp:**
+3. **Test Context-Aware WhatsApp:**
    - Open `http://localhost:3000/services/digital-marketing`
    - Click the WhatsApp button in the hero or the bottom-right floating button.
    - Verify WhatsApp opens with: `"Hey! Can I get more info on Digital Marketing?"`
-3. **Test Chatbot:**
+4. **Test Chatbot:**
    - Click the **Ask AI & Q/A** floating button at the bottom-left.
    - Ask a company question: *"What services do you offer for Amazon sellers?"*
    - Ask a student web question: *"What is the difference between React and vanilla JavaScript?"*
    - Verify it responds with accurate company details and web guidance.
-4. **Deploy to Vercel:**
+5. **Deploy to Vercel:**
    ```powershell
    git add .
    git commit -m "feat: context-aware whatsapp, openrouter embeddings, and ai chatbot"

@@ -1,6 +1,8 @@
 import express from 'express';
-import pb from '../utils/pocketbaseClient.js';
 import logger from '../utils/logger.js';
+import { createRecord } from '../../../../api/_lib/supabase.js';
+import { notifyNewContact } from '../../../../api/_lib/contact-notification.js';
+import { appendToSheet, SHEET_TABS } from '../../../../api/_lib/sheets.js';
 
 const router = express.Router();
 
@@ -29,27 +31,64 @@ router.post('/', async (req, res) => {
     }
   }
 
-  // Create contact record in PocketBase
-  // Errors will be caught by errorMiddleware
-  const record = await pb.collection('contacts').create({
-    name,
-    email,
-    phone,
-    company,
-    marketing_challenges,
-    preferred_contact,
-    message,
-  });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ error: 'Invalid email address' });
+  }
+
+  if (phone.length < 7) {
+    return res.status(400).json({ error: 'Phone number too short' });
+  }
+
+  if (message.length < 10) {
+    return res.status(400).json({ error: 'Message too short' });
+  }
+
+  let record;
+  try {
+    record = await createRecord('contacts', {
+      name,
+      email,
+      phone,
+      company,
+      marketing_challenges,
+      preferred_contact,
+      message,
+    });
+  } catch (error) {
+    logger.error('Supabase contact write failed:', error?.message ?? error);
+    return res.status(502).json({ error: 'Failed to save your message. Please try again.' });
+  }
 
   logger.info(`Contact created: ${record.id}`);
 
-  // Do not echo the stored record back to an anonymous caller
+  const createdAt = record.created_at;
+  await Promise.all([
+    appendToSheet(SHEET_TABS.CONTACTS, [
+      createdAt,
+      name,
+      email,
+      phone,
+      company,
+      marketing_challenges,
+      preferred_contact,
+      message,
+    ]),
+    notifyNewContact({
+      id: record.id,
+      name,
+      email,
+      phone,
+      company,
+      marketing_challenges,
+      preferred_contact,
+      message,
+      created_at: createdAt,
+    }),
+  ]);
+
   res.status(201).json({ id: record.id });
 });
 
-// NOTE: there is intentionally no public "GET /contacts" route. This server talks to
-// PocketBase as a superuser, so an open list endpoint would expose every visitor's
-// name, email and phone number to anyone. Read submissions through the PocketBase
-// admin (or an authenticated route) instead.
+// Contact records contain personal information; never expose a public list endpoint.
 
 export default router;

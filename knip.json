@@ -80,7 +80,6 @@
 				"plugins/visual-editor/vite-plugin-edit-mode.js",
 				"plugins/visual-editor/vite-plugin-react-inline-editor.js",
 				"plugins/vite-plugin-iframe-route-restoration.js",
-				"plugins/vite-plugin-pocketbase-auth.js",
 				"plugins/vite-plugin-site-pages.js",
 				"postcss.config.js",
 				"public/checkout/index.html",
@@ -175,7 +174,6 @@
 				"src/lib/ecommerceSubscriptionsUtils.js",
 				"src/lib/format.js",
 				"src/lib/integratedAiClient.js",
-				"src/lib/pocketbaseClient.js",
 				"src/lib/utils.js",
 				"src/main.jsx",
 				"src/pages/HomePage.jsx",
@@ -209,15 +207,13 @@
 				"src/middleware/file-upload.js",
 				"src/middleware/global-rate-limit.js",
 				"src/middleware/integrated-ai-rate-limit.js",
-				"src/middleware/pocketbase-auth.js",
 				"src/routes/ecommerce/subscriptions.js",
 				"src/routes/health-check.js",
 				"src/routes/index.js",
 				"src/routes/integrated-ai.js",
 				"src/utils/ecommerce-subscriptions.js",
 				"src/utils/integrationConfig.js",
-				"src/utils/logger.js",
-				"src/utils/pocketbaseClient.js"
+				"src/utils/logger.js"
 			],
 			"project": [
 				"src/**/*.js"

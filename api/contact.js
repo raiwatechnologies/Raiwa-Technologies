@@ -3,20 +3,20 @@
  *
  * Handles contact form submissions from the website.
  *   1. Validates all required fields.
- *   2. Writes the record to PocketBase (as superuser).
+ *   2. Writes the record to Supabase (with a server-only service role key).
  *   3. Appends a row to the configured Google Sheet.
  *
  * Required environment variables (set in Vercel dashboard):
- *   PB_URL                        — PocketBase base URL, e.g. https://pb.yourdomain.com
- *   PB_SUPERUSER_EMAIL            — PocketBase superuser email
- *   PB_SUPERUSER_PASSWORD         — PocketBase superuser password
+ *   SUPABASE_URL                  — Supabase project URL
+ *   SUPABASE_SERVICE_ROLE_KEY     — Server-only Supabase service role key
  *   GOOGLE_SHEET_ID               — Google Sheet ID (from the URL)
  *   GOOGLE_SERVICE_ACCOUNT_EMAIL  — Service account email
  *   GOOGLE_SERVICE_ACCOUNT_KEY    — Service account private key (base64-encoded PEM)
  */
 
 import { appendToSheet, SHEET_TABS } from './_lib/sheets.js';
-import { pbCreate }                  from './_lib/pocketbase.js';
+import { createRecord }              from './_lib/supabase.js';
+import { notifyNewContact }          from './_lib/contact-notification.js';
 
 const trim = (v) => (typeof v === 'string' ? v.trim() : '');
 
@@ -57,10 +57,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Message too short' });
   }
 
-  // ── PocketBase write ─────────────────────────────────────────────────────
-  let recordId = null;
+  // ── Supabase write ────────────────────────────────────────────────────────
+  let record;
   try {
-    const record = await pbCreate('contacts', {
+    record = await createRecord('contacts', {
       name,
       email,
       phone,
@@ -69,17 +69,15 @@ export default async function handler(req, res) {
       preferred_contact,
       message,
     });
-    recordId = record.id;
-  } catch (pbErr) {
-    console.error('[contact] PocketBase write failed:', pbErr?.message ?? pbErr);
-    // Return error so the form can show a meaningful message
+  } catch (supabaseErr) {
+    console.error('[contact] Supabase write failed:', supabaseErr?.message ?? supabaseErr);
     return res.status(502).json({ error: 'Failed to save your message. Please try again.' });
   }
 
-  // ── Google Sheets append (non-blocking — don't fail the request if Sheets is down) ──
-  const now = new Date().toISOString();
-  appendToSheet(SHEET_TABS.CONTACTS, [
-    now,
+  // These integrations are best-effort; saving the contact is the primary operation.
+  const createdAt = record.created_at;
+  const sheetWrite = appendToSheet(SHEET_TABS.CONTACTS, [
+    createdAt,
     name,
     email,
     phone,
@@ -87,9 +85,19 @@ export default async function handler(req, res) {
     marketing_challenges,
     preferred_contact,
     message,
-  ]).catch((err) =>
-    console.error('[contact] Sheets append failed:', err?.message ?? err)
-  );
+  ]);
+  const notification = notifyNewContact({
+    id: record.id,
+    name,
+    email,
+    phone,
+    company,
+    marketing_challenges,
+    preferred_contact,
+    message,
+    created_at: createdAt,
+  });
+  await Promise.all([sheetWrite, notification]);
 
-  return res.status(201).json({ ok: true, id: recordId });
+  return res.status(201).json({ ok: true, id: record.id });
 }

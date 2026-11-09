@@ -6,7 +6,6 @@ import { Textarea } from '@/components/ui/textarea.jsx';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select.jsx';
 import { Loader2, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
-import pb from '@/lib/pocketbaseClient.js';
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
@@ -103,32 +102,14 @@ const ContactForm = () => {
         message: formData.message.trim()
       };
 
-      let submitted = false;
-
-      // Primary: Try Vercel Serverless API (/api/contact) which syncs to PocketBase & Google Sheets
-      try {
-        const res = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        if (res.ok) {
-          submitted = true;
-        } else if (res.status !== 404) {
-          const data = await res.json().catch(() => ({}));
-          throw new Error(data.error || 'Server error occurred');
-        }
-      } catch (apiErr) {
-        // If not a 404 (endpoint exists but failed validation or server error), throw
-        if (apiErr.message !== 'Failed to fetch' && !apiErr.message.includes('404')) {
-          console.warn('API endpoint failed, checking direct client fallback:', apiErr.message);
-        }
-      }
-
-      // Fallback: If /api/contact is unavailable (e.g. local Vite preview), post directly to PocketBase
-      if (!submitted) {
-        await pb.collection('contacts').create(payload, { $autoCancel: false });
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send message. Please try again later.');
       }
       
       setIsSuccess(true);
@@ -145,14 +126,7 @@ const ContactForm = () => {
       console.error('Error submitting contact form:', err);
       
       let errorMessage = 'Failed to send message. Please try again later.';
-      if (err.response?.data) {
-        // Extract specific PocketBase validation errors if available
-        const pbErrors = err.response.data;
-        const firstErrorKey = Object.keys(pbErrors)[0];
-        if (firstErrorKey && pbErrors[firstErrorKey]?.message) {
-          errorMessage = `${firstErrorKey}: ${pbErrors[firstErrorKey].message}`;
-        }
-      } else if (err.message) {
+      if (err.message) {
         errorMessage = err.message;
       }
       

@@ -2,7 +2,7 @@
  * Vercel Serverless Function — POST /api/track-click
  *
  * Logs a WhatsApp button click event.
- *   1. Writes the event to PocketBase `whatsapp_clicks` collection.
+ *   1. Writes the event to Supabase `whatsapp_clicks` table.
  *   2. Appends a row to the Google Sheet (WhatsApp Clicks tab).
  *
  * This endpoint is fire-and-forget from the browser — the WhatsApp link
@@ -12,7 +12,7 @@
  */
 
 import { appendToSheet, SHEET_TABS } from './_lib/sheets.js';
-import { pbCreate }                  from './_lib/pocketbase.js';
+import { createRecord }              from './_lib/supabase.js';
 
 const trim = (v) => (typeof v === 'string' ? v.trim() : '');
 
@@ -25,18 +25,15 @@ export default async function handler(req, res) {
   const page    = trim(body.page)    || 'unknown';
   const service = trim(body.service) || '';
   const source  = trim(body.source)  || 'unknown';   // e.g. floating_button | service_cta | contact_page
-  const now     = new Date().toISOString();
+  let record;
+  try {
+    record = await createRecord('whatsapp_clicks', { page, service, source });
+  } catch (supabaseErr) {
+    console.error('[track-click] Supabase write failed:', supabaseErr?.message ?? supabaseErr);
+    return res.status(502).json({ error: 'Failed to record click' });
+  }
 
-  // PocketBase write (best-effort)
-  pbCreate('whatsapp_clicks', { page, service, source }).catch((err) =>
-    console.error('[track-click] PocketBase write failed:', err?.message ?? err)
-  );
+  await appendToSheet(SHEET_TABS.WA_CLICKS, [record.created_at, page, service, source]);
 
-  // Google Sheets append (best-effort)
-  appendToSheet(SHEET_TABS.WA_CLICKS, [now, page, service, source]).catch((err) =>
-    console.error('[track-click] Sheets append failed:', err?.message ?? err)
-  );
-
-  // Always return 200 immediately — the browser doesn't need to wait
   return res.status(200).json({ ok: true });
 }
