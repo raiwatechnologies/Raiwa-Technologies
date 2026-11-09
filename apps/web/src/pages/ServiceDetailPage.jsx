@@ -202,7 +202,7 @@ function SectionHeading({
         </Eyebrow>
       )}
 
-      <h2 className="font-heading text-3xl font-extrabold leading-tight tracking-tight text-[#171313] sm:text-4xl md:text-5xl">
+      <h2 className="font-heading text-3xl font-bold leading-tight tracking-tight text-[#171313] sm:text-4xl md:text-5xl">
         {title}{' '}
 
         {highlight && (
@@ -285,7 +285,7 @@ function ServiceCard({ item }) {
       {/* CONTENT */}
 
       <div className="flex flex-1 flex-col p-6 md:p-7">
-        <h3 className="text-xl font-extrabold text-[#171313] md:text-2xl">
+        <h3 className="text-xl font-bold text-[#171313] md:text-2xl">
           {item.title}
         </h3>
 
@@ -370,7 +370,7 @@ function CallToAction({
             Let's Grow Together
           </Eyebrow>
 
-          <h2 className="mb-5 font-heading text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
+          <h2 className="mb-5 font-heading text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
             {title}
           </h2>
 
@@ -515,7 +515,7 @@ function MainServicePage({ main }) {
               <h1 className="mb-6 font-heading text-4xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-5xl md:text-6xl">
                 {main.title}
 
-                <span className="text-white/65">
+                <span className="text-[#DA0807]">
                   , done right.
                 </span>
               </h1>
@@ -775,7 +775,7 @@ function IndividualServicePage({ service }) {
               <h1 className="mb-6 font-heading text-4xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-5xl md:text-6xl">
                 {service.title}
 
-                <span className="text-white/65">
+                <span className="text-[#DA0807]">
                   , done right.
                 </span>
               </h1>
@@ -920,26 +920,26 @@ function IndividualServicePage({ service }) {
             <div>
               {benefits.length > 0 ? (
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                  
-{benefits.map((benefit, index) => (
-  <div
-    key={`${service.slug}-${index}`}
-    className="
-      detail-hover-card
-      rounded-2xl
-      bg-[#FDFDFD]
-      p-6
-    "
-  >
-    <h3 className="text-lg font-extrabold leading-snug text-[#171313]">
-      {benefit.title}
-    </h3>
 
-    <p className="mt-3 text-sm leading-relaxed text-[#66615F]">
-      {benefit.description}
-    </p>
-  </div>
-))}
+                  {benefits.map((benefit, index) => (
+                    <div
+                      key={`${service.slug}-${index}`}
+                      className="
+                        detail-hover-card
+                        rounded-2xl
+                        bg-[#FDFDFD]
+                        p-6
+                      "
+                    >
+                      <h3 className="text-lg font-bold leading-snug text-[#171313]">
+                        {benefit.title}
+                      </h3>
+
+                      <p className="mt-3 text-sm leading-relaxed text-[#66615F]">
+                        {benefit.description}
+                      </p>
+                    </div>
+                  ))}
 
                 </div>
               ) : (
@@ -1027,7 +1027,7 @@ function IndividualServicePage({ service }) {
                     {step.number}
                   </span>
 
-                  <h3 className="mt-6 text-xl font-extrabold text-[#171313]">
+                  <h3 className="mt-6 text-xl font-bold text-[#171313]">
                     {step.title}
                   </h3>
 
@@ -1183,7 +1183,7 @@ export default function ServiceDetailPage() {
           Raiwa Technologies
         </Eyebrow>
 
-        <h1 className="mb-4 font-heading text-3xl font-extrabold text-[#171313] sm:text-4xl">
+        <h1 className="mb-4 font-heading text-3xl font-bold text-[#171313] sm:text-4xl">
           Service not found
         </h1>
 

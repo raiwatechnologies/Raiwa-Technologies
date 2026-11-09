@@ -138,7 +138,7 @@ const AboutPage = () => {
 
               {/* BRAND CARD */}
               <div className="relative w-full lg:w-1/2">
-                <div className="relative z-10 mx-auto flex aspect-square max-w-md flex-col items-center justify-center overflow-hidden rounded-3xl border-2 border-[#DA0807]/60 bg-gradient-to-br from-[#171313] via-[#6D0505] to-[#DA0807] p-10 text-center shadow-2xl">
+                <div className="relative z-10 mx-auto flex aspect-square max-w-md flex-col items-center justify-center overflow-hidden rounded-3xl border-2 border-[#DA0807] bg-gradient-to-br from-[#171313] via-[#252020] to-[#DA0807] p-10 text-center shadow-2xl">
 
                   <Logo className="mb-6 h-36 w-36" />
 

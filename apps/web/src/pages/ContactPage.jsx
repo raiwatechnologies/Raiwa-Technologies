@@ -80,8 +80,8 @@ const ContactPage = () => {
             </span>
 
             <h1 className="mb-6 font-heading text-4xl font-extrabold tracking-tight text-[#171313] md:text-5xl lg:text-6xl">
-              Let's Grow Your Business
-            </h1>
+  Let's Grow Your <span className="text-[#DA0807]">Business</span>
+</h1>
 
             <p className="mx-auto max-w-2xl text-lg leading-relaxed text-[#66615F] md:text-xl">
               Fill out the form below, call us or message us on WhatsApp.
