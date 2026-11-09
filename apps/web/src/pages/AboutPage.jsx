@@ -136,37 +136,73 @@ const AboutPage = () => {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col items-center gap-16 lg:flex-row">
 
-              {/* BRAND CARD */}
-              <div className="relative w-full lg:w-1/2">
-                <div className="relative z-10 mx-auto flex aspect-square max-w-md flex-col items-center justify-center overflow-hidden rounded-3xl border-2 border-[#DA0807] bg-gradient-to-br from-[#171313] via-[#252020] to-[#DA0807] p-10 text-center shadow-2xl">
 
-                  <Logo className="mb-6 h-36 w-36" />
+{/* BRAND CARD */}
+<div className="relative w-full lg:w-1/2">
+  <div className="
+    relative z-10 mx-auto flex aspect-square max-w-md
+    flex-col items-center justify-center overflow-hidden
+    rounded-3xl border border-[#A09E9D]/35
+    bg-[#FDFDFD] p-10 text-center
+    shadow-[0_12px_35px_rgba(23,19,19,0.08)]
+  ">
 
-                  <div
-                    className="mb-3 text-2xl font-extrabold tracking-[0.04em] md:text-3xl"
-                    style={{ fontFamily: "'Orbitron', sans-serif" }}
-                  >
-                    <span className="text-white">
-                      RAIWA{' '}
-                    </span>
+    {/* LIGHT GEOMETRIC BACKGROUND */}
+    <div className="pointer-events-none absolute inset-0
+      bg-gradient-to-br from-[#FDFDFD] via-[#F7F7F7]
+      to-[#E5E5E5]"
+    />
 
-                    <span className="text-[#FFD6D6]">
-                      TECHNOLOGIES
-                    </span>
-                  </div>
+    {/* TOP RIGHT DIAGONAL SHAPE */}
+    <div className="pointer-events-none absolute -right-24
+      -top-24 h-72 w-72 rotate-45 border-l-[18px]
+      border-[#E5E5E5]/70 bg-white/30"
+    />
 
-                  <div className="mb-4 font-semibold text-white/90">
-                    Ecommerce, Development &amp; Digital Growth
-                  </div>
+    {/* BOTTOM LEFT ACCENT */}
+    <div className="pointer-events-none absolute -bottom-24
+      -left-20 h-64 w-64 rotate-45 border-t-[10px]
+      border-[#DA0807]/20 bg-[#E5E5E5]/35"
+    />
 
-                  <div className="inline-flex rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-sm font-bold uppercase tracking-widest text-white">
-                    Established 2020
-                  </div>
-                </div>
+    {/* RED ACCENT */}
+    <div className="pointer-events-none absolute right-0
+      top-0 h-2 w-28 bg-[#DA0807]"
+    />
 
-                {/* DECORATIVE BLOB */}
-                <div className="pointer-events-none absolute -left-10 top-10 -z-10 h-[120%] w-[120%] rounded-full bg-[#DA0807]/15 blur-3xl" />
-              </div>
+    {/* BRAND CONTENT */}
+    <div className="relative z-10 flex flex-col items-center">
+
+      <Logo className="mb-6 h-36 w-36" />
+
+      <div
+        className="mb-3 text-2xl font-extrabold
+          tracking-[0.04em] text-[#171313] md:text-3xl"
+        style={{ fontFamily: "'Orbitron', sans-serif" }}
+      >
+        R<span className="text-[#DA0807]">A</span>IWA
+        <br />
+        TECHNOLOGIES
+      </div>
+
+      <div className="mb-5 font-semibold text-[#171313]/80">
+        Ecommerce, Development &amp; Digital Growth
+      </div>
+
+      <div className="
+        inline-flex rounded-full
+        border border-[#A09E9D]/50
+        bg-white/75 px-5 py-2
+        text-sm font-bold uppercase
+        tracking-widest text-[#171313]
+      ">
+        Established 2020
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
               {/* ABOUT TEXT */}
               <div className="lg:w-1/2">
