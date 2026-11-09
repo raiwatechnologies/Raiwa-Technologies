@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Bot,
@@ -191,7 +192,9 @@ export default function ChatWidget() {
                         : 'border border-[#171313]/10 bg-[#F7F7F7] text-[#171313]'
                     }`}
                   >
-                    <div className="whitespace-pre-line text-xs sm:text-[13px]">{m.content}</div>
+                    <div className="text-xs sm:text-[13px] leading-relaxed [&_p]:mb-2 [&_p:last-child]:mb-0 [&_strong]:font-bold [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1 [&_code]:rounded [&_code]:bg-black/5 [&_code]:px-1">
+  <ReactMarkdown>{m.content}</ReactMarkdown>
+</div>
 
                     {m.sources && m.sources.length > 0 && (
                       <div className="mt-2 flex flex-wrap gap-1 border-t border-black/5 pt-1.5 text-[10px] text-muted-foreground">
