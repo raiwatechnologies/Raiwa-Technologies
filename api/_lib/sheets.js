@@ -116,7 +116,7 @@ export async function appendToSheet(tabName, rowValues) {
     }
 
     const encodedTab = encodeURIComponent(tabName);
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodedTab}!A1:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodedTab}!A1:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`;
 
     const res = await fetch(url, {
       method: 'POST',
